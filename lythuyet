@@ -1,0 +1,26 @@
+Các bước xây dựng UI với reactjs
+
+I. Create react app
+    1. Vào thư mục chứa coneko-ui, mở git bash
+    2. npx create-react-app coneko-ui
+    
+II. Customize-cra
+    1. mở terminal ở coneko-ui
+    2. npm i customize-cra react-app-rewired -D
+    3. Tạo file config-overrides.js ở thư mục coneko-ui
+    4. Mở package.json, ở phần scripts thay react-scripts bằng react-app-rewired
+
+III. Cài babel-plugin-module-resolver (để cấu hình đường dẫn file gọn gàng hơn)
+    1. npm i --save-dev babel-plugin-module-resolver
+    2. Tạo .babelrc ở coneko-ui
+    3. Tạo jsconfig.json ở coneko-ui
+    
+IV. Cài sass
+    1. npm i - D sass
+
+V. Cài reset CSS (để css đẹp hơn)
+    1. npm i normalize.css
+    2. Reset css bên GlobalStyles
+
+VI. Cài react-router react-router-dom
+    1. - npm install react-router@6 react-router-dom@6
