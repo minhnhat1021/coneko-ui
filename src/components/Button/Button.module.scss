@@ -17,9 +17,10 @@
     &.itemBtn{
         width: 100%;
         font-weight: 500;
-        border-radius: 6px;
+        line-height: 1.6rem;
+        border-radius: 0;
         background-color: transparent;
-        transition: all .3s ease-in;
+        transition: all .3s ease;
         &:hover{
             color: var(--primary-text-3);
             background-color: var(--primary-text-2);

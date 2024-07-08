@@ -1,6 +1,34 @@
 .actions__menu-item{
     width: 270px;
-    background-color: var(--primary-text-3  );
+    background-color: var(--primary-text-3);
+    box-shadow: 0 0 6px 1px var(--primary-text-2);
     border-radius: 10px;
+    overflow: hidden;
+}
+
+
+// Header
+.header{
+    height: 50px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.back-btn{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 80px;
+    height: 100%;
+    color: var(--primary-text-1);
+    background-color: transparent;
+    font-size: 2rem;
+    cursor: pointer;
+}
+.Menu__header-title{
+    color: var(--primary-text-1);
+
 }
 

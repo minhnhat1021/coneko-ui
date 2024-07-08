@@ -12,7 +12,22 @@ const cx = classNames.bind(styles)
 const Menu_item = [
     {
         icon: <i className={cx('fa-solid fa-earth-asia')}></i>,
-        title: 'Ngôn ngữ'
+        title: 'Ngôn ngữ',
+        subMenu: {
+            title: 'Ngôn Ngữ',
+            data: [
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: 'Tiếng Việt'
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English'
+                },
+            ]
+        }
     },
     {
         icon: <i className={cx('fa-regular fa-moon')}></i>,
@@ -25,7 +40,16 @@ const Menu_item = [
 ]
 function Header() {
     
-    
+    const handleMenuChange = (menuItem) => {
+        switch (menuItem.type) {
+            case 'language': 
+                console.log('đúng language rồi')
+                break;
+            default:
+                console.log("default");
+                break;
+        }
+    }
     return ( 
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -49,7 +73,7 @@ function Header() {
                         Đăng nhập
                     </Button>
 
-                    <Menu Menu_item = {Menu_item}>
+                    <Menu Menu_item = {Menu_item} onChange={handleMenuChange}>
                         <button className={cx('actions__menu-btn')}>
                             <i className={cx('fa-solid fa-bars')}></i>
                         </button>
