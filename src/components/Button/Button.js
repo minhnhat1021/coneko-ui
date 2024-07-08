@@ -7,9 +7,9 @@ const cx = classNames.bind(styles)
 function Button({to,
     href, 
     login = false, 
-    menu = false,
     primary = false, 
     disabled = false,
+    itemBtn,
     leftIcon = false,
     children, 
     rightIcon = false, 
@@ -42,9 +42,9 @@ function Button({to,
     }
     const classes = cx('wrapper', {
         login,
-        menu,
         primary,
         disabled,
+        itemBtn,
     })
     return ( 
         <Comp className={classes} {...props}>

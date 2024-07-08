@@ -46,3 +46,23 @@
     justify-content: space-between;
     align-items: center;
 }
+
+/* Actions Menu ----------------------------------------------------------------------------------*/
+
+.actions__menu-btn{
+    height: 44px;
+    padding: 12px 24px;
+    display: flex;
+    color: var(--primary-text-1);
+    background-color: transparent;
+    border: 1px solid transparent;
+    font-size: 2rem;
+    transition: all .5s ease;
+    cursor: pointer;
+
+    &:hover{
+        color: var(--primary-text-2);
+        // background-color: #474747;
+        // border: 1px solid #b0b027;
+    }
+}
