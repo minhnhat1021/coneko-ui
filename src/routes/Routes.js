@@ -11,16 +11,19 @@ import PaymentSuccessful from '~/pages/PaymentSuccessful';
 
 import { HeaderOnly } from '~/layouts'
 
+import config from '~/config';
+
+
 const publicRoutes = [
-    { path: '/', component: Home},
-    { path: '/about', component: About},
-    { path: '/product', component: Product},
-    { path: '/hotel-rules', component: HotelRules},
-    { path: '/contact', component: Contact},
-    { path: '/user/:id', component: User},
-    { path: '/admin', component: Admin, layout: null},
-    { path: '/checkout', component: Checkout, layout: HeaderOnly},
-    { path: '/payment-successful', component: PaymentSuccessful},
+    { path: config.routes.home, component: Home},
+    { path: config.routes.about, component: About},
+    { path: config.routes.products, component: Product},
+    { path: config.routes.hotelRules, component: HotelRules},
+    { path: config.routes.contact, component: Contact},
+    { path: config.routes.user, component: User},
+    { path: config.routes.admin, component: Admin, layout: null},
+    { path: config.routes.checkout, component: Checkout, layout: HeaderOnly},
+    { path: config.routes.paymentSuccessful, component: PaymentSuccessful},
 ]
 const privateRoutes = [
 
