@@ -51,9 +51,9 @@
 
 .actions__menu-btn{
     height: 44px;
+    display: flex;
     margin-left: 12px;
     padding: 12px 24px;
-    display: flex;
     color: var(--primary-text-1);
     background-color: transparent;
     border: 1px solid transparent;
@@ -66,4 +66,69 @@
         // background-color: #474747;
         // border: 1px solid #b0b027;
     }
+}
+
+/* Actions User ----------------------------------------------------------------------------------*/
+
+.header__user{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover{
+        background-color: rgb(216, 155, 28, 0.1);
+    }
+}
+.header__user-icon{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-text-2);
+    background-color: #901e1e;
+    border-radius: 50%;
+}
+.header__user-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 12px;
+
+}
+.user__info-name{
+    position: relative;
+    color: #FFAB91;
+    font-size: 1.6rem;
+    padding-right: 6px;
+}
+.user__info-name::after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 80%;
+    background-color: #FFAB91;
+}
+.user__info__point-icon{
+    padding-left: 6px;
+    color: var(--primary-text-2);
+}
+.user__info-point{
+    margin-left: 4px;
+    color: #FFAB91;
+    font-size: 1.4rem;
+}
+
+.header__user__more-icon {
+    margin-top: -3%;
+    margin-left: 8px;
+    color: #FFAB91;
+    font-size: 2rem;
 }

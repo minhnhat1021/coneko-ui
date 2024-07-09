@@ -21,8 +21,7 @@ function Menu({children, Menu_item = [], onChange = defaultFn}) {
     const renderItems = () => {
         return current.data.map((item, index) => {
             const isParent = !!item.subMenu
-            console.log(item)
-            return <MenuItem key={index} data={item} onClick={() => {
+                return <MenuItem key={index} data={item} onClick={() => {
                 if(isParent) {
                     setHistory(prev => [...prev, item.subMenu])
                 }else {
