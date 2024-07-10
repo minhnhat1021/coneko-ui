@@ -20,12 +20,35 @@
         line-height: 1.6rem;
         border-radius: 0;
         background-color: transparent;
+        border-top: 1px solid #5a5a5a;
         transition: all .3s ease;
         &:hover{
             color: var(--primary-text-3);
             background-color: var(--primary-text-2);
         }
-        
+        &.itemBtn:last-child{
+            border-bottom: 1px solid #5a5a5a;
+        }
+        .left-icon {
+            display: block;
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    &.itemUserBtn{
+        width: 100%;
+        font-weight: 500;
+        line-height: 1.6rem;
+        border-radius: 0;
+        background-color: transparent;
+        border-bottom: 1px solid #5a5a5a;
+        transition: all .3s ease;
+        &:hover{
+            color: var(--primary-text-2);
+            background-color: hwb(152 10% 47%);
+            background: rgba(255, 255, 255, 0.09);
+        }        
         .left-icon {
             display: block;
             width: 16px;

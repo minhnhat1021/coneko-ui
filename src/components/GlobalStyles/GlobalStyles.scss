@@ -2,10 +2,17 @@
 
 :root{
     --primary-bg-1: #212121;
+    // --primary-bg-1: #3F9FBF;
     --primary-bg-2: #3B3B3B;
+    // --primary-bg-2: #ADD8E6;
+
+
     --primary-text-1: #fff;
     --primary-text-2: #D89B1C;  
     --primary-text-3: #333;
+
+
+    --button-color: #1dbfaf;
 
     --header-height: 100px;
     --content-width: 1200px;
@@ -35,4 +42,22 @@ button, input, [tabindex] {
 
 a {
     text-decoration: none;
+}
+
+
+// scrollbar
+
+html *::-webkit-scrollbar {
+    border-radius: 0px;
+    width: 8px;
+}
+
+html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(28, 29, 32, 0.2);
+}
+
+html *::-webkit-scrollbar-track {
+    border-radius: 0px;
+    background-color: rgba(0, 0, 0, 0);
 }

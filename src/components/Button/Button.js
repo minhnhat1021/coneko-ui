@@ -10,6 +10,7 @@ function Button({to,
     primary = false, 
     disabled = false,
     itemBtn,
+    itemUserBtn,
     leftIcon = false,
     children, 
     rightIcon = false, 
@@ -45,6 +46,7 @@ function Button({to,
         primary,
         disabled,
         itemBtn,
+        itemUserBtn,
     })
     return ( 
         <Comp className={classes} {...props}>

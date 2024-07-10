@@ -2,6 +2,9 @@ import images from '~/assets/images'
 
 import Menu from '~/components/Popper/Menu'
 
+import User from '~/layouts/Components/User'
+import {Login, Register} from '~/layouts/Components/LoginRegister'
+
 import Button from '~/components/Button'
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss'
@@ -38,6 +41,25 @@ const Menu_item = [
         title: 'Chế độ sáng'
     },
 ]
+const Menu_User = [
+    {
+        icon: <i className={cx('fa-regular fa-user')}></i>,
+        title: 'Tài khoản',
+    },
+    {
+        icon: <i className={cx('fa-solid fa-clipboard-list')}></i>,
+        title: 'Danh sách giao dịch'
+    },
+    {
+        icon: <i className={cx('fa-regular fa-credit-card')}></i>,
+        title: 'Thẻ thanh toán'
+    },
+    {
+        icon: <i className={cx('fa-solid fa-arrow-right-from-bracket')}></i>,
+        title: 'Đăng xuất'
+    },
+
+]
 function Header() {
     
     const handleMenuChange = (menuItem) => {
@@ -50,7 +72,8 @@ function Header() {
                 break;
         }
     }
-    const currentUser = true
+    const currentUser = false
+    const isLogin = true
     return ( 
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -72,22 +95,15 @@ function Header() {
                 <div className={cx('header__actions')}>
 
                 {   currentUser ? (
-                    <div className={cx('header__user')}>
-                        <div className={cx('header__user-icon')}>
-                            <i className={cx('fa-solid fa-user')}></i>
-                        </div>
-                        <div className={cx('header__user-info')}>
-                            <h3 className={cx('user__info-name')}>Nhật Minh</h3>
-                            <i className={cx('fa-solid fa-coins', 'user__info__point-icon')}></i>
-                            <p className={cx('user__info-point')} >10000</p>
-                        </div>
-                        <i className={cx('fa-solid fa-caret-down', 'header__user__more-icon')}></i>
-                    </div>
+                        <User Menu_User={Menu_User}/>
                 ) : (
                     <>
                         <Button login href="/" leftIcon={<i className={cx('fa-regular fa-user')}></i>}>
                             Đăng nhập
                         </Button>
+
+                        {isLogin ? <Login /> : <Register />}
+
                     </>
                 )}
                     <Menu Menu_item = {Menu_item} onChange={handleMenuChange}>
