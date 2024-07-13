@@ -8,6 +8,7 @@ import {Login, Register} from '~/layouts/Components/LoginRegister'
 import Button from '~/components/Button'
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss'
+import { useState } from 'react'
 
 const cx = classNames.bind(styles)
 
@@ -22,14 +23,16 @@ const Menu_item = [
                 {
                     type: 'language',
                     code: 'vi',
-                    title: 'Tiếng Việt'
+                    title: 'Tiếng Việt',
                 },
                 {
                     type: 'language',
                     code: 'en',
                     title: 'English'
                 },
-            ]
+                
+            ],
+            
         }
     },
     {
@@ -62,6 +65,7 @@ const Menu_User = [
 ]
 function Header() {
     
+    const [statusLogin, setStatusLogin] = useState(true)
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
             case 'language': 
@@ -72,8 +76,12 @@ function Header() {
                 break;
         }
     }
+    const handleLoginRegister = () => {
+        setStatusLogin(!statusLogin);
+    }
+    console.log(statusLogin);
     const currentUser = false
-    const isLogin = true
+
     return ( 
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -95,22 +103,28 @@ function Header() {
                 <div className={cx('header__actions')}>
 
                 {   currentUser ? (
-                        <User Menu_User={Menu_User}/>
+                        <>
+                            <User Menu_User={Menu_User}/>
+                            <Menu Menu_item = {Menu_item} onChange={handleMenuChange}>
+                            <button className={cx('actions__menu-btn')}>
+                                <i className={cx('fa-solid fa-bars')}></i>
+                            </button>
+                            </Menu>
+                        </>
                 ) : (
                     <>
-                        <Button login href="/" leftIcon={<i className={cx('fa-regular fa-user')}></i>}>
+                        <Button  register href="/" >
+                            Đăng ký
+                        </Button>
+                        <Button  login href="/" leftIcon={<i className={cx('fa-regular fa-user')}></i>}>
                             Đăng nhập
                         </Button>
 
-                        {isLogin ? <Login /> : <Register />}
+                        {statusLogin ? <Login onClick={handleLoginRegister} /> : <Register onClick={handleLoginRegister} />}
 
                     </>
                 )}
-                    <Menu Menu_item = {Menu_item} onChange={handleMenuChange}>
-                        <button className={cx('actions__menu-btn')}>
-                            <i className={cx('fa-solid fa-bars')}></i>
-                        </button>
-                    </Menu>
+                    
                 </div>
 
             </div>

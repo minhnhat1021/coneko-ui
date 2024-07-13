@@ -73,6 +73,16 @@
         border: 1px solid #b0b027;
     }
 }
+.register.wrapper{
+    margin-right: 10px;
+    color: var(--primary-text-1);
+    transition: all .5s ease;
+
+    &:hover{
+        color: var(--primary-text-2);
+        background-color: #3d3d3d;
+    }
+}
 
 .primary.wrapper{
     color: var(--primary-text-3);

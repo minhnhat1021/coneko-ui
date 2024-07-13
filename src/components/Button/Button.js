@@ -6,7 +6,8 @@ const cx = classNames.bind(styles)
 
 function Button({to,
     href, 
-    login = false, 
+    login = false,
+    register = false, 
     primary = false, 
     disabled = false,
     itemBtn,
@@ -43,6 +44,7 @@ function Button({to,
     }
     const classes = cx('wrapper', {
         login,
+        register,
         primary,
         disabled,
         itemBtn,

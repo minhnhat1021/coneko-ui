@@ -6,7 +6,7 @@ import styles from './LoginRegister.module.scss'
 
 const cx = classNames.bind(styles)
 
-function Login() {
+function Login({ onClick }) {
     const [isShowPass, setIsShowPass] = useState(true)
 
     const handleTogglePassword = (e) => {
@@ -31,7 +31,7 @@ function Login() {
                         <p className={cx('login__content-sugges')}>Đăng nhập để trải nhiệm những dịch vụ và tiện ích mà mà chúng tôi đem lại cho bạn</p>
                     </header>
                     <main className={cx('login__content-body')}>
-                        <form action="" className={cx('login__content-list')}>
+                        <form method='POST' action="/login" className={cx('login__content-list')}>
                             <div className={cx('login__content-item')}>
                                 <label htmlFor="username">Tên đăng nhập</label>
                                 <div className={cx('login__wrap-input')}>
@@ -60,7 +60,7 @@ function Login() {
                     <footer className={cx('login__content-footer')}>
                         <p className={cx('login__content__sugges-regis')}>
                             Bạn chưa có tài khoản?
-                            <a href="/login" >Đăng ký</a>
+                            <a href='#' onClick={onClick}>Đăng ký</a>
                         </p>
                         <a href='/'>Quên mật khẩu?</a>
                         <p className={cx('login__content__sugges-about')}>

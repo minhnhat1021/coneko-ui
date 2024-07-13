@@ -6,7 +6,7 @@ import styles from './LoginRegister.module.scss'
 
 const cx = classNames.bind(styles)
 
-function Register() {
+function Register({ onClick }) {
 
     const [isShowPass, setIsShowPass] = useState(true)
 
@@ -32,20 +32,20 @@ function Register() {
                         <p className={cx('login__content-sugges')}>Đăng nhập để trải nhiệm những dịch vụ và tiện ích mà mà chúng tôi đem lại cho bạn</p>
                     </header>
                     <main className={cx('login__content-body')}>
-                        <form action="" className={cx('login__content-list')}>
+                        <form method = "POST" action="/register" className={cx('login__content-list')}>
                             <div className={cx('login__content-item')}>
                                 <label htmlFor="fullname">Tên của bạn</label>
                                 <div className={cx('login__wrap-input')}>
-                                    <input type="text" id="fullname" name="username" placeholder="Họ và tên của bạn" required />
+                                    <input type="text" id="fullname" name="fullname" placeholder="Họ và tên của bạn" required />
                                     <div className={cx('login__right-icon')}>
                                         <WarningIcon />
                                     </div>
                                 </div>
                             </div>
                             <div className={cx('login__content-item')}>
-                                <label htmlFor="username">Email của bạn</label>
+                                <label htmlFor="email">Email của bạn</label>
                                 <div className={cx('login__wrap-input')}>
-                                    <input type="text" id="username" name="username" placeholder="Địa chỉ email" required />
+                                    <input type="text" id="email" name="email" placeholder="Địa chỉ email" required />
                                     <div className={cx('login__right-icon')}>
                                         <WarningIcon/>
                                     </div>
@@ -67,7 +67,7 @@ function Register() {
                     <footer className={cx('login__content-footer')}>
                         <p className={cx('login__content__sugges-regis')}>
                             Bạn đã có tài khoản?
-                            <a href="/">Đăng nhập</a>
+                            <a href="#" onClick={onClick}>Đăng nhập</a>
                         </p>
                         <a href='/'>Quên mật khẩu?</a>
                         <p className={cx('login__content__sugges-about')}>

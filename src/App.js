@@ -14,7 +14,7 @@ function App() {
                         let Layout = MainLayout
                         
                         if(route.layout) {
-                            Layout = route.layout
+                            Layout = route.layout 
                         }else if(route.layout === null) {
                             Layout = Fragment
                         }
