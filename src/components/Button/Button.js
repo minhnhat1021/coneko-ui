@@ -1,13 +1,15 @@
+import { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Button.module.scss'
 
 const cx = classNames.bind(styles)
 
-function Button({to,
+const Button = forwardRef(({to,
     href, 
     login = false,
     register = false, 
+    dsShow = false,
     primary = false, 
     disabled = false,
     itemBtn,
@@ -16,7 +18,7 @@ function Button({to,
     children, 
     rightIcon = false, 
     onClick, 
-    ...passProps }) 
+    ...passProps }, ref) => 
 {
 
     let Comp = 'button'
@@ -51,12 +53,12 @@ function Button({to,
         itemUserBtn,
     })
     return ( 
-        <Comp className={classes} {...props}>
+        <Comp className={classes} ref={ref} {...props}>
             {leftIcon && <span className={cx('left-icon')}>{leftIcon}</span>}
             <span className={cx('title')}>{children}</span>
             {rightIcon && <span className={cx('left-icon')}>{rightIcon}</span>}
         </Comp>
     );
-}
+})
 
 export default Button;

@@ -8,7 +8,7 @@ import {Login, Register} from '~/layouts/Components/LoginRegister'
 import Button from '~/components/Button'
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 const cx = classNames.bind(styles)
 
@@ -64,8 +64,36 @@ const Menu_User = [
 
 ]
 function Header() {
+    // logic hiện loginModal hay registerModal
     
     const [statusLogin, setStatusLogin] = useState(true)
+    const handleLoginRegister = () => {
+        setStatusLogin(!statusLogin);
+    }
+
+    // khi ấn vào loginBtn và registerBtn, login ẩn hiện modal, ấn vào nút nào thì hiện modal của nút đấy
+    const loginBtnRef = useRef()
+    const registerBtnRef = useRef()
+    const loginModalRef = useRef()
+    const registerModalRef = useRef()
+
+    const [showModal, setShowModal] = useState(false);
+    const handleModalToggle = (e) => {
+        setShowModal(!showModal);
+        if(e.currentTarget === registerBtnRef.current) {
+            setStatusLogin(false)
+        }
+        else if(e.currentTarget === loginBtnRef.current) {
+            setStatusLogin(true)
+        }
+    };
+
+    // Khi ấn vào modal, sẽ dóng modal lại
+    const handleClickModal = (e) => {
+        setShowModal(!showModal);
+    }
+
+    // Khi thay đổi menuItem
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
             case 'language': 
@@ -76,10 +104,9 @@ function Header() {
                 break;
         }
     }
-    const handleLoginRegister = () => {
-        setStatusLogin(!statusLogin);
-    }
-    console.log(statusLogin);
+    
+    
+
     const currentUser = false
 
     return ( 
@@ -105,22 +132,26 @@ function Header() {
                 {   currentUser ? (
                         <>
                             <User Menu_User={Menu_User}/>
+
                             <Menu Menu_item = {Menu_item} onChange={handleMenuChange}>
-                            <button className={cx('actions__menu-btn')}>
-                                <i className={cx('fa-solid fa-bars')}></i>
-                            </button>
+                                <button className={cx('actions__menu-btn')}>
+                                    <i className={cx('fa-solid fa-bars')}></i>
+                                </button>
                             </Menu>
                         </>
                 ) : (
                     <>
-                        <Button  register href="/" >
+                        <Button ref={registerBtnRef}  register onClick ={(e) => handleModalToggle(e)}>
                             Đăng ký
                         </Button>
-                        <Button  login href="/" leftIcon={<i className={cx('fa-regular fa-user')}></i>}>
+                        <Button ref={loginBtnRef} login onClick = {(e) => handleModalToggle(e)} leftIcon={<i className={cx('fa-regular fa-user')}></i>}>
                             Đăng nhập
                         </Button>
 
-                        {statusLogin ? <Login onClick={handleLoginRegister} /> : <Register onClick={handleLoginRegister} />}
+                        {statusLogin 
+                            ? <Login ref={loginModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)}  onClick={handleLoginRegister} /> 
+                            : <Register ref={registerModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)} onClick={handleLoginRegister} />
+                        }
 
                     </>
                 )}

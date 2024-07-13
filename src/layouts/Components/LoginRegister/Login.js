@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { WarningIcon, ShowPassword, HidePassword } from '~/components/Icons';
 
 import classNames from 'classnames/bind';
@@ -6,7 +6,7 @@ import styles from './LoginRegister.module.scss'
 
 const cx = classNames.bind(styles)
 
-function Login({ onClick }) {
+const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal }, ref) => {
     const [isShowPass, setIsShowPass] = useState(true)
 
     const handleTogglePassword = (e) => {
@@ -23,8 +23,8 @@ function Login({ onClick }) {
         }
     }
     return ( 
-        <div id='login' className={cx('login__modal')}>
-            <div className={cx('login__modal-container')}>
+        <div ref={ref} id='login' className={cx('login__modal', {showModal})} onClick={clickModal}>
+            <div className={cx('login__modal-container')} onClick={clickContentModal}>
                 <div className={cx('login__modal-content')}>
                     <header className={cx('login__content-header')}>
                         <h1 className={cx('login__content-title')}>Đăng nhập vào conkeko</h1>
@@ -35,7 +35,7 @@ function Login({ onClick }) {
                             <div className={cx('login__content-item')}>
                                 <label htmlFor="username">Tên đăng nhập</label>
                                 <div className={cx('login__wrap-input')}>
-                                    <input type="text" id="username" name="username" placeholder="Email hoặc Username" required />
+                                    <input type="text" id="username" name="userName" placeholder="Email hoặc Username" required />
                                     <div className={cx('login__right-icon')}>
                                         <WarningIcon/>
                                     </div>
@@ -73,6 +73,6 @@ function Login({ onClick }) {
             </div>
         </div>
     );
-}
+})
 
 export default Login;
