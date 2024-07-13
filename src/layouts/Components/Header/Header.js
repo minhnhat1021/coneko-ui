@@ -8,7 +8,7 @@ import {Login, Register} from '~/layouts/Components/LoginRegister'
 import Button from '~/components/Button'
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss'
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const cx = classNames.bind(styles)
 
@@ -106,9 +106,19 @@ function Header() {
     }
     
     
-
-    const currentUser = false
-
+    // logic kiểm tra xem người dùng đã đăng nhập chưa
+    const [userActive, setUserActive] = useState(false)
+    // console.log(userActive)
+    useEffect(() => {
+        fetch(`/login/userActive`)
+            .then(res => res.json())
+            .then(res => {
+                setUserActive(res[0]?.isActive)
+            })
+    }, [])
+    const handleLogout = () => {
+        
+    }
     return ( 
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -129,9 +139,9 @@ function Header() {
                 </nav>
                 <div className={cx('header__actions')}>
 
-                {   currentUser ? (
+                {   userActive ? (
                         <>
-                            <User Menu_User={Menu_User}/>
+                            <User logout={handleLogout}  Menu_User={Menu_User}/>
 
                             <Menu Menu_item = {Menu_item} onChange={handleMenuChange}>
                                 <button className={cx('actions__menu-btn')}>

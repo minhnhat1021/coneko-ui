@@ -62,15 +62,15 @@
 }
 
 .login.wrapper{
-    color: var(--primary-text-1);
-    background-color: transparent;
+    color: var(--primary-text-3);
+    background-color: var(--primary-text-2);
     border: 1px solid var(--primary-text-2);
     transition: all .5s ease;
 
     &:hover{
         color: var(--primary-text-2);
         background-color: #474747;
-        border: 1px solid #b0b027;
+        border: 1px solid var(--primary-text-2);
     }
 }
 .register.wrapper{

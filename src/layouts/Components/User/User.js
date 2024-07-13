@@ -8,10 +8,10 @@ import UserMenuItem from './UserMenuItem';
 const cx = classNames.bind(styles)
 
 
-function User({Menu_User}) {
+function User({Menu_User, logout}) {
     const renderUser = () => {
         return Menu_User.map((item, index) => {
-            return <UserMenuItem key={index} data={item} onClick={() => {}} />
+            return <UserMenuItem onClick={logout} key={index} data={item} onClick={() => {}} />
         })
     }
     return ( 

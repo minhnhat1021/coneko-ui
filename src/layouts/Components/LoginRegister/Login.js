@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { WarningIcon, ShowPassword, HidePassword } from '~/components/Icons';
 
 import classNames from 'classnames/bind';
@@ -9,6 +9,7 @@ const cx = classNames.bind(styles)
 const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal }, ref) => {
     const [isShowPass, setIsShowPass] = useState(true)
 
+    
     const handleTogglePassword = (e) => {
         
         const toogleBtn = e.currentTarget
@@ -31,7 +32,7 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal }
                         <p className={cx('login__content-sugges')}>Đăng nhập để trải nhiệm những dịch vụ và tiện ích mà mà chúng tôi đem lại cho bạn</p>
                     </header>
                     <main className={cx('login__content-body')}>
-                        <form method='POST' action="/login" className={cx('login__content-list')}>
+                        <form method='POST' action="/login/userActive" className={cx('login__content-list')}>
                             <div className={cx('login__content-item')}>
                                 <label htmlFor="username">Tên đăng nhập</label>
                                 <div className={cx('login__wrap-input')}>
