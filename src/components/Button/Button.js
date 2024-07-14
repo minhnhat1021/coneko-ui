@@ -18,13 +18,22 @@ const Button = forwardRef(({to,
     children, 
     rightIcon = false, 
     onClick, 
+    showModal,
+    logout,
     ...passProps }, ref) => 
 {
 
     let Comp = 'button'
-
+    const handleOnClick = (e) => {
+        if (showModal) {
+            showModal(e);
+        } else if (logout) {
+            logout(e);
+        } else if (onClick) {
+            onClick(e);
+        }
+    }
     const props = {
-        onClick,
         ...passProps,
     }
 
@@ -53,7 +62,7 @@ const Button = forwardRef(({to,
         itemUserBtn,
     })
     return ( 
-        <Comp className={classes} ref={ref} {...props}>
+        <Comp onClick={handleOnClick} className={classes} ref={ref} {...props}>
             {leftIcon && <span className={cx('left-icon')}>{leftIcon}</span>}
             <span className={cx('title')}>{children}</span>
             {rightIcon && <span className={cx('left-icon')}>{rightIcon}</span>}

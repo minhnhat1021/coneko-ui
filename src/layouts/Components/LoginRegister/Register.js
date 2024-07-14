@@ -1,4 +1,6 @@
 import { forwardRef, useState } from 'react';
+import axios from 'axios'
+
 import { WarningIcon, ShowPassword, HidePassword } from '~/components/Icons';
 
 import classNames from 'classnames/bind';
@@ -23,16 +25,33 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
             setIsShowPass(true)
         }
     }
-    const hanleSubmit = () => {
-        // Your submit logic here
-        console.log('Form submitted')
-        // xử lý gọi post về back end
-        let msg=''
+
+    const [fullName, setFullName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
         
-        // nếu đăng ký thành công 
-        window.location.href()
+        // Your submit logic here,
+
+        axios.post('http://localhost:5000/register', {
+            fullName,
+            email,
+            password
+        })
+            .then((res) => {
+                const resultRegister = document.getElementById('resultRegister')
+                resultRegister.innerText = res.data.msg ? res.data.msg : ''
+                if(res.data.user) {
+                    console.log(res.data.message)
+                    // window.location.href()  
+                }
+            })
+            .catch((err) => console.error(err) )
 
     }
+
     return ( 
         <div id='register' className={cx('register__modal', {showModal})} onClick={clickModal}>
             <div className={cx('login__modal-container')} onClick={clickContentModal}>
@@ -42,11 +61,11 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
                         <p className={cx('login__content-sugges')}>Đăng nhập để trải nhiệm những dịch vụ và tiện ích mà mà chúng tôi đem lại cho bạn</p>
                     </header>
                     <main className={cx('login__content-body')}>
-                        <form method = "POST" action="/register" className={cx('login__content-list')}>
+                        <form name='register-form' onSubmit={handleSubmit} className={cx('login__content-list')} >
                             <div className={cx('login__content-item')}>
                                 <label htmlFor="fullname">Tên của bạn</label>
                                 <div className={cx('login__wrap-input')}>
-                                    <input type="text" id="fullname" name="fullName" placeholder="Họ và tên của bạn" required />
+                                    <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Họ và tên của bạn" required />
                                     <div className={cx('login__right-icon')}>
                                         <WarningIcon />
                                     </div>
@@ -55,7 +74,7 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
                             <div className={cx('login__content-item')}>
                                 <label htmlFor="email">Email của bạn</label>
                                 <div className={cx('login__wrap-input')}>
-                                    <input type="text" id="email" name="email" placeholder="Địa chỉ email" required />
+                                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Địa chỉ email" required />
                                     <div className={cx('login__right-icon')}>
                                         <WarningIcon/>
                                     </div>
@@ -64,15 +83,14 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
                             <div className={cx('login__content-item')}>
                                 <label htmlFor="password">Mật Khẩu</label>
                                 <div className={cx('login__wrap-input')}>
-                                    <input type="password" id="password" name="password" placeholder="Mật Khẩu" required />
+                                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mật Khẩu" required />
                                     <div fc='password' className={cx('login__right-icon')} onClick={(e) => handleTogglePassword(e)}>
                                         {isShowPass ? <ShowPassword /> : <HidePassword/>}
                                     </div>
                                 </div>
                             </div>  
-                            
-                            <button className={cx('login__content-btn')}  onClick={hanleSubmit}>Đăng ký</button>
-                            <p></p>
+                            <span id="resultRegister" className={cx('result-register')}></span>
+                            <button className={cx('login__content-btn')}  type="submit">Đăng ký</button>
                         </form>
                     </main>
                     <footer className={cx('login__content-footer')}>

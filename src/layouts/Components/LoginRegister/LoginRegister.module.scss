@@ -84,6 +84,13 @@
     align-items: center;
     max-width: 360px;
     width: 360px;
+
+    .result-register,
+    .result-login{
+        margin: 8px 0;
+        color: #f33a58;
+        font-size: 1.4rem;
+    }
 }
 .login__content-item{
     width: 100%;
@@ -141,7 +148,7 @@
 .login__content-btn{
     width: 100%;
     height: 44px;
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 12px 20px;
     border: 1.5px solid #ddd;
     background: linear-gradient(135deg, #efca00, #FFFACD);
@@ -158,6 +165,7 @@
 
 
 }
+
 /* Modal Login Footer ----------------------------------------------------------------------------------*/
 
 .login__content-footer{

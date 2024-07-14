@@ -1,14 +1,16 @@
-import images from '~/assets/images'
 
+import { useState, useEffect, useRef } from 'react'
+import axios from 'axios'
+
+import images from '~/assets/images'
 import Menu from '~/components/Popper/Menu'
+import Button from '~/components/Button'
 
 import User from '~/layouts/Components/User'
 import {Login, Register} from '~/layouts/Components/LoginRegister'
 
-import Button from '~/components/Button'
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss'
-import { useState, useEffect, useRef } from 'react'
 
 const cx = classNames.bind(styles)
 
@@ -105,19 +107,15 @@ function Header() {
         }
     }
     
-    
     // logic kiểm tra xem người dùng đã đăng nhập chưa
-    const [userActive, setUserActive] = useState(false)
-    // console.log(userActive)
-    useEffect(() => {
-        fetch(`/login/userActive`)
-            .then(res => res.json())
-            .then(res => {
-                setUserActive(res[0]?.isActive)
-            })
-    }, [])
+    const [isLogin, setIsLogin] = useState(false)
+    const handleIsLogin = (isLogin) => {
+        setIsLogin(isLogin)
+    }
+
     const handleLogout = () => {
-        
+        setIsLogin(false)
+        setShowModal(false)
     }
     return ( 
         <header className={cx('wrapper')}>
@@ -139,7 +137,7 @@ function Header() {
                 </nav>
                 <div className={cx('header__actions')}>
 
-                {   userActive ? (
+                {   isLogin ? (
                         <>
                             <User logout={handleLogout}  Menu_User={Menu_User}/>
 
@@ -151,15 +149,15 @@ function Header() {
                         </>
                 ) : (
                     <>
-                        <Button ref={registerBtnRef}  register onClick ={(e) => handleModalToggle(e)}>
+                        <Button ref={registerBtnRef}  register showModal ={(e) => handleModalToggle(e)}>
                             Đăng ký
                         </Button>
-                        <Button ref={loginBtnRef} login onClick = {(e) => handleModalToggle(e)} leftIcon={<i className={cx('fa-regular fa-user')}></i>}>
+                        <Button ref={loginBtnRef} login  showModal = {(e) => handleModalToggle(e)} leftIcon={<i className={cx('fa-regular fa-user')}></i>}>
                             Đăng nhập
                         </Button>
 
                         {statusLogin 
-                            ? <Login ref={loginModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)}  onClick={handleLoginRegister} /> 
+                            ? <Login onDataIsLogin={handleIsLogin} ref={loginModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)}  onClick={handleLoginRegister} /> 
                             : <Register ref={registerModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)} onClick={handleLoginRegister} />
                         }
 

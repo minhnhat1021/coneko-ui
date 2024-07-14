@@ -11,7 +11,12 @@ const cx = classNames.bind(styles)
 function User({Menu_User, logout}) {
     const renderUser = () => {
         return Menu_User.map((item, index) => {
-            return <UserMenuItem onClick={logout} key={index} data={item} onClick={() => {}} />
+            const isLogoutBtn = item.title === 'Đăng xuất'
+            return <UserMenuItem 
+                logout={isLogoutBtn ? logout : undefined} 
+                key={index} 
+                data={item}  
+            />
         })
     }
     return ( 
