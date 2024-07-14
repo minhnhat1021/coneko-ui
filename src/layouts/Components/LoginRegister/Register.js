@@ -23,6 +23,16 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
             setIsShowPass(true)
         }
     }
+    const hanleSubmit = () => {
+        // Your submit logic here
+        console.log('Form submitted')
+        // xử lý gọi post về back end
+        let msg=''
+        
+        // nếu đăng ký thành công 
+        window.location.href()
+
+    }
     return ( 
         <div id='register' className={cx('register__modal', {showModal})} onClick={clickModal}>
             <div className={cx('login__modal-container')} onClick={clickContentModal}>
@@ -60,8 +70,9 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
                                     </div>
                                 </div>
                             </div>  
-                                                                 
-                            <button className={cx('login__content-btn')} type="submit">Đăng ký</button>
+                            
+                            <button className={cx('login__content-btn')}  onClick={hanleSubmit}>Đăng ký</button>
+                            <p></p>
                         </form>
                     </main>
                     <footer className={cx('login__content-footer')}>
