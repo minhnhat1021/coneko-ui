@@ -80,6 +80,7 @@ function Header() {
     const registerModalRef = useRef()
 
     const [showModal, setShowModal] = useState(false);
+    
     const handleModalToggle = (e) => {
         setShowModal(!showModal);
         if(e.currentTarget === registerBtnRef.current) {
@@ -109,13 +110,18 @@ function Header() {
     
     // logic kiểm tra xem người dùng đã đăng nhập chưa
     const [isLogin, setIsLogin] = useState(false)
+    console.log(isLogin)
     const handleIsLogin = (isLogin) => {
         setIsLogin(isLogin)
     }
-
+    
     const handleLogout = () => {
-        setIsLogin(false)
-        setShowModal(false)
+        axios.get('http://localhost:5000/api/login/out')
+        .then((res) => {
+            setIsLogin(res.isAuthenticated)
+            setShowModal(false)
+        })
+        .catch((err) => console.error(err) )  
     }
     return ( 
         <header className={cx('wrapper')}>

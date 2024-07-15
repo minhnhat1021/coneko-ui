@@ -32,7 +32,7 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.post('http://localhost:5000/login', {
+        axios.post('http://localhost:5000/api/login', {
             userName,
             password
         })
@@ -44,14 +44,9 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
                 onDataIsLogin(isLogin)
             }
         })
-            .catch((err) => console.error(err) )
-
-        // xử lý gọi post về back end
-        
-        
-        // nếu đăng ký thành công 
-        // window.location.href()   
+            .catch((err) => console.error(err) )  
     }
+    
     return ( 
         <div ref={ref} id='login' className={cx('login__modal', {showModal})} onClick={clickModal}>
             <div className={cx('login__modal-container')} onClick={clickContentModal}>

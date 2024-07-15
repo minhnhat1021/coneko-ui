@@ -35,7 +35,7 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
         
         // Your submit logic here,
 
-        axios.post('http://localhost:5000/register', {
+        axios.post('http://localhost:5000/api/register', {
             fullName,
             email,
             password
