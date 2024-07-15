@@ -164,7 +164,7 @@ function Header() {
 
                         {statusLogin 
                             ? <Login onDataIsLogin={handleIsLogin} ref={loginModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)}  onClick={handleLoginRegister} /> 
-                            : <Register ref={registerModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)} onClick={handleLoginRegister} />
+                            : <Register onDataIsLogin={handleIsLogin} ref={registerModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)} onClick={handleLoginRegister} />
                         }
 
                     </>

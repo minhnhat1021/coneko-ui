@@ -1,14 +1,14 @@
 import { forwardRef, useState } from 'react';
 import axios from 'axios'
 
-import { WarningIcon, ShowPassword, HidePassword } from '~/components/Icons';
+import { WarningIcon, ShowPassword, HidePassword, Loading } from '~/components/Icons';
 
 import classNames from 'classnames/bind';
 import styles from './LoginRegister.module.scss'
 
 const cx = classNames.bind(styles)
 
-const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal }, ref) => {
+const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal, onDataIsLogin }, ref) => {
 
     const [isShowPass, setIsShowPass] = useState(true)
 
@@ -44,7 +44,7 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
                 const resultRegister = document.getElementById('resultRegister')
                 resultRegister.innerText = res.data.msg ? res.data.msg : ''
                 if(res.data.user) {
-                    console.log(res.data.message)
+                    onDataIsLogin(res.data.hasSession.isAuthenticated)
                     // window.location.href()  
                 }
             })
@@ -83,14 +83,17 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
                             <div className={cx('login__content-item')}>
                                 <label htmlFor="password">Mật Khẩu</label>
                                 <div className={cx('login__wrap-input')}>
-                                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mật Khẩu" required />
+                                    <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mật Khẩu" required />
                                     <div fc='password' className={cx('login__right-icon')} onClick={(e) => handleTogglePassword(e)}>
                                         {isShowPass ? <ShowPassword /> : <HidePassword/>}
                                     </div>
                                 </div>
                             </div>  
                             <span id="resultRegister" className={cx('result-register')}></span>
-                            <button className={cx('login__content-btn')}  type="submit">Đăng ký</button>
+                            <div className={cx('login__content-btn')}>
+                                <button type="submit">Đăng ký</button>
+                                <span><Loading /></span>
+                            </div>
                         </form>
                     </main>
                     <footer className={cx('login__content-footer')}>

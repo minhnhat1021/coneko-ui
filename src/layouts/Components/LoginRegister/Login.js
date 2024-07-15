@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useState } from 'react';
 import axios from 'axios'
 
-import { WarningIcon, ShowPassword, HidePassword } from '~/components/Icons';
+import { WarningIcon, ShowPassword, HidePassword, Loading } from '~/components/Icons';
 
 import classNames from 'classnames/bind';
 import styles from './LoginRegister.module.scss'
@@ -14,6 +14,7 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
     const handleTogglePassword = (e) => {
         
         const toogleBtn = e.currentTarget
+        
         const id = toogleBtn.getAttribute('fc')
         const inputFocus = document.getElementById(id)
         if(inputFocus.getAttribute('type') === 'password'){
@@ -69,7 +70,7 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
                             <div className={cx('login__content-item')}>
                                 <label htmlFor="password">Mật Khẩu</label>
                                 <div className={cx('login__wrap-input')}>
-                                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mật Khẩu" required />
+                                    <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mật Khẩu" required />
                                     <div fc='password' className={cx('login__right-icon')} onClick={(e) => handleTogglePassword(e)}>
                                         {isShowPass ? <ShowPassword /> : <HidePassword/>}
                                     </div>
@@ -80,7 +81,10 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
                                 <label htmlFor="remember">Ghi nhớ đăng nhập</label>
                             </div>
                             <span id="resultLogin" className={cx('result-login')}></span>
-                            <button className={cx('login__content-btn')} type="submit">Đăng nhập</button>
+                            <div className={cx('login__content-btn')}>
+                                <button type="submit">Đăng nhập</button>
+                                <span><Loading /></span>
+                            </div>
                         </form>
                     </main>
                     <footer className={cx('login__content-footer')}>
