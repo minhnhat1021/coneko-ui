@@ -67,8 +67,9 @@ const Menu_User = [
 ]
 function Header() {
     // logic hiện loginModal hay registerModal
-    
+        
     const [statusLogin, setStatusLogin] = useState(true)
+
     const handleLoginRegister = () => {
         setStatusLogin(!statusLogin);
     }
@@ -107,18 +108,15 @@ function Header() {
                 break;
         }
     }
-    
-    // logic kiểm tra xem người dùng đã đăng nhập chưa
-    const [isLogin, setIsLogin] = useState(false)
-    console.log(isLogin)
-    const handleIsLogin = (isLogin) => {
-        setIsLogin(isLogin)
-    }
-    
+    // Lấy token ra để set trạng thái đăng nhập cho user, load ra UI khi đã login hoặc logout
+    const [isLogin, setIsLogin] = useState(!!localStorage.getItem('token'));
+
+    // Handle logout
     const handleLogout = () => {
+        localStorage.removeItem('token')
         axios.get('http://localhost:5000/api/login/out')
         .then((res) => {
-            setIsLogin(res.isAuthenticated)
+            setIsLogin(!!localStorage.getItem('token'))
             setShowModal(false)
         })
         .catch((err) => console.error(err) )  
@@ -143,7 +141,7 @@ function Header() {
                 </nav>
                 <div className={cx('header__actions')}>
 
-                {   isLogin ? (
+                {   !!isLogin ? (
                         <>
                             <User logout={handleLogout}  Menu_User={Menu_User}/>
 
@@ -163,8 +161,8 @@ function Header() {
                         </Button>
 
                         {statusLogin 
-                            ? <Login onDataIsLogin={handleIsLogin} ref={loginModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)}  onClick={handleLoginRegister} /> 
-                            : <Register onDataIsLogin={handleIsLogin} ref={registerModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)} onClick={handleLoginRegister} />
+                            ? <Login onDataLogin={(statusToken) => setIsLogin(statusToken)} ref={loginModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)}  onClick={handleLoginRegister} /> 
+                            : <Register onDataLogin={(statusToken) => setIsLogin(statusToken)} ref={registerModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)} onClick={handleLoginRegister} />
                         }
 
                     </>

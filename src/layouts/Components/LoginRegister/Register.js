@@ -8,8 +8,9 @@ import styles from './LoginRegister.module.scss'
 
 const cx = classNames.bind(styles)
 
-const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal, onDataIsLogin }, ref) => {
+const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal, onDataLogin }, ref) => {
 
+    const [loading, setLoading] = useState(false)
     const [isShowPass, setIsShowPass] = useState(true)
 
     const handleTogglePassword = (e) => {
@@ -39,18 +40,19 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
             fullName,
             email,
             password
-        })
+        })  
             .then((res) => {
                 const resultRegister = document.getElementById('resultRegister')
                 resultRegister.innerText = res.data.msg ? res.data.msg : ''
-                if(res.data.user) {
-                    onDataIsLogin(res.data.hasSession.isAuthenticated)
-                    // window.location.href()  
+                if(res.data.token) {
+                    localStorage.setItem('token', res.data.token)
+                    onDataLogin(!!localStorage.getItem('token'))
                 }
+                setLoading(false)
             })
             .catch((err) => console.error(err) )
-
     }
+
 
     return ( 
         <div id='register' className={cx('register__modal', {showModal})} onClick={clickModal}>
@@ -91,8 +93,7 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
                             </div>  
                             <span id="resultRegister" className={cx('result-register')}></span>
                             <div className={cx('login__content-btn')}>
-                                <button type="submit">Đăng ký</button>
-                                <span><Loading /></span>
+                                <button type="submit">{loading ? <span ><Loading /></span> : 'Đăng ký' }</button>
                             </div>
                         </form>
                     </main>

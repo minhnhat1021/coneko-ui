@@ -8,9 +8,10 @@ import styles from './LoginRegister.module.scss'
 
 const cx = classNames.bind(styles)
 
-const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal , onDataIsLogin }, ref) => {
-    const [isShowPass, setIsShowPass] = useState(true)
+const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal , onDataLogin }, ref) => {
+    const [loading, setLoading] = useState(false)
 
+    const [isShowPass, setIsShowPass] = useState(true)
     const handleTogglePassword = (e) => {
         
         const toogleBtn = e.currentTarget
@@ -29,23 +30,26 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
     // Xử lý post lên backend khi login
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
-
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        setLoading(true)
         axios.post('http://localhost:5000/api/login', {
             userName,
             password
         })
+
         .then((res) => {
             const resultLogin = document.getElementById('resultLogin')
             resultLogin.innerText = res.data.msg ? res.data.msg : ''
-            if(res.data.user) {
-                const isLogin = res.data.hasSession.isAuthenticated
-                onDataIsLogin(isLogin)
+            if(res.data.token) {
+                localStorage.setItem('token', res.data.token)
+                onDataLogin(!!localStorage.getItem('token'))
             }
+            setLoading(false)
+
         })
-            .catch((err) => console.error(err) )  
+
+        .catch((err) => console.error(err) )  
     }
     
     return ( 
@@ -82,8 +86,7 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
                             </div>
                             <span id="resultLogin" className={cx('result-login')}></span>
                             <div className={cx('login__content-btn')}>
-                                <button type="submit">Đăng nhập</button>
-                                <span><Loading /></span>
+                                <button type="submit">{loading ? <span ><Loading /></span> : 'Đăng nhập' }</button>
                             </div>
                         </form>
                     </main>

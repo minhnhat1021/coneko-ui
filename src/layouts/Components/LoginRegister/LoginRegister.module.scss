@@ -146,10 +146,8 @@
 }
 
 .login__content-btn{
-    position: relative;
     width: 100%;
     margin-top: 10px;
-    
     opacity: 0.8;
     transition: all 0.3s;
 
@@ -167,16 +165,26 @@
         border: 1.5px solid #ddd;
         cursor: pointer;
 
-    }
-    span{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: none;
-        color: var(--primary-text-1);
-    }
+        span svg{
+            color: var(--primary-text-1);
+            animation: spinner 1s linear infinite;
+    
+        }
 
+    }
+    
+
+    
+
+}
+@keyframes spinner {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+
+    }
 }
 
 /* Modal Login Footer ----------------------------------------------------------------------------------*/
