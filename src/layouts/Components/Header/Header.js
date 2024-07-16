@@ -60,6 +60,11 @@ const Menu_User = [
         title: 'Thẻ thanh toán'
     },
     {
+        
+        icon: <i className={cx('fa-regular fa-rectangle-list')}></i>,
+        title: 'Lịch sử đặt phòng'
+    },
+    {
         icon: <i className={cx('fa-solid fa-arrow-right-from-bracket')}></i>,
         title: 'Đăng xuất'
     },
@@ -110,6 +115,8 @@ function Header() {
     }
     // Lấy token ra để set trạng thái đăng nhập cho user, load ra UI khi đã login hoặc logout
     const [token, setToken] = useState(localStorage.getItem('token'))
+
+    // Handle chuyển sang trang about
     const handleAbout = (e) => {
         
         e.preventDefault()
@@ -118,25 +125,51 @@ function Header() {
         const token = localStorage.getItem('token')
 
         axios.post('http://localhost:5000/api/about', {
-            token
+            token,
+            id: localStorage.getItem('userId')
         })
         .then((res) => {
             console.log(res);
             window.location.href = `${location}`
         })
         .catch((err) => {
-            console.error(err.response.data.message);
+            console.error(err);
         })
+    }
+    // HandleDataRegister 
+
+    const handleDataRegister = (statusToken) => {
+        setToken(statusToken)
+    }
+    // HandleDataLogin
+    const handleDataLogin = (statusToken) => {
+        setToken(statusToken)
     }
     // Handle logout
     const handleLogout = () => {
         localStorage.removeItem('token')
-        axios.get('http://localhost:5000/api/login/out')
+        axios.post('http://localhost:5000/api/login/out', {
+            id: localStorage.getItem('userId')
+        }) 
         .then((res) => {
             setToken(localStorage.getItem('token'))
             setShowModal(false)
+            localStorage.removeItem('userId')
+            window.location.href = '/'
         })
         .catch((err) => console.error(err) )  
+    }
+
+    // handele Account 
+    const handleAccount = () => {
+        window.location.href = '/user/account'
+        console.log('Account')
+    }
+    const handleBookingHistory = () => {
+        window.location.href = '/user/mybooking' 
+    }    
+    const handleTransactionList = () => {
+        window.location.href = '/user/purchase/list'
     }
     return ( 
         <header className={cx('wrapper')}>
@@ -160,7 +193,13 @@ function Header() {
 
                 {   !!token ? (
                         <>
-                            <User logout={handleLogout}  Menu_User={Menu_User}/>
+                            <User 
+                                account={handleAccount} 
+                                transactionList={handleTransactionList}
+                                bookingHistory={handleBookingHistory} 
+                                logout={handleLogout} 
+                                Menu_User={Menu_User}
+                            />
 
                             <Menu Menu_item = {Menu_item} onChange={handleMenuChange}>
                                 <button className={cx('actions__menu-btn')}>
@@ -178,8 +217,8 @@ function Header() {
                         </Button>
 
                         {statusLogin 
-                            ? <Login onDataLogin={(statusToken) => setToken(statusToken)} ref={loginModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)}  onClick={handleLoginRegister} /> 
-                            : <Register onDataLogin={(statusToken) => setToken(statusToken)} ref={registerModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)} onClick={handleLoginRegister} />
+                            ? <Login onDataLogin={handleDataLogin} ref={loginModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)}  onClick={handleLoginRegister} /> 
+                            : <Register onDataLogin={handleDataRegister} ref={registerModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)} onClick={handleLoginRegister} />
                         }
 
                     </>

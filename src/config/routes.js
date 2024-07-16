@@ -4,7 +4,12 @@ const routes = {
     products: '/products',
     hotelRules: '/hotel-rules',
     contact: '/contact',
+
     user: '/user/:id',
+    userAccount: '/user/account',
+    userPurchase: '/user/purchase/list',
+    userMybooking: '/user/mybooking',
+
     admin: '/admin',
     checkout: '/checkout',
     paymentSuccessful: '/payment-successful'

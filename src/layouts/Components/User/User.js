@@ -8,12 +8,19 @@ import UserMenuItem from './UserMenuItem';
 const cx = classNames.bind(styles)
 
 
-function User({Menu_User, logout}) {
+function User({Menu_User, account, transactionList, bookingHistory, logout}) {
     const renderUser = () => {
         return Menu_User.map((item, index) => {
+            const isAccountBtn = item.title === 'Tài khoản'
+            const isTransactionList = item.title === 'Danh sách giao dịch'
+            const isBookingHistory = item.title === 'Lịch sử đặt phòng'
             const isLogoutBtn = item.title === 'Đăng xuất'
             return <UserMenuItem 
+                account={isAccountBtn ? account :undefined} 
+                transactionList={isTransactionList ? transactionList : undefined} 
+                bookingHistory={isBookingHistory ? bookingHistory : undefined} 
                 logout={isLogoutBtn ? logout : undefined} 
+                
                 key={index} 
                 data={item}  
             />

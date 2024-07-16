@@ -43,6 +43,7 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
             resultLogin.innerText = res.data.msg ? res.data.msg : ''
             if(res.data.token) {
                 localStorage.setItem('token', res.data.token)
+                localStorage.setItem('userId', res.data.userId)
                 onDataLogin(localStorage.getItem('token'))
             }
             setLoading(false)

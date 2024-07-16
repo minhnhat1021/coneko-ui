@@ -19,6 +19,9 @@ const Button = forwardRef(({to,
     rightIcon = false, 
     onClick, 
     showModal,
+    account,
+    transactionList,
+    bookingHistory,
     logout,
     ...passProps }, ref) => 
 {
@@ -27,6 +30,12 @@ const Button = forwardRef(({to,
     const handleOnClick = (e) => {
         if (showModal) {
             showModal(e);
+        } else if (account) {
+            account(e);
+        } else if (transactionList) {
+            transactionList(e);
+        } else if (bookingHistory) {
+            bookingHistory(e);
         } else if (logout) {
             logout(e);
         } else if (onClick) {
