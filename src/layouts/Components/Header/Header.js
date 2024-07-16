@@ -109,14 +109,31 @@ function Header() {
         }
     }
     // Lấy token ra để set trạng thái đăng nhập cho user, load ra UI khi đã login hoặc logout
-    const [isLogin, setIsLogin] = useState(!!localStorage.getItem('token'));
+    const [token, setToken] = useState(localStorage.getItem('token'))
+    const handleAbout = (e) => {
+        
+        e.preventDefault()
 
+        let location = e.currentTarget.getAttribute('href')
+        const token = localStorage.getItem('token')
+
+        axios.post('http://localhost:5000/api/about', {
+            token
+        })
+        .then((res) => {
+            console.log(res);
+            window.location.href = `${location}`
+        })
+        .catch((err) => {
+            console.error(err.response.data.message);
+        })
+    }
     // Handle logout
     const handleLogout = () => {
         localStorage.removeItem('token')
         axios.get('http://localhost:5000/api/login/out')
         .then((res) => {
-            setIsLogin(!!localStorage.getItem('token'))
+            setToken(localStorage.getItem('token'))
             setShowModal(false)
         })
         .catch((err) => console.error(err) )  
@@ -134,14 +151,14 @@ function Header() {
                 </div>
                 <nav className={cx('header__nav')}>
                     <a href="/" className={cx('header__nav-item')} >Trang chủ</a>
-                    <a href="/about" className={cx('header__nav-item')} >Giới thiệu</a>
+                    <a href="/about" onClick={handleAbout} className={cx('header__nav-item')} >Giới thiệu</a>
                     <a href="/products" className={cx('header__nav-item')} >Xem phòng</a>
                     <a href="/hotel-rules" className={cx('header__nav-item')} >Quy định</a>
                     <a href="/contact" className={cx('header__nav-item')} >Liên lạc</a>
                 </nav>
                 <div className={cx('header__actions')}>
 
-                {   !!isLogin ? (
+                {   !!token ? (
                         <>
                             <User logout={handleLogout}  Menu_User={Menu_User}/>
 
@@ -161,8 +178,8 @@ function Header() {
                         </Button>
 
                         {statusLogin 
-                            ? <Login onDataLogin={(statusToken) => setIsLogin(statusToken)} ref={loginModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)}  onClick={handleLoginRegister} /> 
-                            : <Register onDataLogin={(statusToken) => setIsLogin(statusToken)} ref={registerModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)} onClick={handleLoginRegister} />
+                            ? <Login onDataLogin={(statusToken) => setToken(statusToken)} ref={loginModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)}  onClick={handleLoginRegister} /> 
+                            : <Register onDataLogin={(statusToken) => setToken(statusToken)} ref={registerModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)} onClick={handleLoginRegister} />
                         }
 
                     </>

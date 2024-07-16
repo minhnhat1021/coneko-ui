@@ -43,7 +43,7 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
             resultLogin.innerText = res.data.msg ? res.data.msg : ''
             if(res.data.token) {
                 localStorage.setItem('token', res.data.token)
-                onDataLogin(!!localStorage.getItem('token'))
+                onDataLogin(localStorage.getItem('token'))
             }
             setLoading(false)
 
