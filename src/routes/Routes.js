@@ -19,9 +19,9 @@ import { HeaderOnly } from '~/layouts'
 import config from '~/config';
 
 
+
 const publicRoutes = [
     { path: config.routes.home, component: Home},
-    { path: config.routes.about, component: About},
     { path: config.routes.products, component: Product},
     { path: config.routes.hotelRules, component: HotelRules},
     { path: config.routes.contact, component: Contact},
@@ -36,8 +36,8 @@ const publicRoutes = [
     { path: config.routes.paymentSuccessful, component: PaymentSuccessful},
 ]
 const privateRoutes = [
-
+    { path: config.routes.about, component: About, isAuth: true},
 ]
 
 
-export { publicRoutes, privateRoutes }
+export { publicRoutes, privateRoutes}

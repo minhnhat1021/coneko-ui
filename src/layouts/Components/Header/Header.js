@@ -1,4 +1,4 @@
-
+import React, { Component } from 'react';
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 
@@ -78,7 +78,7 @@ function Header() {
     const handleLoginRegister = () => {
         setStatusLogin(!statusLogin);
     }
-
+    
     // khi ấn vào loginBtn và registerBtn, login ẩn hiện modal, ấn vào nút nào thì hiện modal của nút đấy
     const loginBtnRef = useRef()
     const registerBtnRef = useRef()
@@ -116,26 +116,6 @@ function Header() {
     // Lấy token ra để set trạng thái đăng nhập cho user, load ra UI khi đã login hoặc logout
     const [token, setToken] = useState(localStorage.getItem('token'))
 
-    // Handle chuyển sang trang about
-    const handleAbout = (e) => {
-        
-        e.preventDefault()
-
-        let location = e.currentTarget.getAttribute('href')
-        const token = localStorage.getItem('token')
-
-        axios.post('http://localhost:5000/api/about', {
-            token,
-            id: localStorage.getItem('userId')
-        })
-        .then((res) => {
-            console.log(res);
-            window.location.href = `${location}`
-        })
-        .catch((err) => {
-            console.error(err);
-        })
-    }
     // HandleDataRegister 
 
     const handleDataRegister = (statusToken) => {
@@ -184,7 +164,7 @@ function Header() {
                 </div>
                 <nav className={cx('header__nav')}>
                     <a href="/" className={cx('header__nav-item')} >Trang chủ</a>
-                    <a href="/about" onClick={handleAbout} className={cx('header__nav-item')} >Giới thiệu</a>
+                    <a href="/about" className={cx('header__nav-item')} >Giới thiệu</a>
                     <a href="/products" className={cx('header__nav-item')} >Xem phòng</a>
                     <a href="/hotel-rules" className={cx('header__nav-item')} >Quy định</a>
                     <a href="/contact" className={cx('header__nav-item')} >Liên lạc</a>
