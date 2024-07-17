@@ -1,6 +1,9 @@
-function About() {
+function About({ userData = {data: {message: ''}}}) {
     return ( 
-        <h2>About Page</h2>
+        <div>
+            <h2>About Page</h2>
+            <p>{userData.data.message}</p>
+        </div>
     );
 }
 
