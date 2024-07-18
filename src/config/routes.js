@@ -8,6 +8,7 @@ const routes = {
     userAccount: '/user/account',
     userPurchase: '/user/purchase/list',
     userMybooking: '/user/mybooking',
+    userPayCard: '/user/paycard',
 
     admin: '/admin',
     checkout: '/checkout',

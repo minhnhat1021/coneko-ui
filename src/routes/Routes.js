@@ -9,6 +9,7 @@ import Contact from '~/pages/Contact';
 import UserAccount from '~/pages/UserAccount';
 import UserPurchase from '~/pages/UserPurchase';
 import UserMybooking from '~/pages/UserMybooking';
+import UserPayCard from '~/pages/UserPayCard';
 
 import Admin from '~/pages/Admin';
 import Checkout from '~/pages/Checkout';
@@ -39,6 +40,7 @@ const privateRoutes = [
     { path: config.routes.userAccount, component: UserAccount, subLayout: UserLayout},
     { path: config.routes.userPurchase, component: UserPurchase, subLayout: UserLayout},
     { path: config.routes.userMybooking, component: UserMybooking, subLayout: UserLayout},
+    { path: config.routes.userPayCard, component: UserPayCard, subLayout: UserLayout},
 ]
 
 

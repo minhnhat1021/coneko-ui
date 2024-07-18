@@ -56,13 +56,13 @@ const Menu_User = [
         title: 'Danh sách giao dịch'
     },
     {
-        icon: <i className={cx('fa-regular fa-credit-card')}></i>,
-        title: 'Thẻ thanh toán'
-    },
-    {
         
         icon: <i className={cx('fa-regular fa-rectangle-list')}></i>,
         title: 'Lịch sử đặt phòng'
+    },
+    {
+        icon: <i className={cx('fa-regular fa-credit-card')}></i>,
+        title: 'Thẻ thanh toán'
     },
     {
         icon: <i className={cx('fa-solid fa-arrow-right-from-bracket')}></i>,
@@ -143,7 +143,6 @@ function Header() {
     // handele Account 
     const handleAccount = () => {
         window.location.href = '/user/account'
-        console.log('Account')
     }
     const handleBookingHistory = () => {
         window.location.href = '/user/mybooking' 
@@ -151,6 +150,10 @@ function Header() {
     const handleTransactionList = () => {
         window.location.href = '/user/purchase/list'
     }
+    const handlePayCard = () => {
+        window.location.href = '/user/paycard'
+    }
+    
     return ( 
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -177,6 +180,7 @@ function Header() {
                                 account={handleAccount} 
                                 transactionList={handleTransactionList}
                                 bookingHistory={handleBookingHistory} 
+                                payCard={handlePayCard}
                                 logout={handleLogout} 
                                 Menu_User={Menu_User}
                             />

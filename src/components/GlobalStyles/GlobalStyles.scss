@@ -1,16 +1,20 @@
 @import 'normalize.css';
 
 :root{
-    --primary-bg-1: #212121;
+    --primary-bg-1: #fff;
     // --primary-bg-1: #3F9FBF;
-    --primary-bg-2: #3B3B3B;
+    --primary-bg-2: #212121;
+    --primary-bg-3: #3B3B3B;   
+    --primary-bg-4:  #D89B1C;
     // --primary-bg-2: #ADD8E6;
 
 
     --primary-text-1: #fff;
-    --primary-text-2: #D89B1C;  
+    // --primary-text-2: #D89B1C;  
+    --primary-text-2: #fcb716;  
     --primary-text-3: #333;
 
+    --color-danger: #f33a58;
 
     --button-color: #1dbfaf;
 

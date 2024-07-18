@@ -22,6 +22,7 @@ const Button = forwardRef(({to,
     account,
     transactionList,
     bookingHistory,
+    payCard,
     logout,
     ...passProps }, ref) => 
 {
@@ -36,6 +37,8 @@ const Button = forwardRef(({to,
             transactionList(e);
         } else if (bookingHistory) {
             bookingHistory(e);
+        } else if (payCard) {
+            payCard(e);
         } else if (logout) {
             logout(e);
         } else if (onClick) {

@@ -1,6 +1,6 @@
 import Button from '~/components/Button'
 
-function UserMenuItem({data, account, transactionList, bookingHistory, logout, onClick}) {
+function UserMenuItem({data, account, transactionList, bookingHistory, payCard, logout, onClick}) {
 
     return ( 
         <Button  
@@ -12,6 +12,7 @@ function UserMenuItem({data, account, transactionList, bookingHistory, logout, o
             account={account}
             transactionList={transactionList}
             bookingHistory={bookingHistory}
+            payCard={payCard}
         >
             {data.title}
         </Button>
