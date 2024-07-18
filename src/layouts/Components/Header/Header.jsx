@@ -6,7 +6,7 @@ import images from '~/assets/images'
 import Menu from '~/components/Popper/Menu'
 import Button from '~/components/Button'
 
-import User from '~/layouts/Components/User'
+import User from '~/layouts/Components/UserMenu'
 import {Login, Register} from '~/layouts/Components/LoginRegister'
 
 import classNames from 'classnames/bind';

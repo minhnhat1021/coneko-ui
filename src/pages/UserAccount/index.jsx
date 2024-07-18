@@ -1,4 +1,4 @@
-function UserAccount() {
+function UserAccount({ userData = {data: {message: ''}} }) {
     return ( 
         <h2>UserAccount Page</h2>
     );

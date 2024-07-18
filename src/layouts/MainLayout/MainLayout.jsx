@@ -9,15 +9,13 @@ import styles from './MainLayout.module.scss'
 const cx = classNames.bind(styles)
 
 
-function MainLayout({ children, userData = {data: {message: ''}} }) {
+function MainLayout({ children, userData}) {
     return ( 
         <div className={cx('wrapper')}>
             <Header />
-            <h2>{userData.data.message}</h2>
-
             <div className={cx('container')}>
                 <div className={cx('content')}>
-                    {children}
+                    {!userData ? children :  React.cloneElement(children, { userData })}
                 </div>
             </div>
 

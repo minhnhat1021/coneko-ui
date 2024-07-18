@@ -5,7 +5,6 @@ const routes = {
     hotelRules: '/hotel-rules',
     contact: '/contact',
 
-    user: '/user/:id',
     userAccount: '/user/account',
     userPurchase: '/user/purchase/list',
     userMybooking: '/user/mybooking',

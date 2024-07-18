@@ -36,19 +36,26 @@ function App() {
     
                         {privateRoutes.map((route, index) => {
                             let Layout = MainLayout
-                            
+                            let SubLayout = Fragment
+
                             if(route.layout) {
                                 Layout = route.layout 
                             }else if(route.layout === null) {
                                 Layout = Fragment
                             }
-                            
+
+                            if(route.subLayout) {
+                                SubLayout = route.subLayout
+                            }
+
                             const Page = route.component
                             return <Route 
                                 key={index} 
                                 path={route.path} 
                                 element={<AuthenticatedRoute path={route.path}>  
-                                            <Layout > <Page /> </Layout> 
+                                            <Layout> 
+                                                <SubLayout> <Page /> </SubLayout>
+                                            </Layout> 
                                         </AuthenticatedRoute>} 
                             />
                         })}
