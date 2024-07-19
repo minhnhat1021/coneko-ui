@@ -1,69 +1,49 @@
+import React from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
 
-import classNames from 'classnames/bind';
+import { UserIcon, SecurityIcon } from '~/components/Icons'
+
+import {Personal, Security} from './PersonalSecurity'
+
+import classNames from 'classnames/bind'
 import styles from './UserAccount.module.scss'
 
 const cx = classNames.bind(styles)
 
 function UserAccount({ userData = {data: {message: ''}} }) {
+
+    const location = useLocation()
+    const query = new URLSearchParams(location.search)
+    const menu =  query.get('menu') || 'personal'
+
+    const getNavLinkClass = (nav, linkName) => {
+        return cx('header__link', { active: query.get('menu') === linkName || (!query.get('menu') && linkName === 'personal') });
+    }
+
     return ( 
         <div className={cx('wrapper')}>
-            <header>
+            <header className={cx('header')}>
 
+                <NavLink className={(nav) => getNavLinkClass(nav, 'personal')} to="/user/account?menu=personal">
+                    <span className={cx('header__link-icon')}>
+                        <UserIcon/> 
+                    </span>
+                    <span className={cx('header__link-title')}>Thông tin cá nhân</span>
+                </NavLink>
+
+                <NavLink className={(nav) => getNavLinkClass(nav, 'security')} to="/user/account?menu=security">
+                    <span className={cx('header__link-icon')}>
+                        <SecurityIcon/>
+                    </span>
+                        <span className={cx('header__link-title')}>Mật khẩu và bảo mật</span>
+                </NavLink>
             </header>
-            <section className={cx('container')}>
-                <div className={cx('header')}>
-                    <h2 className={cx('header__title')}>Thông tin cơ bản</h2>
-                    <p className={cx('header__desc')}>Quản lý tên hiển thị, tên người dùng, bio và avatar của bạn.</p>
-                </div>
-                <div className={cx('content')}>
-                    <nav className={cx('nav')}>
-                        <div className={cx('nav__item')}>
-                            <h4 className={cx('nav__item-title')}>Họ và tên</h4>
-                            <p className={cx('nav__item-info')}>Nguyễn Minh</p>
-                        </div>
-                        <div className={cx('nav__item')}>
-                            <h4 className={cx('nav__item-title')}>Tên người dùng</h4>
-                            <p className={cx('nav__item-info')}>abcxyz</p>
-                        </div>
-                        <div className={cx('nav__item')}>
-                            <h4 className={cx('nav__item-title')}>email</h4>
-                            <p className={cx('nav__item-info')}>abcxyz@gmail.com</p>
-                        </div>
-                        <div className={cx('nav__item')}>
-                            <h4 className={cx('nav__item-title')}>Số điện thoại</h4>
-                            <p className={cx('nav__item-info')}>123xxx0321</p>
-                        </div>
-                    </nav>
-                </div>
-            </section>
-            <section className={cx('container')}>
-                <div className={cx('header')}>
-                    <h2 className={cx('header__title')}>Tài khoản đã Liên kết</h2>
-                    <p className={cx('header__desc')}>Quản lý liên kết tới các trang mạng xã hội của bạn.</p>
-                </div>
-                <div className={cx('content')}>
-                    <nav className={cx('nav')}>
-                        <div className={cx('nav__item')}>
-                            <h4 className={cx('nav__item-title')}>Facebook</h4>
-                            <p className={cx('nav__item-info')}>Nguyễn Minh</p>
-                        </div>
-                        <div className={cx('nav__item')}>
-                            <h4 className={cx('nav__item-title')}>Google</h4>
-                            <p className={cx('nav__item-info')}>abcxyz</p>
-                        </div>
-                        <div className={cx('nav__item')}>
-                            <h4 className={cx('nav__item-title')}>Spotify</h4>
-                            <p className={cx('nav__item-info')}>abcxyz</p>
-                        </div>
-                        <div className={cx('nav__item')}>
-                            <h4 className={cx('nav__item-title')}>Tiktok</h4>
-                            <p className={cx('nav__item-info')}>radiant</p>
-                        </div>
-                    </nav>
-                </div>
-            </section>
+            
+            {menu === 'personal' && <Personal />}
+            {menu === 'security' && <Security />}
             
         </div>
+        
     );
 }
 

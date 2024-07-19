@@ -91,3 +91,39 @@ export const Loading = ({ width = '2rem', height = '2rem', className }) => (
     </path>
 </svg>
 )
+
+export const UserIcon = ({ width = '2rem', height = '2rem', className }) => (
+<svg 
+    width={width}
+    height={height}
+    aria-hidden="true" 
+    focusable="false" 
+    data-prefix="fas" 
+    data-icon="user" 
+    class="svg-inline--fa fa-user _icon_bnj22_78" 
+    role="img" xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 448 512">
+    <path 
+        fill="currentColor" 
+        d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z">
+    </path>
+</svg>
+)
+
+export const SecurityIcon = ({ width = '2rem', height = '2rem', className }) => (
+<svg 
+    width={width}
+    height={height}
+    aria-hidden="true" 
+    focusable="false" 
+    data-prefix="fas" 
+    data-icon="shield" 
+    class="svg-inline--fa fa-shield _icon_bnj22_78" 
+    role="img" xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 512 512">
+    <path 
+        fill="currentColor" 
+        d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0z">
+    </path>
+</svg>
+)
