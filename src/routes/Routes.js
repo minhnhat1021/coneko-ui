@@ -9,7 +9,7 @@ import Contact from '~/pages/Contact';
 import UserAccount from '~/pages/UserAccount';
 import UserPurchase from '~/pages/UserPurchase';
 import UserMybooking from '~/pages/UserMybooking';
-import UserPayCard from '~/pages/UserPayCard';
+import UserPayCard from '~/pages/UserPayCard/UserPayCard';
 
 import Admin from '~/pages/Admin';
 import Checkout from '~/pages/Checkout';

@@ -66,7 +66,7 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
                             <div className={cx('login__content-item')}>
                                 <label htmlFor="username">Tên đăng nhập</label>
                                 <div className={cx('login__wrap-input')}>
-                                    <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Email hoặc Username" required />
+                                    <input type="text" id="username" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Email hoặc Username" required />
                                     <div className={cx('login__right-icon')}>
                                         <WarningIcon/>
                                     </div>

@@ -158,12 +158,12 @@ function Header() {
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <div className={cx('logo')}>
-                    <a href="/">
+                    {/* <a href="/">
                         <img 
                             src={images.logo} 
                             alt="Coneko Hotel"
                         />
-                    </a>
+                    </a> */}
                 </div>
                 <nav className={cx('header__nav')}>
                     <a href="/" className={cx('header__nav-item')} >Trang chủ</a>
@@ -193,10 +193,10 @@ function Header() {
                         </>
                 ) : (
                     <>
-                        <Button ref={registerBtnRef}  register showModal ={(e) => handleModalToggle(e)}>
+                        <Button ref={registerBtnRef}  register showModal={(e) => handleModalToggle(e)}>
                             Đăng ký
                         </Button>
-                        <Button ref={loginBtnRef} login  showModal = {(e) => handleModalToggle(e)} leftIcon={<i className={cx('fa-regular fa-user')}></i>}>
+                        <Button ref={loginBtnRef} login  showModal={(e) => handleModalToggle(e)} leftIcon={<i className={cx('fa-regular fa-user')}></i>}>
                             Đăng nhập
                         </Button>
 
