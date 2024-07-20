@@ -1,5 +1,5 @@
 .wrapper{
-
+    color: var(--primary-text-1);
 }
 .header{
     margin-top: 10px;
@@ -46,12 +46,12 @@
     flex-direction: column;
     gap: 1.8px;
     padding: 10px;
-    border-bottom: 1px solid #c9a9a9;
+    border-bottom: 1px solid #797979;
     cursor: pointer;
     transition: all .5s ease;
 
     &:hover{
-        background: #0000000d;
+        background: #f7f7f70d;
     }
 }
 .nav__item-title{

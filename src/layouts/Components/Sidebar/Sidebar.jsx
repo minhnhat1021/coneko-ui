@@ -33,7 +33,7 @@ function Sidebar() {
 
 
     return ( 
-        <aside className={cx('wrapper', 'col-3')}>
+        <aside className={cx('wrapper')}>
             <header className={cx('user__menu-header')}>
                 <h2 className={cx('user__menu-name')}>Minh Nhật</h2>
                 <div className={cx('user__menu-about')}>

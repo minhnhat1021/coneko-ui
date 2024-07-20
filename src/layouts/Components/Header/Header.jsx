@@ -168,7 +168,7 @@ function Header() {
                 <nav className={cx('header__nav')}>
                     <a href="/" className={cx('header__nav-item')} >Trang chủ</a>
                     <a href="/about" className={cx('header__nav-item')} >Giới thiệu</a>
-                    <a href="/products" className={cx('header__nav-item')} >Xem phòng</a>
+                    <a href="/hotel-rooms" className={cx('header__nav-item')} >Xem phòng</a>
                     <a href="/hotel-rules" className={cx('header__nav-item')} >Quy định</a>
                     <a href="/contact" className={cx('header__nav-item')} >Liên lạc</a>
                 </nav>

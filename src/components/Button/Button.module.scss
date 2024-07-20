@@ -3,7 +3,6 @@
     padding: 12px 24px;
     display: flex;
     color: var(--primary-text-1);
-    background-color: var(--primary-text-3);
     font-size: 1.6rem;
     font-weight: 700;
     border-radius: 4px;
@@ -23,7 +22,7 @@
         border-top: 1px solid #5a5a5a;
         transition: all .3s ease;
         &:hover{
-            color: var(--primary-text-3);
+            color: var(--primary-bg-1);
             background-color: var(--primary-text-2);
         }
         &.itemBtn:last-child{
@@ -62,7 +61,7 @@
 }
 
 .login.wrapper{
-    color: var(--primary-text-3);
+    color: var(--primary-bg-1);
     background-color: var(--primary-text-2);
     border: 1px solid var(--primary-text-2);
     transition: all .5s ease;
@@ -76,6 +75,7 @@
 .register.wrapper{
     margin-right: 10px;
     color: var(--primary-text-1);
+    background-color: transparent;
     transition: all .5s ease;
 
     &:hover{
@@ -85,7 +85,7 @@
 }
 
 .primary.wrapper{
-    color: var(--primary-text-3);
+    color: var(--primary-bg-1);
     background-color: var(--primary-text-1);
 }
 

@@ -11,7 +11,13 @@
     display: flex;
     align-items: center;
     padding: 8px 10px;
-    color: var(--primary-text-3);
+    color: var(--primary-text-1);
+    border-radius: 6px;
+
+
+    + .header__link{
+        margin-left: 10px;
+    }
 
     .header__link-icon{
 
@@ -36,8 +42,8 @@
         background-color: var(--primary-bg-4);
     }
     &:hover {
-        color: var(--text-color);
-        background: rgba(22, 24, 35, 0.03);
+        color: var(--primary-text-1);
+        background: rgba(236, 236, 236, 0.09);
     }
 }
 
