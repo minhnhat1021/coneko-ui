@@ -11,6 +11,11 @@ const routes = {
     userPayCard: '/user/paycard',
 
     admin: '/admin',
+    userList: '/admin/user-list',
+    roomList: '/admin/room-list',
+    createRoom: '/admin/create-room',
+
+
     checkout: '/checkout',
     paymentSuccessful: '/payment-successful'
 }

@@ -11,7 +11,7 @@ import UserPurchase from '~/pages/UserPurchase';
 import UserMybooking from '~/pages/UserMybooking';
 import UserPayCard from '~/pages/UserPayCard/UserPayCard';
 
-import Admin from '~/pages/Admin';
+import {Admin, UserList, RoomList, CreateRoom} from '~/pages/Admin';
 import Checkout from '~/pages/Checkout';
 import PaymentSuccessful from '~/pages/PaymentSuccessful';
 
@@ -32,6 +32,11 @@ const publicRoutes = [
     
 
     { path: config.routes.admin, component: Admin, layout: null},
+    { path: config.routes.userList, component: UserList, layout: null},
+    { path: config.routes.roomList, component: RoomList, layout: null},
+    { path: config.routes.createRoom, component: CreateRoom, layout: null},
+
+
     { path: config.routes.checkout, component: Checkout, layout: HeaderOnly},
     { path: config.routes.paymentSuccessful, component: PaymentSuccessful},
 ]
