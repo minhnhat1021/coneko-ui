@@ -11,11 +11,13 @@ import UserPurchase from '~/pages/UserPurchase';
 import UserMybooking from '~/pages/UserMybooking';
 import UserPayCard from '~/pages/UserPayCard/UserPayCard';
 
-import {Admin, UserList, RoomList, CreateRoom} from '~/pages/Admin';
+import { Admin, UserList, RoomList, AvailableRooms, CreateRoom, EditRoom } from '~/pages/Admin'
+
+
 import Checkout from '~/pages/Checkout';
 import PaymentSuccessful from '~/pages/PaymentSuccessful';
 
-import { HeaderOnly, UserLayout } from '~/layouts'
+import { HeaderOnly, UserLayout, RoomManagementLayout} from '~/layouts'
 
 
 import config from '~/config';
@@ -27,14 +29,6 @@ const publicRoutes = [
     { path: config.routes.hotelRooms, component: HotelRooms},
     { path: config.routes.hotelRules, component: HotelRules},
     { path: config.routes.contact, component: Contact},
-
-    
-    
-
-    { path: config.routes.admin, component: Admin, layout: null},
-    { path: config.routes.userList, component: UserList, layout: null},
-    { path: config.routes.roomList, component: RoomList, layout: null},
-    { path: config.routes.createRoom, component: CreateRoom, layout: null},
 
 
     { path: config.routes.checkout, component: Checkout, layout: HeaderOnly},
@@ -48,5 +42,17 @@ const privateRoutes = [
     { path: config.routes.userPayCard, component: UserPayCard, subLayout: UserLayout},
 ]
 
+const adminRoutes = [
+    { path: config.routes.admin, component: Admin},
 
-export { publicRoutes, privateRoutes}
+    { path: config.routes.userList, component: UserList},
+
+    { path: config.routes.roomManagement, component: RoomManagementLayout},
+    { path: config.routes.roomList, component: RoomList, subLayout: RoomManagementLayout},
+    { path: config.routes.availableRooms, component: AvailableRooms, subLayout: RoomManagementLayout},
+    { path: config.routes.createRoom, component: CreateRoom},
+
+]
+
+
+export { publicRoutes, privateRoutes, adminRoutes}

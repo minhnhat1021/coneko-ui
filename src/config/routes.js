@@ -12,7 +12,10 @@ const routes = {
 
     admin: '/admin',
     userList: '/admin/user-list',
+    
+    roomManagement: '/admin/room-management',
     roomList: '/admin/room-list',
+    availableRooms: '/admin/available-rooms',
     createRoom: '/admin/create-room',
 
 

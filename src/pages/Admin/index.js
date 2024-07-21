@@ -1,4 +1,9 @@
 export { default as Admin } from './Admin'
-export { default as UserList } from './UserList'
-export { default as RoomList } from './RoomList/RoomList'
+
+export { default as UserList } from './RoomList'
+
+export { default as RoomList } from './RoomList'
+export { default as AvailableRooms } from './AvailableRooms'
+
 export { default as CreateRoom } from './CreateRoom'
+export { default as EditRoom } from './EditRoom'

@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 import { Fragment} from "react"
 
-import { publicRoutes, privateRoutes } from '~/routes'
-import { MainLayout } from '~/layouts'
+import { publicRoutes, privateRoutes, adminRoutes } from '~/routes'
+import { MainLayout, AdminLayout } from '~/layouts'
 
 import React from 'react'
 
@@ -57,6 +57,29 @@ function App() {
                                                 <SubLayout> <Page /> </SubLayout>
                                             </Layout> 
                                         </AuthenticatedRoute>} 
+                            />
+                        })}
+                        
+                        {adminRoutes.map((route, index) => {
+                            let Layout = AdminLayout
+                            let SubLayout = Fragment
+
+                            if(route.layout) {
+                                Layout = route.layout 
+                            }else if(route.layout === null) {
+                                Layout = Fragment
+                            }
+
+                            if(route.subLayout) {
+                                SubLayout = route.subLayout
+                            }
+
+                            const Page = route.component
+
+                            return <Route 
+                                key={index} 
+                                path={route.path} 
+                                element={<Layout> <SubLayout> <Page /> </SubLayout></Layout> } 
                             />
                         })}
                     </Routes>  

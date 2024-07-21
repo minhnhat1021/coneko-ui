@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind'
-import styles from './Admin.module.scss'
+import styles from './Header.module.scss'
 
 const cx = classNames.bind(styles)
 
@@ -9,7 +9,7 @@ function Header() {
                 <a href='/admin'><h1>Quản trị hệ thống</h1></a>
                 <nav className={cx('nav__main')}>
                     <a href='/admin/user-list'>Danh sách khách hàng</a>
-                    <a href='/admin/room-list'>Danh sách phòng</a>
+                    <a href='/admin/room-management'>Quản lý phòng</a>
                 </nav>
                 <nav className={cx('nav__task')}>
                     <a href='/admin/create-room'>Tạo phòng</a>
