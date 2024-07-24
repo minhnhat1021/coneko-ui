@@ -4,17 +4,17 @@ import axios from 'axios'
 import images from '~/assets/images'
 
 import classNames from 'classnames/bind'
-import styles from './AvailableRooms.module.scss'
+import styles from './BookedRooms.module.scss'
 
 const cx = classNames.bind(styles)
 
-function AvailableRooms() {
+function BookedRooms() {
     
     return ( 
         <div className={cx('wrapper')}>
-            Phòng đã còn trống
+            Phòng đã đặt
         </div>
     );
 }
 
-export default AvailableRooms;
+export default BookedRooms;

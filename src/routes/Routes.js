@@ -11,7 +11,7 @@ import UserPurchase from '~/pages/UserPurchase';
 import UserMybooking from '~/pages/UserMybooking';
 import UserPayCard from '~/pages/UserPayCard/UserPayCard';
 
-import { Admin, UserList, RoomList, AvailableRooms, CreateRoom, EditRoom } from '~/pages/Admin'
+import { Admin, UserList, RoomList, AvailableRooms, BookedRooms, CancelledRooms, CreateRoom, EditRoom } from '~/pages/Admin'
 
 
 import Checkout from '~/pages/Checkout';
@@ -50,6 +50,9 @@ const adminRoutes = [
     { path: config.routes.roomManagement, component: RoomManagementLayout},
     { path: config.routes.roomList, component: RoomList, subLayout: RoomManagementLayout},
     { path: config.routes.availableRooms, component: AvailableRooms, subLayout: RoomManagementLayout},
+    { path: config.routes.bookedRooms, component: BookedRooms , subLayout: RoomManagementLayout},
+    { path: config.routes.cancelledRooms, component: CancelledRooms, subLayout: RoomManagementLayout},
+
     { path: config.routes.createRoom, component: CreateRoom},
 
 ]

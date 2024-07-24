@@ -16,6 +16,10 @@ const routes = {
     roomManagement: '/admin/room-management',
     roomList: '/admin/room-list',
     availableRooms: '/admin/available-rooms',
+    bookedRooms: '/admin/booked-rooms',
+    cancelledRooms: '/admin/cancelled-rooms',
+
+
     createRoom: '/admin/create-room',
 
 

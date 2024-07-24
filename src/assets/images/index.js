@@ -3,6 +3,10 @@ const images = {
     avatar: require('~/assets/images/nhatminh.jpg'),
     payCard: require('~/assets/images/paycard.webp'),
     room: require('~/assets/images/room.webp'),
+    primary: require('~/assets/images/primary.png'),
+    primary2: require('~/assets/images/primary2.png'),
+    netflix: require('~/assets/images/netflix.jpg'),
+    luxuryBathtub: require('~/assets/images/luxury_bathtub.webp'),
 }
 
 export default images

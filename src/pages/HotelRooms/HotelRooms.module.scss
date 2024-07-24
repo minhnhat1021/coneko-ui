@@ -1,6 +1,13 @@
 .wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-bg-2);
     padding: 10px 40px;
-    border-radius: 20px;
+}
+.container{
+    width: var(--content-width);
 }
 .room__list{
     display: flex;

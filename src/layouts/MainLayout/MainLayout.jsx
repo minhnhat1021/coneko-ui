@@ -13,10 +13,9 @@ function MainLayout({ children, userData}) {
     return ( 
         <div className={cx('wrapper')}>
             <Header />
-            <div className={cx('container')}>
-                <div className={cx('content')}>
-                    {!userData ? children :  React.cloneElement(children, { userData })}
-                </div>
+            
+            <div className={cx('content')}>
+                {!userData ? children :  React.cloneElement(children, { userData })}
             </div>
 
             <Footer/>
