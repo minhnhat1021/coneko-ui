@@ -52,16 +52,14 @@
     margin-top: 50px;
 }
 .member__list{
-    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin: 0 -10px;
-    background-color: red;
 }
 .member__item{
-    flex: 0 0 calc( 100% / 3 - 30px);
-    width: calc( 100% / 3 - 30px);
+    flex: 0 0 calc( 100% / 3 - 20px);
+    width: calc( 100% / 3 - 20px);
     margin: 30px 10px 0 10px;
     padding: 20px 24px;
     background-color: var(--primary-bg-3);
@@ -96,25 +94,23 @@
 .footer{
     margin-top: 160px;
     display: flex;
-    justify-content: center;
 }
 .question__about{
-    background-color: yellow;
 
-    width: 100%;
     display: flex;
     flex-wrap: wrap;
     align-items: start;
-    margin: 0 -20px;
+    margin-left: -20px;
+    margin-right: -20px;
 }
 .question__text{
-    flex: 1 0 calc(40% - 40px);
+    flex: 0 0 calc(40% - 40px);
     width: calc(40% - 40px);
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    padding: 0 20px;
+    margin: 0 20px;
 
     h1{
         
@@ -135,12 +131,11 @@
     }
 }
 .question__content{
-    flex: 1 0 calc(60% - 40px);
+    flex: 0 0 calc(60% - 40px);
     width: calc(60% - 40px);
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
-
+    margin: 0 20px;
 }
 .question__content-header{
     display: flex;

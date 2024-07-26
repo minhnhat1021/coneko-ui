@@ -7,6 +7,7 @@ const images = {
     primary2: require('~/assets/images/primary2.png'),
     netflix: require('~/assets/images/netflix.jpg'),
     luxuryBathtub: require('~/assets/images/luxury_bathtub.webp'),
+    contact: require('~/assets/images/contact.png'),
 }
 
 export default images

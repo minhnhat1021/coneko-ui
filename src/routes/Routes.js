@@ -3,7 +3,7 @@ import Home from '~/pages/Home';
 import About from '~/pages/About';
 import HotelRooms from '~/pages/HotelRooms/HotelRooms';
 import HotelRules from '~/pages/HotelRules';
-import Contact from '~/pages/Contact';
+import Contact from '~/pages/Contact/Contact';
 
 
 import UserAccount from '~/pages/UserAccount';
