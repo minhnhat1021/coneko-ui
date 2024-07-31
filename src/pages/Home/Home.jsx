@@ -1,7 +1,8 @@
 import images from '~/assets/images'
 
 import { GoogleLogo, SpotifyLogo, SamsungLogo, NetflixLogo } from '~/components/Logos'
-import {  TrustIconProcess, TrustIconNet, TrustIconAmenities, TrustIconPrice, TrustIconLocation, TrustIconLike } from '~/components/Icons'
+import {  TrustIconProcess, TrustIconNet, TrustIconAmenities, TrustIconPrice, TrustIconLocation, TrustIconLike, SearchIconLocation } from '~/components/Icons'
+import Search from './Search'
 import classNames from 'classnames/bind'
 import styles from './Home.module.scss'
 
@@ -10,8 +11,13 @@ const cx = classNames.bind(styles)
 function Home() {
     return ( 
         <div className={cx('wrapper')}>
-
-            <img className={cx('img')} src={images.primary} alt='anh khach san'/>
+            
+            <div className={cx('slider')}>
+                <div className={cx('slider__content')}>
+                    <h2>Đặt Phòng Phù Hợp Với Nhu Cầu Của Bạn</h2>
+                    <Search />
+                </div>
+            </div>
 
             <div className={cx('container__bg-3')}>
                 <div className={cx('content')}>

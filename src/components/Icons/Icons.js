@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
+import styles from './Icons.module.scss'
 
-const cx = classNames.bind()
+const cx = classNames.bind(styles)
 
 export const UploadIcon = ({ width = '3.2rem', height = '3.2rem', className }) => (
     <svg
@@ -81,7 +82,7 @@ export const Loading = ({ width = '2rem', height = '2rem', className }) => (
     focusable="false" 
     data-prefix="fas" 
     data-icon="spinner" 
-    class="svg-inline--fa fa-spinner _spinner_5cl6z_30" 
+    className={cx('svg-inline--fa fa-spinner _spinner_5cl6z_30', className)} 
     role="img" 
     xmlns="http://www.w3.org/2000/svg" 
     viewBox="0 0 512 512">
@@ -247,5 +248,15 @@ export const FeedbackIconPhone = ({ width = '2rem', height = '2rem', className }
             stroke-width="3.2" 
             stroke-linecap="round" 
             stroke-linejoin="round"/>
+    </svg>
+)
+export const SearchIconLocation = ({ width = '2rem', height = '2rem', className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+        <path 
+            d="M12.5 21C12.5 21 19.5 16.1538 19.5 9.92308C19.5 8.08696 18.7625 6.32605 17.4497 5.02772C16.137 3.72939 14.3565 3 12.5 3C10.6435 3 8.86301 3.72939 7.55025 5.02772C6.2375 6.32605 5.5 8.08696 5.5 9.92308C5.5 16.1538 12.5 21 12.5 21Z" 
+            fill="#D89B1C"/>
+        <path 
+            d="M12.5 11C13.6046 11 14.5 10.1046 14.5 9C14.5 7.89543 13.6046 7 12.5 7C11.3954 7 10.5 7.89543 10.5 9C10.5 10.1046 11.3954 11 12.5 11Z" 
+            fill="#3B3B3B"/>
     </svg>
 )
