@@ -20,6 +20,7 @@
         letter-spacing: 1px;
 
         &::placeholder {
+
         }
     }
     button{
@@ -39,8 +40,14 @@
         
     }
 }
+.Clear{
+    font-size: 2rem;
+    color: rgba(199, 199, 199, 0.34);
+}
 
+/* search__result ---------------------------------------------------------------*/
 .search__result{
+    width: 100%;
     display: flex;
     flex-direction: column;
     color: black;
@@ -48,17 +55,14 @@
     border-radius: 12px;
     overflow: hidden;
 }
-.Clear{
-    font-size: 2rem;
-    color: rgba(199, 199, 199, 0.34);
-}
+
 .result__title{
+    display: flex;
     padding: 8px 0;
     font-size: 2.4rem;
     font-weight: 600;
 }
 .result__item{
-    width: 600px;
     display: flex;
     flex-wrap: wrap;
     margin-top: 20px;

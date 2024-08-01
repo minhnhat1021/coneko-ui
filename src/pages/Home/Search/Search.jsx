@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Await, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import HeadlessTippy from '@tippyjs/react/headless';
 
 
@@ -27,6 +27,7 @@ function Search() {
 
     useEffect(() => {
         if(!searchValue.trim()){
+            setSearchResult([])
             return 
         }
         
@@ -50,15 +51,25 @@ function Search() {
     const handleHideResult = () => {
         setShowResult(false)
     }
+
+    const handleChange = (e) => {
+        const searchValue = e.target.value
+        if(!searchValue.startsWith(' ') || searchValue.trim()) {
+            setSearchValue(searchValue) 
+        }
+    }
+    
+    const handleSubmit = () => {
+
+    }
     return ( 
         <HeadlessTippy 
-            trigger={'click'} 
             visible={showResult && searchResult.length > 0}
             interactive
             placement='bottom-start'
             render={attrs => (
                     <div className={cx('search__result')} tabIndex='-1' {...attrs}>
-                        <div className={cx('result__title')}>kết quả tìm kiếm</div>
+                        <h3 className={cx('result__title')}>kết quả tìm kiếm</h3>
                         {searchResult.map((result) => (
                             <Link to={`/hotel-rooms/${result.name}`} key={result._id} className={cx('result__item')}>
                                 <div className={cx('room__name', 'result__info')}>{result.name}</div>
@@ -80,12 +91,7 @@ function Search() {
                     ref={inputRef}
                     type="text" 
                     value={searchValue} 
-                    onChange={(e) => {
-                        setSearchValue(e.target.value) 
-                        if(e.target.value === '') {
-                            setSearchResult([])
-                        }
-                    }} 
+                    onChange={handleChange} 
                     placeholder='Tìm kiếm phòng' 
                     onFocus={() => setShowResult(true)}
                 />
@@ -96,7 +102,7 @@ function Search() {
                         onClick={handleClear}
                     ></i>
                 )} 
-                <button>Tìm kiếm</button>
+                <button onClick={handleSubmit}>Tìm kiếm</button>
             </div>
         </HeadlessTippy >
     )

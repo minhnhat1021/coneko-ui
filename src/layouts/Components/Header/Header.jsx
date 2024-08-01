@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom';
 import axios from 'axios'
+
+import config from '~/config';
 
 import images from '~/assets/images'
 import Menu from '~/components/Popper/Menu'
@@ -166,11 +169,11 @@ function Header() {
                     </a> */}
                 </div>
                 <nav className={cx('header__nav')}>
-                    <a href="/" className={cx('header__nav-item')} >Trang chủ</a>
-                    <a href="/about" className={cx('header__nav-item')} >Giới thiệu</a>
-                    <a href="/hotel-rooms" className={cx('header__nav-item')} >Xem phòng</a>
-                    <a href="/hotel-rules" className={cx('header__nav-item')} >Quy định</a>
-                    <a href="/contact" className={cx('header__nav-item')} >Liên lạc</a>
+                    <Link to={config.routes.home} className={cx('header__nav-item')} >Trang chủ sao nhỉ</Link>
+                    <Link to={config.routes.about} className={cx('header__nav-item')} >Giới thiệu</Link>
+                    <Link to={config.routes.hotelRooms} className={cx('header__nav-item')} >Xem phòng</Link>
+                    <Link to={config.routes.hotelRules} className={cx('header__nav-item')} >Quy định</Link>
+                    <Link to={config.routes.contact} className={cx('header__nav-item')} >Liên lạc</Link>
                 </nav>
                 <div className={cx('header__actions')}>
 
