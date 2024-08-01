@@ -13,6 +13,7 @@ function CreateRoom() {
     const [desc, setDesc] = useState('')
     const [overView, setOverView] = useState('')
     const [price, setPrice] = useState('')
+    const [image, setImage] = useState()
     const [bedType, setBedType] = useState('single')
     const [bedCount, setBedCount] = useState('2')
     const [floor, setFloor] = useState('5')
@@ -20,14 +21,31 @@ function CreateRoom() {
     const [rating, setRating] = useState('5')
     const [amenities, setAmenities] = useState('netflix')
     
-    console.log(name, desc, price, bedType, bedCount, floor, capacity, rating, amenities)
 
+    // Handle khi chọn ảnh
+    const handleUpload = (e) => {
+        const image = e.target.files[0]
+
+        // Tạo 1 FormData để gửi 1 file đi với dữ liệu image
+        const formData = new FormData();
+        formData.append('file', image);
+
+        // Gửi request đến server
+        axios.post('http://localhost:5000/api/admin/upload', formData)
+            .then(res => {
+                setImage(res.data.filename);
+            })
+            .catch(err => console.err('Error:', err))
+    }
+
+    // Handle submit form data
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post('http://localhost:5000/api/admin/create-room', {
             name,
             desc,
             price,
+            image,
             overView,
             bedType,
             bedCount,
@@ -42,6 +60,7 @@ function CreateRoom() {
         })
         .catch((err) => console.error(err) )  
     }
+    
     return ( 
         <div className={cx('wrap__create')}>
             <h3 className={cx('create__title')}> Tạo phòng mới </h3>
@@ -61,6 +80,10 @@ function CreateRoom() {
                 <div className={cx('create__form-item')}>
                     <label for='price' > Giá phòng </label>
                     <input type='text'  id='price' name='price' value={price} onChange={e => {setPrice(e.target.value)}}/>
+                </div>
+                <div className={cx('create__form-item')}>
+                    <label for='image' > Ảnh </label>
+                    <input type='file'  id='image' name='image' onChange={e => {handleUpload(e)}}/>
                 </div>
                 <div className={cx('create__form-select-wrap')}>
                     <div className={cx('create__form-select')}>

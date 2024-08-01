@@ -26,8 +26,8 @@ function RoomList() {
                     <div key={index} className={cx('room__item')}>
                         <a href='/hotel-rooms/' className={cx('room__image')}>
                             <img
-                                src={images.room}
-                                alt='{{this.name}}'
+                                src={`http://localhost:5000/images/roomImg/${room.image}`}
+                                alt='coneko'
                             />
                         </a>
                         <main className={cx('room__body')}>

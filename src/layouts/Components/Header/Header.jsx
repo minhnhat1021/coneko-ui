@@ -169,7 +169,7 @@ function Header() {
                     </a> */}
                 </div>
                 <nav className={cx('header__nav')}>
-                    <Link to={config.routes.home} className={cx('header__nav-item')} >Trang chủ sao nhỉ</Link>
+                    <Link to={config.routes.home} className={cx('header__nav-item')} >Trang chủ</Link>
                     <Link to={config.routes.about} className={cx('header__nav-item')} >Giới thiệu</Link>
                     <Link to={config.routes.hotelRooms} className={cx('header__nav-item')} >Xem phòng</Link>
                     <Link to={config.routes.hotelRules} className={cx('header__nav-item')} >Quy định</Link>
