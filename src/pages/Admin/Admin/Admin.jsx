@@ -1,7 +1,7 @@
-function ADmin() {
+function Admin() {
     return ( 
         <div>Admin Page</div>
     );
 }
 
-export default ADmin;
+export default Admin;

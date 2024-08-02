@@ -8,13 +8,13 @@ import styles from './AvailableRooms.module.scss'
 
 const cx = classNames.bind(styles)
 
-function AvailableRooms() {
+function StatisticsRoom() {
     
     return ( 
         <div className={cx('wrapper')}>
-            Phòng đã còn trống
+            Thống kê phòng
         </div>
     );
 }
 
-export default AvailableRooms;
+export default StatisticsRoom;

@@ -2,6 +2,7 @@ export { default as Admin } from './Admin'
 
 export { default as UserList } from './RoomList'
 
+export { default as StatisticsRoom } from './StatisticsRoom'
 export { default as RoomList } from './RoomList'
 export { default as AvailableRooms } from './AvailableRooms'
 export { default as BookedRooms } from './BookedRooms'

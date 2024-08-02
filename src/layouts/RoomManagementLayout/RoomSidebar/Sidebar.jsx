@@ -10,9 +10,9 @@ import styles from './Sidebar.module.scss'
 const cx = classNames.bind(styles)
 
 const Menu_Room = {
-    roomManagement: {
+    statisticsRoom: {
         icon: <i className={cx('fa-solid fa-hotel')}></i>,
-        title: 'Quản lý phòng',
+        title: 'Thống kê phòng',
     },
     allRoom: {
         icon: <i className={cx('fa-solid fa-house-user')}></i>,
@@ -41,14 +41,13 @@ function Sidebar() {
             <header className={cx('user__menu-header')}>
                 <h2 className={cx('user__menu-name')}>Quản lý phòng</h2>
                 <div className={cx('user__menu-about')}>
-                    <span><i className={cx('fa-solid fa-people-group')} ></i></span>
                     <p >
-                        Bạn là thành viên của <b>Coneko</b>
+                        Theo dõi, cập nhật trạng thái phòng và quản lý thông tin chi tiết của từng phòng trong khách sạn <b>Coneko</b>
                     </p>
                 </div>
             </header>
             <Menu>
-                <MenuItem title={Menu_Room.roomManagement.title} to={config.routes.roomManagement} icon={Menu_Room.roomManagement.icon} activeIcon={Menu_Room.roomManagement.icon}/>
+                <MenuItem title={Menu_Room.statisticsRoom.title} to={config.routes.statisticsRoom} icon={Menu_Room.statisticsRoom.icon} activeIcon={Menu_Room.statisticsRoom.icon}/>
                 <MenuItem title={Menu_Room.allRoom.title} to={config.routes.roomList} icon={Menu_Room.allRoom.icon} activeIcon={Menu_Room.allRoom.icon}/>
                 <MenuItem title={Menu_Room.availableRooms.title} to={config.routes.availableRooms} icon={Menu_Room.availableRooms.icon} activeIcon={Menu_Room.availableRooms.icon}/>
                 <MenuItem title={Menu_Room.bookedRooms.title} to={config.routes.bookedRooms} icon={Menu_Room.bookedRooms.icon} activeIcon={Menu_Room.bookedRooms.icon}/>

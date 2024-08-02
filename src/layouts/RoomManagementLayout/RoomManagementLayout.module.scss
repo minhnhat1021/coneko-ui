@@ -1,12 +1,12 @@
 .wrapper{
     display: flex;
-    padding: 50px 24px 24px 24px;
+    align-items: start;
+    height: calc(100vh - 100px);
     background-color: var(--primary-bg-2);
 
 }
 .container{
     flex: 1;
-    margin-left: 20px;
 }
 .content{
     border-radius: 20px;
