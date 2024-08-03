@@ -7,7 +7,7 @@ import styles from './RoomManagementLayout.module.scss'
 
 const cx = classNames.bind(styles)
 
-function UserLayout({ children, userData }) {
+function RoomManagementLayout({ children, RoomManagementData }) {
     return ( 
         <div className={cx('wrapper')}>
             <Sidebar />
@@ -21,4 +21,4 @@ function UserLayout({ children, userData }) {
     );
 }
 
-export default UserLayout;
+export default RoomManagementLayout;

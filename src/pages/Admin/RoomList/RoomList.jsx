@@ -20,7 +20,113 @@ function RoomList() {
     }, [])
     return ( 
         <div className={cx('wrapper')}>
-            {/* <h2 className={cx('room__title')}>Danh sách phòng</h2> */}
+            <div className={cx('options')}>
+                <div className={cx('option__item')}>
+                    <input
+                        type='checkbox'
+                        onChange={() => {}}
+                    />
+                    <label htmlFor='filter-available'>Phòng còn trống</label>
+                </div>
+                <div className={cx('option__item')}>
+                    <input
+                        type='checkbox'
+
+                        onChange={() => {}}
+                    />
+                    <label htmlFor='filter-price-low'>Phòng đã đặt</label>
+                </div>
+                <div className={cx('option__item')}>
+                    <input
+                        type='checkbox'
+                        onChange={() => {}}
+                    />
+                    <label htmlFor='filter-available'>Phòng đang sử dụng</label>
+                </div>
+                <div className={cx('option__item')}>
+                    <input
+                        type='checkbox'
+
+                        onChange={() => {}}
+                    />
+                    <label htmlFor='filter-price-low'>Giường đơn</label>
+                </div>
+                <div className={cx('option__item')}>
+                    <input
+                        type='checkbox'
+                        onChange={() => {}}
+                    />
+                    <label htmlFor='filter-available'>Giường đôi</label>
+                </div>
+                <div className={cx('option__item')}>
+                    <input
+                        type='checkbox'
+
+                        onChange={() => {}}
+                    />
+                    <label htmlFor='filter-price-low'>1 giường</label>
+                </div>
+                <div className={cx('option__item')}>
+                    <input
+                        type='checkbox'
+                        onChange={() => {}}
+                    />
+                    <label htmlFor='filter-available'>2 giường</label>
+                </div>
+                <div className={cx('option__item')}>
+                    <input
+                        type='checkbox'
+
+                        onChange={() => {}}
+                    />
+                    <label htmlFor='filter-price-low'>3 giường</label>
+                </div>
+                <div className={cx('option__item')}>
+                    <input
+                        type='checkbox'
+
+                        onChange={() => {}}
+                    />
+                    <label htmlFor='filter-price-low'>1 người</label>
+                </div>
+                <div className={cx('option__item')}>
+                    <input
+                        type='checkbox'
+                        onChange={() => {}}
+                    />
+                    <label htmlFor='filter-available'>2 người</label>
+                </div>
+                <div className={cx('option__item')}>
+                    <input
+                        type='checkbox'
+                        onChange={() => {}}
+                    />
+                    <label htmlFor='filter-available'>3 người</label>
+                </div>
+                <div className={cx('option__item')}>
+                    <input
+                        type='checkbox'
+                        onChange={() => {}}
+                    />
+                    <label htmlFor='filter-available'>4 sao</label>
+                </div>
+                <div className={cx('option__item')}>
+                    <input
+                        type='checkbox'
+                        onChange={() => {}}
+                    />
+                    <label htmlFor='filter-available'>5 sao</label>
+                </div>
+                <div className={cx('option__item')}>
+                    <input
+                        type='checkbox'
+
+                        onChange={() => {}}
+                    />
+                    <label htmlFor='filter-price-low'>hút thuốc</label>
+                </div>
+
+            </div>
             <div className={cx('room__list')}>  
                 {roomData.map((room, index) => 
                     <div key={index} className={cx('room__item')}>
@@ -32,51 +138,39 @@ function RoomList() {
                         </a>
                         <main className={cx('room__body')}>
                             <div className={cx('room__body-child')}>
-                                <h3 className={cx('room__name')}>
+                                <p className={cx('room__name')}>
                                     {room.name}
-                                </h3>
-                                <p className={cx('room__desc')}>
-                                    {room.desc} 
+                                </p>
+                                <p className={cx('room__floor')}>
+                                    Tầng {room.floor}
                                 </p>
                             </div>
                             <div className={cx('room__body-child')}>
                                 <p className={cx('room__bed-type')}>
-                                    Kiểu giường: {room.bedType} 
+                                    {room.bedType} 
                                 </p>
                                 <p className={cx('room__bed-count')}>
-                                    Số lượng giường: {room.bedCount}
+                                    {room.bedCount} giường
                                 </p>
                             </div>
                             <div className={cx('room__body-child')}>
-                                <p className={cx('room__floor')}>
-                                    Tầng số: {room.floor}
-                                </p>
+                                <p className={cx('room__star-rating')}>
+                                    {room.rating} sao
+                                </p> 
                                 <p className={cx('room__capacity')}>
-                                    Sức chứa tối đa: {room.capacity}
+                                    {room.capacity} người
                                 </p>
-                            </div>
-                            <div className={cx('room__body-child')}>
-                                <div className={cx('room__star-rating')}>
 
-                                {[...Array(Number(room.rating))].map((icon, index) => (
-                                    <i key={index} className={cx('fa-solid fa-star')}></i>)
-                                )}
-                                </div> 
-                                <h3 className={cx('room__overview')}>
-                                    {room.overView}
-                                </h3>
                             </div>
                             <div className={cx('room__body-child')}>
                                 <p className={cx('room__status')}>
-                                    Trạng thái: {room.status}
+                                    {room.status}
+                                </p> 
+                                <p className={cx('room__price')}>
+                                    {room.price}
                                 </p> 
                             </div>
-                            <div className={cx('room__body-child')}>
-                                <div className={cx('room__price')}>
-                                    Giá: {room.price}
-                                </div> 
-                            </div>
-                        </main>
+                            </main>
                         <footer className={cx('room__footer')}>                         
                             
                         </footer>

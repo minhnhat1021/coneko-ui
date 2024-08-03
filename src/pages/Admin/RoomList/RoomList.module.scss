@@ -1,35 +1,57 @@
 .wrapper{
     display: flex;
-    justify-content: space-around;
-    padding: 0 24px;
-    // background-color: var(--primary-bg-2);
-
+    flex-direction: column;
+    margin: 10px;
 }
+/* Options -------------------------------------------------------------------------*/
+.options{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2px 24px 22px 24px;
+    background-color: var(--admin-bg-2);
+    border-radius: 6px;
+}
+.option__item{
+    flex: 1 0 calc(20% - 20px);
+    max-width: calc(20% - 20px);
+    display: flex;
+    align-items: center;
+    margin: 20px 10px 0 10px;
+
+    label{
+        margin-left: 10px;
+        color: var(--primary-text-1);
+    }
+    input{
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Room -------------------------------------------------------------------------*/
 .room__title{
     color: var(--primary-text-1);
 }
 .room__list{
-    flex: 1;
     display: flex;
-    flex-direction: column;
-    margin-top: 24px;
+    flex-wrap: wrap;
+    margin: 0 -10px;
 }
 
 /* Room Item -------------------------------------------------------------------------*/
 .room__item{
+    flex: 0 0 calc(50% - 20px);
+    width: calc(50% - 20px);
     display: flex;
     align-items: center;
+    margin: 10px 10px 0 10px;
     padding: 8px 12px;
     color: var(--primary-text-1);
-    background-color: var(--primary-bg-3);
+    background-color: var(--admin-bg-2);
     border-radius: 6px;
     cursor: pointer;
     transition: all .5s ease;
 
-    + .room__item{
-        margin-top: 10px;
-
-    }
 
     &:hover{
         background-color: rgba(255, 255, 255, 0.2);
@@ -59,20 +81,9 @@
     width: 20%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: start;
 
-    h3{
-        max-width: 200px;
-        font-size: 1.8rem;
-        font-weight: 700;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-
-        + p{
-            margin-top: 10px;
-        }
-    }
     p{
         max-width: 200px;
         white-space: nowrap;
@@ -98,15 +109,7 @@
     }
 }
 
-.room__star-rating{
-    i{
-        color: var(--primary-text-2)
-    }
-}
 
-.room__overview{
-    margin-top: 10px;
-}
 
 /* Room Item -------------------------------------------------------------------------*/
 
@@ -115,4 +118,7 @@
     flex-direction: column;
     justify-content: center;
 }
+
+
+
 

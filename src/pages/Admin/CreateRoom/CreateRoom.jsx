@@ -57,12 +57,14 @@ function CreateRoom() {
         }) 
         .then((res) => {
             console.log(res)
+            window.location.href = 'http://localhost:3000/admin/statistics-room'
         })
         .catch((err) => console.error(err) )  
     }
     
     return ( 
-        <div className={cx('wrap__create')}>
+        <div className={cx('wrapper')}>
+
             <h3 className={cx('create__title')}> Tạo phòng mới </h3>
             <form method='POST' action='' className={cx('create__form')} onSubmit={handleSubmit}>
                 <div className={cx('create__form-item')}>
@@ -85,7 +87,7 @@ function CreateRoom() {
                     <label for='image' > Ảnh </label>
                     <input type='file'  id='image' name='image' onChange={e => {handleUpload(e)}}/>
                 </div>
-                <div className={cx('create__form-select-wrap')}>
+                <div className={cx('create__form-item')}>
                     <div className={cx('create__form-select')}>
                         <label for='bedType' > Loại giường </label>
                         <select id="bedType" name="bedType" value={bedType} onChange={e => setBedType(e.target.value)}>
@@ -103,7 +105,7 @@ function CreateRoom() {
                         </select>
                     </div>
                 </div>
-                <div className={cx('create__form-select-wrap')}>
+                <div className={cx('create__form-item')}>
                     <div className={cx('create__form-select')}>
                         <label for='floor' > Số tầng </label>
                         <select id="floor" name="floor" value={floor} onChange={e => setFloor(e.target.value)}>
@@ -125,7 +127,7 @@ function CreateRoom() {
                         </select>
                     </div>
                 </div>
-                <div className={cx('create__form-select-wrap')}>
+                <div className={cx('create__form-item')}>
                     <div className={cx('create__form-select')}>
                         <label for='rating' > Số sao </label>
                         <select id="rating" name="rating" value={rating} onChange={e => setRating(e.target.value)}>

@@ -1,23 +1,26 @@
 /* Create form ------------------------------------------------------*/
-.wrap__create{
-    height: 100vh;
+.wrapper{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 16px 20px;
+    margin-top: calc(var(--header-height) + 50px);
 }
 .create__title{
-
+    margin-bottom: 10px;
 }
 .create__form{
-    width: 500px;
+    width: var(--content-width);
     margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .create__form-item{
+    flex: 0 0 calc( 50% - 20px);
+    width: calc( 50% - 20px);
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
+    flex-wrap: wrap;
+    margin: 0 10px;
     label{
 
     }
@@ -37,28 +40,26 @@
 
 
 /* Create form select ------------------------------------------------------*/
-.create__form-select-wrap{
-    display: flex;
-    margin: 12px -5px;
-}
+
 .create__form-select{
-    flex: 1;
+    flex: 0 0 calc( 50% - 10px);
+    width: calc(50% - 10px);
     display: flex;
     flex-direction: column;
     margin: 0 5px;
-
     label{
         font-size: 1.6rem;
     }
     select{
-        height: 40px;
+        height: 50px;
         margin: 8px 0;
         padding: 10px;
         color: #333;
         background-color: #fff;
         border: 1px solid #c1bebe;
         border-radius: 6px;
-        font-size: 16px;
+        font-size: 1.6rem;
+        font-weight: 600;
         outline:none;
         cursor: pointer;
         -webkit-appearance: none;
@@ -91,8 +92,9 @@
 /* Create form button ------------------------------------------------------*/
 
 .create__form-btn {
-    width: 100%;
+    width: 40%;
     height: 42px;
+    margin-top: 150px;
     color: var(--primary-text-1);
     background-color: #0b91f7;
     border-radius: 6px;
