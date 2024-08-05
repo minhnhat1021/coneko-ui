@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 import images from '~/assets/images'
+import Button from '~/components/Button'
 
 import classNames from 'classnames/bind'
 import styles from './RoomList.module.scss'
@@ -18,6 +19,15 @@ function RoomList() {
             })
             .catch((err) => console.error(err) )  
     }, [])
+    
+    const handleDelete = (id) => {
+        axios.delete(`http://localhost:5000/api/admin/${id}/room-delete`, {
+            data: {id}
+        })
+           .then(() => window.location.href='http://localhost:3000/admin/room-list')
+           .catch(err => console.error(err))
+        
+    }
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('options')}>
@@ -172,11 +182,23 @@ function RoomList() {
                             </div>
                             </main>
                         <footer className={cx('room__footer')}>                         
-                            
+                            <Button adminUpdate to={`/admin/${room._id}/room-edit`}>Sửa</Button>
+                            <Button adminDelete onClick={() => handleDelete(room._id)} >Xóa</Button>
                         </footer>
+
+
+                        
                     </div>
                 )}           
-
+                <div className={cx('modal__delete')}>
+                    <div className={cx('modal__header')}>
+                        
+                    </div>
+                    <div className={cx('modal__body')}>
+                        <button type='button'>Xóa</button>
+                        <button type='button'>Đóng</button>
+                    </div>
+                </div>
             </div>
         </div>
     );

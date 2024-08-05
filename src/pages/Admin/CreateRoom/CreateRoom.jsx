@@ -66,7 +66,7 @@ function CreateRoom() {
         <div className={cx('wrapper')}>
 
             <h3 className={cx('create__title')}> Tạo phòng mới </h3>
-            <form method='POST' action='' className={cx('create__form')} onSubmit={handleSubmit}>
+            <form className={cx('create__form')} onSubmit={handleSubmit}>
                 <div className={cx('create__form-item')}>
                     <label for='name' > Tên phòng </label>
                     <input type='text'  id='name' name='name' value={name} onChange={e => {setName(e.target.value)}}/>

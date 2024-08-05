@@ -24,6 +24,9 @@ const Button = forwardRef(({to,
     bookingHistory,
     payCard,
     logout,
+
+    adminUpdate,
+    adminDelete,
     ...passProps }, ref) => 
 {
 
@@ -72,6 +75,9 @@ const Button = forwardRef(({to,
         disabled,
         itemBtn,
         itemUserBtn,
+        
+        adminUpdate,
+        adminDelete,
     })
     return ( 
         <Comp onClick={handleOnClick} className={classes} ref={ref} {...props}>

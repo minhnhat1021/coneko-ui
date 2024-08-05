@@ -54,7 +54,7 @@
 
 
     &:hover{
-        background-color: rgba(255, 255, 255, 0.2);
+        background-color: rgba(255, 255, 255, 0.1);
     }
 }
 .room__image{
@@ -71,7 +71,6 @@
     flex: 1;
     display: flex;
     align-items: center;
-
     margin-left: 24px;
 }
 
@@ -79,6 +78,7 @@
 .room__body-child{
     flex-basis: 0 0 calc(100% / 4);
     width: 20%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -91,7 +91,7 @@
         text-overflow: ellipsis;
 
         + p{
-            margin-top: 10px;
+            margin-top: 20px;
         }
         
     }
@@ -102,7 +102,7 @@
     }
 
     .room__price{
-        color: #de0c0c;
+        color: #ffc107;
     }
     .room__status{
         color: #00bf66;
@@ -110,6 +110,29 @@
 }
 
 
+.modal__delete{
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    padding: 24px;
+    background-color: #fff;
+}
+.modal__body{
+    display: flex;
+
+    button{
+        margin-left: 10px;
+        padding: 12px;
+        cursor: pointer;
+
+        &:first-child{
+            color: #fff;
+            background-color: #800000;
+        }
+    }
+}
 
 /* Room Item -------------------------------------------------------------------------*/
 
@@ -117,6 +140,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-left: 10px;
 }
 
 

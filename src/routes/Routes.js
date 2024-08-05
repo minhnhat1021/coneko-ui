@@ -53,7 +53,11 @@ const adminRoutes = [
     { path: config.routes.bookedRooms, component: BookedRooms , subLayout: RoomManagementLayout},
     { path: config.routes.cancelledRooms, component: CancelledRooms, subLayout: RoomManagementLayout},
 
+
     { path: config.routes.createRoom, component: CreateRoom},
+    { path: config.routes.editRoom, component: EditRoom},
+
+
 
 ]
 

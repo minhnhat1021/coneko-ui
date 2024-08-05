@@ -1,0 +1,104 @@
+/* Create form ------------------------------------------------------*/
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: calc(var(--header-height) + 50px);
+}
+.create__title{
+    margin-bottom: 10px;
+}
+.create__form{
+    width: var(--content-width);
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.create__form-item{
+    flex: 0 0 calc( 50% - 20px);
+    width: calc( 50% - 20px);
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 10px;
+    label{
+
+    }
+    input{
+        width: 100%;
+        height: 42px;
+        margin: 10px 0 20px 0;
+        padding: 8px 12px;
+        border: 1px solid #c6c6c6;
+        border-radius: 6px;
+
+        &:focus{
+            border-color: var(--color-success);
+        }
+    }
+}
+
+
+/* Create form select ------------------------------------------------------*/
+
+.create__form-select{
+    flex: 0 0 calc( 50% - 10px);
+    width: calc(50% - 10px);
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px;
+    label{
+        font-size: 1.6rem;
+    }
+    select{
+        height: 50px;
+        margin: 8px 0;
+        padding: 10px;
+        color: #333;
+        background-color: #fff;
+        border: 1px solid #c1bebe;
+        border-radius: 6px;
+        font-size: 1.6rem;
+        font-weight: 600;
+        outline:none;
+        cursor: pointer;
+        -webkit-appearance: none;
+        -moz-appearance: none; 
+        appearance: none; 
+
+
+        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%204%205'%3E%3Cpath%20fill%3D'%23D89B1C'%20d%3D'M2%200L0%202h4zm0%205L0%203h4z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 10px;
+        
+    
+        &:hover {
+            border-color: #0bb4f7;
+        }
+    
+        &:focus {
+            border-color: var(--color-success);
+            // box-shadow: 0 0 0 3px rgba(216, 155, 28, 0.2);
+        }
+
+        option{
+            background-color: #fff;
+            color: #333;
+        }
+    }
+}
+
+/* Create form button ------------------------------------------------------*/
+
+.create__form-btn {
+    width: 40%;
+    height: 42px;
+    margin-top: 150px;
+    color: var(--primary-text-1);
+    background-color: #0b91f7;
+    border-radius: 6px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    cursor: pointer;
+}

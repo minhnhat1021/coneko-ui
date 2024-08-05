@@ -7,6 +7,7 @@
     font-weight: 700;
     border-radius: 4px;
     cursor: pointer;
+    transition: all .3s ease;
 
     &.disabled{
         pointer-events: none;
@@ -23,7 +24,7 @@
         transition: all .3s ease;
         &:hover{
             color: var(--primary-bg-1);
-            background-color: var(--primary-text-2);
+            background-color: var(--primary-bg-4);
         }
         &.itemBtn:last-child{
             border-bottom: 1px solid #5a5a5a;
@@ -62,14 +63,14 @@
 
 .login.wrapper{
     color: var(--primary-bg-1);
-    background-color: var(--primary-text-2);
-    border: 1px solid var(--primary-text-2);
+    background-color: var(--primary-bg-4);
+    border: 1px solid var(--primary-bg-4);
     transition: all .5s ease;
 
     &:hover{
         color: var(--primary-text-2);
         background-color: #474747;
-        border: 1px solid var(--primary-text-2);
+        border: 1px solid var(--primary-bg-4);
     }
 }
 .register.wrapper{
@@ -85,7 +86,25 @@
 }
 
 .primary.wrapper{
-    color: var(--primary-bg-1);
-    background-color: var(--primary-text-1);
+    color: var(--primary-text-1);
+    background-color: var(--primary-bg-1);
+}
+
+.adminUpdate.wrapper{
+    color: var(--primary-text-1);
+    background-color: #474747;
+
+    &:hover{
+        background-color: #a1a1a1
+    }
+}
+.adminDelete.wrapper{
+    margin-top: 5px;
+    color: var(--primary-text-1);
+    background-color: #800000;
+
+    &:hover{
+        background-color: #bc0101;
+    }
 }
 
