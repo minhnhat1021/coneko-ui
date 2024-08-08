@@ -18,6 +18,7 @@ const routes = {
     availableRooms: '/admin/available-rooms',
     bookedRooms: '/admin/booked-rooms',
     cancelledRooms: '/admin/cancelled-rooms',
+    roomTrash: '/admin/room-trash',
 
     editRoom: '/admin/:roomId/room-edit',
 

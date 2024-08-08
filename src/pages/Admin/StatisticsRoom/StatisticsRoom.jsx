@@ -13,7 +13,6 @@ function StatisticsRoom() {
     
     const [statistics, setStatistics] = useState({})
 
-    console.log(statistics)
 
     useEffect(() => {
         const fetchApi = async () => {

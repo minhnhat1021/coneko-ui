@@ -144,24 +144,3 @@
 }
 
 
-
-.notification{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 40px;
-    padding: 12px 24px;
-    color: var(--primary-text-1);
-    font-size: 2rem;
-    font-weight: 600;
-}
-.notification__link{
-    padding: 16px 0;
-    color: #00d873;
-    transition: all .3s linear;
-
-    &:hover{
-        color: #00ff88;
-    }
-}

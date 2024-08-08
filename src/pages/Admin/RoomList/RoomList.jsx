@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 import images from '~/assets/images'
@@ -11,7 +12,7 @@ const cx = classNames.bind(styles)
 
 function RoomList() {
     const [roomData, setRoomData] = useState([])
-
+    console.log(roomData)
     useEffect(() => {
         axios.get('http://localhost:5000/api/admin/room-list') 
             .then((res) => {
@@ -138,58 +139,61 @@ function RoomList() {
 
             </div>
             <div className={cx('room__list')}>  
-                {roomData.map((room, index) => 
-                    <div key={index} className={cx('room__item')}>
-                        <a href='/hotel-rooms/' className={cx('room__image')}>
-                            <img
-                                src={`http://localhost:5000/images/roomImg/${room.image}`}
-                                alt='coneko'
-                            />
-                        </a>
-                        <main className={cx('room__body')}>
-                            <div className={cx('room__body-child')}>
-                                <p className={cx('room__name')}>
-                                    {room.name}
-                                </p>
-                                <p className={cx('room__floor')}>
-                                    Tầng {room.floor}
-                                </p>
-                            </div>
-                            <div className={cx('room__body-child')}>
-                                <p className={cx('room__bed-type')}>
-                                    {room.bedType} 
-                                </p>
-                                <p className={cx('room__bed-count')}>
-                                    {room.bedCount} giường
-                                </p>
-                            </div>
-                            <div className={cx('room__body-child')}>
-                                <p className={cx('room__star-rating')}>
-                                    {room.rating} sao
-                                </p> 
-                                <p className={cx('room__capacity')}>
-                                    {room.capacity} người
-                                </p>
+                { roomData.length > 0 ?  
+                    (roomData.map((room, index) => 
+                        <div key={index} className={cx('room__item')}>
+                            <a href='/hotel-rooms/' className={cx('room__image')}>
+                                <img
+                                    src={`http://localhost:5000/images/roomImg/${room.image}`}
+                                    alt='coneko'
+                                />
+                            </a>
+                            <main className={cx('room__body')}>
+                                <div className={cx('room__body-child')}>
+                                    <p className={cx('room__name')}>
+                                        {room.name}
+                                    </p>
+                                    <p className={cx('room__floor')}>
+                                        Tầng {room.floor}
+                                    </p>
+                                </div>
+                                <div className={cx('room__body-child')}>
+                                    <p className={cx('room__bed-type')}>
+                                        {room.bedType} 
+                                    </p>
+                                    <p className={cx('room__bed-count')}>
+                                        {room.bedCount} giường
+                                    </p>
+                                </div>
+                                <div className={cx('room__body-child')}>
+                                    <p className={cx('room__star-rating')}>
+                                        {room.rating} sao
+                                    </p> 
+                                    <p className={cx('room__capacity')}>
+                                        {room.capacity} người
+                                    </p>
 
-                            </div>
-                            <div className={cx('room__body-child')}>
-                                <p className={cx('room__status')}>
-                                    {room.status}
-                                </p> 
-                                <p className={cx('room__price')}>
-                                    {room.price}
-                                </p> 
-                            </div>
-                            </main>
-                        <footer className={cx('room__footer')}>                         
-                            <Button adminUpdate to={`/admin/${room._id}/room-edit`}>Sửa</Button>
-                            <Button adminDelete onClick={() => handleDelete(room._id)} >Xóa</Button>
-                        </footer>
+                                </div>
+                                <div className={cx('room__body-child')}>
+                                    <p className={cx('room__status')}>
+                                        {room.status}
+                                    </p> 
+                                    <p className={cx('room__price')}>
+                                        {room.price}
+                                    </p> 
+                                </div>
+                                </main>
+                            <footer className={cx('room__footer')}>                         
+                                <Button adminUpdate to={`/admin/${room._id}/room-edit`}>Sửa</Button>
+                                <Button adminDelete onClick={() => handleDelete(room._id)} >Xóa</Button>
+                            </footer>
+                        </div>
+                    )) : <div className={cx('notification')} >
+                            Chưa có phòng nào được tạo.
+                            <Link to='/admin/create-room' className={cx('notification__link')} >Tạo phòng mới</Link>
+                        </div>
+                }     
 
-
-                        
-                    </div>
-                )}           
                 <div className={cx('modal__delete')}>
                     <div className={cx('modal__header')}>
                         
