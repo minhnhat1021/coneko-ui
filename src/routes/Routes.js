@@ -11,13 +11,13 @@ import UserPurchase from '~/pages/UserPurchase';
 import UserMybooking from '~/pages/UserMybooking';
 import UserPayCard from '~/pages/UserPayCard/UserPayCard';
 
-import { Admin, UserList, StatisticsRoom, RoomList, AvailableRooms, BookedRooms, CancelledRooms, RoomTrash, CreateRoom, EditRoom } from '~/pages/Admin'
+import { Admin, UserList, StatisticsRoom, RoomList, BannedUsers, AvailableRooms, BookedRooms, CancelledRooms, RoomTrash, CreateRoom, EditRoom } from '~/pages/Admin'
 
 
 import Checkout from '~/pages/Checkout';
 import PaymentSuccessful from '~/pages/PaymentSuccessful';
 
-import { HeaderOnly, UserLayout, RoomManagementLayout} from '~/layouts'
+import { HeaderOnly, UserLayout, UserManagementLayout, RoomManagementLayout} from '~/layouts'
 
 
 import config from '~/config';
@@ -45,7 +45,8 @@ const privateRoutes = [
 const adminRoutes = [
     { path: config.routes.admin, component: Admin},
 
-    { path: config.routes.userList, component: UserList},
+    { path: config.routes.userList, component: UserList, subLayout: UserManagementLayout},
+    { path: config.routes.bannedUsers, component: BannedUsers, subLayout: UserManagementLayout},
 
     { path: config.routes.statisticsRoom, component: StatisticsRoom, subLayout: RoomManagementLayout},
     { path: config.routes.roomList, component: RoomList, subLayout: RoomManagementLayout},

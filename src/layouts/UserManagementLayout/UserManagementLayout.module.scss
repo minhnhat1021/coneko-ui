@@ -1,0 +1,14 @@
+.wrapper{
+    display: flex;
+    align-items: start;
+    background-color: var(--admin-bg-3);
+    padding: 24px;
+
+}
+.container{
+    margin: var(--header-height) 0 0 300px;
+    flex: 1;
+}
+.content{
+    border-radius: 20px;
+}
