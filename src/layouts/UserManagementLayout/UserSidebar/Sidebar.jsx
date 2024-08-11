@@ -11,18 +11,18 @@ const cx = classNames.bind(styles)
 
 const Menu_Room = {
     userList: {
-        icon: <i className={cx('fa-solid fa-hotel')}></i>,
+        icon: <i className={cx('fa-solid fa-user')}></i>,
         title: 'Danh sách khách hàng',
     },
     bannedUsers: {
-        icon: <i className={cx('fa-solid fa-trash')}></i>,
+        icon: <i className={cx('fa-solid fa-user-slash')}></i>,
         title: 'Khách hàng bị ban',
     },
 }
 
 
-function Sidebar({ roomData }) {
-
+function Sidebar({ userData }) {
+console.log(userData)
     return ( 
 
         <aside className={cx('wrapper')}>
@@ -35,8 +35,8 @@ function Sidebar({ roomData }) {
                 </div>
             </header>
             <Menu>
-                <MenuItem  title={Menu_Room.userList.title} to={config.routes.userList} icon={Menu_Room.userList.icon} activeIcon={Menu_Room.userList.icon}/>
-                <MenuItem  title={Menu_Room.bannedUsers.title} to={config.routes.bannedUsers} icon={Menu_Room.bannedUsers.icon} activeIcon={Menu_Room.bannedUsers.icon}/>
+                <MenuItem userData={userData.userList}  title={Menu_Room.userList.title} to={config.routes.userList} icon={Menu_Room.userList.icon} activeIcon={Menu_Room.userList.icon}/>
+                <MenuItem userData={userData.bannedUsers}  title={Menu_Room.bannedUsers.title} to={config.routes.bannedUsers} icon={Menu_Room.bannedUsers.icon} activeIcon={Menu_Room.bannedUsers.icon}/>
             </Menu>
         </aside>
         

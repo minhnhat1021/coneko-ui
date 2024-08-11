@@ -6,8 +6,8 @@ import styles from './UserPayCard.module.scss'
 
 const cx = classNames.bind(styles)
 
-function UserPayCard({ userData = {data: {message: ''}} }) {
-
+function UserPayCard({ userData }) {
+    const user = userData.data
     const [showModal, setShowModal] = useState(false)
     const handleShowModal = (e) => {
         setShowModal(true)

@@ -1,4 +1,6 @@
-function UserPurchase({ userData = {data: {message: ''}} }) {
+function UserPurchase({ userData }) {
+    const user = userData.data
+
     return ( 
         <h2>UserPurchase Page</h2>
     );

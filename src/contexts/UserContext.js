@@ -10,12 +10,13 @@ export const UserProvider = ({ children }) => {
     const fetchUserData = (path) => {
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId');
+        
         if (token && userId) {
             axios.post(`http://localhost:5000/api${path}`, { token, userId })
                 .then(res => {
                     setUserData(prevState => ({
                         ...prevState,
-                        data: res.data.userData
+                        data: res.data
                     }))
                     setLoading(false)
 

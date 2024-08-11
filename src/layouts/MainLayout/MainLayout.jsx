@@ -10,13 +10,12 @@ const cx = classNames.bind(styles)
 
 
 function MainLayout({ children, userData}) {
-    const user = userData.data
     return ( 
         <div className={cx('wrapper')}>
-            <Header userData={user}/>
+            <Header />
             
             <div className={cx('content')}>
-                {!userData ? children :  React.cloneElement(children, { user })}
+                {!userData ? children :  React.cloneElement(children, { userData })}
             </div>
 
             <Footer/>

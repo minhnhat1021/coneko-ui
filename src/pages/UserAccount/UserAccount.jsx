@@ -10,7 +10,7 @@ import styles from './UserAccount.module.scss'
 
 const cx = classNames.bind(styles)
 
-function UserAccount({ userData = {data: {message: ''}} }) {
+function UserAccount({ userData }) {
 
     const location = useLocation()
     const query = new URLSearchParams(location.search)
@@ -39,8 +39,8 @@ function UserAccount({ userData = {data: {message: ''}} }) {
                 </NavLink>
             </header>
             
-            {menu === 'personal' && <Personal />}
-            {menu === 'security' && <Security />}
+            {menu === 'personal' && <Personal userData={userData}/>}
+            {menu === 'security' && <Security userData={userData}/>}
             
         </div>
         

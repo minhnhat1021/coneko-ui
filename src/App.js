@@ -34,11 +34,11 @@ function App() {
                             return <Route 
                             key={index} 
                             path={route.path} 
-                            element={ <AuthenticatedRoute path={route.path}>  
+                            element={  
                                         <Layout>
                                             <Page /> 
                                         </Layout> 
-                                    </AuthenticatedRoute>}
+                                    }
                             />
                             
                         })}
@@ -61,9 +61,9 @@ function App() {
                             return <Route 
                                 key={index} 
                                 path={route.path} 
-                                element={<AuthenticatedRoute path={route.path}>  
+                                element={<AuthenticatedRoute path={route.path}> 
                                             <Layout> 
-                                                <SubLayout> <Page /> </SubLayout>
+                                                <SubLayout><Page /></SubLayout>
                                             </Layout> 
                                         </AuthenticatedRoute>} 
                             />

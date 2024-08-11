@@ -9,7 +9,7 @@ const cx = classNames.bind(styles)
 
 
 
-function MenuItem({title, to , icon, activeIcon, roomData}) {
+function MenuItem({title, to , icon, activeIcon, userData}) {
 
     return (     
 
@@ -18,7 +18,7 @@ function MenuItem({title, to , icon, activeIcon, roomData}) {
             <span className={cx('active-icon')}>{activeIcon}</span>
             <span className={cx('title')}>{title}</span> 
             
-            {(roomData || roomData === 0) && <span className={cx('count')}>{roomData}</span> }
+            {(userData || userData === 0) && <span className={cx('count')}>{userData}</span> }
         </NavLink>
     );
 }

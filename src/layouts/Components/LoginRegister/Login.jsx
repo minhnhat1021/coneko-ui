@@ -54,7 +54,7 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
     }
     
     return ( 
-        <div ref={ref} id='login' className={cx('login__modal', {showModal})} onClick={clickModal}>
+        <div ref={ref} id='login' className={cx('login__modal', {showModal}) } onClick={clickModal}>
             <div className={cx('login__modal-container')} onClick={clickContentModal}>
                 <div className={cx('login__modal-content')}>
                     <header className={cx('login__content-header')}>

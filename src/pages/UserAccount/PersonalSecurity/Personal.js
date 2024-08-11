@@ -4,7 +4,8 @@ import styles from './PersonalSecurity.module.scss'
 
 const cx = classNames.bind(styles)
 
-function Personal() {
+function Personal({ userData }) {
+    const user = userData.data
     return ( 
         <div className={cx('wrapper')}>
             <header className={cx('header')}>
@@ -21,15 +22,15 @@ function Personal() {
                     <nav className={cx('nav')}>
                         <div className={cx('nav__item')}>
                             <h4 className={cx('nav__item-title')}>Họ và tên</h4>
-                            <p className={cx('nav__item-info')}>Nguyễn Minh</p>
+                            <p className={cx('nav__item-info')}>{user.fullName}</p>
                         </div>
                         <div className={cx('nav__item')}>
                             <h4 className={cx('nav__item-title')}>Tên người dùng</h4>
-                            <p className={cx('nav__item-info')}>abcxyz</p>
+                            <p className={cx('nav__item-info')}>{user.userName}</p>
                         </div>
                         <div className={cx('nav__item')}>
                             <h4 className={cx('nav__item-title')}>email</h4>
-                            <p className={cx('nav__item-info')}>abcxyz@gmail.com</p>
+                            <p className={cx('nav__item-info')}>{user.email}</p>
                         </div>
                         <div className={cx('nav__item')}>
                             <h4 className={cx('nav__item-title')}>Số điện thoại</h4>

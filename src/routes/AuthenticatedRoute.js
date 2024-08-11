@@ -6,6 +6,7 @@ import { UserContext } from '~/contexts/UserContext';
 const AuthenticatedRoute = ({ children, path }) => {
     const token = localStorage.getItem('token')
     const { loading, userData, fetchUserData } = useContext(UserContext)
+    
     useEffect(() => {
         if (token && path) {
             if (!userData.data) {

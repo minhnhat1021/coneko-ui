@@ -72,8 +72,20 @@ const Menu_User = [
     },
 
 ]
-function Header({ userData }) {
+function Header() {
 
+    // Lấy thông tin người dùng truyền về header
+    const [userData, setUserData] = useState({})
+    
+    const [token, setToken] = useState(localStorage.getItem('token'))
+    console.log(userData)
+    useEffect(() => {
+        axios.post('http://localhost:5000/api/user', {
+            token
+        }) 
+        .then(res => {setUserData(res.data)} )
+        .catch(err => console.error(err) )
+    }, [token])
     
     // logic hiện loginModal hay registerModal
         
@@ -117,8 +129,7 @@ function Header({ userData }) {
                 break;
         }
     }
-    // Lấy token ra để set trạng thái đăng nhập cho user, load ra UI khi đã login hoặc logout
-    const [token, setToken] = useState(localStorage.getItem('token'))
+    
 
     // HandleDataRegister 
 

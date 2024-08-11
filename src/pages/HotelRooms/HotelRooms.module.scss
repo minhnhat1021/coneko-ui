@@ -3,8 +3,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: var(--header-height);
     background-color: var(--primary-bg-2);
-    padding: 10px 40px;
+    padding: 140px 0;
 }
 .container{
     width: var(--content-width);
