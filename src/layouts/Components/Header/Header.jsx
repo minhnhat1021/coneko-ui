@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 
 import config from '~/config';
 
-import images from '~/assets/images'
 import Menu from '~/components/Popper/Menu'
 import Button from '~/components/Button'
 
@@ -73,7 +72,9 @@ const Menu_User = [
     },
 
 ]
-function Header() {
+function Header({ userData }) {
+
+    
     // logic hiện loginModal hay registerModal
         
     const [statusLogin, setStatusLogin] = useState(true)
@@ -180,6 +181,7 @@ function Header() {
                 {   !!token ? (
                         <>
                             <User 
+                                userData={userData}
                                 account={handleAccount} 
                                 transactionList={handleTransactionList}
                                 bookingHistory={handleBookingHistory} 

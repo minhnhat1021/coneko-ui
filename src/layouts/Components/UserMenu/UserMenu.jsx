@@ -8,7 +8,7 @@ import UserMenuItem from './UserMenuItem';
 const cx = classNames.bind(styles)
 
 
-function User({Menu_User, account, transactionList, bookingHistory, payCard, logout}) {
+function User({ userData, Menu_User, account, transactionList, bookingHistory, payCard, logout}) {
     const renderUser = () => {
         return Menu_User.map((item, index) => {
             const isAccountBtn = item.title === 'Tài khoản'
@@ -37,7 +37,7 @@ function User({Menu_User, account, transactionList, bookingHistory, payCard, log
             render={attrs => (
                     <div className={cx('user__menu')} tabIndex='-1' {...attrs}>
                         <header className={cx('user__menu-header')}>
-                            <h2 className={cx('user__menu-name')}>Minh Nhật</h2>
+                            <h2 className={cx('user__menu-name')}>{userData.displayName}</h2>
                             <div className={cx('user__menu-about')}>
                                 <span><i className={cx('fa-solid fa-people-group')} ></i></span>
                                 <p >
@@ -56,7 +56,7 @@ function User({Menu_User, account, transactionList, bookingHistory, payCard, log
                     <i className={cx('fa-solid fa-user')}></i>
                 </div>
                 <div className={cx('header__user-info')}>
-                    <h3 className={cx('user__info-name')}>Nhật Minh</h3>
+                    <h3 className={cx('user__info-name')}>{userData.displayName}</h3>
                     <i className={cx('fa-solid fa-coins', 'user__info__point-icon')}></i>
                     <p className={cx('user__info-point')} >10000</p>
                 </div>

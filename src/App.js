@@ -31,7 +31,16 @@ function App() {
                             }
                             
                             const Page = route.component
-                            return <Route key={index} path={route.path} element={<Layout> <Page /> </Layout>} />
+                            return <Route 
+                            key={index} 
+                            path={route.path} 
+                            element={ <AuthenticatedRoute path={route.path}>  
+                                        <Layout>
+                                            <Page /> 
+                                        </Layout> 
+                                    </AuthenticatedRoute>}
+                            />
+                            
                         })}
     
                         {privateRoutes.map((route, index) => {

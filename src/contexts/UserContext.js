@@ -7,7 +7,6 @@ export const UserProvider = ({ children }) => {
 
     const [loading, setLoading] = useState(true)
     const [userData, setUserData] = useState({})
-
     const fetchUserData = (path) => {
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId');
@@ -16,12 +15,10 @@ export const UserProvider = ({ children }) => {
                 .then(res => {
                     setUserData(prevState => ({
                         ...prevState,
-                        data: res.data 
+                        data: res.data.userData
                     }))
                     setLoading(false)
-                    // setTimeout(() => {
-                    //     setLoading(false)
-                    // }, 10000)
+
                 })
                 .catch(error => {
                     console.error(`Tạm thời không thể truy cập vào đường dẫn ${path}:`, error)
