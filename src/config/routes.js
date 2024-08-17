@@ -2,6 +2,7 @@ const routes = {
     home: '/',
     about: '/about',
     hotelRooms: '/hotel-rooms',
+    roomDetail: ':name/room-detail',
     hotelRules: '/hotel-rules',
     contact: '/contact',
 

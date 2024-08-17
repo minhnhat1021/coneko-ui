@@ -1,7 +1,8 @@
 
 import Home from '~/pages/Home';
 import About from '~/pages/About';
-import HotelRooms from '~/pages/HotelRooms/HotelRooms';
+import HotelRooms from '~/pages/HotelRooms';
+import HotelDetail from '~/pages/RoomDetail';
 import HotelRules from '~/pages/HotelRules';
 import Contact from '~/pages/Contact/Contact';
 
@@ -27,6 +28,7 @@ import config from '~/config';
 const publicRoutes = [
     { path: config.routes.home, component: Home},
     { path: config.routes.hotelRooms, component: HotelRooms},
+    { path: config.routes.roomDetail, component: HotelDetail},
     { path: config.routes.hotelRules, component: HotelRules},
     { path: config.routes.contact, component: Contact},
 

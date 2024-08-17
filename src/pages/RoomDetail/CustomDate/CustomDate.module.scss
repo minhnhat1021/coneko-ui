@@ -1,0 +1,21 @@
+.wrapper{
+    
+    color: var(--primary-text-3); 
+    border: 1px solid #D89B1C;
+    border-radius: 4px; 
+    font-size: 16px; 
+    
+    &::-webkit-calendar-picker-indicator {
+        padding: 5px;
+        color: white; 
+        background-color: #D89B1C; 
+        border-radius: 50%; 
+    }
+    caret-color: transparent; // ẩn con trỏ
+
+}
+.check-in-date{
+    width: 200%;
+    padding: 10px;   
+    cursor: pointer;
+}

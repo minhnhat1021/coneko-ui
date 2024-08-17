@@ -78,7 +78,6 @@ function Header() {
     const [userData, setUserData] = useState({})
     
     const [token, setToken] = useState(localStorage.getItem('token'))
-    console.log(userData)
     useEffect(() => {
         axios.post('http://localhost:5000/api/user', {
             token
