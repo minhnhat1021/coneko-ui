@@ -1,5 +1,6 @@
 .wrapper{
-    
+    display: flex;
+    justify-content: center;
     color: var(--primary-text-3); 
     border: 1px solid #D89B1C;
     border-radius: 4px; 
@@ -12,10 +13,12 @@
         border-radius: 50%; 
     }
     caret-color: transparent; // ẩn con trỏ
+    
 
 }
 .check-in-date{
-    width: 200%;
+    flex: 1;
+    width: 100%;
     padding: 10px;   
     cursor: pointer;
 }

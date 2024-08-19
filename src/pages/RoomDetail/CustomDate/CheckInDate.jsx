@@ -9,36 +9,42 @@ import styles from './CustomDate.module.scss'
 
 const cx = classNames.bind(styles)
 
-const CustomInput = forwardRef(({ value, onClick, onFocus }, ref) => (
-  <input
-      ref={ref}         
-      value={value}     
-      onClick={onClick} 
-      onFocus={onFocus} 
-      placeholder="Ngày trả phòng"  
-      className={cx('check-in-date' )}     
-    />
-));
 
-function CheckInDate() {
 
-const [startDate, setStartDate] = useState();
-console.log(startDate)
+function CheckInDate({ dataCheckIn }) {
+
+    const [startDate, setStartDate] = useState()
+
+    const handleBackspaceInput = (e) => {
+        if(e.keyCode === 8) {
+            setStartDate(null)
+        }
+    }
+    
+    const CustomInput = forwardRef(({ value, onClick }, ref) => (
+        <input
+            ref={ref}         
+            value={value}    
+            onClick={onClick} 
+            onKeyDown={(e) => handleBackspaceInput(e)}
+            placeholder="Ngày nhận phòng"  
+            className={cx('check-in-date' )}     
+        />
+    ))
+    const handleOnchange = (date) => {
+        setStartDate(date)
+        dataCheckIn(date)
+    }
     return (
 
-      <div className={cx('wrapper')}>
-          <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              dateFormat="dd/MM/yyyy"
-              className={cx('check-in-date' )}
-              placeholderText="Ngày trả phòng"
-              customInput={
-                  <CustomInput />
-              }
-            
-          />
-      </div>
+        <div className={cx('wrapper')}>
+            <DatePicker
+                selected={startDate}
+                onChange={(date) => handleOnchange(date)}
+                dateFormat="dd/MM/yyyy"
+                customInput={<CustomInput />}
+            />
+        </div>
     );
 }
 

@@ -3,6 +3,7 @@ const routes = {
     about: '/about',
     hotelRooms: '/hotel-rooms',
     roomDetail: ':name/room-detail',
+    roomBooking: ':name/room-booking',
     hotelRules: '/hotel-rules',
     contact: '/contact',
 

@@ -9,45 +9,42 @@ import styles from './CustomDate.module.scss'
 
 const cx = classNames.bind(styles)
 
-const CustomInput = forwardRef(({ value, onClick, onFocus, onKeyDown }, ref) => (
-    <input
-        ref={ref}         
-        value={value}     
-        onClick={onClick} 
-        onFocus={onFocus} 
-        onKeyDown={onKeyDown}
-        placeholder="Ngày trả phòng"  
-        className={cx('check-in-date' )}     
-      />
-));
 
-function CheckOutDate() {
-  
-    const [startDate, setStartDate] = useState();
-    console.log(startDate)
-    const handleKeyDown = (event) => {
-      // Kiểm tra nếu phím Backspace được nhấn
-      if (event.keyCode === 8) {
-        setStartDate(null);  // Đặt lại giá trị startDate về null
-      }
-    };
+
+function CheckOutDate({ dataCheckOut }) {
+
+    const [endDate, setEndDate] = useState()
+    
+    const handleBackspaceInput = (e) => {
+        if(e.keyCode === 8) {
+            setEndDate(null)
+        }
+    }
+    const CustomInput = forwardRef(({ value, onClick }, ref) => (
+        <input
+            ref={ref}         
+            value={value}    
+            onClick={onClick} 
+            onKeyDown={(e) => handleBackspaceInput(e)}
+            placeholder="Ngày trả phòng"  
+            className={cx('check-in-date' )}     
+        />
+    ))
+    const handleOnchange = (date) => {
+        setEndDate(date)
+        dataCheckOut(date)
+    }
     return (
 
-      <div className={cx('wrapper')}>
-          <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              dateFormat="dd/MM/yyyy"
-              className={cx('check-in-date' )}
-              placeholderText="Ngày trả phòng"
-              customInput={
-                  <CustomInput 
-                    onKeyDown={handleKeyDown}
-                  />
-              }
+        <div className={cx('wrapper')}>
+            <DatePicker
+                selected={endDate}
+                onChange={(date) => handleOnchange(date)}
+                dateFormat="dd/MM/yyyy"
+                customInput={<CustomInput />}
             
-          />
-      </div>
+            />
+        </div>
     );
 }
 

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
 import CheckInDate from './CustomDate/CheckInDate';
@@ -12,7 +13,8 @@ const cx = classNames.bind(styles)
 
 
 function HotelRooms() {
-const { name } = useParams();
+    const { name } = useParams();
+    const navigate = useNavigate();
       
     const [room, setRoom] = useState({})
     useEffect(() => {
@@ -22,6 +24,33 @@ const { name } = useParams();
             })
             .catch(err => console.error(err) )
     }, [])
+    const [startDate, setStartDate] = useState()
+    const [endDate, setEndDate] = useState()
+    
+    // Tính toán thời gian đặt phòng trong bao nhiêu ngày
+    const calculateDaysBetween = (startDate, endDate) => {
+        const diffTime = Math.abs(startDate - endDate)
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+    
+        return diffDays;
+    }
+    
+    const dataCheckIn = (data) => {
+        setStartDate(data)
+    }
+    const dataCheckOut = (data) => {
+        setEndDate(data)
+    }
+    
+    const handleBooking = () => {
+        const days = calculateDaysBetween(startDate, endDate);
+        const totalPrice = days * room.price;
+      
+        navigate(`/${room.name}/room-booking`, {
+          state: { startDate, endDate, days, totalPrice }
+        });
+      };
+    
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -65,21 +94,21 @@ const { name } = useParams();
                     <div className={cx('room__star-rating')}>
                         {[...Array(Number(room.rating || 5))].map((a, index) => (
                             <i key={index} className={cx('fa-solid fa-star')}></i>
-                        ))}
+                       ))}
                     </div>
                     <div className={cx('room__price')}>
                         {`${room.price} ₫/ đêm`}
                     </div>
-                    <form className={cx('room__booking-form')}>
+                    <form className={cx('room__booking-form')} >
                         <div className={cx('booking__form-item')}>
                             <label htmlFor='check-in-date'>Ngày nhận phòng</label>
-                            <CheckInDate />
+                            <CheckInDate dataCheckIn={dataCheckIn}/>
                         </div>
                         <div className={cx('booking__form-item')}>
                             <label htmlFor='check-in-date'>Ngày trả phòng</label>
-                            <CheckOutDate />
+                            <CheckOutDate dataCheckOut={dataCheckOut}/>
                         </div>
-                        <button>Đặt phòng</button>
+                        <button onClick={handleBooking} className={cx('booking__form-btn')} >Đặt phòng</button>
                     </form>
                 </div>
             </div>
