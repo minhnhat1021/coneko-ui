@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'
+import * as loadService from '~/apiServices/loadService'
 
 import CheckInDate from './CustomDate/CheckInDate';
 import CheckOutDate from './CustomDate/CheckOutDate';
@@ -19,32 +19,23 @@ function HotelRooms() {
     const [room, setRoom] = useState({})
     const [bookedDates, setBookedDates] = useState([])
     useEffect(() => {
-        const fetchRoomData = async () => {
-            try {
-                // Fetch dữ liệu từ API
-                const response = await axios.get(`http://localhost:5000/api/room/${name}/room-detail`);
-                const currentUsers = response.data.data.currentUsers;
-                
-                const xyzData = currentUsers.map(user => ({
-                    start: new Date(user.checkInDate),
-                    end: new Date(user.checkOutDate)
-                }));
-
-                // Cập nhật state
-                setBookedDates(xyzData);
-                setRoom(response.data.data);
-                
-            } catch (err) {
-                console.error(err);
-            }
-        };
-
-        fetchRoomData();
         
+        const fetchApi = async () => {
+            const roomData = await loadService.roomDetail(name)
+            const currentUsers = roomData.currentUsers
+            const dateData = currentUsers.map(user => ({
+                start: new Date(user.checkInDate),
+                end: new Date(user.checkOutDate),
+            }))
+
+            setRoom(roomData)
+            setBookedDates(dateData)
+        }
+                
+        fetchApi();
     }, [])
     const [startDate, setStartDate] = useState()
     const [endDate, setEndDate] = useState()
-    
     // Tính toán thời gian đặt phòng trong bao nhiêu ngày
     const calculateDaysBetween = (startDate, endDate) => {
         const diffTime = Math.abs(startDate - endDate)
@@ -52,7 +43,6 @@ function HotelRooms() {
     
         return diffDays;
     }
-    
     const dataCheckIn = (data) => {
         setStartDate(data)
     }
@@ -126,7 +116,7 @@ function HotelRooms() {
                             <label htmlFor='check-in-date'>Ngày trả phòng</label>
                             <CheckOutDate dataCheckOut={dataCheckOut} startDate={startDate} bookedDates={bookedDates}/>
                         </div>
-                        <button onClick={handleBooking} className={cx('booking__form-btn')} >Đặt phòng</button>
+                        <button onClick={handleBooking} className={cx('booking__form-btn', {available : startDate && endDate})} >Đặt phòng</button>
                     </form>
                 </div>
             </div>

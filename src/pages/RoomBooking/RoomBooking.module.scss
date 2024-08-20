@@ -15,21 +15,109 @@
     gap: 10px;
     column-gap: 30px;
     padding: 10px 0;
+    background-color: #fff;
     border-radius: 12px;
-    box-shadow: 0px 11.154px 51.551px 0px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
 
+/* Wrap__info ------------------------------------------------------------------------------------*/
+.wrap__info {
+    padding: 20px;
+}
 
-/* Header ------------------------------------------------------------------------------------*/
-.room__image{
-    width: 100%;
-    grid-column: 1 / 3;
-    img{
-        width: 100%;
+/* Booking__info ------------------------------------------------------------------------------------*/
+.booking__info {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    .booking__info-title {
+        margin-bottom: 20px;
+        color: var(--primary-text-3);
+        font-size: 2.2rem;
+        font-weight: 700;
+    }
+    p{  
+        padding: 6px 0;
+        color: #666;
+        font-size: 1.8rem;
+
+        span{
+            color: #27AE60;
+            font-weight: 700;
+        }
     }
 }
 
-/* Body ------------------------------------------------------------------------------------*/
+/* User__info ------------------------------------------------------------------------------------*/
+.user__info {
+    .user__info-title {
+        margin-bottom: 20px;
+        color: var(--primary-text-3);
+        font-size: 2.2rem;
+        font-weight: 700;
+    }
+    p{
+        padding: 6px 0;
+        color: #666;
+        font-size: 1.8rem;
+
+        span{
+            color: #27AE60;
+            font-weight: 700;
+        }
+    }
+}
+
+/* Room__detail ------------------------------------------------------------------------------------*/
+.room__detail {
+    margin-bottom: 20px;
+    padding: 20px;
+    .room__detail-title {
+        margin-bottom: 10px;
+        color: var(--primary-text-3);
+        font-size: 2rem;
+        font-weight: 700;
+    }
+    .payment__btn{
+        width: 100%;
+        height: 44px;
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+        color: var(--primary-text-3);
+        background: linear-gradient(135deg, #efca00, #FFFACD);
+        border-radius: 4px;
+        border: 1.5px solid #ddd;
+        font-size: 1.6rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    
+}
+.room__image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.room__detail-content{
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    p{
+        padding: 3px 0;
+        color: #666;
+        font-size: 1.6rem;
+    }
+    .room__star-rating  {
+        margin: 10px 0;
+        color: var(--primary-text-2);
+    
+    }
+}
+
+
+
+
 

@@ -12,12 +12,12 @@ const cx = classNames.bind(styles)
 
 
 function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
-    console.log(bookedDates)
     const [startDate, setStartDate] = useState()
     
     const handleBackspaceInput = (e) => {
         if(e.keyCode === 8) {
             setStartDate(null)
+            dataCheckIn(null)
         }
     }   
 

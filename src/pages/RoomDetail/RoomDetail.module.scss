@@ -107,4 +107,10 @@
     font-size: 1.6rem;
     font-weight: 600;
     cursor: pointer;
+    opacity: 0.5;
+    pointer-events: none;
+}
+.available{
+    opacity: 1;
+    pointer-events: auto;
 }

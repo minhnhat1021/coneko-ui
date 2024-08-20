@@ -18,6 +18,8 @@ function CheckOutDate({ dataCheckOut, startDate , bookedDates }) {
     const handleBackspaceInput = (e) => {
         if(e.keyCode === 8) {
             setEndDate(null)
+            dataCheckOut(null)
+
         }
     }
     const CustomInput = forwardRef(({ value, onClick }, ref) => (
