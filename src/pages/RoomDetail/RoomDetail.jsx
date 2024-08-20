@@ -15,14 +15,32 @@ const cx = classNames.bind(styles)
 function HotelRooms() {
     const { name } = useParams();
     const navigate = useNavigate();
-      
+    
     const [room, setRoom] = useState({})
+    const [bookedDates, setBookedDates] = useState([])
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/room/${name}/room-detail`)
-            .then(res => {
-                setRoom(res.data.data)
-            })
-            .catch(err => console.error(err) )
+        const fetchRoomData = async () => {
+            try {
+                // Fetch dữ liệu từ API
+                const response = await axios.get(`http://localhost:5000/api/room/${name}/room-detail`);
+                const currentUsers = response.data.data.currentUsers;
+                
+                const xyzData = currentUsers.map(user => ({
+                    start: new Date(user.checkInDate),
+                    end: new Date(user.checkOutDate)
+                }));
+
+                // Cập nhật state
+                setBookedDates(xyzData);
+                setRoom(response.data.data);
+                
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchRoomData();
+        
     }, [])
     const [startDate, setStartDate] = useState()
     const [endDate, setEndDate] = useState()
@@ -102,11 +120,11 @@ function HotelRooms() {
                     <form className={cx('room__booking-form')} >
                         <div className={cx('booking__form-item')}>
                             <label htmlFor='check-in-date'>Ngày nhận phòng</label>
-                            <CheckInDate dataCheckIn={dataCheckIn}/>
+                            <CheckInDate dataCheckIn={dataCheckIn} endDate={endDate} bookedDates={bookedDates}/>
                         </div>
                         <div className={cx('booking__form-item')}>
                             <label htmlFor='check-in-date'>Ngày trả phòng</label>
-                            <CheckOutDate dataCheckOut={dataCheckOut}/>
+                            <CheckOutDate dataCheckOut={dataCheckOut} startDate={startDate} bookedDates={bookedDates}/>
                         </div>
                         <button onClick={handleBooking} className={cx('booking__form-btn')} >Đặt phòng</button>
                     </form>

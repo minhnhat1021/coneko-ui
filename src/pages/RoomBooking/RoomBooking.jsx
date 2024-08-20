@@ -36,6 +36,7 @@ function HotelRooms() {
     // Lấy thông tin mà khách đã chọn khi đặt phòng
     const location = useLocation();
     const { startDate, endDate, days, totalPrice } = location.state
+    
     // Thực hiện thanh toán phòng
     const handlePayment = (e) => {
         e.preventDefault()
@@ -51,7 +52,7 @@ function HotelRooms() {
 
             .then((res) => {console.log(res.data)})
 
-            .catch((err) => console.error(err.response.data.data.message) )  
+            .catch((err) => console.error(err.response.data.data?.message) )  
     }
     
     

@@ -11,10 +11,10 @@ const cx = classNames.bind(styles)
 
 
 
-function CheckOutDate({ dataCheckOut }) {
+function CheckOutDate({ dataCheckOut, startDate , bookedDates }) {
 
     const [endDate, setEndDate] = useState()
-    
+
     const handleBackspaceInput = (e) => {
         if(e.keyCode === 8) {
             setEndDate(null)
@@ -34,6 +34,17 @@ function CheckOutDate({ dataCheckOut }) {
         setEndDate(date)
         dataCheckOut(date)
     }
+    const today = new Date()
+    const tomorrow = new Date()
+    tomorrow.setDate(today.getDate() + 1)
+    
+    let nextDay = tomorrow
+
+    if (startDate) {
+        nextDay = new Date(startDate);
+        nextDay.setDate(startDate.getDate() + 1)
+    }
+
     return (
 
         <div className={cx('wrapper')}>
@@ -41,6 +52,8 @@ function CheckOutDate({ dataCheckOut }) {
                 selected={endDate}
                 onChange={(date) => handleOnchange(date)}
                 dateFormat="dd/MM/yyyy"
+                minDate={nextDay}
+                excludeDateIntervals={bookedDates}
                 customInput={<CustomInput />}
             
             />

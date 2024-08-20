@@ -2,7 +2,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './CustomDate.css'
 
-import React, { useState, forwardRef } from "react";
+import React, { useState, useEffect, forwardRef } from "react";
 
 import classNames from 'classnames/bind'
 import styles from './CustomDate.module.scss'
@@ -11,16 +11,16 @@ const cx = classNames.bind(styles)
 
 
 
-function CheckInDate({ dataCheckIn }) {
-
+function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
+    console.log(bookedDates)
     const [startDate, setStartDate] = useState()
-
+    
     const handleBackspaceInput = (e) => {
         if(e.keyCode === 8) {
             setStartDate(null)
         }
-    }
-    
+    }   
+
     const CustomInput = forwardRef(({ value, onClick }, ref) => (
         <input
             ref={ref}         
@@ -35,6 +35,13 @@ function CheckInDate({ dataCheckIn }) {
         setStartDate(date)
         dataCheckIn(date)
     }
+    const today = new Date()
+
+    let prevDay = null
+    if(endDate){
+        prevDay = new Date(endDate)
+        prevDay.setDate(endDate.getDate() - 1)
+    }
     return (
 
         <div className={cx('wrapper')}>
@@ -42,6 +49,9 @@ function CheckInDate({ dataCheckIn }) {
                 selected={startDate}
                 onChange={(date) => handleOnchange(date)}
                 dateFormat="dd/MM/yyyy"
+                minDate={today}
+                maxDate={prevDay}
+                excludeDateIntervals={bookedDates}
                 customInput={<CustomInput />}
             />
         </div>
