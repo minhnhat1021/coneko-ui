@@ -51,13 +51,13 @@ function HotelRooms() {
     }
     
     const handleBooking = () => {
-        const days = calculateDaysBetween(startDate, endDate);
-        const totalPrice = days * room.price;
+        const days = calculateDaysBetween(startDate, endDate)
+        const totalPrice = days * room.price
       
         navigate(`/${room.name}/room-booking`, {
           state: { startDate, endDate, days, totalPrice }
-        });
-      };
+        })
+      }
     
     return ( 
         <div className={cx('wrapper')}>

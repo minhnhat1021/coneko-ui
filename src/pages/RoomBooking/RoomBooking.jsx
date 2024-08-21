@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import * as loadService from '~/apiServices/loadService'
 import * as roomService from '~/apiServices/roomService'
@@ -13,6 +13,8 @@ const cx = classNames.bind(styles)
 
 function HotelRooms() {
     const { name } = useParams();
+    const navigate = useNavigate()
+
     // lấy ra thông tin phòng
     const [room, setRoom] = useState({})
     const [user, setUser] = useState({})
@@ -32,7 +34,7 @@ function HotelRooms() {
 
 
     // Lấy thông tin mà khách đã chọn khi đặt phòng
-    const location = useLocation();
+    const location = useLocation()
     const { startDate, endDate, days, totalPrice } = location.state
 
     const formattedDate = (date) => {
@@ -50,6 +52,9 @@ function HotelRooms() {
                 totalPrice,
                 roomId: room._id,
                 userId: user._id
+            })
+            navigate('/payment-successful', {
+                state: { startDate, endDate, days, totalPrice }
             })
         }
                 
@@ -96,10 +101,9 @@ function HotelRooms() {
                     </div>
 
                     <button className={cx('payment__btn')} onClick={handlePayment}>Thanh toán</button>
+                    
                 </div>
 
-                
-                
             </div>
         </div>
         

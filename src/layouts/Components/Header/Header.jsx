@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+import * as loadService from '~/apiServices/loadService'
 
 import config from '~/config';
 
@@ -75,15 +76,15 @@ const Menu_User = [
 function Header() {
 
     // Lấy thông tin người dùng truyền về header
-    const [userData, setUserData] = useState({})
-    
+    const [user, setUser] = useState({})
     const [token, setToken] = useState(localStorage.getItem('token'))
     useEffect(() => {
-        axios.post('http://localhost:5000/api/user', {
-            token
-        }) 
-        .then(res => {setUserData(res.data)} )
-        .catch(err => console.error(err) )
+        const fetchApi = async () => {
+            const userData = await loadService.userDetail(token)
+            setUser(userData)
+        }
+                
+        fetchApi()
     }, [token])
     
     // logic hiện loginModal hay registerModal
@@ -191,7 +192,7 @@ function Header() {
                 {   !!token ? (
                         <>
                             <User 
-                                userData={userData}
+                                user={user}
                                 account={handleAccount} 
                                 transactionList={handleTransactionList}
                                 bookingHistory={handleBookingHistory} 

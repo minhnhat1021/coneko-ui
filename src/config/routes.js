@@ -4,6 +4,7 @@ const routes = {
     hotelRooms: '/hotel-rooms',
     roomDetail: ':name/room-detail',
     roomBooking: ':name/room-booking',
+    paymentSuccessful: '/payment-successful',
     hotelRules: '/hotel-rules',
     contact: '/contact',
 
@@ -30,7 +31,6 @@ const routes = {
 
 
     checkout: '/checkout',
-    paymentSuccessful: '/payment-successful'
 }
 
 export default routes;

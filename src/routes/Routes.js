@@ -4,6 +4,7 @@ import About from '~/pages/About';
 import HotelRooms from '~/pages/HotelRooms';
 import RoomDetail from '~/pages/RoomDetail';
 import RoomBooking from '~/pages/RoomBooking';
+import PaymentSuccessful from '~/pages/PaymentSuccessful'
 import HotelRules from '~/pages/HotelRules';
 import Contact from '~/pages/Contact/Contact';
 
@@ -17,7 +18,6 @@ import { Admin, UserList, StatisticsRoom, RoomList, BannedUsers, AvailableRooms,
 
 
 import Checkout from '~/pages/Checkout';
-import PaymentSuccessful from '~/pages/PaymentSuccessful';
 
 import { HeaderOnly, UserLayout, UserManagementLayout, RoomManagementLayout} from '~/layouts'
 
@@ -31,12 +31,13 @@ const publicRoutes = [
     { path: config.routes.hotelRooms, component: HotelRooms},
     { path: config.routes.roomDetail, component: RoomDetail},
     { path: config.routes.roomBooking, component: RoomBooking},
+    { path: config.routes.paymentSuccessful, component: PaymentSuccessful},
+
     { path: config.routes.hotelRules, component: HotelRules},
     { path: config.routes.contact, component: Contact},
 
 
     { path: config.routes.checkout, component: Checkout, layout: HeaderOnly},
-    { path: config.routes.paymentSuccessful, component: PaymentSuccessful},
 ]
 const privateRoutes = [
     { path: config.routes.about, component: About},
