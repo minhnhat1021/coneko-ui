@@ -17,6 +17,10 @@ function PaymentSuccessful() {
 
     const { startDate, endDate, days, totalPrice } = location.state
     console.log(startDate, endDate, days, totalPrice)
+
+    const formattedDate = (date) => {
+        return date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()
+    }
     // const [room, setRoom] = useState({})
 
     // const [token, setToken] = useState(localStorage.getItem('token'))
@@ -56,7 +60,7 @@ function PaymentSuccessful() {
                     <div className={cx('body__footer')}>
                         <div className={cx('body__footer-item')}>
                             <p>Ngày bạn đã đặt phòng</p>
-                            <span>16 August 2020</span>
+                            <span>{formattedDate(startDate)}</span>
                         </div>
                         <div className={cx('body__footer-item')}>
                             <p>Thời gian</p>
@@ -64,11 +68,11 @@ function PaymentSuccessful() {
                         </div>
                         <div className={cx('body__footer-item')}>
                             <p>Số lượng người</p>
-                            <span>16 August 2020</span>
+                            <span>{formattedDate(endDate)}</span>
                         </div>
                         <div className={cx('body__footer-item')}>
-                            <p>Thông tin thanh toán</p>
-                            <span>{totalPrice}</span>
+                            <p>Tổng giá</p>
+                            <span>{Number(totalPrice).toLocaleString('vi-VN')}</span>
                         </div>
                         <div className={cx('body__footer-item')}>
                             <p>Phí hủy phòng</p>

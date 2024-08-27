@@ -65,43 +65,71 @@ function HotelRooms() {
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className={cx('wrap__info')}>
+                    
+                    <div className={cx('room__detail')}>
+                        <img 
+                            className={cx('room__image')}
+                            src={`http://localhost:5000/images/roomImg/${room.image}`}
+                            alt='{{room.name}}'
+                        />
+                        <p >Tên phòng:<span>{room.name}</span></p>
+                        <p >Mô tả: <span>{room.desc}</span></p>
+                        <p >Tổng quan: <span>{room.overView}</span></p>
+                        <div className={cx('room__star-rating')}>
+                            {[...Array(Number(room.rating || 5))].map((_, index) => (
+                                <i key={index} className={cx('fa-solid fa-star')}></i>
+                            ))}
+                        </div>
+                        <p >Giá: <span>{`${Number(room.price).toLocaleString('vi-VN')} ₫/ đêm`}</span></p>
+                    </div>
                     <div className={cx('user__info')}>
                         <p className={cx('user__info-title')}>Thông tin khách hàng</p>
                         <p >Tên khách hàng: <span>{user.fullName}</span></p>
                         <p >Email: <span>{user.email}</span></p>
                         <p >Số điện thoại: <span>[Số điện thoại khách hàng]</span></p>
                     </div>
-                    <div className={cx('booking__info')}>
-                        <p className={cx('booking__info-title')}>Chi tiết đặt phòng</p>
-                        <p >Thời gian nhận phòng: <span>{`12:00 - ${formattedDate(startDate)}`}</span></p>
-                        <p >Thời gian trả phòng: <span>{`10:00 - ${formattedDate(endDate)}`}</span></p>
-                        <p >Số ngày đặt: <span>{days}</span></p>
-                        <p >Tổng số tiền: <span>{totalPrice} ₫</span> </p>
-                    </div>
+                    
                 </div>
-
-                <div className={cx('room__detail')}>
-                    <p className={cx('room__detail-title')}>Thông tin phòng</p>
-                    <a href='/hotel-rooms/' className={cx('room__image')}>
-                        <img
-                            src={`http://localhost:5000/images/roomImg/${room.image}`}
-                            alt='{{room.name}}'
-                        />
-                    </a>
-                    <div className={cx('room__detail-content')}>
-                        <p >Tên phòng: {room.name}</p>
-                        <p >Mô tả: {room.desc}</p>
-                        <p >Tổng quan: {room.overView}</p>
-                        <div className={cx('room__star-rating')}>
-                            {[...Array(Number(room.rating || 5))].map((_, index) => (
-                                <i key={index} className={cx('fa-solid fa-star')}></i>
-                            ))}
-                        </div>
-                        <p >Giá: {`${room.price} ₫/ đêm`}</p>
+                
+                <div className={cx('booking__info')}>
+                    <div className={cx('booking__time-list')}>
+                        <p className={cx('booking__time-title')}>Chi tiết đặt phòng</p>
+                        <p className={cx('booking__time')} >
+                            Ngày nhận phòng: 
+                            <span className={cx('booking__time-info')}>{formattedDate(startDate)}</span>
+                        </p>
+                        <p className={cx('booking__time')} >
+                            Ngày trả phòng: 
+                            <span className={cx('booking__time-info')}>{formattedDate(endDate)}</span>
+                        </p>
+                        <p className={cx('booking__time')} >
+                            Thời gian 
+                            <span className={cx('booking__time-info')}>12:00pm - 10:00am</span>
+                        </p>
+                        <p className={cx('booking__time')} >
+                            Số ngày đặt: 
+                            <span className={cx('booking__time-info')}>{days}</span>
+                        </p>
+                    </div>
+                    <div className={cx('booking__amenities-list')}>
+                        <p className={cx('booking__amenities-title')}>Tiện nghi đi kèm</p>
+                        <p className={cx('booking__amenities')} >Coffee service <span >$12.00</span></p>
+                        <p className={cx('booking__amenities')} >bữa sáng <span >$12.00</span></p>
+                        <p className={cx('booking__amenities')} >netflix <span >$12.00</span></p>
                     </div>
 
                     <button className={cx('payment__btn')} onClick={handlePayment}>Thanh toán</button>
-                    
+
+                    <div className={cx('booking__price-list')}>
+                        <p className={cx('booking__price-title')}>Chi tiết giá cả</p>
+                        <p className={cx('booking__price')} > 
+                            <span>{Number(room.price).toLocaleString('vi-VN')} x {days}</span>
+                            <span>{Number(totalPrice).toLocaleString('vi-VN')} ₫</span>
+                        </p>
+                        {/* <p className={cx('booking__price')} >bữa sáng <span >$12.00</span></p>
+                        <p className={cx('booking__price')} >netflix <span >$12.00</span></p> */}
+                    </div>
+
                 </div>
 
             </div>

@@ -5,7 +5,7 @@ import styles from './PersonalSecurity.module.scss'
 const cx = classNames.bind(styles)
 
 function Personal({ userData }) {
-    const user = userData.data
+    const user = userData.data.data
     return ( 
         <div className={cx('wrapper')}>
             <header className={cx('header')}>

@@ -47,7 +47,7 @@ function HotelRooms() {
                                     {room.overView}
                                 </div>
                                 <div className={cx('room__price')}>
-                                    {room.price}
+                                    {Number(room.price).toLocaleString('vi-VN')}
                                 </div>
                             </footer>
                         </Link>
