@@ -12,7 +12,6 @@ const cx = classNames.bind(styles)
 
 
 function CheckOutDate({ dataCheckOut, startDate , bookedDates }) {
-
     const [endDate, setEndDate] = useState()
 
     const handleBackspaceInput = (e) => {
@@ -33,8 +32,11 @@ function CheckOutDate({ dataCheckOut, startDate , bookedDates }) {
         />
     ))
     const handleOnchange = (date) => {
-        setEndDate(date)
-        dataCheckOut(date)
+        const vietnamTimezoneOffset = 7 * 60
+        const vietnamDate = new Date(date.getTime() + vietnamTimezoneOffset * 60 * 1000)
+        vietnamDate.setHours(10, 0, 0, 0)
+        setEndDate(vietnamDate)
+        dataCheckOut(vietnamDate)
     }
     const today = new Date()
     const tomorrow = new Date()

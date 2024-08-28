@@ -36,10 +36,9 @@ function HotelRooms() {
     // Lấy thông tin mà khách đã chọn khi đặt phòng
     const location = useLocation()
     const { startDate, endDate, days, totalPrice } = location.state
-
     const formattedDate = (date) => {
         return date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()
-    }    
+    }  
     // Thực hiện thanh toán phòng
     const handlePayment = (e) => {
         e.preventDefault()

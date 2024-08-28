@@ -13,12 +13,33 @@ const cx = classNames.bind(styles)
 
 function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
     const [startDate, setStartDate] = useState()
+    const [excludeDate, setExcludeDate] = useState()
+    const convertDateStart = (date) => {
+        const newDate = new Date(date)
+        newDate.setHours(0, 0, 0, 0)
+        return newDate;
+    }
+    const convertDateEnd = (date) => {
+
+        const newDate = new Date(date)
+        newDate.setDate(newDate.getDate() - 1)
+        newDate.setHours(0, 0, 0, 0)
+        return newDate
+    }
+    
+    useEffect(() => {
+        const updatedExcludeDate = bookedDates.map(user => ({
+            start: convertDateStart(user.start),
+            end: convertDateEnd(user.end) })
+        )
+        setExcludeDate(updatedExcludeDate)
+    }, [bookedDates])
     
     const handleBackspaceInput = (e) => {
         if(e.keyCode === 8) {
             setStartDate(null)
             dataCheckIn(null)
-        }
+        }   
     }   
 
     const CustomInput = forwardRef(({ value, onClick }, ref) => (
@@ -31,10 +52,17 @@ function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
             className={cx('check-in-date' )}     
         />
     ))
+
+    // Handle khi chọn lịch
     const handleOnchange = (date) => {
-        setStartDate(date)
-        dataCheckIn(date)
+        const vietnamTimezoneOffset = 7 * 60
+        const vietnamDate = new Date(date.getTime() + vietnamTimezoneOffset * 60 * 1000)
+        vietnamDate.setHours(12, 0, 0, 0)
+        setStartDate(vietnamDate)
+        dataCheckIn(vietnamDate)
     }
+
+    // Min date, max date
     const today = new Date()
 
     let prevDay = null
@@ -51,7 +79,7 @@ function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
                 dateFormat="dd/MM/yyyy"
                 minDate={today}
                 maxDate={prevDay}
-                excludeDateIntervals={bookedDates}
+                excludeDateIntervals={excludeDate}
                 customInput={<CustomInput />}
             />
         </div>

@@ -21,11 +21,13 @@ function HotelRooms() {
     useEffect(() => {
         
         const fetchApi = async () => {
+            
             const roomData = await loadService.roomDetail(name)
+            
             const currentUsers = roomData.currentUsers
             const dateData = currentUsers.map(user => ({
-                start: new Date(user.checkInDate),
-                end: new Date(user.checkOutDate),
+                start: user.checkInDate,
+                end: user.checkOutDate,
             }))
 
             setRoom(roomData)
@@ -36,6 +38,7 @@ function HotelRooms() {
     }, [])
     const [startDate, setStartDate] = useState()
     const [endDate, setEndDate] = useState()
+
     // Tính toán thời gian đặt phòng trong bao nhiêu ngày
     const calculateDaysBetween = (startDate, endDate) => {
         const diffTime = Math.abs(startDate - endDate)
