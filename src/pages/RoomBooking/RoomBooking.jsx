@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios'
+import { useParams, useNavigate } from 'react-router-dom'
+
+import CheckInDate from './CustomDate/CheckInDate'
+import CheckOutDate from './CustomDate/CheckOutDate'
+
 import * as loadService from '~/apiServices/loadService'
-import * as roomService from '~/apiServices/roomService'
 
 
 import classNames from 'classnames/bind'
@@ -13,53 +15,71 @@ const cx = classNames.bind(styles)
 
 function HotelRooms() {
     const { name } = useParams();
-    const navigate = useNavigate()
 
-    // lấy ra thông tin phòng
-    const [room, setRoom] = useState({})
+    // lấy ra thông tin phòng và khách đặt phòng
+    const [token, setToken] = useState(localStorage.getItem('token'))
     const [user, setUser] = useState({})
 
-    const [token, setToken] = useState(localStorage.getItem('token'))
+    const [room, setRoom] = useState({})
+    const [bookedDates, setBookedDates] = useState([])
+
     useEffect(() => {
         const fetchApi = async () => {
             const userData = await loadService.userDetail(token)
             setUser(userData)
 
             const roomData = await loadService.roomDetail(name)
+            const currentUsers = roomData.currentUsers
+            const dateData = currentUsers.map(user => ({
+                start: user.checkInDate,
+                end: user.checkOutDate,
+            }))
+
+            setBookedDates(dateData)
             setRoom(roomData)
         }
-                
         fetchApi()
     }, [])
 
+    // Lấy ngày nhận và trả phòng
+    const [startDate, setStartDate] = useState(null)
+    const [endDate, setEndDate] = useState(null)
+    const [days, setDays] = useState(0)
+    const [totalPrice, setTotalPrice] = useState(0)
 
-    // Lấy thông tin mà khách đã chọn khi đặt phòng
-    const location = useLocation()
-    const { startDate, endDate, days, totalPrice } = location.state
+    // Tính toán thời gian đặt phòng trong bao nhiêu ngày
+    const calculateDaysBetween = (startDate, endDate) => {
+        const diffTime = Math.abs(startDate - endDate)
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+
+        return diffDays;
+    }
+    useEffect(() => {
+        setDays(calculateDaysBetween(startDate, endDate))
+        setTotalPrice(room.price * days)
+    }, [startDate, endDate, days])
+
+    const dataCheckIn = (data) => {
+        setStartDate(data)
+    }
+    const dataCheckOut = (data) => {
+        setEndDate(data)
+    }
+    // Chuyển đổi định dạng ngày
     const formattedDate = (date) => {
         return date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()
-    }  
-    // Thực hiện thanh toán phòng
-    const handlePayment = (e) => {
-        e.preventDefault()
-
-        const fetchApi = async () => {
-            const result = await roomService.payment({
-                startDate,
-                endDate,
-                days,
-                totalPrice,
-                roomId: room._id,
-                userId: user._id
-            })
-            navigate('/payment-successful', {
-                state: { startDate, endDate, days, totalPrice }
-            })
-        }
-                
-        fetchApi()
-    }
+    } 
     
+    // Handle chuyển sang trang checkout
+    const navigate = useNavigate()
+    const handleBooking = (e) => {
+        e.preventDefault()   
+
+        navigate('/checkout', {
+            state: { startDate, endDate, days }
+        })
+    }
+
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -93,13 +113,21 @@ function HotelRooms() {
                 <div className={cx('booking__info')}>
                     <div className={cx('booking__time-list')}>
                         <p className={cx('booking__time-title')}>Chi tiết đặt phòng</p>
+                        <div className={cx('date__select-item')}>
+                            <label htmlFor='check-in-date'>Ngày nhận phòng</label>
+                            <CheckInDate dataCheckIn={dataCheckIn} endDate={endDate} bookedDates={bookedDates}/>
+                        </div>
+                        <div className={cx('date__select-item')}>
+                            <label htmlFor='check-in-date'>Ngày trả phòng</label>
+                            <CheckOutDate dataCheckOut={dataCheckOut} startDate={startDate} bookedDates={bookedDates}/>
+                        </div>
                         <p className={cx('booking__time')} >
                             Ngày nhận phòng: 
-                            <span className={cx('booking__time-info')}>{formattedDate(startDate)}</span>
+                            <span className={cx('booking__time-info')}>{startDate ? formattedDate(startDate) : ''}</span>
                         </p>
                         <p className={cx('booking__time')} >
                             Ngày trả phòng: 
-                            <span className={cx('booking__time-info')}>{formattedDate(endDate)}</span>
+                            <span className={cx('booking__time-info')}>{endDate ? formattedDate(endDate) : ''}</span>
                         </p>
                         <p className={cx('booking__time')} >
                             Thời gian 
@@ -107,7 +135,7 @@ function HotelRooms() {
                         </p>
                         <p className={cx('booking__time')} >
                             Số ngày đặt: 
-                            <span className={cx('booking__time-info')}>{days}</span>
+                            <span className={cx('booking__time-info')}>{startDate && endDate ? days : ''}</span>
                         </p>
                     </div>
                     <div className={cx('booking__amenities-list')}>
@@ -116,17 +144,16 @@ function HotelRooms() {
                         <p className={cx('booking__amenities')} >bữa sáng <span >$12.00</span></p>
                         <p className={cx('booking__amenities')} >netflix <span >$12.00</span></p>
                     </div>
-
-                    <button className={cx('payment__btn')} onClick={handlePayment}>Thanh toán</button>
+                    <button onClick={handleBooking} className={cx('booking__form-btn', {available : startDate && endDate})} >Đặt phòng</button>
+                    
 
                     <div className={cx('booking__price-list')}>
                         <p className={cx('booking__price-title')}>Chi tiết giá cả</p>
                         <p className={cx('booking__price')} > 
-                            <span>{Number(room.price).toLocaleString('vi-VN')} x {days}</span>
-                            <span>{Number(totalPrice).toLocaleString('vi-VN')} ₫</span>
+                            <span>{Number(room.price).toLocaleString('vi-VN')} x {startDate && endDate ? days : '0'}</span>
+                            <span>{Number(startDate && endDate ? totalPrice : 0).toLocaleString('vi-VN')} ₫</span>
                         </p>
-                        {/* <p className={cx('booking__price')} >bữa sáng <span >$12.00</span></p>
-                        <p className={cx('booking__price')} >netflix <span >$12.00</span></p> */}
+                        
                     </div>
 
                 </div>

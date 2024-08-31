@@ -21,7 +21,7 @@ function HotelRooms() {
             <div className={cx('container')}>
                 <div className={cx('room__list')}> 
                     {roomData.map((room, index) => 
-                        <Link to={`/${room.name}/room-detail`} key={index} className={cx('room__item')}>
+                        <Link to={`/${room.name}/room-booking`} key={index} className={cx('room__item')}>
                             <a href='/hotel-rooms/' className={cx('room__image')}>
                                 <img
                                     src={`http://localhost:5000/images/roomImg/${room.image}`}

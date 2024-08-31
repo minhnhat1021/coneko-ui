@@ -2,7 +2,6 @@ const routes = {
     home: '/',
     about: '/about',
     hotelRooms: '/hotel-rooms',
-    roomDetail: ':name/room-detail',
     roomBooking: ':name/room-booking',
     paymentSuccessful: '/payment-successful',
     hotelRules: '/hotel-rules',

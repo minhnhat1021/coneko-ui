@@ -95,11 +95,21 @@
     gap: 20px;
 
     .booking__time-title {
+        width: 100%;
         margin-bottom: 20px;
         color: var(--primary-text-1);
         font-size: 2.2rem;
         font-weight: 700;
     }
+    
+}
+
+.date__select-item{
+    flex: 0 0 calc(100% / 2);
+    max-width: calc((100% / 2) - 10px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     
 }
 .booking__time{
@@ -157,7 +167,7 @@
     }
 }
 /* Booking__payment-btn ------------------------------------------------------------------------------------*/
-.payment__btn{
+.booking__form-btn{
     width: 100%;
     height: 44px;
     display: block;
@@ -168,7 +178,15 @@
     border-radius: 12px;
     font-size: 1.6rem;
     font-weight: 600;
-    cursor: pointer;
+    opacity: 0.7;
+    pointer-events: none;
+
+    &.available{
+        opacity: 1;
+        cursor: pointer;
+        pointer-events: auto;
+
+    }
 }
 .booking__price-list{
     width: 100%;
