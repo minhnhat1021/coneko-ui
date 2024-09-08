@@ -205,7 +205,7 @@ function RoomList() {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default RoomList;
+export default RoomList

@@ -40,8 +40,8 @@ console.log(userData)
             </Menu>
         </aside>
         
-    );
+    )
 }
 
-export default Sidebar;
+export default Sidebar
 

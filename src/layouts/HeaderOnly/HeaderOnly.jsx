@@ -13,7 +13,7 @@ function HeaderOnly({children}) {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default HeaderOnly;
+export default HeaderOnly

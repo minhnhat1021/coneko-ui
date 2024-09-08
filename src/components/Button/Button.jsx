@@ -1,6 +1,6 @@
-import { forwardRef } from 'react';
-import { Link } from 'react-router-dom';
-import classNames from 'classnames/bind';
+import { forwardRef } from 'react'
+import { Link } from 'react-router-dom'
+import classNames from 'classnames/bind'
 import styles from './Button.module.scss'
 
 const cx = classNames.bind(styles)
@@ -33,19 +33,19 @@ const Button = forwardRef(({to,
     let Comp = 'button'
     const handleOnClick = (e) => {
         if (showModal) {
-            showModal(e);
+            showModal(e)
         } else if (account) {
-            account(e);
+            account(e)
         } else if (transactionList) {
-            transactionList(e);
+            transactionList(e)
         } else if (bookingHistory) {
-            bookingHistory(e);
+            bookingHistory(e)
         } else if (payCard) {
-            payCard(e);
+            payCard(e)
         } else if (logout) {
-            logout(e);
+            logout(e)
         } else if (onClick) {
-            onClick(e);
+            onClick(e)
         }
     }
     const props = {
@@ -85,7 +85,7 @@ const Button = forwardRef(({to,
             <span className={cx('title')}>{children}</span>
             {rightIcon && <span className={cx('left-icon')}>{rightIcon}</span>}
         </Comp>
-    );
+    )
 })
 
-export default Button;
+export default Button

@@ -17,7 +17,7 @@ function UserAccount({ userData }) {
     const menu =  query.get('menu') || 'personal'
 
     const getNavLinkClass = (nav, linkName) => {
-        return cx('header__link', { active: query.get('menu') === linkName || (!query.get('menu') && linkName === 'personal') });
+        return cx('header__link', { active: query.get('menu') === linkName || (!query.get('menu') && linkName === 'personal') })
     }
 
     return ( 
@@ -44,7 +44,7 @@ function UserAccount({ userData }) {
             
         </div>
         
-    );
+    )
 }
 
-export default UserAccount;
+export default UserAccount

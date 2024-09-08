@@ -29,7 +29,7 @@ const routes = {
     createRoom: '/admin/create-room',
 
 
-    checkout: '/checkout',
+    checkout: ':name/checkout',
 }
 
 export default routes;

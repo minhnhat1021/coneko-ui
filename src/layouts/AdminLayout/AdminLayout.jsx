@@ -11,7 +11,7 @@ function AdminLayout({ children }) {
             <Header />
             {children}
         </div>
-    );
+    )
 }
 
-export default AdminLayout;
+export default AdminLayout

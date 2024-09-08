@@ -16,7 +16,7 @@ function UserMenuItem({data, account, transactionList, bookingHistory, payCard, 
         >
             {data.title}
         </Button>
-    );
+    )
 }
 
-export default UserMenuItem;
+export default UserMenuItem

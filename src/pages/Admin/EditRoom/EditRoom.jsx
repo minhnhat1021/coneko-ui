@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom'
 
 import axios from 'axios'
 
@@ -21,7 +21,7 @@ function EditRoom() {
     const [rating, setRating] = useState('')
     const [amenities, setAmenities] = useState('')
 
-    const { roomId } = useParams();
+    const { roomId } = useParams()
     
     useEffect(() => {
         axios.get(`http://localhost:5000/api/admin/${roomId}/room-edit`)
@@ -43,7 +43,7 @@ function EditRoom() {
 
     
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         axios.put(`http://localhost:5000/api/admin/${roomId}/room-update`, {
             name,
@@ -151,7 +151,7 @@ function EditRoom() {
                 <button type='submit' className={cx('create__form-btn')}>Cập nhật thông tin phòng</button>
             </form>
         </div>
-    );
+    )
 }
 
-export default EditRoom;
+export default EditRoom

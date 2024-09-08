@@ -12,15 +12,15 @@ const cx = classNames.bind(styles)
 
 function RoomTrash() {
 
-    const [roomData, setRoomData] = useState([]);
+    const [roomData, setRoomData] = useState([])
     useEffect(() => {
         // fetch data from API
         axios.get('http://localhost:5000/api/admin/room-trash')
             .then(response => {
-                setRoomData(response.data);
+                setRoomData(response.data)
             })
             .catch(error => {
-                console.error(error);
+                console.error(error)
             })
     }, [])
     
@@ -28,14 +28,14 @@ function RoomTrash() {
         axios.patch(`http://localhost:5000/api/admin/${id}/room-restore`)
             .then(() => window.location.href='http://localhost:3000/admin/room-trash')
             .catch(error => {
-                console.error(error);
+                console.error(error)
             })
     }
     const handleDelete = (id) => {
         axios.delete(`http://localhost:5000/api/admin/${id}/room-force`)
             .then(() => window.location.href='http://localhost:3000/admin/room-trash')
             .catch(error => {
-                console.error(error);
+                console.error(error)
             })
     }
     return ( 
@@ -94,7 +94,7 @@ function RoomTrash() {
                 )}
             </div>
         </div>
-    );
+    )
 }
 
-export default RoomTrash;
+export default RoomTrash

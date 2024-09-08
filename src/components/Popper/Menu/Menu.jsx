@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import HeadlessTippy from '@tippyjs/react/headless';
+import { useState } from 'react'
+import HeadlessTippy from '@tippyjs/react/headless'
 
 import {Wrapper as PopperWrapper} from '~/components/Popper'
-import MenuItem from './MenuItem';
-import Header from './Header';
+import MenuItem from './MenuItem'
+import Header from './Header'
 
-import classNames from 'classnames/bind';
+import classNames from 'classnames/bind'
 import styles from './Menu.module.scss'
 
 const cx = classNames.bind(styles)
@@ -53,7 +53,7 @@ function Menu({children, Menu_item = [], onChange = defaultFn}) {
         >
             {children}
         </HeadlessTippy>
-     );
+     )
 }
 
-export default Menu;
+export default Menu

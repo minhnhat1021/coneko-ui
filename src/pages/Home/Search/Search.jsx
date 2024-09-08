@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import HeadlessTippy from '@tippyjs/react/headless';
+import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import HeadlessTippy from '@tippyjs/react/headless'
 
 
 import { useDebounce } from '~/hooks'
 import * as searchService from '~/apiServices/searchService'
-import {Wrapper as PopperWrapper} from '~/components/Popper'
 
 import { SearchIconLocation, Loading } from '~/components/Icons'
 
@@ -108,4 +107,4 @@ function Search() {
     )
 }
 
-export default Search;
+export default Search

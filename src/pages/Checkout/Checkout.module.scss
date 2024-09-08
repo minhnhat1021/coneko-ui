@@ -1,0 +1,319 @@
+.wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: var(--header-height);
+    background-color: var(--primary-bg-2);
+    padding: 30px 0;
+}
+.container{
+    width: var(--content-width);
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: calc(55% - 25px) calc(45% - 25px);
+    gap: 10px;
+    column-gap: 50px;
+    color: var(--primary-text-1);
+    overflow: hidden;
+}
+
+.checkout{
+    
+}
+// checkout header ---------------------------------------------------------------------------------------
+.checkout__header{
+    display: flex;
+    align-items: center;
+}
+.checkout__title{
+    margin-left: 20px;
+    color: var(--primary-text-1);
+    font-size: 4.8rem;
+    font-weight: 600;
+    line-height: 56px;
+}
+
+// contact__info ---------------------------------------------------------------------------------------
+.contact__info {
+    margin-top: 30px;
+    padding-bottom: 32px;
+    .contact__info-title {
+        margin-bottom: 8px;
+        font-size: 2.2rem;
+        font-weight: 700;
+    }
+    p{
+        padding: 4px 0;
+        font-size: 1.4rem;
+
+        span{
+            margin-left: 5px;
+            font-size: 1.8rem;
+            font-weight: 500;
+        }
+    }
+}
+
+// payment__info ---------------------------------------------------------------------------------------
+.payment__info{
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 32px;
+    border-top: 1px solid #3B3B3B;
+    .payment__info-title{
+        color: var(--primary-text-1);
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 28px;
+        letter-spacing: 0.4px;
+    }
+}
+
+.payment__info-card{
+    width: 313px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.payment__card-img{
+    width: 97.813px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background-color: var(--primary-bg-1);
+    border: 3px solid var(--primary-bg-1);
+
+    &:hover{
+        background-color: var(--primary-bg-3);
+        border: 3px solid var(--primary-bg-4);
+        cursor: pointer;
+    }
+    img{
+        width: 51.203px;
+        height: 29.777px;
+    }
+    
+}
+
+.payment__info-input{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    input{
+        flex: 0 0 calc(50% - 6px);
+        max-width: calc(50% - 6px);
+        height: 52px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 16px;
+        border: 1px solid var(--primary-bg-3);
+        color: var(--primary-text-1);
+        background: var(--primary-bg-3);
+        border-radius: 12px;
+        font-size: 1.6rem;
+        font-weight: 400;
+        letter-spacing: 0.16px;
+
+    }
+}
+
+// terms ---------------------------------------------------------------------------------------
+.terms{
+    display: flex;
+    margin-top: 20px;
+  
+
+    .terms__checkbox {
+        display: none;
+    }
+      
+    .terms__checkbox + p::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary-bg-4);
+    border: 2px solid #333;
+    border-radius: 4px;
+    margin-right: 10px;
+    vertical-align: middle;
+    cursor: pointer;
+    }
+      
+    .terms__checkbox:checked + p::before {
+    background-color: var(--primary-bg-4);
+    content: '✔'; 
+    font-size: 16px;
+    color: #333; 
+    text-align: center;
+    line-height: 20px;
+    }
+
+    p{
+        color: var(--primary-text-1);
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 26px;
+
+        .terms__link{
+            color: var(--primary-text-1);
+            font-size: 1.6rem;
+            font-weight: 400;
+            line-height: 26px;
+            line-height: 28px;
+            text-decoration-line: underline;
+        }
+    }
+}
+// pay  ---------------------------------------------------------------------------------------
+
+.pay__btn{
+    width: 100%;
+    height: 44px;
+    display: block;
+    text-align: center;
+    margin: 32px 0;
+    color: var(--primary-text-3);
+    background: var(--primary-bg-1);
+    border-radius: 12px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    opacity: 0.7;
+    pointer-events: none;
+
+    &.available{
+        opacity: 1;
+        cursor: pointer;
+        pointer-events: auto;
+
+    }
+}
+
+
+// booking  ---------------------------------------------------------------------------------------
+.booking{
+    height: fit-content;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    padding: 28px;
+    background-color: var(--primary-bg-3);
+    border-radius: 20px;
+    box-shadow: 0px 11.154px 51.551px 0px rgba(0, 0, 0, 0.04);
+
+
+}
+// booking info ---------------------------------------------------------------------------------------
+
+.booking__info{
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+
+    img{
+        width: calc(50% - 10px);
+        height: 180px;
+        border-radius: 8px;
+    }
+}
+.booking__detail{
+    .booking__detail-title{
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 28px; 
+        letter-spacing: 0.4px;
+    }
+
+    .booking__detail-overview{
+        margin-top: 8px;
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 26px; 
+    }
+}
+.booking__detail-menu{
+    margin-top: 20px;
+}
+.booking__detail-item{
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    span{
+        font-size: 1.4rem;
+        font-weight: 400;
+        line-height: 20px; 
+    }
+}
+
+// booking pricing ---------------------------------------------------------------------------------------
+
+.booking__pricing{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.booking__pricing-detail{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+
+    .booking__pricing-title{
+        color: var(--primary-text-1);
+        font-size: 1.6rem;
+        font-weight: 600;
+        line-height: 26px; 
+    }
+
+}
+.booking__pricing-optional{
+    width: 100%;
+    p{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        align-self: stretch;
+        color: var(--primary-text-1);
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 26px; 
+
+        span{
+            font-weight: 600;
+        }
+    }
+
+}
+
+.booking__total{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-self: stretch;
+    padding-top: 20px;
+    border-top: 1px solid var(--primary-bg-1);
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 28px; 
+
+    span{
+        font-weight: 600;
+    }
+}
+
+

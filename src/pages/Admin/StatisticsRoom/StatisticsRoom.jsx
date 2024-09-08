@@ -175,7 +175,7 @@ function StatisticsRoom() {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default StatisticsRoom;
+export default StatisticsRoom

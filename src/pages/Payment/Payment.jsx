@@ -27,7 +27,7 @@ function Payment() {
             thanh toán
             {/* <button className={cx('payment__btn')} onClick={handlePayment}>Thanh toán</button> */}
         </div>
-    );
+    )
 }
 
-export default Payment;
+export default Payment

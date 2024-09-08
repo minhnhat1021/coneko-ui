@@ -14,7 +14,7 @@ function BookedRooms() {
         <div className={cx('wrapper')}>
             Phòng đã đặt
         </div>
-    );
+    )
 }
 
-export default BookedRooms;
+export default BookedRooms

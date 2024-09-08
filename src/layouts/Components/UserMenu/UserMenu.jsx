@@ -1,9 +1,9 @@
-import HeadlessTippy from '@tippyjs/react/headless';
+import HeadlessTippy from '@tippyjs/react/headless'
 
 
-import classNames from 'classnames/bind';
+import classNames from 'classnames/bind'
 import styles from './User.module.scss'
-import UserMenuItem from './UserMenuItem';
+import UserMenuItem from './UserMenuItem'
 
 const cx = classNames.bind(styles)
 
@@ -64,7 +64,7 @@ function User({ user, Menu_User, account, transactionList, bookingHistory, payCa
             </div>
         </HeadlessTippy>
         
-    );
+    )
 }
 
-export default User;
+export default User

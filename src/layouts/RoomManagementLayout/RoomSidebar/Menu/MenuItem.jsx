@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types'
 import React from 'react'
 import {NavLink} from 'react-router-dom'
 
@@ -20,7 +20,7 @@ function MenuItem({title, to , icon, activeIcon, roomData}) {
             
             {(roomData || roomData === 0) && <span className={cx('count')}>{roomData}</span> }
         </NavLink>
-    );
+    )
 }
 
 // MenuItem.prototypes = {

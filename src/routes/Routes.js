@@ -1,27 +1,27 @@
 
-import Home from '~/pages/Home';
-import About from '~/pages/About';
-import HotelRooms from '~/pages/HotelRooms';
-import RoomBooking from '~/pages/RoomBooking';
+import Home from '~/pages/Home'
+import About from '~/pages/About'
+import HotelRooms from '~/pages/HotelRooms'
+import RoomBooking from '~/pages/RoomBooking'
 import PaymentSuccessful from '~/pages/PaymentSuccessful'
-import HotelRules from '~/pages/HotelRules';
-import Contact from '~/pages/Contact/Contact';
+import HotelRules from '~/pages/HotelRules'
+import Contact from '~/pages/Contact/Contact'
 
 
-import UserAccount from '~/pages/UserAccount';
-import UserPurchase from '~/pages/UserPurchase';
-import UserMybooking from '~/pages/UserMybooking';
-import UserPayCard from '~/pages/UserPayCard/UserPayCard';
+import UserAccount from '~/pages/UserAccount'
+import UserPurchase from '~/pages/UserPurchase'
+import UserMybooking from '~/pages/UserMybooking'
+import UserPayCard from '~/pages/UserPayCard/UserPayCard'
 
 import { Admin, UserList, StatisticsRoom, RoomList, BannedUsers, AvailableRooms, BookedRooms, CancelledRooms, RoomTrash, CreateRoom, EditRoom } from '~/pages/Admin'
 
 
-import Checkout from '~/pages/Checkout';
+import Checkout from '~/pages/Checkout'
 
 import { HeaderOnly, UserLayout, UserManagementLayout, RoomManagementLayout} from '~/layouts'
 
 
-import config from '~/config';
+import config from '~/config'
 
 
 
@@ -35,7 +35,7 @@ const publicRoutes = [
     { path: config.routes.contact, component: Contact},
 
 
-    { path: config.routes.checkout, component: Checkout, layout: HeaderOnly},
+    { path: config.routes.checkout, component: Checkout},
 ]
 const privateRoutes = [
     { path: config.routes.about, component: About},

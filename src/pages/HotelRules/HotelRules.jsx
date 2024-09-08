@@ -9,7 +9,7 @@ function HotelRules() {
         <div className={cx('wrapper')}>
 
         </div>
-    );
+    )
 }
 
-export default HotelRules;
+export default HotelRules

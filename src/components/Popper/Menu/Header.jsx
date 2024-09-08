@@ -1,5 +1,5 @@
 
-import classNames from 'classnames/bind';
+import classNames from 'classnames/bind'
 import styles from './Menu.module.scss'
 
 const cx = classNames.bind(styles)
@@ -13,7 +13,7 @@ function Header({ title, onBack }) {
             </button>
             <h4 className={cx('Menu__header-title')}>{title}</h4>
         </header>
-    );
+    )
 }
 
-export default Header;
+export default Header

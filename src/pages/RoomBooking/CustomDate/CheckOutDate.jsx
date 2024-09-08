@@ -1,8 +1,8 @@
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
 import './CustomDate.css'
 
-import React, { useState, forwardRef } from "react";
+import React, { useState, forwardRef } from "react"
 
 import classNames from 'classnames/bind'
 import styles from './CustomDate.module.scss'
@@ -45,7 +45,7 @@ function CheckOutDate({ dataCheckOut, startDate , bookedDates }) {
     let nextDay = tomorrow
 
     if (startDate) {
-        nextDay = new Date(startDate);
+        nextDay = new Date(startDate)
         nextDay.setDate(startDate.getDate() + 1)
     }
 
@@ -62,7 +62,7 @@ function CheckOutDate({ dataCheckOut, startDate , bookedDates }) {
             
             />
         </div>
-    );
+    )
 }
 
-export default CheckOutDate;
+export default CheckOutDate

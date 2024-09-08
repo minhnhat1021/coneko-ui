@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 import { FbSocial } from '~/components/Icons'
-import classNames from 'classnames/bind';
+import classNames from 'classnames/bind'
 import styles from './Footer.module.scss'
 
 const cx = classNames.bind(styles)
@@ -38,7 +38,7 @@ function Footer() {
                 </div>
             </div>
         </footer> 
-    );
+    )
 }
 
-export default Footer;
+export default Footer

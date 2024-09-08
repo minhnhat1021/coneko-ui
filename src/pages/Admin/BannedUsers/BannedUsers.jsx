@@ -13,7 +13,6 @@ const cx = classNames.bind(styles)
 function BannedUsers() {
 
     const [userData, setUserData] = useState([])
-    console.log(userData)
     useEffect(() => {
         // fetch data from API
         axios.get('http://localhost:5000/api/admin/banned-users')
@@ -21,7 +20,7 @@ function BannedUsers() {
                 setUserData(res.data)
             })
             .catch(error => {
-                console.error(error);
+                console.error(error)
             })
     }, [])
     
@@ -29,14 +28,14 @@ function BannedUsers() {
         axios.patch(`http://localhost:5000/api/admin/${id}/user-restore`)
             .then(() => window.location.href='http://localhost:3000/admin/banned-users')
             .catch(error => {
-                console.error(error);
+                console.error(error)
             })
     }
     const handleDelete = (id) => {
         axios.delete(`http://localhost:5000/api/admin/${id}/user-force`)
             .then(() => window.location.href='http://localhost:3000/admin/banned-users')
             .catch(error => {
-                console.error(error);
+                console.error(error)
             })
     }
     return ( 
@@ -93,7 +92,7 @@ function BannedUsers() {
             </div>
         </div>
 
-    );
+    )
 }
 
-export default BannedUsers;
+export default BannedUsers

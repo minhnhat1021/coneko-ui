@@ -27,20 +27,20 @@ function CreateRoom() {
         const image = e.target.files[0]
 
         // Tạo 1 FormData để gửi 1 file đi với dữ liệu image
-        const formData = new FormData();
-        formData.append('file', image);
+        const formData = new FormData()
+        formData.append('file', image)
 
         // Gửi request đến server
         axios.post('http://localhost:5000/api/admin/upload', formData)
             .then(res => {
-                setImage(res.data.filename);
+                setImage(res.data.filename)
             })
             .catch(err => console.err('Error:', err))
     }
 
     // Handle submit form data
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         axios.post('http://localhost:5000/api/admin/create-room', {
             name,
             desc,
@@ -152,7 +152,7 @@ function CreateRoom() {
                 <button type='submit' className={cx('create__form-btn')}>Tạo phòng </button>
             </form>
         </div>
-    );
+    )
 }
 
-export default CreateRoom;
+export default CreateRoom

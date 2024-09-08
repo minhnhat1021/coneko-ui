@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
-import Sidebar from '~/layouts/Components/Sidebar';
+import Sidebar from '~/layouts/Components/Sidebar'
 
-import classNames from 'classnames/bind';
+import classNames from 'classnames/bind'
 import styles from './UserLayout.module.scss'
 
 const cx = classNames.bind(styles)
@@ -20,7 +20,7 @@ function UserLayout({ children, userData }) {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default UserLayout;
+export default UserLayout

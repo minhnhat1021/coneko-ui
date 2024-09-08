@@ -1,4 +1,4 @@
-import classNames from 'classnames/bind';
+import classNames from 'classnames/bind'
 import styles from './PersonalSecurity.module.scss'
 
 const cx = classNames.bind(styles)
@@ -31,7 +31,7 @@ function Security() {
                 </div>
             </section>
         </div>
-    );
+    )
 }
 
-export default Security;
+export default Security

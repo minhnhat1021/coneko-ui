@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import * as loadService from '~/apiServices/loadService'
 
-import config from '~/config';
+import config from '~/config'
 
 import Menu from '~/components/Popper/Menu'
 import Button from '~/components/Button'
@@ -12,7 +12,7 @@ import Button from '~/components/Button'
 import User from '~/layouts/Components/UserMenu'
 import {Login, Register} from '~/layouts/Components/LoginRegister'
 
-import classNames from 'classnames/bind';
+import classNames from 'classnames/bind'
 import styles from './Header.module.scss'
 
 const cx = classNames.bind(styles)
@@ -92,7 +92,7 @@ function Header() {
     const [statusLogin, setStatusLogin] = useState(true)
 
     const handleLoginRegister = () => {
-        setStatusLogin(!statusLogin);
+        setStatusLogin(!statusLogin)
     }
     
     // khi ấn vào loginBtn và registerBtn, login ẩn hiện modal, ấn vào nút nào thì hiện modal của nút đấy
@@ -101,21 +101,21 @@ function Header() {
     const loginModalRef = useRef()
     const registerModalRef = useRef()
 
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(false)
     
     const handleModalToggle = (e) => {
-        setShowModal(!showModal);
+        setShowModal(!showModal)
         if(e.currentTarget === registerBtnRef.current) {
             setStatusLogin(false)
         }
         else if(e.currentTarget === loginBtnRef.current) {
             setStatusLogin(true)
         }
-    };
+    }
 
     // Khi ấn vào modal, sẽ dóng modal lại
     const handleClickModal = (e) => {
-        setShowModal(!showModal);
+        setShowModal(!showModal)
     }
 
     // Khi thay đổi menuItem
@@ -123,10 +123,10 @@ function Header() {
         switch (menuItem.type) {
             case 'language': 
                 console.log('đúng language rồi')
-                break;
+                break
             default:
-                console.log("default");
-                break;
+                console.log("default")
+                break
         }
     }
     
@@ -228,7 +228,7 @@ function Header() {
 
             </div>
         </header>
-    );
+    )
 }
 
-export default Header;
+export default Header

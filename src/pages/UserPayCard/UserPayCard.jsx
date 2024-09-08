@@ -93,7 +93,7 @@ function UserPayCard({ userData }) {
         </div>
 
         
-    );
+    )
 }
 
-export default UserPayCard;
+export default UserPayCard

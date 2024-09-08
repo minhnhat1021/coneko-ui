@@ -79,7 +79,7 @@ function About({ userData = {data: {message: ''}}}) {
                 </footer>
             </div>
         </div>
-    );
+    )
 }
 
-export default About;
+export default About

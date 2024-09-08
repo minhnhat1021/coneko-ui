@@ -14,7 +14,7 @@ function CancelledRooms() {
         <div className={cx('wrapper')}>
             Phòng đã hủy đặt
         </div>
-    );
+    )
 }
 
-export default CancelledRooms;
+export default CancelledRooms

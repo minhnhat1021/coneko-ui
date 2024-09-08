@@ -16,7 +16,7 @@ function Header() {
                     <a href='#'>Sửa thông tin phòng</a>
                 </nav>
             </header>
-    );
+    )
 }
 
-export default Header;
+export default Header

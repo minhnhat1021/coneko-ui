@@ -198,7 +198,7 @@ function UserList() {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default UserList;
+export default UserList

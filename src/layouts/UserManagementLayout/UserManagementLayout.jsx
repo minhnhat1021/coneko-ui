@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Sidebar from './UserSidebar';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import Sidebar from './UserSidebar'
 
-import classNames from 'classnames/bind';
+import classNames from 'classnames/bind'
 import styles from './UserManagementLayout.module.scss'
 
 const cx = classNames.bind(styles)
@@ -13,7 +13,7 @@ function RoomManagementLayout({ children, RoomManagementData }) {
         axios.get(`http://localhost:5000/api/admin/user`)
             .then(res => setUserData(res.data.data))
             .catch(error => {
-                console.error(error);
+                console.error(error)
             })
     }, [])
     return ( 
@@ -26,7 +26,7 @@ function RoomManagementLayout({ children, RoomManagementData }) {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default RoomManagementLayout;
+export default RoomManagementLayout

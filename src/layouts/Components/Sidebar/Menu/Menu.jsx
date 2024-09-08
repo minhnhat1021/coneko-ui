@@ -5,10 +5,10 @@ function Menu({children}) {
         <nav>
             {children}
         </nav>
-    );
+    )
 }
 
 Menu.prototypes = {
     children: PropTypes.node.isRequired, 
 }
-export default Menu;
+export default Menu

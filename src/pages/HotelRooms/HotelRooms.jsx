@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-import images from '~/assets/images';
+import images from '~/assets/images'
 
 import classNames from 'classnames/bind'
 import styles from './HotelRooms.module.scss'
@@ -56,7 +56,7 @@ function HotelRooms() {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default HotelRooms;
+export default HotelRooms

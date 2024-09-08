@@ -60,8 +60,8 @@ function Sidebar({ roomData }) {
             </Menu>
         </aside>
         
-    );
+    )
 }
 
-export default Sidebar;
+export default Sidebar
 

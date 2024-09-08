@@ -14,8 +14,7 @@ const cx = classNames.bind(styles)
 
 
 function HotelRooms() {
-    const { name } = useParams();
-
+    const { name } = useParams()
     // lấy ra thông tin phòng và khách đặt phòng
     const [token, setToken] = useState(localStorage.getItem('token'))
     const [user, setUser] = useState({})
@@ -52,7 +51,7 @@ function HotelRooms() {
         const diffTime = Math.abs(startDate - endDate)
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 
-        return diffDays;
+        return diffDays
     }
     useEffect(() => {
         setDays(calculateDaysBetween(startDate, endDate))
@@ -75,8 +74,8 @@ function HotelRooms() {
     const handleBooking = (e) => {
         e.preventDefault()   
 
-        navigate('/checkout', {
-            state: { startDate, endDate, days }
+        navigate(`/${name}/checkout`, {
+            state: { startDate, endDate, days , totalPrice, user }
         })
     }
 
@@ -161,7 +160,7 @@ function HotelRooms() {
             </div>
         </div>
         
-    );
+    )
 }
 
-export default HotelRooms;
+export default HotelRooms

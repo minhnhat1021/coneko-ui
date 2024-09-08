@@ -1,8 +1,8 @@
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
 import './CustomDate.css'
 
-import React, { useState, useEffect, forwardRef } from "react";
+import React, { useState, useEffect, forwardRef } from "react"
 
 import classNames from 'classnames/bind'
 import styles from './CustomDate.module.scss'
@@ -17,7 +17,7 @@ function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
     const convertDateStart = (date) => {
         const newDate = new Date(date)
         newDate.setHours(0, 0, 0, 0)
-        return newDate;
+        return newDate
     }
     const convertDateEnd = (date) => {
 
@@ -83,7 +83,7 @@ function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
                 customInput={<CustomInput />}
             />
         </div>
-    );
+    )
 }
 
-export default CheckInDate;
+export default CheckInDate

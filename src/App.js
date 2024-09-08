@@ -95,8 +95,8 @@ function App() {
                 </div>
             </Router>
         </UserProvider>
-    );
+    )
 }
 
-export default App;
+export default App
 

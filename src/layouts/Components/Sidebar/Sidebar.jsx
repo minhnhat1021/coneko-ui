@@ -50,7 +50,7 @@ function Sidebar() {
                 <MenuItem title={Menu_User.pay.title} to={config.routes.userPayCard} icon={Menu_User.pay.icon} activeIcon={Menu_User.pay.icon}/>
             </Menu>
         </aside>
-    );
+    )
 }
 
-export default Sidebar;
+export default Sidebar

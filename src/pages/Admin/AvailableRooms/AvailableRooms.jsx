@@ -14,7 +14,7 @@ function StatisticsRoom() {
         <div className={cx('wrapper')}>
             Thống kê phòng
         </div>
-    );
+    )
 }
 
-export default StatisticsRoom;
+export default StatisticsRoom

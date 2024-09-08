@@ -1,9 +1,9 @@
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react'
 import axios from 'axios'
 
-import { WarningIcon, ShowPassword, HidePassword, Loading } from '~/components/Icons';
+import { WarningIcon, ShowPassword, HidePassword, Loading } from '~/components/Icons'
 
-import classNames from 'classnames/bind';
+import classNames from 'classnames/bind'
 import styles from './LoginRegister.module.scss'
 
 const cx = classNames.bind(styles)
@@ -31,7 +31,7 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         setLoading(true)
         axios.post('http://localhost:5000/api/login', {
             userName,
@@ -106,7 +106,7 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
                 </div>                  
             </div>
         </div>
-    );
+    )
 })
 
-export default Login;
+export default Login

@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types'
 import {NavLink} from 'react-router-dom'
 
 import styles from './Menu.module.scss'
@@ -13,7 +13,7 @@ function MenuItem({title, to , icon, activeIcon}) {
             <span className={cx('active-icon')}>{activeIcon}</span>
             <span className={cx('title')}>{title}</span>
         </NavLink>
-    );
+    )
 }
 
 // MenuItem.prototypes = {
@@ -21,4 +21,4 @@ function MenuItem({title, to , icon, activeIcon}) {
 //     to: PropTypes.string.isRequired,
 //     icon: PropTypes.node.isRequired,
 // }
-export default MenuItem;
+export default MenuItem
