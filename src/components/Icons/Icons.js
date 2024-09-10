@@ -298,7 +298,7 @@ export const PaymentCongrats = ({ width = '2rem', height = '2rem', className }) 
 )
 export const BackIcon = ({ width = '2rem', height = '2rem', className }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <path d="M20 24L12 16L20 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M20 24L12 16L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
 )
 export const DayIcon = ({ width = '2rem', height = '2rem', className }) => (

@@ -106,7 +106,6 @@ function HotelRooms() {
                         <p >Email: <span>{user.email}</span></p>
                         <p >Số điện thoại: <span>[Số điện thoại khách hàng]</span></p>
                     </div>
-                    
                 </div>
                 
                 <div className={cx('booking__info')}>
@@ -139,13 +138,24 @@ function HotelRooms() {
                     </div>
                     <div className={cx('booking__amenities-list')}>
                         <p className={cx('booking__amenities-title')}>Tiện nghi đi kèm</p>
-                        <p className={cx('booking__amenities')} >Coffee service <span >$12.00</span></p>
-                        <p className={cx('booking__amenities')} >bữa sáng <span >$12.00</span></p>
-                        <p className={cx('booking__amenities')} >netflix <span >$12.00</span></p>
+                        <div className={cx('booking__amenities-item')}>
+                            <p className={cx('booking__amenities')} >Coffee service <span >$12.00</span></p>
+                            <input id='amenities__coffee' type="checkbox" className={cx('amenities__checkbox')}/>
+                            <label for="amenities__coffee" className={cx('amenities__label')}></label>
+                        </div>
+                        <div className={cx('booking__amenities-item')}>
+                            <p className={cx('booking__amenities')} >bữa sáng <span >$12.00</span></p>
+                            <input id='amenities__breakfast' type="checkbox" className={cx('amenities__checkbox')}/>
+                            <label for="amenities__breakfast" className={cx('amenities__label')}></label>
+                        </div>
+                        <div className={cx('booking__amenities-item')}>
+                            <p className={cx('booking__amenities')} >netflix <span >$12.00</span></p>
+                            <input id='amenities__netflix' type="checkbox" className={cx('amenities__checkbox')}/>
+                            <label for="amenities__netflix" className={cx('amenities__label')}></label>
+                        </div>
                     </div>
                     <button onClick={handleBooking} className={cx('booking__form-btn', {available : startDate && endDate})} >Đặt phòng</button>
                     
-
                     <div className={cx('booking__price-list')}>
                         <p className={cx('booking__price-title')}>Chi tiết giá cả</p>
                         <p className={cx('booking__price')} > 
@@ -159,7 +169,6 @@ function HotelRooms() {
 
             </div>
         </div>
-        
     )
 }
 

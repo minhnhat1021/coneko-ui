@@ -25,6 +25,19 @@
 .checkout__header{
     display: flex;
     align-items: center;
+
+    button{
+        display: flex;
+        align-items: center;
+        color: var(--primary-text-1);
+        background-color: transparent;
+        cursor: pointer;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: var(--primary-text-2);
+        }
+    }
 }
 .checkout__title{
     margin-left: 20px;
@@ -121,8 +134,9 @@
         background: var(--primary-bg-3);
         border-radius: 12px;
         font-size: 1.6rem;
-        font-weight: 400;
-        letter-spacing: 0.16px;
+        font-weight: 500;
+        caret-color: var(--primary-text-2);
+        letter-spacing: 1px;
 
     }
 }
@@ -130,6 +144,7 @@
 // terms ---------------------------------------------------------------------------------------
 .terms{
     display: flex;
+    align-items: center;
     margin-top: 20px;
   
 
@@ -137,7 +152,7 @@
         display: none;
     }
       
-    .terms__checkbox + p::before {
+    .terms__label::before {
     content: '';
     display: inline-block;
     width: 20px;
@@ -150,7 +165,7 @@
     cursor: pointer;
     }
       
-    .terms__checkbox:checked + p::before {
+    .terms__checkbox:checked + .terms__label::before {
     background-color: var(--primary-bg-4);
     content: '✔'; 
     font-size: 16px;

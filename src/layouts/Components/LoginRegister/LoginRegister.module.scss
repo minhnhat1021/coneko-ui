@@ -99,6 +99,11 @@
     flex-direction: column;
     justify-content: center;
 
+    .invalid{
+        color: red!important;
+        border-color: red!important;
+    }
+
     label{
         font-size: 1.4rem;
         font-weight: 600;

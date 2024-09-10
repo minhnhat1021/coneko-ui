@@ -56,7 +56,7 @@ function User({ user, Menu_User, account, transactionList, bookingHistory, payCa
                     <i className={cx('fa-solid fa-user')}></i>
                 </div>
                 <div className={cx('header__user-info')}>
-                    <h3 className={cx('user__info-name')}>{user.displayName}</h3>
+                    <h3 className={cx('user__info-name')}>{user?.displayName}</h3>
                     <i className={cx('fa-solid fa-coins', 'user__info__point-icon')}></i>
                     <p className={cx('user__info-point')} >10000</p>
                 </div>

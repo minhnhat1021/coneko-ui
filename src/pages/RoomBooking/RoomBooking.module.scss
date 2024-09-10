@@ -147,6 +147,42 @@
         
     }
 }
+.booking__amenities-item{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+
+
+    .amenities__checkbox {
+        display: none;
+    }
+      
+    .amenities__label::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary-bg-4);
+    border: 2px solid #333;
+    border-radius: 4px;
+    margin-right: 10px;
+    vertical-align: middle;
+    cursor: pointer;
+    }
+      
+    .amenities__checkbox:checked + .amenities__label::before {
+    background-color: var(--primary-bg-4);
+    content: '✔'; 
+    font-size: 16px;
+    color: #333; 
+    text-align: center;
+    line-height: 20px;
+    }
+}
+
+
 .booking__amenities{
     height: 52px;
     display: flex;
@@ -155,7 +191,6 @@
     margin-top: 10px;
     padding-bottom: 10px;
     font-size: 1.2rem;
-    border-bottom: 1px solid #eee;
 
     span{
         color: var(--primary-text-1);

@@ -15,13 +15,8 @@ const cx = classNames.bind(styles)
 function Checkout() {
 
     const { name } = useParams()
-    const location = useLocation()
-    const { startDate, endDate, days , totalPrice, user } = location.state
-    console.log(startDate,endDate, days, totalPrice, user)
-
-
     const [room, setRoom] = useState({})
-    console.log(room)
+
     useEffect(() => {
         const fetchApi = async () => {
             const roomData = await loadService.roomDetail(name)
@@ -31,16 +26,21 @@ function Checkout() {
         fetchApi()
     }, [])
 
+    const location = useLocation()
+    const { startDate, endDate, days , totalPrice, user } = location.state
+
+
     // Chuyển đổi định dạng ngày
     const formattedDate = (date) => {
         return date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()
     }
+
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className={cx('checkout')}>
                     <div className={cx('checkout__header')}>
-                        <BackIcon />
+                        <button><BackIcon className={cx('checkout__icon-back')}/></button>
                         <p className={cx('checkout__title')}>Thanh toán</p>
                     </div>
                     <div className={cx('contact__info')}>
@@ -72,7 +72,8 @@ function Checkout() {
                         </div>
                     </div>
                     <div className={cx('terms')}>
-                        <input type="checkbox" className={cx('terms__checkbox')}/>
+                        <input id='terms' type="checkbox" className={cx('terms__checkbox')}/>
+                        <label for="terms" className={cx('terms__label')}></label>
                         <p>Tôi đồng ý với các <Link to='#' className={cx('terms__link')}>điều khoản và điều kiện</Link></p>
                     </div>
                     <button className={cx('pay__btn')} >Thanh toán</button>
