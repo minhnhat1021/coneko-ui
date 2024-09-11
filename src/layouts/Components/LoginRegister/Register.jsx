@@ -30,122 +30,110 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+
+    // Validator form register
+    const [inputStates, setInputStates] = useState({
+        fullName: false,
+        email: false,
+        password: false,
+    })
+
+    // Thực hiện Validator
+    const handleValidator = (e) => {
+        const formRules = {
+            fullName: [value => value ? undefined : 'Vui lòng nhập trường này'],
+            email: [
+                value => value ? undefined : 'Vui lòng nhập trường này',
+                value => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value) ? undefined : 'Vui lòng nhập email hợp lệ',
+            ],
+            password: [
+                value => value ? undefined : 'Vui lòng nhập trường này',
+                value => value.length >= 6 ? undefined : 'Vui lòng nhập tối thiểu 6 ký tự'
+            ]
+        }
+
+        const rules = formRules[e.target.name]
+        let errorMessage
+
+        for(var rule of rules) {
+            errorMessage = rule(e.target.value)
+            if(errorMessage) break
+
+        }
+
+        if (errorMessage) {
+            setInputStates((prevState) => ({
+                ...prevState,
+                [e.target.name]: true,
+            }))
+            const parentElement = e.target.parentElement.parentElement
+            if (parentElement) {
+                const contentMessage = parentElement.querySelector('.error__message')
+                if (contentMessage) {
+                    contentMessage.innerText = errorMessage
+                }
+            }
+        }
+        return !!errorMessage
+    }
+
+    // Hàm clear message lỗi
+    const handleClear = (e) => {
+        setInputStates((prevState) => ({
+            ...prevState,
+            [e.target.name]: false,
+        }))
+        const parentElement = e.target.parentElement.parentElement
+        const contentMessage = parentElement.querySelector('.error__message')
+        if (contentMessage) {
+            contentMessage.innerText = ''
+        }
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        
-        // Your submit logic here,
+        // Validator
+        var formSelector = document.querySelector('#register-form')
+        var inputs = formSelector.querySelectorAll('[name][rules]')
+        var isValid = true
 
-        axios.post('http://localhost:5000/api/register', {
-            fullName,
-            email,
-            password
-        })  
-            .then((res) => {
-                const resultRegister = document.getElementById('resultRegister')
-                resultRegister.innerText = res.data.msg ? res.data.msg : ''
-                if(res.data.token) {
-                    localStorage.setItem('token', res.data.token)
-                    localStorage.setItem('userId', res.data.userId)
-                    onDataLogin(localStorage.getItem('token') )
-                }
-                setLoading(false)
-            })
-            .catch((err) => console.error(err) )
-    }
-
-    const [invalid, setInvalid] = useState(false)
-    const Validator = (formSelector) => {
-
-        const formRules = {}
-        const validatorRules = {
-            required: function (value) {
-                return value ? undefined : 'Vui lòng nhập trường này'
-            },
-            email: function (value) {
-                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-                return emailRegex.test(value) ? undefined : 'Vui lòng nhập email'
-            },
-            min: function (min) {
-                return function (value) {
-                    return value.length >= min ? undefined : `Vui lòng nhập tối thiểu ${min} ký tự `
-                }
-            },
+        for (var input of inputs) {
+            // Nếu có lỗi
+            if( handleValidator({target: input}) ) {
+                isValid = false
+            }       
         }
-        // Lấy ra form register
-        var formSelector = document.querySelector(formSelector)
-
-
-        // Xử lý khi có form register
-        if(formSelector){
-            var inputs = formSelector.querySelectorAll('[name][rules]')
-
-            // Thực hiện validator
-            const handleValidator = (e) => {
-                setInvalid(false)
-                var rules = formRules[e.target.name]
-                var errorMessage
-                rules.find(function (rule) {
-                    errorMessage = rule(e.target.value)
-                    return errorMessage
+        if(isValid) {
+            // Thực hiện đăng ký
+            axios.post('http://localhost:5000/api/register', {
+                fullName,
+                email,
+                password
+            })  
+                .then((res) => {
+                    const resultRegister = document.getElementById('resultRegister')
+                    resultRegister.innerText = res.data.msg ? res.data.msg : ''
+                    if(res.data.token) {
+                        localStorage.setItem('token', res.data.token)
+                        localStorage.setItem('userId', res.data.userId)
+                        onDataLogin(localStorage.getItem('token') )
+                    }
+                    setLoading(false)
                 })
-
-                if(errorMessage) {
-                    var parentElement = e.target.parentElement.parentElement
-                    if(parentElement) {
-                        setInvalid(true)
-                        var contentMessage = parentElement.querySelector('.error__message')
-                        if(contentMessage) {
-                            contentMessage.innerText = errorMessage
-                        }
-                    }
-                }
-            }
-
-            // Clear message lỗi
-            const handleClear = (e) => {
-
-                var parentElement = e.target.parentElement.parentElement
-                var contentMessage = parentElement.querySelector('.error__message')
-                if(contentMessage) {
-                    contentMessage.innerText = ''
-                    // setInvalid(false)
-                }
-            }
-
-            for(var input of inputs) {
-                var rules = input.getAttribute('rules').split('|')
-                
-                for(var rule of rules) {
-                    var isRuleHasValue = rule.includes(':')
-                    var ruleInfo 
-
-                    if(isRuleHasValue){
-                        ruleInfo = rule.split(':')
-                        rule = ruleInfo[0]
-                    }
-
-                    var ruleFunc = validatorRules[rule]
-                    if(isRuleHasValue) {
-                        ruleFunc = ruleFunc(ruleInfo[1])
-                    }
-
-                    if(Array.isArray(formRules[input.name])){
-                        formRules[input.name].push(ruleFunc)
-                    } else {
-                        formRules[input.name] = [ruleFunc]
-                    }
-                }
-
-                input.onblur = handleValidator
-                input.onchange = handleClear
-            }
-            
+                .catch((err) => console.error(err) )
         }
-
     }
+
     useEffect(() => {
-        Validator('#register-form')
-    },[])   
+        var formSelector = document.querySelector('#register-form')
+        var inputs = formSelector.querySelectorAll('[name][rules]')
+        for (var input of inputs) {
+            input.onblur = handleValidator
+            input.onfocus = handleClear
+        }
+    }, [])
+    
+
     return ( 
         <div ref={ref} id='register' className={cx('register__modal', {showModal}) } onClick={clickModal}>
             <div className={cx('login__modal-container')} onClick={clickContentModal}>
@@ -158,33 +146,33 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
                         <form id='register-form' name='register-form' onSubmit={handleSubmit} className={cx('login__content-list')} >
                             <div className={cx('login__content-item')}>
                                 <label htmlFor="fullname">Tên của bạn</label>
-                                <div className={cx('login__wrap-input', { invalid: invalid })}>
-                                    <input type="text" name='fullName' rules='required' value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Họ và tên của bạn" required />
+                                <div className={cx('login__wrap-input', { invalid: inputStates.fullName })}>
+                                    <input type="text" name='fullName' rules='' value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Họ và tên của bạn"  />
                                     <div className={cx('login__right-icon')}>
                                         <WarningIcon />
                                     </div>
                                 </div>
-                                <span className={cx('error__message', { invalid: invalid })}></span>
+                                <span className={cx('error__message', { invalid: inputStates.fullName })}></span>
                             </div>
                             <div className={cx('login__content-item')}>
                                 <label htmlFor="email">Email của bạn</label>
-                                <div className={cx('login__wrap-input')}>
-                                    <input type="text" name='email' rules='required|email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Địa chỉ email" required />
+                                <div className={cx('login__wrap-input', { invalid: inputStates.email })}>
+                                    <input type="text" name='email' rules='' value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Địa chỉ email"  />
                                     <div className={cx('login__right-icon')}>
                                         <WarningIcon/>
                                     </div>
                                 </div>
-                                <span className={cx('error__message')}></span>
+                                <span className={cx('error__message', { invalid: inputStates.email })}></span>
                             </div>
                             <div className={cx('login__content-item')}>
                                 <label htmlFor="password">Mật Khẩu</label>
-                                <div className={cx('login__wrap-input')}>
-                                    <input type="password" name='password' rules='required|min:6' id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mật Khẩu" required />
+                                <div className={cx('login__wrap-input', { invalid: inputStates.password })}>
+                                    <input type="password" name='password' rules='' id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mật Khẩu"  />
                                     <div fc='password' className={cx('login__right-icon')} onClick={(e) => handleTogglePassword(e)}>
                                         {isShowPass ? <ShowPassword /> : <HidePassword/>}
                                     </div>
                                 </div>
-                                <span className={cx('error__message')}></span>
+                                <span className={cx('error__message', { invalid: inputStates.password })}></span>
                             </div>  
                             <span id="resultRegister" className={cx('result-register')}></span>
                             <div className={cx('login__content-btn')}>
