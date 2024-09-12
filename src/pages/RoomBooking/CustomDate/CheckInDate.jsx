@@ -1,6 +1,7 @@
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import './CustomDate.css'
+import { Tooltip } from 'react-tooltip'
 
 import React, { useState, useEffect, forwardRef } from "react"
 
@@ -13,7 +14,7 @@ const cx = classNames.bind(styles)
 
 function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
     const [startDate, setStartDate] = useState()
-    const [excludeDate, setExcludeDate] = useState()
+    const [excludeDate, setExcludeDate] = useState([])
     const convertDateStart = (date) => {
         const newDate = new Date(date)
         newDate.setHours(0, 0, 0, 0)
@@ -27,13 +28,13 @@ function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
         return newDate
     }
     
-    useEffect(() => {
-        const updatedExcludeDate = bookedDates.map(user => ({
-            start: convertDateStart(user.start),
-            end: convertDateEnd(user.end) })
-        )
-        setExcludeDate(updatedExcludeDate)
-    }, [bookedDates])
+        useEffect(() => {
+            const updatedExcludeDate = bookedDates.map(user => ({
+                start: convertDateStart(user.start),
+                end: convertDateEnd(user.end)})
+            )
+            setExcludeDate(updatedExcludeDate)
+        }, [bookedDates])
     
     const handleBackspaceInput = (e) => {
         if(e.keyCode === 8) {
@@ -70,6 +71,29 @@ function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
         prevDay = new Date(endDate)
         prevDay.setDate(endDate.getDate() - 1)
     }
+    const formattedDate = (date) => {
+        return date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()
+    }
+
+    // Logic hiển thị tooltip khi hover vào những phòng đã đặt
+
+    const renderDayContents = (day, date) => {
+
+        const isBooked = excludeDate.some((range) => {
+            return formattedDate(date) === formattedDate(range.start) || formattedDate(date) === formattedDate(range.end)
+        })
+        return (
+            <>
+                <div
+                    data-tooltip-id="my-tooltip"
+                    data-tooltip-content={isBooked ? "Phòng đã được đặt" : ""}
+                >
+                    {day}
+                </div>
+                {isBooked && <Tooltip id="my-tooltip"/>}
+            </>
+        )
+    }
     return (
 
         <div className={cx('wrapper')}>
@@ -80,6 +104,7 @@ function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
                 minDate={today}
                 maxDate={prevDay}
                 excludeDateIntervals={excludeDate}
+                renderDayContents={renderDayContents}
                 customInput={<CustomInput />}
             />
         </div>

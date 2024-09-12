@@ -5,8 +5,8 @@ import CheckInDate from './CustomDate/CheckInDate'
 import CheckOutDate from './CustomDate/CheckOutDate'
 
 import * as loadService from '~/apiServices/loadService'
-
-
+import { Tooltip } from 'react-tooltip'
+// import 'react-tooltip/dist/react-tooltip.css'
 import classNames from 'classnames/bind'
 import styles from './RoomBooking.module.scss'
 
@@ -82,6 +82,7 @@ function HotelRooms() {
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
+                
                 <div className={cx('wrap__info')}>
                     
                     <div className={cx('room__detail')}>

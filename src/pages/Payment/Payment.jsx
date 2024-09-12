@@ -1,6 +1,10 @@
 
 import * as roomService from '~/apiServices/roomService'
 
+
+
+const cx = classNames.bind(styles)
+
 function Payment() {
     // Thực hiện thanh toán phòng
     // const handlePayment = (e) => {
@@ -23,10 +27,12 @@ function Payment() {
     //     fetchApi()
     // }
     return ( 
-        <div>
-            thanh toán
-            {/* <button className={cx('payment__btn')} onClick={handlePayment}>Thanh toán</button> */}
-        </div>
+
+        
+        // <div>
+        //     thanh toán
+        //     {/* <button className={cx('payment__btn')} onClick={handlePayment}>Thanh toán</button> */}
+        // </div>
     )
 }
 
