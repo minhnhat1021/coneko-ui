@@ -13,8 +13,21 @@ const cx = classNames.bind(styles)
 
 
 function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
+
+    
     const [startDate, setStartDate] = useState()
     const [excludeDate, setExcludeDate] = useState([])
+    
+    // Min date, max date
+    const today = new Date()
+
+    let prevDay = null
+    if(endDate){
+        prevDay = new Date(endDate)
+        prevDay.setDate(endDate.getDate() - 1)
+    }
+
+    // Chuyển đổi date về đúng định dạng để xử lý logic
     const convertDateStart = (date) => {
         const newDate = new Date(date)
         newDate.setHours(0, 0, 0, 0)
@@ -28,14 +41,16 @@ function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
         return newDate
     }
     
-        useEffect(() => {
-            const updatedExcludeDate = bookedDates.map(user => ({
-                start: convertDateStart(user.start),
-                end: convertDateEnd(user.end)})
-            )
-            setExcludeDate(updatedExcludeDate)
-        }, [bookedDates])
+    useEffect(() => {
+        const updatedExcludeDate = bookedDates.map(user => ({
+            start: convertDateStart(user.start),
+            end: convertDateEnd(user.end)})
+        )
+        setExcludeDate(updatedExcludeDate)
+    }, [bookedDates])
     
+
+    // Handle khi có thay đổi date
     const handleBackspaceInput = (e) => {
         if(e.keyCode === 8) {
             setStartDate(null)
@@ -43,18 +58,6 @@ function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
         }   
     }   
 
-    const CustomInput = forwardRef(({ value, onClick }, ref) => (
-        <input
-            ref={ref}         
-            value={value}    
-            onClick={onClick} 
-            onKeyDown={(e) => handleBackspaceInput(e)}
-            placeholder="Ngày nhận phòng"  
-            className={cx('check-in-date' )}     
-        />
-    ))
-
-    // Handle khi chọn lịch
     const handleOnchange = (date) => {
         const vietnamTimezoneOffset = 7 * 60
         const vietnamDate = new Date(date.getTime() + vietnamTimezoneOffset * 60 * 1000)
@@ -63,24 +66,20 @@ function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
         dataCheckIn(vietnamDate)
     }
 
-    // Min date, max date
-    const today = new Date()
-
-    let prevDay = null
-    if(endDate){
-        prevDay = new Date(endDate)
-        prevDay.setDate(endDate.getDate() - 1)
-    }
-    const formattedDate = (date) => {
-        return date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()
-    }
-
     // Logic hiển thị tooltip khi hover vào những phòng đã đặt
+    const formattedDate = (date) => {
+        return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear()
+    }
 
     const renderDayContents = (day, date) => {
 
         const isBooked = excludeDate.some((range) => {
-            return formattedDate(date) === formattedDate(range.start) || formattedDate(date) === formattedDate(range.end)
+
+            const dateCurrent = new Date(formattedDate(date)).getTime()
+            const dateBookedStart = new Date(formattedDate(range.start)).getTime()
+            const dateBookedEnd = new Date(formattedDate(range.end)).getTime()
+
+            return dateCurrent >= dateBookedStart && dateCurrent <= dateBookedEnd
         })
         return (
             <>
@@ -94,6 +93,17 @@ function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
             </>
         )
     }
+
+    const CustomInput = forwardRef(({ value, onClick }, ref) => (
+        <input
+            ref={ref}         
+            value={value}    
+            onClick={onClick} 
+            onKeyDown={(e) => handleBackspaceInput(e)}
+            placeholder="Ngày nhận phòng"  
+            className={cx('check-in-date' )}     
+        />
+    ))
     return (
 
         <div className={cx('wrapper')}>
