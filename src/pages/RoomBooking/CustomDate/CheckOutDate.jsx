@@ -16,6 +16,7 @@ function CheckOutDate({ dataCheckOut, startDate , bookedDates }) {
 
     const [endDate, setEndDate] = useState()
     const [excludeDate, setExcludeDate] = useState([])
+    const [maxDate, setMaxDate] = useState(null)
 
     // Handle min max Date
     const today = new Date()
@@ -42,14 +43,26 @@ function CheckOutDate({ dataCheckOut, startDate , bookedDates }) {
         newDate.setHours(0, 0, 0, 0)
         return newDate
     }
+
     useEffect(() => {
         const updatedExcludeDate = bookedDates.map(user => ({
             start: convertDateStart(user.start),
             end: convertDateEnd(user.end)})
         )
         setExcludeDate(updatedExcludeDate)
-    }, [bookedDates])
 
+        // Handle xử lý max date
+        const validRanges = bookedDates.filter(
+            (range) => new Date(range.start) > new Date(startDate)
+        )
+        const validRangesTime = validRanges.map(range =>
+            new Date(range.start).getTime()
+        )
+        if (validRanges.length > 0) {
+            const minNextRange = Math.min(...validRangesTime)
+            setMaxDate(new Date(minNextRange))
+        }
+    }, [bookedDates, startDate])
     // Handle khi có thay đổi date
     const handleBackspaceInput = (e) => {
         if(e.keyCode === 8) {
@@ -113,6 +126,7 @@ function CheckOutDate({ dataCheckOut, startDate , bookedDates }) {
                 onChange={(date) => handleOnchange(date)}
                 dateFormat="dd/MM/yyyy"
                 minDate={nextDay}
+                {...(startDate && {maxDate: maxDate})}
                 excludeDateIntervals={excludeDate}
                 renderDayContents={renderDayContents}
                 customInput={<CustomInput />}

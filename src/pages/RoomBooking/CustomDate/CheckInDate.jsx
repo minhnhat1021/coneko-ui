@@ -17,14 +17,15 @@ function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
     
     const [startDate, setStartDate] = useState()
     const [excludeDate, setExcludeDate] = useState([])
-    
-    // Min date, max date
-    const today = new Date()
+    const [minDate, setMinDate] = useState(new Date())
 
-    let prevDay = null
+    
+    // Max Date
+
+    let maxDate = null
     if(endDate){
-        prevDay = new Date(endDate)
-        prevDay.setDate(endDate.getDate() - 1)
+        maxDate = new Date(endDate)
+        maxDate.setDate(endDate.getDate() - 1)
     }
 
     // Chuyển đổi date về đúng định dạng để xử lý logic
@@ -34,7 +35,6 @@ function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
         return newDate
     }
     const convertDateEnd = (date) => {
-
         const newDate = new Date(date)
         newDate.setDate(newDate.getDate() - 1)
         newDate.setHours(0, 0, 0, 0)
@@ -47,8 +47,23 @@ function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
             end: convertDateEnd(user.end)})
         )
         setExcludeDate(updatedExcludeDate)
-    }, [bookedDates])
-    
+
+        // Handle xử lý max date
+        const validRanges = bookedDates.filter(
+            (range) => new Date(range.end) < new Date(endDate)
+        )
+        const validRangesTime = validRanges.map(range =>
+            new Date(range.end).getTime()
+        )
+        
+        if (validRanges.length > 0) {
+            const maxPrevRange = Math.max(...validRangesTime)
+            setMinDate(new Date(maxPrevRange))
+        } 
+        if (!endDate) {
+            setMinDate(new Date())
+        }
+    }, [bookedDates, endDate])
 
     // Handle khi có thay đổi date
     const handleBackspaceInput = (e) => {
@@ -111,8 +126,8 @@ function CheckInDate({ dataCheckIn, endDate, bookedDates }) {
                 selected={startDate}
                 onChange={(date) => handleOnchange(date)}
                 dateFormat="dd/MM/yyyy"
-                minDate={today}
-                maxDate={prevDay}
+                minDate={minDate}
+                maxDate={maxDate}
                 excludeDateIntervals={excludeDate}
                 renderDayContents={renderDayContents}
                 customInput={<CustomInput />}
