@@ -1,9 +1,10 @@
 import React from 'react'
-import { useParams, useLocation } from 'react-router-dom'
+import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import * as loadService from '~/apiServices/loadService'
+import * as roomService from '~/apiServices/roomService'
 
 import images from '~/assets/images'
 import { BackIcon, DayIcon, TimeIcon } from '~/components/Icons'
@@ -27,14 +28,33 @@ function Checkout() {
     }, [])
 
     const location = useLocation()
-    const { startDate, endDate, days , totalPrice, user } = location.state
-
-
+    const { startDate, endDate, days, roomCharge, amenities, totalPrice, user } = location.state
     // Chuyển đổi định dạng ngày
     const formattedDate = (date) => {
         return date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()
     }
 
+    // Thực hiện thanh toán phòng
+    
+    const navigate = useNavigate()
+    const handlePayment = (e) => {
+        e.preventDefault()
+        const fetchApi = async () => {
+            const result = await roomService.payment({
+                startDate,
+                endDate,
+                days,
+                totalPrice,
+                roomId: room._id,
+                userId: user._id
+            })
+            navigate('/payment-successful', {
+                state: { startDate, endDate, days }
+            })
+        }
+                
+        fetchApi()
+    }
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -76,7 +96,7 @@ function Checkout() {
                         <label for="terms" className={cx('terms__label')}></label>
                         <p>Tôi đồng ý với các <Link to='#' className={cx('terms__link')}>điều khoản và điều kiện</Link></p>
                     </div>
-                    <button className={cx('pay__btn')} >Thanh toán</button>
+                    <button onClick={handlePayment} className={cx('pay__btn', 'available')} >Thanh toán</button>
                 </div>
                 <div className={cx('booking')}>
                     <div className={cx('booking__info')}>
@@ -115,9 +135,9 @@ function Checkout() {
                                 Chi tiết giá cả
                             </div>
                             <div className={cx('booking__pricing-optional')}>
-                                <p>{Number(room.price).toLocaleString('vi-VN')} x {days} ngày <span>{Number(totalPrice).toLocaleString('vi-VN')}</span></p>
-                                <p>$27 x 4 ngay <span>$108.00</span></p>
-                                <p>$27 x 4 hours <span>$108.00</span></p>
+                                <p>{Number(room.price).toLocaleString('vi-VN')} x {days} ngày <span>{roomCharge.toLocaleString('vi-VN')}</span></p>
+                                <p>Coffee x {days} ngày <span>{amenities.coffee}</span></p>
+                                <p>Bữa sáng x {days} ngày <span>{amenities.breakfast}</span></p>
                             </div>
                         </div>
                         <div className={cx('booking__total')}>

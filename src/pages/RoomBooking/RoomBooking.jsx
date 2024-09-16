@@ -44,7 +44,7 @@ function HotelRooms() {
     const [startDate, setStartDate] = useState(null)
     const [endDate, setEndDate] = useState(null)
     const [days, setDays] = useState(0)
-    const [totalPrice, setTotalPrice] = useState(0)
+    const [roomCharge, setRoomCharge] = useState(0)
 
     // Tính toán thời gian đặt phòng trong bao nhiêu ngày
     const calculateDaysBetween = (startDate, endDate) => {
@@ -55,8 +55,36 @@ function HotelRooms() {
     }
     useEffect(() => {
         setDays(calculateDaysBetween(startDate, endDate))
-        setTotalPrice(room.price * days)
+        setRoomCharge(room.price * days)
+        
     }, [startDate, endDate, days])
+
+    // Tiện nghi
+    const [amenities, setAmenities] = useState({
+        coffee: 0,
+        breakfast: 0,
+        minibar: 0
+    })
+    const amenitiesPrice = {
+        coffee: 100000,
+        breakfast: 300000,
+        minibar: 500000
+    }
+    useEffect(() => {
+        var amenityInputs = document.querySelectorAll('[name][amenities]')
+
+        for(var amenityInput of amenityInputs) {
+            amenityInput.onchange = function () {
+                var name = this.getAttribute('name')
+                var isChecked = this.checked
+                setAmenities(prev => ({
+                    ...prev,
+                    [name]: isChecked ? amenitiesPrice[name] : 0
+                }))
+            }
+        }
+        
+    }, [])
 
     const dataCheckIn = (data) => {
         setStartDate(data)
@@ -74,9 +102,15 @@ function HotelRooms() {
     const handleBooking = (e) => {
         e.preventDefault()   
 
-        navigate(`/${name}/checkout`, {
-            state: { startDate, endDate, days , totalPrice, user }
-        })
+        const amenitiesTotal = Object.values(amenities).reduce(function (a, b) {
+            return a + b
+        }, 0)
+        const totalPrice = roomCharge + amenitiesTotal * days
+        console.log(amenitiesTotal * days)
+        console.log(totalPrice)
+        // navigate(`/${name}/checkout`, {
+        //     state: { startDate, endDate, days , roomCharge, amenities, totalPrice, user }
+        // })
     }
 
     return ( 
@@ -140,19 +174,19 @@ function HotelRooms() {
                     <div className={cx('booking__amenities-list')}>
                         <p className={cx('booking__amenities-title')}>Tiện nghi đi kèm</p>
                         <div className={cx('booking__amenities-item')}>
-                            <p className={cx('booking__amenities')} >Coffee service <span >$12.00</span></p>
-                            <input id='amenities__coffee' type="checkbox" className={cx('amenities__checkbox')}/>
+                            <p className={cx('booking__amenities')} >Coffee  <span >100.000 ₫</span></p>
+                            <input id='amenities__coffee' name='coffee' amenities='' type="checkbox" className={cx('amenities__checkbox')}/>
                             <label for="amenities__coffee" className={cx('amenities__label')}></label>
                         </div>
                         <div className={cx('booking__amenities-item')}>
-                            <p className={cx('booking__amenities')} >bữa sáng <span >$12.00</span></p>
-                            <input id='amenities__breakfast' type="checkbox" className={cx('amenities__checkbox')}/>
+                            <p className={cx('booking__amenities')} >Bữa sáng <span >300.000 ₫</span></p>
+                            <input id='amenities__breakfast' name='breakfast' amenities='' type="checkbox" className={cx('amenities__checkbox')}/>
                             <label for="amenities__breakfast" className={cx('amenities__label')}></label>
                         </div>
                         <div className={cx('booking__amenities-item')}>
-                            <p className={cx('booking__amenities')} >netflix <span >$12.00</span></p>
-                            <input id='amenities__netflix' type="checkbox" className={cx('amenities__checkbox')}/>
-                            <label for="amenities__netflix" className={cx('amenities__label')}></label>
+                            <p className={cx('booking__amenities')} >Mini bar <span >500.000 ₫</span></p>
+                            <input id='amenities__minibar' name='minibar' amenities='' type="checkbox" className={cx('amenities__checkbox')}/>
+                            <label for="amenities__minibar" className={cx('amenities__label')}></label>
                         </div>
                     </div>
                     <button onClick={handleBooking} className={cx('booking__form-btn', {available : startDate && endDate})} >Đặt phòng</button>
@@ -161,9 +195,8 @@ function HotelRooms() {
                         <p className={cx('booking__price-title')}>Chi tiết giá cả</p>
                         <p className={cx('booking__price')} > 
                             <span>{Number(room.price).toLocaleString('vi-VN')} x {startDate && endDate ? days : '0'}</span>
-                            <span>{Number(startDate && endDate ? totalPrice : 0).toLocaleString('vi-VN')} ₫</span>
+                            <span>{Number(startDate && endDate ? roomCharge : 0).toLocaleString('vi-VN')} ₫</span>
                         </p>
-                        
                     </div>
 
                 </div>

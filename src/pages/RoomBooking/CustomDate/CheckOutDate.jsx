@@ -17,7 +17,6 @@ function CheckOutDate({ dataCheckOut, startDate , bookedDates }) {
     const [endDate, setEndDate] = useState()
     const [excludeDate, setExcludeDate] = useState([])
     const [maxDate, setMaxDate] = useState(null)
-
     // Handle min max Date
     const today = new Date()
     const tomorrow = new Date()
@@ -61,7 +60,10 @@ function CheckOutDate({ dataCheckOut, startDate , bookedDates }) {
         if (validRanges.length > 0) {
             const minNextRange = Math.min(...validRangesTime)
             setMaxDate(new Date(minNextRange))
+        } else {
+            setMaxDate(null)
         }
+        
     }, [bookedDates, startDate])
     // Handle khi có thay đổi date
     const handleBackspaceInput = (e) => {
