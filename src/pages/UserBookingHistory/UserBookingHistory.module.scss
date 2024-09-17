@@ -1,0 +1,55 @@
+.wrapper {
+    margin: 20px 0;
+    color: var(--primary-text-1);
+}
+
+.title {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+}
+
+.wrap__table{
+    border-top: 1px solid #575757;
+    border-left: 1px solid #575757;
+    border-right: 1px solid #575757;
+    overflow: hidden;
+    border-radius: 8px;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #575757;
+    }
+
+    th {
+    
+        background-color: #343434;   
+        &:hover{
+            // cursor: auto;
+            // user-select: none;
+        }
+    }
+
+    tr:hover{
+        background-color: #222222;   
+        cursor: pointer;
+    }
+    .status {
+        font-size: 1.8rem;
+        font-weight: 400;
+        &.thanhcong {
+            color: green;
+        }
+
+        &.dangsuly {
+            color: orange;
+        }
+
+        &.dahuy {
+            color: red;
+        }
+    }
+}

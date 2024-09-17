@@ -22,15 +22,15 @@ function Personal({ userData }) {
                     <nav className={cx('nav')}>
                         <div className={cx('nav__item')}>
                             <h4 className={cx('nav__item-title')}>Họ và tên</h4>
-                            <p className={cx('nav__item-info')}>{user.fullName}</p>
+                            <p className={cx('nav__item-info')}>{user?.fullName}</p>
                         </div>
                         <div className={cx('nav__item')}>
                             <h4 className={cx('nav__item-title')}>Tên người dùng</h4>
-                            <p className={cx('nav__item-info')}>{user.userName}</p>
+                            <p className={cx('nav__item-info')}>{user?.userName}</p>
                         </div>
                         <div className={cx('nav__item')}>
                             <h4 className={cx('nav__item-title')}>email</h4>
-                            <p className={cx('nav__item-info')}>{user.email}</p>
+                            <p className={cx('nav__item-info')}>{user?.email}</p>
                         </div>
                         <div className={cx('nav__item')}>
                             <h4 className={cx('nav__item-title')}>Số điện thoại</h4>

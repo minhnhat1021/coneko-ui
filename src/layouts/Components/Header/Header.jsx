@@ -78,6 +78,7 @@ function Header() {
     // Lấy thông tin người dùng truyền về header
     const [user, setUser] = useState({})
     const [token, setToken] = useState(localStorage.getItem('token'))
+    
     useEffect(() => {
         const fetchApi = async () => {
             const userData = await loadService.userDetail(token)
@@ -189,7 +190,7 @@ function Header() {
                 </nav>
                 <div className={cx('header__actions')}>
 
-                {   !!token ? (
+                {   Object.keys(user).length !== 0 ? (
                         <>
                             <User 
                                 user={user}

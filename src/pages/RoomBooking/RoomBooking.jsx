@@ -108,9 +108,9 @@ function HotelRooms() {
         const totalPrice = roomCharge + amenitiesTotal * days
         console.log(amenitiesTotal * days)
         console.log(totalPrice)
-        // navigate(`/${name}/checkout`, {
-        //     state: { startDate, endDate, days , roomCharge, amenities, totalPrice, user }
-        // })
+        navigate(`/${name}/checkout`, {
+            state: { startDate, endDate, days , roomCharge, amenities, totalPrice, user }
+        })
     }
 
     return ( 

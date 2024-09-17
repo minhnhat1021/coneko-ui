@@ -8,7 +8,6 @@ import styles from './UserLayout.module.scss'
 const cx = classNames.bind(styles)
 
 function UserLayout({ children, userData }) {
-
     
     return ( 
         <div className={cx('wrapper')}>

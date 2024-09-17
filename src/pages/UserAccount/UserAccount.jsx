@@ -11,7 +11,6 @@ import styles from './UserAccount.module.scss'
 const cx = classNames.bind(styles)
 
 function UserAccount({ userData }) {
-
     const location = useLocation()
     const query = new URLSearchParams(location.search)
     const menu =  query.get('menu') || 'personal'

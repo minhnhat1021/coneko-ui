@@ -9,7 +9,7 @@ const routes = {
 
     userAccount: '/user/account',
     userPurchase: '/user/purchase/list',
-    userMybooking: '/user/mybooking',
+    userBookingHistory: '/user/booking-history',
     userPayCard: '/user/paycard',
 
     admin: '/admin',
