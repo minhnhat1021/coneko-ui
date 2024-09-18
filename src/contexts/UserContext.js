@@ -16,7 +16,7 @@ export const UserProvider = ({ children }) => {
                 .then(res => {
                     setUserData(prevState => ({
                         ...prevState,
-                        data: res.data
+                        ...res.data
                     }))
                     setLoading(false)
 

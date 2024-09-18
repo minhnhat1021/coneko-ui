@@ -32,7 +32,9 @@
             // user-select: none;
         }
     }
-
+    div + div{
+        margin-top: 6px;
+    }
     tr:hover{
         background-color: #222222;   
         cursor: pointer;

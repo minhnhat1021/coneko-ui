@@ -161,7 +161,7 @@ function Header() {
         window.location.href = '/user/account'
     }
     const handleBookingHistory = () => {
-        window.location.href = '/user/mybooking' 
+        window.location.href = '/user/booking-history' 
     }    
     const handleTransactionList = () => {
         window.location.href = '/user/purchase/list'

@@ -102,14 +102,12 @@ function HotelRooms() {
     const handleBooking = (e) => {
         e.preventDefault()   
 
-        const amenitiesTotal = Object.values(amenities).reduce(function (a, b) {
+        const amenitiesPrice = Object.values(amenities).reduce(function (a, b) {
             return a + b
         }, 0)
-        const totalPrice = roomCharge + amenitiesTotal * days
-        console.log(amenitiesTotal * days)
-        console.log(totalPrice)
+        const totalPrice = roomCharge + amenitiesPrice * days
         navigate(`/${name}/checkout`, {
-            state: { startDate, endDate, days , roomCharge, amenities, totalPrice, user }
+            state: { startDate, endDate, days , roomCharge, amenitiesPrice, amenities, totalPrice, user }
         })
     }
 

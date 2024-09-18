@@ -28,12 +28,12 @@ function Checkout() {
     }, [])
 
     const location = useLocation()
-    const { startDate, endDate, days, roomCharge, amenities, totalPrice, user } = location.state
+    const { startDate, endDate, days, roomCharge, amenitiesPrice, amenities, totalPrice, user } = location.state
+
     // Chuyển đổi định dạng ngày
     const formattedDate = (date) => {
         return date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()
     }
-
     // Thực hiện thanh toán phòng
     
     const navigate = useNavigate()
@@ -44,6 +44,11 @@ function Checkout() {
                 startDate,
                 endDate,
                 days,
+                roomPrice: room.price,
+                roomCharge,
+                amenitiesPrice,
+                amenitiesCharge: amenitiesPrice * days,
+                amenities,
                 totalPrice,
                 roomId: room._id,
                 userId: user._id
@@ -136,13 +141,14 @@ function Checkout() {
                             </div>
                             <div className={cx('booking__pricing-optional')}>
                                 <p>{Number(room.price).toLocaleString('vi-VN')} x {days} ngày <span>{roomCharge.toLocaleString('vi-VN')}</span></p>
-                                <p>Coffee x {days} ngày <span>{amenities.coffee}</span></p>
-                                <p>Bữa sáng x {days} ngày <span>{amenities.breakfast}</span></p>
+                                <p>Coffee x {days} ngày <span>{amenities.coffee * days}</span></p>
+                                <p>Bữa sáng x {days} ngày <span>{amenities.breakfast * days}</span></p>
+                                <p>Mini Bar x {days} ngày <span>{amenities.minibar * days}</span></p>
                             </div>
                         </div>
                         <div className={cx('booking__total')}>
                             <p>Tổng cộng</p>
-                            <span>$183.80</span>
+                            <span>{totalPrice}</span>
                         </div>
                     </div>
                 </div>
