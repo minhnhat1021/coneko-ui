@@ -14,8 +14,10 @@ function UserLayout({ children, userData }) {
             <div className={cx('container')}>
                 <Sidebar />
                 
-                <div className={cx('content')}>
-                    {!userData ? children :  React.cloneElement(children, { userData })}
+                <div className={cx('wrap__content')}>
+                    <div className={cx('content')}>
+                        {!userData ? children :  React.cloneElement(children, { userData })}
+                    </div>
                 </div>
             </div>
         </div>
