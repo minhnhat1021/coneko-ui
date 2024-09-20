@@ -9,8 +9,8 @@ import Contact from '~/pages/Contact/Contact'
 
 
 import UserAccount from '~/pages/UserAccount'
-import UserPurchase from '~/pages/UserPurchase'
 import UserBookingHistory from '~/pages/UserBookingHistory'
+import UserFavoriteRooms from '~/pages/UserFavoriteRooms'
 import UserPayCard from '~/pages/UserPayCard/UserPayCard'
 
 import { Admin, UserList, StatisticsRoom, RoomList, BannedUsers, AvailableRooms, BookedRooms, CancelledRooms, RoomTrash, CreateRoom, EditRoom } from '~/pages/Admin'
@@ -40,8 +40,8 @@ const publicRoutes = [
 const privateRoutes = [
     { path: config.routes.about, component: About},
     { path: config.routes.userAccount, component: UserAccount, subLayout: UserLayout},
-    { path: config.routes.userPurchase, component: UserPurchase, subLayout: UserLayout},
     { path: config.routes.userBookingHistory, component: UserBookingHistory, subLayout: UserLayout},
+    { path: config.routes.userFavoriteRooms, component: UserFavoriteRooms, subLayout: UserLayout},
     { path: config.routes.userPayCard, component: UserPayCard, subLayout: UserLayout},
 ]
 

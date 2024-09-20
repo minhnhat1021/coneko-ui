@@ -50,6 +50,30 @@
         color: var(--primary-text-2);
     
     }
+    
+}
+
+.room__detail-info{
+    position: relative;
+
+    .favorite-rooms{
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        label {
+            
+            cursor: pointer;
+
+            i{
+                color: var(--primary-text-2);
+                font-size: 30px;
+            }
+        }
+        input[type="checkbox"] {
+            display: none;
+        }
+    }
 }
 
 /* User__info ------------------------------------------------------------------------------------*/

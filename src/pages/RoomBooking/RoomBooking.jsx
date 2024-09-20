@@ -5,6 +5,7 @@ import CheckInDate from './CustomDate/CheckInDate'
 import CheckOutDate from './CustomDate/CheckOutDate'
 
 import * as loadService from '~/apiServices/loadService'
+import * as userService from '~/apiServices/userService'
 import { Tooltip } from 'react-tooltip'
 // import 'react-tooltip/dist/react-tooltip.css'
 import classNames from 'classnames/bind'
@@ -111,6 +112,29 @@ function HotelRooms() {
         })
     }
 
+    // Phòng ưa thích
+    const [favorite, setFavorite] = useState(false)
+
+    const handleFavoriteRooms = (e) => {
+        setFavorite(!favorite)
+    }
+    useEffect(() => {
+        const favInput = document.getElementById('favoriteRooms')
+
+        favInput.onchange = async function () {
+            var isChecked = this.checked
+            console.log(user._id, room._id)
+
+            if (isChecked) {
+                console.log('tiến hành lưu')
+                userService.addFavoriteRooms( {userId: user._id, roomId: room._id})
+            } else {
+                console.log('bỏ lưu')
+                const result = await userService.removeFavoriteRooms( {userId:user._id, roomId: room._id})
+            }
+        }
+    }, [user, room])
+
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -123,15 +147,26 @@ function HotelRooms() {
                             src={`http://localhost:5000/images/roomImg/${room.image}`}
                             alt='{{room.name}}'
                         />
-                        <p >Tên phòng:<span>{room.name}</span></p>
-                        <p >Mô tả: <span>{room.desc}</span></p>
-                        <p >Tổng quan: <span>{room.overView}</span></p>
-                        <div className={cx('room__star-rating')}>
-                            {[...Array(Number(room.rating || 5))].map((_, index) => (
-                                <i key={index} className={cx('fa-solid fa-star')}></i>
-                            ))}
+                        <div className={cx('room__detail-info')}>
+                            <p >Tên phòng:<span>{room.name}</span></p>  
+                            <p >Mô tả: <span>{room.desc}</span></p>
+                            <p >Tổng quan: <span>{room.overView}</span></p>
+                            <div className={cx('room__star-rating')}>
+                                {[...Array(Number(room.rating || 5))].map((_, index) => (
+                                    <i key={index} className={cx('fa-solid fa-star')}></i>
+                                ))}
+                            </div>
+                            <p >Giá: <span>{`${Number(room.price).toLocaleString('vi-VN')} ₫/ đêm`}</span></p>
+
+                            <div className={cx('favorite-rooms')}>
+                                <input id='favoriteRooms' type='checkbox' />
+                                <label for='favoriteRooms'  onClick={handleFavoriteRooms}>
+                                    {!favorite ? 
+                                        <i className={cx('fa-regular fa-bookmark')}></i> : 
+                                        <i className={cx('fa-solid fa-bookmark')}></i>}
+                                </label>
+                            </div>
                         </div>
-                        <p >Giá: <span>{`${Number(room.price).toLocaleString('vi-VN')} ₫/ đêm`}</span></p>
                     </div>
                     <div className={cx('user__info')}>
                         <p className={cx('user__info-title')}>Thông tin khách hàng</p>

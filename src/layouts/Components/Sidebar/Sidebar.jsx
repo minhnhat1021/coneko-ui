@@ -22,6 +22,10 @@ const Menu_User = {
         icon: <i className={cx('fa-regular fa-rectangle-list')}></i>,
         title: 'Lịch sử đặt phòng'
     },
+    favoriteRooms: {  
+        icon: <i className={cx('fa-solid fa-bookmark')}></i>,
+        title: 'Danh sách phòng ưa thích'
+    },
     pay: {
         icon: <i className={cx('fa-regular fa-credit-card')}></i>,
         title: 'Thẻ thanh toán'
@@ -47,6 +51,7 @@ function Sidebar() {
                 <MenuItem title={Menu_User.account.title} to={config.routes.userAccount} icon={Menu_User.account.icon} activeIcon={Menu_User.account.icon}/>
                 <MenuItem title={Menu_User.purchase.title} to={config.routes.userPurchase} icon={Menu_User.purchase.icon} activeIcon={Menu_User.purchase.icon}/>
                 <MenuItem title={Menu_User.bookingHistory.title} to={config.routes.userBookingHistory} icon={Menu_User.bookingHistory.icon} activeIcon={Menu_User.bookingHistory.icon}/>
+                <MenuItem title={Menu_User.favoriteRooms.title} to={config.routes.userFavoriteRooms} icon={Menu_User.favoriteRooms.icon} activeIcon={Menu_User.favoriteRooms.icon}/>
                 <MenuItem title={Menu_User.pay.title} to={config.routes.userPayCard} icon={Menu_User.pay.icon} activeIcon={Menu_User.pay.icon}/>
             </Menu>
         </aside>

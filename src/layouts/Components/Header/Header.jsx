@@ -64,6 +64,11 @@ const Menu_User = [
         title: 'Lịch sử đặt phòng'
     },
     {
+        
+        icon: <i className={cx('fa-solid fa-bookmark')}></i>,
+        title: 'Danh sách phòng ưa thích'
+    },
+    {
         icon: <i className={cx('fa-regular fa-credit-card')}></i>,
         title: 'Thẻ thanh toán'
     },
@@ -163,6 +168,9 @@ function Header() {
     const handleBookingHistory = () => {
         window.location.href = '/user/booking-history' 
     }    
+    const handleFavoriteRooms = () => {
+        window.location.href = '/user/favorite-rooms'
+    }
     const handleTransactionList = () => {
         window.location.href = '/user/purchase/list'
     }
@@ -197,6 +205,7 @@ function Header() {
                                 account={handleAccount} 
                                 transactionList={handleTransactionList}
                                 bookingHistory={handleBookingHistory} 
+                                favoriteRooms={handleFavoriteRooms}
                                 payCard={handlePayCard}
                                 logout={handleLogout} 
                                 Menu_User={Menu_User}

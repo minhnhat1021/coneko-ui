@@ -16,3 +16,4 @@ export const payment = async ({
             console.log(error)
         }
 }
+

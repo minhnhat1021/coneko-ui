@@ -13,4 +13,9 @@ export const post = async (path, options = {}) => {
     return response.data
 }
 
+export const patch = async (path, options = {}) => {
+    const response = await request.patch(path, options)
+    return response.data
+}
+
 export default request
