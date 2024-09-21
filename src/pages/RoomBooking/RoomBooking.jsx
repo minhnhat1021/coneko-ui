@@ -6,8 +6,9 @@ import CheckOutDate from './CustomDate/CheckOutDate'
 
 import * as loadService from '~/apiServices/loadService'
 import * as userService from '~/apiServices/userService'
+
 import { Tooltip } from 'react-tooltip'
-// import 'react-tooltip/dist/react-tooltip.css'
+
 import classNames from 'classnames/bind'
 import styles from './RoomBooking.module.scss'
 
@@ -121,18 +122,34 @@ function HotelRooms() {
     useEffect(() => {
         const favInput = document.getElementById('favoriteRooms')
 
+        let isUserAction = false
         favInput.onchange = async function () {
-            var isChecked = this.checked
-            console.log(user._id, room._id)
 
+            if (isUserAction) return
+
+            var isChecked = this.checked
+            
             if (isChecked) {
-                console.log('tiến hành lưu')
                 userService.addFavoriteRooms( {userId: user._id, roomId: room._id})
             } else {
-                console.log('bỏ lưu')
                 const result = await userService.removeFavoriteRooms( {userId:user._id, roomId: room._id})
             }
         }
+
+        const userFavoriteRooms = user?.favoriteRooms?.filter(function(a) {
+            return a._id.toString() === room._id
+        }) || []
+
+        isUserAction = true
+        if (userFavoriteRooms.length === 1) {
+            favInput.checked = true
+            setFavorite(true)
+        } else {
+            favInput.checked = false
+            setFavorite(false)
+        }
+        isUserAction = false
+
     }, [user, room])
 
     return ( 
@@ -161,9 +178,15 @@ function HotelRooms() {
                             <div className={cx('favorite-rooms')}>
                                 <input id='favoriteRooms' type='checkbox' />
                                 <label for='favoriteRooms'  onClick={handleFavoriteRooms}>
-                                    {!favorite ? 
-                                        <i className={cx('fa-regular fa-bookmark')}></i> : 
-                                        <i className={cx('fa-solid fa-bookmark')}></i>}
+                                    <div
+                                        data-tooltip-id="my-tooltip"
+                                        data-tooltip-content={!favorite ? 'Thêm phòng vào yêu thích' : 'Hủy lưu phòng'}
+                                    >
+                                        {!favorite ? 
+                                            <i className={cx('fa-regular fa-bookmark')}></i> : 
+                                            <i className={cx('fa-solid fa-bookmark')}></i>}
+                                    </div>
+                                    { <Tooltip id="my-tooltip"/>}
                                 </label>
                             </div>
                         </div>
