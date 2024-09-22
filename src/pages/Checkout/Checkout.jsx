@@ -60,6 +60,19 @@ function Checkout() {
                 
         fetchApi()
     }
+
+    const handlePayPalPayment = async () => {
+        // Tạo request đến API PayPal, và lấy link thanh toán PayPal
+        const res = await roomService.payPalCheckout({
+            totalPrice,
+            roomId: room._id,
+            userId: user._id
+        })
+        console.log(res)
+        if (res && res.paymentUrl) {
+            window.location.href = res.paymentUrl; // Chuyển hướng đến PayPal
+        }
+    }
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -85,7 +98,7 @@ function Checkout() {
                             <div className={cx('payment__card-img')}>
                                 <img src={images.masterCard} alt="MasterCard"/>
                             </div>
-                            <div className={cx('payment__card-img')}>
+                            <div className={cx('payment__card-img')} onClick={handlePayPalPayment}>
                                 <img src={images.payPal} alt="PayPal"/>
                             </div>
                         </div>

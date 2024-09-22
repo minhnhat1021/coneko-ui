@@ -17,3 +17,14 @@ export const payment = async ({
         }
 }
 
+export const payPalCheckout = async ({totalPrice, roomId, userId}) => {
+    try {
+        const res = await request.post(`room/paypal-checkout`, 
+            { totalPrice, roomId, userId })
+        
+        return res.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
