@@ -151,7 +151,6 @@ function HotelRooms() {
         isUserAction = false
 
     }, [user, room])
-
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>

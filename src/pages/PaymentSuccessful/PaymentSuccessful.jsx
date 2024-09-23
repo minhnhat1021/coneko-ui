@@ -1,6 +1,9 @@
+import { useEffect } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 import * as loadService from '~/apiServices/loadService'
+import * as  checkoutService from '~/apiServices/checkoutService'
 
 import { PaymentCongrats } from '~/components/Icons'
 
@@ -12,11 +15,39 @@ const cx = classNames.bind(styles)
 
 function PaymentSuccessful() {
 
+
+    const [searchParams] = useSearchParams()
+    const paymentId = searchParams.get('paymentId')
+    const payerId = searchParams.get('PayerID')
+
+    
+
     const location = useLocation()
+    const paymentDetail = JSON.parse(localStorage.getItem('paymentDetails'))
 
-    const { startDate, endDate, days, totalPrice } = location.state
-    console.log(startDate, endDate, days, totalPrice)
+    const { days, totalPrice } = location.state || paymentDetail
+    const startDate = location.state || new Date(paymentDetail.startDate)
+    const endDate = location.state || new Date(paymentDetail.endDate)
 
+
+    useEffect(() => {
+        const confirmPayment = async () => {
+            try {
+                const res = await checkoutService.confirmPayPalPayment({totalPrice, paymentId, payerId })
+                console.log(res)
+            } catch (error) {
+                console.error('Payment confirmation failed', error)
+            }
+        }
+
+        if (paymentId && payerId) {
+            confirmPayment()
+        }
+    }, [paymentId, payerId])
+
+
+    
+    
     const formattedDate = (date) => {
         return date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()
     }
@@ -32,6 +63,8 @@ function PaymentSuccessful() {
                 
     //     fetchApi()
     // }, [])
+
+    
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -58,20 +91,20 @@ function PaymentSuccessful() {
                     </div>
                     <div className={cx('body__footer')}>
                         <div className={cx('body__footer-item')}>
-                            <p>Ngày bạn đã đặt phòng</p>
-                            <span>{formattedDate(startDate)}</span>
+                            <p>Ngày nhận phòng</p>
+                            <span>{startDate ? formattedDate(startDate) : ''}</span>
+                        </div>
+                        <div className={cx('body__footer-item')}>
+                            <p>Ngày trả phòng </p>
+                            <span>{endDate ?  formattedDate(endDate) : ''}</span>
                         </div>
                         <div className={cx('body__footer-item')}>
                             <p>Thời gian</p>
                             <span>12:00 PM - 10:00 AM </span>
                         </div>
                         <div className={cx('body__footer-item')}>
-                            <p>Số lượng người</p>
-                            <span>{formattedDate(endDate)}</span>
-                        </div>
-                        <div className={cx('body__footer-item')}>
                             <p>Tổng giá</p>
-                            <span>{Number(totalPrice).toLocaleString('vi-VN')}</span>
+                            <span>{totalPrice ? Number(totalPrice).toLocaleString('vi-VN') : 0}</span>
                         </div>
                         <div className={cx('body__footer-item')}>
                             <p>Phí hủy phòng</p>

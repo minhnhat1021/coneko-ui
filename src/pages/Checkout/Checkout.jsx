@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import * as loadService from '~/apiServices/loadService'
-import * as roomService from '~/apiServices/roomService'
+
+import * as checkoutService from '~/apiServices/checkoutService'
 
 import images from '~/assets/images'
 import { BackIcon, DayIcon, TimeIcon } from '~/components/Icons'
@@ -15,6 +16,8 @@ const cx = classNames.bind(styles)
 
 function Checkout() {
 
+
+    // Láy dữ liệu room detail
     const { name } = useParams()
     const [room, setRoom] = useState({})
 
@@ -27,6 +30,8 @@ function Checkout() {
         fetchApi()
     }, [])
 
+    
+
     const location = useLocation()
     const { startDate, endDate, days, roomCharge, amenitiesPrice, amenities, totalPrice, user } = location.state
 
@@ -37,10 +42,12 @@ function Checkout() {
     // Thực hiện thanh toán phòng
     
     const navigate = useNavigate()
-    const handlePayment = (e) => {
+
+    const handleConekoPayment = (e) => {
         e.preventDefault()
+        
         const fetchApi = async () => {
-            const result = await roomService.payment({
+            const result = await checkoutService.conekoCheckout({
                 startDate,
                 endDate,
                 days,
@@ -54,7 +61,7 @@ function Checkout() {
                 userId: user._id
             })
             navigate('/payment-successful', {
-                state: { startDate, endDate, days }
+                state: { startDate, endDate, days, totalPrice }
             })
         }
                 
@@ -63,16 +70,44 @@ function Checkout() {
 
     const handlePayPalPayment = async () => {
         // Tạo request đến API PayPal, và lấy link thanh toán PayPal
-        const res = await roomService.payPalCheckout({
+        const res = await checkoutService.payPalCheckout({
             totalPrice,
             roomId: room._id,
-            userId: user._id
+            userId: user._id,
+            roomName: room.name
         })
-        console.log(res)
         if (res && res.paymentUrl) {
-            window.location.href = res.paymentUrl; // Chuyển hướng đến PayPal
+            localStorage.setItem('paymentDetails', JSON.stringify({ startDate, endDate, days, totalPrice }))
+            window.location.href = res.paymentUrl
         }
     }
+    const handleVnPayPayment = () => {
+
+    }
+    const handleZaloPayPayment = () => {
+        
+    }
+    const handleMomoPayment = () => {
+        
+    }
+    const [paymentMethod, setPaymentMethod] = useState({})
+
+    const handlePaymentMethodChange = (method) => {
+        setPaymentMethod(method)
+    }
+
+    const paymentMethods = [
+        { name: 'coneko', title: 'Thanh toán', handler: handleConekoPayment},
+        { name: 'payPal', title: 'Thanh toán PayPal', handler: handlePayPalPayment },
+        { name: 'vnPay', title: 'Thanh toán VNPay', handler: handleVnPayPayment },
+        { name: 'zaloPay', title: 'Thanh toán ZaloPay', handler: handleZaloPayPayment },
+        { name: 'momo', title: 'Thanh toán Momo', handler: handleMomoPayment }
+    ]
+
+    useEffect(() => {
+        setPaymentMethod({ name: 'coneko', title: 'Thanh toán', handler: handleConekoPayment })
+    }, [room, user])
+    
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -91,16 +126,17 @@ function Checkout() {
                         <p className={cx('payment__info-title')}>
                             Thông tin thanh toán
                         </p>
-                        <div className={cx('payment__info-card')}>
-                            <div className={cx('payment__card-img')}>
-                                <img src={images.visa} alt="VISA"/>
-                            </div>
-                            <div className={cx('payment__card-img')}>
-                                <img src={images.masterCard} alt="MasterCard"/>
-                            </div>
-                            <div className={cx('payment__card-img')} onClick={handlePayPalPayment}>
-                                <img src={images.payPal} alt="PayPal"/>
-                            </div>
+                        <div className={cx('payment__info-card')} >
+                            {paymentMethods.map(method => (
+                                <div 
+                                    key={method.name} 
+                                    className={cx('payment__card-img')} 
+                                    onClick={() => handlePaymentMethodChange(method)}
+                                >
+                                    <img src={images[method.name]} alt={method.name}/>
+                                </div>
+                            ))}
+                            
                         </div>
                         <div className={cx('payment__info-input')}>
                             <input type="text" placeholder='Tên chủ thẻ'/>
@@ -109,13 +145,21 @@ function Checkout() {
                             <input type="text" placeholder='CVC'/>
                         </div>
                     </div>
+
                     <div className={cx('terms')}>
                         <input id='terms' type="checkbox" className={cx('terms__checkbox')}/>
                         <label for="terms" className={cx('terms__label')}></label>
                         <p>Tôi đồng ý với các <Link to='#' className={cx('terms__link')}>điều khoản và điều kiện</Link></p>
                     </div>
-                    <button onClick={handlePayment} className={cx('pay__btn', 'available')} >Thanh toán</button>
-                </div>
+
+                    {paymentMethods.map(method => (
+                        paymentMethod.name === method.name && 
+
+                        <button onClick={paymentMethod.handler} className={cx('pay__btn', 'available')} >
+                            {paymentMethod.title}
+                        </button>
+                    ))}
+                </div> 
                 <div className={cx('booking')}>
                     <div className={cx('booking__info')}>
                         <img    

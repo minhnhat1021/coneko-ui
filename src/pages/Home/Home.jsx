@@ -323,12 +323,13 @@ function Home() {
                     </div>
                 </div>
             </div>
+
             <div className={cx('support')}>
                 <img src={images.primary2} alt='coneko'/>
                 <div className={cx('support__container')}>
                     <header className={cx('support__header')}>
                         <h2>
-                         Để chúng tôi tìm phòng nghỉ lý tưởng giúp bạn!</h2>
+                        Để chúng tôi tìm phòng nghỉ lý tưởng giúp bạn!</h2>
                         <p>
                             Hoàn tất biểu mẫu và đội ngũ của chúng tôi sẽ liên hệ với bạn ngay nhé!
                         </p>
@@ -344,6 +345,8 @@ function Home() {
                     <button className={cx('support__btn')}>Gửi đi</button>
                 </div>
             </div>
+            
+            
 
         </div>
     )
