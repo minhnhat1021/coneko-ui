@@ -17,10 +17,14 @@ export const conekoCheckout = async ({
         }
 }
 
-export const payPalCheckout = async ({totalPrice, roomId, userId, roomName}) => {
+export const payPalCheckout = async ({
+        startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, 
+        amenitiesCharge, amenities, totalPrice, roomId, userId
+    }) => {
     try {
         const res = await request.post(`room/checkout/paypal`, 
-            { totalPrice, roomId, userId, roomName })
+            { startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, 
+                amenitiesCharge, amenities, totalPrice, roomId, userId })
         
         return res.data
     } catch (error) {
@@ -28,11 +32,16 @@ export const payPalCheckout = async ({totalPrice, roomId, userId, roomName}) => 
     }
 }
 
-export const confirmPayPalPayment = async ({totalPrice,  paymentId, payerId }) => {
+export const confirmPayPalPayment = async ({
+        startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, 
+        amenitiesCharge, amenities, totalPrice, roomId, userId,  paymentId, payerId 
+    }) => {
     try {
-        const res = await request.post(`room/checkout/paypal/confirm`, 
-            {totalPrice, paymentId, payerId })
         
+        const res = await request.post(`room/checkout/paypal/confirm`, 
+            { startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, 
+            amenitiesCharge, amenities, totalPrice, roomId, userId, paymentId, payerId })
+            
         return res.data
     } catch (error) {
         console.log(error)

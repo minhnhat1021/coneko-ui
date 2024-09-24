@@ -71,13 +71,20 @@ function Checkout() {
     const handlePayPalPayment = async () => {
         // Tạo request đến API PayPal, và lấy link thanh toán PayPal
         const res = await checkoutService.payPalCheckout({
+            startDate,
+            endDate,
+            days,
+            roomPrice: room.price,
+            roomCharge,
+            amenitiesPrice,
+            amenitiesCharge: amenitiesPrice * days,
+            amenities,
             totalPrice,
             roomId: room._id,
-            userId: user._id,
-            roomName: room.name
+            userId: user._id
+            
         })
         if (res && res.paymentUrl) {
-            localStorage.setItem('paymentDetails', JSON.stringify({ startDate, endDate, days, totalPrice }))
             window.location.href = res.paymentUrl
         }
     }

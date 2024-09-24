@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 import { useSearchParams } from 'react-router-dom'
 
@@ -20,33 +20,65 @@ function PaymentSuccessful() {
     const paymentId = searchParams.get('paymentId')
     const payerId = searchParams.get('PayerID')
 
-    
-
+    // Lấy thông tin từ location.state và params
     const location = useLocation()
-    const paymentDetail = JSON.parse(localStorage.getItem('paymentDetails'))
 
-    const { days, totalPrice } = location.state || paymentDetail
-    const startDate = location.state || new Date(paymentDetail.startDate)
-    const endDate = location.state || new Date(paymentDetail.endDate)
+    const paymentDetailsEncoded = searchParams.get('paymentDetails')
 
+    let paymentDetails = {}
+    if (paymentDetailsEncoded) {
+        const paymentDetailsDecoded = decodeURIComponent(paymentDetailsEncoded)
+        paymentDetails = JSON.parse(paymentDetailsDecoded)
+    }
 
+    // Lấy thông tin cần thiết để hiển thị và call api nếu cần
+    const { 
+        days, 
+        roomPrice, 
+        roomCharge, 
+        amenitiesPrice, 
+        amenitiesCharge, 
+        amenities, 
+        totalPrice, 
+        roomId, 
+        userId  
+    } = location.state || paymentDetails
+
+    const startDate = location.state?.startDate || new Date(paymentDetails.startDate)
+    const endDate = location.state?.endDate || new Date(paymentDetails.endDate)
+
+    const [paymentConfirmed, setPaymentConfirmed] = useState(false)
+    console.log(paymentConfirmed)
     useEffect(() => {
         const confirmPayment = async () => {
             try {
-                const res = await checkoutService.confirmPayPalPayment({totalPrice, paymentId, payerId })
-                console.log(res)
+                // const res = await checkoutService.confirmPayPalPayment({
+                //     startDate,
+                //     endDate,
+                //     days,
+                //     roomPrice,
+                //     roomCharge,
+                //     amenitiesPrice,
+                //     amenitiesCharge,
+                //     amenities,
+                //     totalPrice,
+                //     roomId,
+                //     userId,
+                //     paymentId, 
+                //     payerId })
+                // console.log(res)
+                setPaymentConfirmed(true)
             } catch (error) {
                 console.error('Payment confirmation failed', error)
             }
         }
 
-        if (paymentId && payerId) {
+        if (paymentId && payerId ) {
+            console.log(123)
             confirmPayment()
         }
-    }, [paymentId, payerId])
+    }, [paymentId, payerId, paymentConfirmed, paymentDetails])
 
-
-    
     
     const formattedDate = (date) => {
         return date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()
