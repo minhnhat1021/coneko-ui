@@ -47,37 +47,40 @@ function PaymentSuccessful() {
     const startDate = location.state?.startDate || new Date(paymentDetails.startDate)
     const endDate = location.state?.endDate || new Date(paymentDetails.endDate)
 
-    const [paymentConfirmed, setPaymentConfirmed] = useState(false)
-    console.log(paymentConfirmed)
+            
+    const payPalConfirmed = JSON.parse(localStorage.getItem('payPalConfirmed'))
+
+    console.log(payPalConfirmed)
     useEffect(() => {
         const confirmPayment = async () => {
             try {
-                // const res = await checkoutService.confirmPayPalPayment({
-                //     startDate,
-                //     endDate,
-                //     days,
-                //     roomPrice,
-                //     roomCharge,
-                //     amenitiesPrice,
-                //     amenitiesCharge,
-                //     amenities,
-                //     totalPrice,
-                //     roomId,
-                //     userId,
-                //     paymentId, 
-                //     payerId })
-                // console.log(res)
-                setPaymentConfirmed(true)
+                const res = await checkoutService.confirmPayPalPayment({
+                    startDate,
+                    endDate,
+                    days,
+                    roomPrice,
+                    roomCharge,
+                    amenitiesPrice,
+                    amenitiesCharge,
+                    amenities,
+                    totalPrice,
+                    roomId,
+                    userId,
+                    paymentId, 
+                    payerId 
+                })
+
+                console.log(res)
+                localStorage.setItem('payPalConfirmed', JSON.stringify(true))
             } catch (error) {
                 console.error('Payment confirmation failed', error)
             }
         }
 
-        if (paymentId && payerId ) {
-            console.log(123)
+        if (paymentId && payerId && !payPalConfirmed) {
             confirmPayment()
         }
-    }, [paymentId, payerId, paymentConfirmed, paymentDetails])
+    }, [paymentId, payerId, payPalConfirmed, paymentDetails])
 
     
     const formattedDate = (date) => {

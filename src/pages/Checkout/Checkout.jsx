@@ -85,10 +85,31 @@ function Checkout() {
             
         })
         if (res && res.paymentUrl) {
+            localStorage.setItem('payPalConfirmed', JSON.stringify(false))
             window.location.href = res.paymentUrl
         }
     }
-    const handleVnPayPayment = () => {
+    const handleVnPayPayment = async () => {
+        
+        const res = await checkoutService.vnPayCheckout({
+            startDate,
+            endDate,
+            days,
+            roomPrice: room.price,
+            roomCharge,
+            amenitiesPrice,
+            amenitiesCharge: amenitiesPrice * days,
+            amenities,
+            totalPrice,
+            roomId: room._id,
+            userId: user._id
+            
+        })
+        console.log(res)
+        if (res && res.vnpUrl) {
+            // localStorage.setItem('payPalConfirmed', JSON.stringify(false))
+            window.location.href = res.vnpUrl
+        }
 
     }
     const handleZaloPayPayment = () => {
