@@ -14,14 +14,29 @@ const cx = classNames.bind(styles)
 
 
 function PaymentSuccessful() {
+    const location = useLocation()
 
 
     const [searchParams] = useSearchParams()
     const paymentId = searchParams.get('paymentId')
     const payerId = searchParams.get('PayerID')
 
+
+    // VnPay check out
+    const vnPayCheckoutId = searchParams.get('vnPayCheckoutId')
+    
+    const queryParams = new URLSearchParams(location.search)
+    let vnp_Params = {}
+        
+    queryParams.forEach((value, key) => {
+        vnp_Params[key] = value
+    })
+
+    const [vnPayPaymentDetails, setVnPayPaymentDetails] = useState({})
+    const vnPayConfirmed = JSON.parse(localStorage.getItem('vnPayConfirmed'))
+
+    console.log(vnPayPaymentDetails)
     // Lấy thông tin từ location.state và params
-    const location = useLocation()
 
     const paymentDetailsEncoded = searchParams.get('paymentDetails')
 
@@ -50,11 +65,11 @@ function PaymentSuccessful() {
             
     const payPalConfirmed = JSON.parse(localStorage.getItem('payPalConfirmed'))
 
-    console.log(payPalConfirmed)
     useEffect(() => {
-        const confirmPayment = async () => {
+        
+        const confirmPayPalCheckout = async () => {
             try {
-                const res = await checkoutService.confirmPayPalPayment({
+                const res = await checkoutService.confirmPayPalCheckout({
                     startDate,
                     endDate,
                     days,
@@ -73,14 +88,28 @@ function PaymentSuccessful() {
                 console.log(res)
                 localStorage.setItem('payPalConfirmed', JSON.stringify(true))
             } catch (error) {
-                console.error('Payment confirmation failed', error)
+                console.error('Xác nhận thanh toán Paypal lỗi', error)
             }
         }
 
-        if (paymentId && payerId && !payPalConfirmed) {
-            confirmPayment()
+        const confirmVnPayCheckout = async () => {
+            try {
+                const res = await checkoutService.confirmVnPayCheckout({
+                    vnPayCheckoutId, vnp_Params
+                })
+
+                setVnPayPaymentDetails(res.paymentDetails)
+                localStorage.setItem('vnPayConfirmed', JSON.stringify(true))
+            } catch (error) {
+                console.error('Xác nhận thanh toán vnPay lỗi', error)
+            }
         }
-    }, [paymentId, payerId, payPalConfirmed, paymentDetails])
+        if (paymentId && payerId && !payPalConfirmed) {
+            confirmPayPalCheckout()
+        } else if (vnPayCheckoutId && !vnPayConfirmed) {
+            confirmVnPayCheckout()
+        }
+    }, [paymentId, payerId, payPalConfirmed, paymentDetails,  vnPayCheckoutId])
 
     
     const formattedDate = (date) => {

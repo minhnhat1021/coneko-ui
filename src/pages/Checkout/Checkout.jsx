@@ -107,7 +107,7 @@ function Checkout() {
         })
         console.log(res)
         if (res && res.vnpUrl) {
-            // localStorage.setItem('payPalConfirmed', JSON.stringify(false))
+            localStorage.setItem('vnPayConfirmed', JSON.stringify(false))
             window.location.href = res.vnpUrl
         }
 
