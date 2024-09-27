@@ -73,3 +73,12 @@ export const confirmVnPayCheckout = async ({ vnPayCheckoutId, vnp_Params }) => {
         console.log(error)
     }
 }
+export const vnPayCheckoutDetails = async ({ vnPayCheckoutId }) => {
+    try {
+        const res = await request.post(`room/checkout/vnpay/details`, { vnPayCheckoutId })
+            
+        return res.data
+    } catch (error) {
+        console.log(error)
+    }
+}
