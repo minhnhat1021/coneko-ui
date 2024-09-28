@@ -16,12 +16,9 @@ const cx = classNames.bind(styles)
 function PaymentSuccessful() {
     const location = useLocation()
 
-
     const [searchParams] = useSearchParams()
-    const paymentId = searchParams.get('paymentId')
-    const payerId = searchParams.get('PayerID')
-
-
+    // Zalo Pay check out
+    const apptransid = searchParams.get('apptransid') || undefined
     // VnPay check out
     const vnPayCheckoutId = searchParams.get('vnPayCheckoutId')
     
@@ -37,11 +34,12 @@ function PaymentSuccessful() {
 
     // Lấy thông tin từ location.state và params
 
+    const paymentId = searchParams.get('paymentId')
+    const payerId = searchParams.get('PayerID')
     const paymentDetailsEncoded = searchParams.get('paymentDetails')
 
     let paymentDetails = {}
     if (paymentDetailsEncoded) {
-        console.log(123)
         const paymentDetailsDecoded = decodeURIComponent(paymentDetailsEncoded)
         paymentDetails = JSON.parse(paymentDetailsDecoded)
     }
@@ -131,6 +129,27 @@ function PaymentSuccessful() {
 
     }, [vnPayConfirmed, vnPayCheckoutId])
     
+    // ZaloPay
+    useEffect(() => {
+        
+        const statusZaloPayCheckout = async () => {
+            try {
+                const res = await checkoutService.statusZaloPayCheckout({
+                    apptransid
+                })
+
+                console.log(res)
+                // setVnPayPaymentDetails(res.paymentDetails)
+                // localStorage.setItem('vnPayConfirmed', JSON.stringify(true))
+            } catch (error) {
+                console.error('Xác nhận thanh toán vnPay lỗi', error)
+            }
+        }
+        if(apptransid) {
+            statusZaloPayCheckout()
+        }
+
+    }, [apptransid])
     const formattedDate = (date) => {
         return date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()
     }

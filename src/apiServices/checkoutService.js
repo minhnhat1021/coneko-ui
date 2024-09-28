@@ -82,3 +82,30 @@ export const vnPayCheckoutDetails = async ({ vnPayCheckoutId }) => {
         console.log(error)
     }
 }
+
+
+export const zaloPayCheckout = async ({
+    startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, 
+    amenitiesCharge, amenities, totalPrice, roomId, userId
+}) => {
+try {
+    const res = await request.post(`room/checkout/zalopay`, 
+        { startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, 
+            amenitiesCharge, amenities, totalPrice, roomId, userId })
+    
+    return res.data
+} catch (error) {
+    console.log(error)
+}
+}
+
+
+export const statusZaloPayCheckout = async ({ apptransid }) => {
+try {
+    const res = await request.post(`room/checkout/zalopay/status/${apptransid}`)
+    
+    return res.data
+} catch (error) {
+    console.log(error)
+}
+}

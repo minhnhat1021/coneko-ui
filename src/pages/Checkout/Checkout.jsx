@@ -112,8 +112,26 @@ function Checkout() {
         }
 
     }
-    const handleZaloPayPayment = () => {
-        
+    const handleZaloPayPayment = async () => {
+        const res = await checkoutService.zaloPayCheckout({
+            startDate,
+            endDate,
+            days,
+            roomPrice: room.price,
+            roomCharge,
+            amenitiesPrice,
+            amenitiesCharge: amenitiesPrice * days,
+            amenities,
+            totalPrice,
+            roomId: room._id,
+            userId: user._id
+            
+        })
+        if (res && res.zlpUrl) {
+            // localStorage.setItem('vnPayConfirmed', JSON.stringify(false))
+            console.log(res)
+            window.location.href = res.zlpUrl
+        }
     }
     const handleMomoPayment = () => {
         
