@@ -32,22 +32,16 @@ export const payPalCheckout = async ({
     }
 }
 
-export const confirmPayPalCheckout = async ({
-        startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, 
-        amenitiesCharge, amenities, totalPrice, roomId, userId,  paymentId, payerId 
-    }) => {
+export const confirmPayPalCheckout = async ({paymentId, payerId }) => {
     try {
         
-        const res = await request.post(`room/checkout/paypal/confirm`, 
-            { startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, 
-            amenitiesCharge, amenities, totalPrice, roomId, userId, paymentId, payerId })
+        const res = await request.post(`room/checkout/paypal/confirm`, {  paymentId, payerId })
             
         return res.data
     } catch (error) {
         console.log(error)
     }
 }
-
 
 export const vnPayCheckout = async ({
         startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, 
@@ -64,18 +58,18 @@ export const vnPayCheckout = async ({
     }
 }
 
-export const confirmVnPayCheckout = async ({ vnPayCheckoutId, vnp_Params }) => {
+export const confirmVnPayCheckout = async ({ vnp_Params }) => {
     try {
-        const res = await request.post(`room/checkout/vnpay/confirm`, { vnPayCheckoutId, vnp_Params })
+        const res = await request.post(`room/checkout/vnpay/confirm`, { vnp_Params })
             
         return res.data
     } catch (error) {
         console.log(error)
     }
 }
-export const vnPayCheckoutDetails = async ({ vnPayCheckoutId }) => {
+export const saveVnPayCheckout = async ({ vnPayCheckoutId }) => {
     try {
-        const res = await request.post(`room/checkout/vnpay/details`, { vnPayCheckoutId })
+        const res = await request.post(`room/checkout/vnpay/save`, { vnPayCheckoutId })
             
         return res.data
     } catch (error) {
@@ -109,3 +103,12 @@ try {
     console.log(error)
 }
 }
+export const saveZaloPayCheckout = async ( zaloPayDetails ) => {
+    try {
+        const res = await request.post(`room/checkout/zalopay/save`, { zaloPayDetails })
+        
+        return res.data
+    } catch (error) {
+        console.log(error)
+    }
+    }

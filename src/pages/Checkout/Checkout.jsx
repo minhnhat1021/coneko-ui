@@ -128,7 +128,7 @@ function Checkout() {
             
         })
         if (res && res.zlpUrl) {
-            // localStorage.setItem('vnPayConfirmed', JSON.stringify(false))
+            localStorage.setItem('zaloPayConfirmed', JSON.stringify(false))
             console.log(res)
             window.location.href = res.zlpUrl
         }

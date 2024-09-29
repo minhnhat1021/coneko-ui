@@ -17,34 +17,35 @@ function PaymentSuccessful() {
     const location = useLocation()
 
     const [searchParams] = useSearchParams()
-    // Zalo Pay check out
-    const apptransid = searchParams.get('apptransid') || undefined
-    // VnPay check out
-    const vnPayCheckoutId = searchParams.get('vnPayCheckoutId')
-    
-    const queryParams = new URLSearchParams(location.search)
-    let vnp_Params = {}
-        
-    queryParams.forEach((value, key) => {
-        vnp_Params[key] = value
-    })
 
-    const [vnPayPaymentDetails, setVnPayPaymentDetails] = useState({})
-    const vnPayConfirmed = JSON.parse(localStorage.getItem('vnPayConfirmed'))
-
-    // Lấy thông tin từ location.state và params
-
+    // PayPal Details
     const paymentId = searchParams.get('paymentId')
     const payerId = searchParams.get('PayerID')
-    const paymentDetailsEncoded = searchParams.get('paymentDetails')
+    const payPalConfirmed = JSON.parse(localStorage.getItem('payPalConfirmed'))
 
-    let paymentDetails = {}
-    if (paymentDetailsEncoded) {
-        const paymentDetailsDecoded = decodeURIComponent(paymentDetailsEncoded)
-        paymentDetails = JSON.parse(paymentDetailsDecoded)
-    }
+    const [payPalDetails, setPayPalDetails] = useState({})
+
+    // VnPay Details
+    const vnPayCheckoutId = searchParams.get('vnPayCheckoutId')
+    const vnPayConfirmed = JSON.parse(localStorage.getItem('vnPayConfirmed'))
+
+    const [vnPayDetails, setVnPayDetails] = useState({})
+
+    // Zalo Pay check out
+    const apptransid = searchParams.get('apptransid') || undefined
+    const zaloPayConfirmed = JSON.parse(localStorage.getItem('zaloPayConfirmed'))
+
+    const [zaloPayDetails, setZaloPayDetails] = useState({})
 
     // Lấy thông tin cần thiết để hiển thị và call api nếu cần
+    const getNonEmptyObject = (...objects) => {
+        for (let obj of objects) {
+            if (obj && Object.keys(obj).length > 0) {
+                return obj
+            }
+        }
+        return {}
+    }
     const { 
         days, 
         roomPrice, 
@@ -52,38 +53,41 @@ function PaymentSuccessful() {
         amenitiesPrice, 
         amenitiesCharge, 
         amenities, 
+        totalPrice,
         roomId, 
         userId  
-    } = location.state || paymentDetails 
+    } = getNonEmptyObject(location.state, payPalDetails, vnPayDetails, zaloPayDetails)
 
-    const totalPrice = location.state?.totalPrice || paymentDetails?.totalPrice || vnPayPaymentDetails?.amountSpent
-    const startDate = location.state?.startDate || (paymentDetails.startDate ? new Date(paymentDetails.startDate) : undefined) || new Date(vnPayPaymentDetails.checkInDate)
-    const endDate = location.state?.endDate || (paymentDetails.endDate ? new Date(paymentDetails.endDate) : undefined) || new Date(vnPayPaymentDetails.checkOutDate)
+    const getstartDate = (...paymentDetails) => {
+        for(const paymentDetail of paymentDetails) {
+            if(paymentDetail?.startDate) {
+                return new Date(paymentDetail.startDate)
+            }
+        }
+    }
+    const getendDate = (...paymentDetails) => {
+        for(const paymentDetail of paymentDetails) {
+            if(paymentDetail?.endDate) {
+                return new Date(paymentDetail.endDate)
+            }
+        }
+    }
+    const startDate = getstartDate(location.state, payPalDetails, vnPayDetails, zaloPayDetails)
+    const endDate = getendDate(location.state, payPalDetails, vnPayDetails, zaloPayDetails)
 
-    const payPalConfirmed = JSON.parse(localStorage.getItem('payPalConfirmed'))
-
+    
     // PayPal
     useEffect(() => {
-        
         const confirmPayPalCheckout = async () => {
             try {
                 const res = await checkoutService.confirmPayPalCheckout({
-                    startDate,
-                    endDate,
-                    days,
-                    roomPrice,
-                    roomCharge,
-                    amenitiesPrice,
-                    amenitiesCharge,
-                    amenities,
-                    totalPrice,
-                    roomId,
-                    userId,
                     paymentId, 
                     payerId 
                 })
-
-                console.log(res)
+                if(res.payment.state === 'approved'){
+                    const payPalDetails = searchParams.get('payPalDetails')
+                    setPayPalDetails(JSON.parse(payPalDetails))
+                }
                 localStorage.setItem('payPalConfirmed', JSON.stringify(true))
             } catch (error) {
                 console.error('Xác nhận thanh toán Paypal lỗi', error)
@@ -93,78 +97,71 @@ function PaymentSuccessful() {
         if (paymentId && payerId && !payPalConfirmed) {
             confirmPayPalCheckout()
         }
-    }, [paymentId, payerId, payPalConfirmed, paymentDetails])
+    }, [paymentId, payerId, payPalConfirmed])
 
     // VnPay
     useEffect(() => {
-        
+        const queryParams = new URLSearchParams(location.search)
+        let vnp_Params = {}
+            
+        queryParams.forEach((value, key) => {
+            vnp_Params[key] = value
+        })
+
         const confirmVnPayCheckout = async () => {
+
             try {
                 const res = await checkoutService.confirmVnPayCheckout({
-                    vnPayCheckoutId, vnp_Params
+                    vnp_Params
                 })
-
-                setVnPayPaymentDetails(res.paymentDetails)
-                localStorage.setItem('vnPayConfirmed', JSON.stringify(true))
+                if(res?.code === '00'){
+                    const res = await checkoutService.saveVnPayCheckout({
+                        vnPayCheckoutId
+                    })
+                    setVnPayDetails(res.vnPayDetails)
+                    localStorage.setItem('vnPayConfirmed', JSON.stringify(true))
+                }
             } catch (error) {
                 console.error('Xác nhận thanh toán vnPay lỗi', error)
             }
         }
-        const vnPayCheckoutDetails = async () => {
-            try {
-                const res = await checkoutService.vnPayCheckoutDetails({
-                    vnPayCheckoutId
-                })
-                setVnPayPaymentDetails(res.paymentDetails)
-            } catch (error) {
-                console.error('Lấy dữ liệu lỗi từ phía back end', error)
-            }
-        }
         if(vnPayCheckoutId && !vnPayConfirmed){
             confirmVnPayCheckout()
-        } else if (vnPayCheckoutId && vnPayConfirmed) {
-            vnPayCheckoutDetails()
-
-        }
+        } 
 
     }, [vnPayConfirmed, vnPayCheckoutId])
     
     // ZaloPay
     useEffect(() => {
-        
         const statusZaloPayCheckout = async () => {
             try {
                 const res = await checkoutService.statusZaloPayCheckout({
                     apptransid
                 })
+                if(res.return_code === 1) {
+                    const zaloPayDetailsEncode = searchParams.get('zalopayDetails') || undefined
+                    const zaloPayDetailsDecode = JSON.parse(zaloPayDetailsEncode)
 
-                console.log(res)
-                // setVnPayPaymentDetails(res.paymentDetails)
-                // localStorage.setItem('vnPayConfirmed', JSON.stringify(true))
+                    const res = await checkoutService.saveZaloPayCheckout(zaloPayDetailsDecode)
+                    if(res.return_code === 1) {
+                        setZaloPayDetails(zaloPayDetailsDecode)
+                        localStorage.setItem('zaloPayConfirmed', JSON.stringify(true))
+                    }
+                }
             } catch (error) {
                 console.error('Xác nhận thanh toán vnPay lỗi', error)
             }
         }
-        if(apptransid) {
+        if(apptransid, !zaloPayConfirmed) {
             statusZaloPayCheckout()
         }
 
-    }, [apptransid])
+    }, [apptransid, zaloPayConfirmed])
+
+    // format date
     const formattedDate = (date) => {
         return date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()
     }
-    // const [room, setRoom] = useState({})
-
-    // const [token, setToken] = useState(localStorage.getItem('token'))
-    // useEffect(() => {
-    //     const fetchApi = async () => {
-
-    //         const roomData = await loadService.roomDetail(name)
-    //         setRoom(roomData)
-    //     }
-                
-    //     fetchApi()
-    // }, [])
 
     
     return ( 
@@ -194,7 +191,7 @@ function PaymentSuccessful() {
                     <div className={cx('body__footer')}>
                         <div className={cx('body__footer-item')}>
                             <p>Ngày nhận phòng</p>
-                            <span>{startDate ? formattedDate(startDate) : ''}</span>
+                            <span>{startDate ? formattedDate(startDate) : ''}</span> 
                         </div>
                         <div className={cx('body__footer-item')}>
                             <p>Ngày trả phòng </p>
