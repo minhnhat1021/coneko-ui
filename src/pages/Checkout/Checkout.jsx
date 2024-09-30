@@ -69,7 +69,6 @@ function Checkout() {
     }
 
     const handlePayPalPayment = async () => {
-        // Tạo request đến API PayPal, và lấy link thanh toán PayPal
         const res = await checkoutService.payPalCheckout({
             startDate,
             endDate,
@@ -113,6 +112,7 @@ function Checkout() {
 
     }
     const handleZaloPayPayment = async () => {
+
         const res = await checkoutService.zaloPayCheckout({
             startDate,
             endDate,
@@ -127,9 +127,9 @@ function Checkout() {
             userId: user._id
             
         })
+        console.log(res)
         if (res && res.zlpUrl) {
             localStorage.setItem('zaloPayConfirmed', JSON.stringify(false))
-            console.log(res)
             window.location.href = res.zlpUrl
         }
     }

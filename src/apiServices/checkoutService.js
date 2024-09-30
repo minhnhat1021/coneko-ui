@@ -17,6 +17,7 @@ export const conekoCheckout = async ({
         }
 }
 
+// Paypal checkout -------------------------------------------------------------
 export const payPalCheckout = async ({
         startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, 
         amenitiesCharge, amenities, totalPrice, roomId, userId
@@ -42,7 +43,17 @@ export const confirmPayPalCheckout = async ({paymentId, payerId }) => {
         console.log(error)
     }
 }
+export const savePayPalCheckout = async ( payPalDetails ) => {
+    try {
+        const res = await request.post(`room/checkout/paypal/save`, { payPalDetails })
+        
+        return res.data
+    } catch (error) {
+        console.log(error)
+    }
+    }
 
+// vnPay checkout -------------------------------------------------------------
 export const vnPayCheckout = async ({
         startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, 
         amenitiesCharge, amenities, totalPrice, roomId, userId
@@ -57,7 +68,6 @@ export const vnPayCheckout = async ({
         console.log(error)
     }
 }
-
 export const confirmVnPayCheckout = async ({ vnp_Params }) => {
     try {
         const res = await request.post(`room/checkout/vnpay/confirm`, { vnp_Params })
@@ -77,7 +87,7 @@ export const saveVnPayCheckout = async ({ vnPayCheckoutId }) => {
     }
 }
 
-
+// zaloPay checkout -------------------------------------------------------------
 export const zaloPayCheckout = async ({
     startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, 
     amenitiesCharge, amenities, totalPrice, roomId, userId
@@ -92,8 +102,6 @@ try {
     console.log(error)
 }
 }
-
-
 export const statusZaloPayCheckout = async ({ apptransid }) => {
 try {
     const res = await request.post(`room/checkout/zalopay/status/${apptransid}`)

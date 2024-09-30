@@ -24,7 +24,6 @@ function PaymentSuccessful() {
     const payPalConfirmed = JSON.parse(localStorage.getItem('payPalConfirmed'))
 
     const [payPalDetails, setPayPalDetails] = useState({})
-
     // VnPay Details
     const vnPayCheckoutId = searchParams.get('vnPayCheckoutId')
     const vnPayConfirmed = JSON.parse(localStorage.getItem('vnPayConfirmed'))
@@ -36,7 +35,7 @@ function PaymentSuccessful() {
     const zaloPayConfirmed = JSON.parse(localStorage.getItem('zaloPayConfirmed'))
 
     const [zaloPayDetails, setZaloPayDetails] = useState({})
-
+    
     // Lấy thông tin cần thiết để hiển thị và call api nếu cần
     const getNonEmptyObject = (...objects) => {
         for (let obj of objects) {
@@ -85,10 +84,16 @@ function PaymentSuccessful() {
                     payerId 
                 })
                 if(res.payment.state === 'approved'){
-                    const payPalDetails = searchParams.get('payPalDetails')
-                    setPayPalDetails(JSON.parse(payPalDetails))
+                    const payPalDetailsEncode = searchParams.get('payPalDetails')
+                    const payPalDetailsDecode =JSON.parse(payPalDetailsEncode)
+
+                    const res = await checkoutService.savePayPalCheckout(payPalDetailsDecode)
+                    if(res.return_code === 1) {
+                        setPayPalDetails(payPalDetailsDecode)
+                        localStorage.setItem('payPalConfirmed', JSON.stringify(true))   
+                    }
                 }
-                localStorage.setItem('payPalConfirmed', JSON.stringify(true))
+                
             } catch (error) {
                 console.error('Xác nhận thanh toán Paypal lỗi', error)
             }
@@ -129,7 +134,7 @@ function PaymentSuccessful() {
             confirmVnPayCheckout()
         } 
 
-    }, [vnPayConfirmed, vnPayCheckoutId])
+    }, [vnPayCheckoutId, vnPayConfirmed])
     
     // ZaloPay
     useEffect(() => {
@@ -152,10 +157,10 @@ function PaymentSuccessful() {
                 console.error('Xác nhận thanh toán vnPay lỗi', error)
             }
         }
-        if(apptransid, !zaloPayConfirmed) {
+        if(apptransid && !zaloPayConfirmed) {
             statusZaloPayCheckout()
         }
-
+ 
     }, [apptransid, zaloPayConfirmed])
 
     // format date
