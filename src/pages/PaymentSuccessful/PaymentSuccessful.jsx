@@ -24,7 +24,8 @@ function PaymentSuccessful() {
         amenities, 
         totalPrice,
         roomId, 
-        userId  
+        userId,
+        qrCode,
     } = location.state
 
     const getstartDate = (paymentDetails) => {
@@ -66,7 +67,7 @@ function PaymentSuccessful() {
                             alt='{{room.name}}'
                         />
                         <img
-                            src={`http://localhost:5000/images/roomImg/1722524231808.png`}
+                            src={`${qrCode}`}
                             alt='{{room.name}}'
                         />
                     </div>

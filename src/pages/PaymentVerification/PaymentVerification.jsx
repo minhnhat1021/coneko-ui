@@ -48,8 +48,9 @@ function PaymentSuccessful() {
                     if(res.return_code === 1) {
                         const { startDate, endDate, days, totalPrice } = payPalDetailsDecode
 
+                        console.log(res.qrCode)
                         navigate('/payment-successful', {
-                            state: { startDate, endDate, days, totalPrice }
+                            state: { startDate, endDate, days, totalPrice, qrCode: res.qrCode}
                         })
                         localStorage.setItem('payPalConfirmed', JSON.stringify(true))   
                     }

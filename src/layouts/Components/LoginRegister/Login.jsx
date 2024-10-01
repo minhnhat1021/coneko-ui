@@ -82,7 +82,7 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
                                 </div>
                             </div>
                             <div className={cx('login__content-item', 'check-remember')}>
-                                <input type="checkbox" id="remember" name="remember" checked=""/>
+                                <input type="checkbox" id="remember" name="remember" />
                                 <label htmlFor="remember">Ghi nhớ đăng nhập</label>
                             </div>
                             <span id="resultLogin" className={cx('result-login')}></span>

@@ -62,9 +62,8 @@ function UserBookingHistory({ userData }) {
                         </tr>
                     </thead>
                     <tbody>
-                        
-                        {bookedRooms.map((bookedRoom) => (
-                            <tr onClick = {() => handleShowModal(bookedRoom)}>
+                        {bookedRooms.map((bookedRoom, index) => (
+                            <tr onClick = {() => handleShowModal(bookedRoom)} key={index}>
                                 <td> 
                                     <div>{bookedRooms ? formattedDay(new Date(bookedRoom.bookingDate)) : ''}</div> 
                                     <div>{bookedRooms ? formattedTime(new Date(bookedRoom.bookingDate)) : ''}</div>
@@ -82,103 +81,103 @@ function UserBookingHistory({ userData }) {
                             </tr>
                         ))}
 
-                        <div  className={cx('modal', {showModal}) }  onClick={handleModal}>
-                            <div className={cx('modal__container')} >
-                                <div className={cx('modal__content')} onClick={(e) => handleModalContent(e)}>
-                                    <div className={cx('wrap__expense')}>
-                                        <img src={`http://localhost:5000/images/roomImg/${room?.image}`} alt=''/>
-                                        <div className={cx('expense')}>
-                                            <p className={cx('modal__info-title')}>Chi tiết phí phòng và dịch vụ</p>
-
-                                            <div className={cx('modal__info-item')}>
-                                                Phí phòng ( 1 ngày )
-                                                <span>{infoBooked?.roomPrice?.toLocaleString('vi-VN')} ₫</span> 
-                                            </div>
-                                            <div className={cx('modal__info-item')}>
-                                                Tổng phí phòng ( {infoBooked?.days} ngày )
-                                                <span>{infoBooked?.roomCharge?.toLocaleString('vi-VN')} ₫</span> 
-                                            </div>
-                                            <div className={cx('modal__info-item')}>
-                                                Phí dịch vụ ( 1 ngày )
-                                                <span>{infoBooked?.amenitiesPrice?.toLocaleString('vi-VN')} ₫</span> 
-                                            </div>
-                                            <div className={cx('modal__info-item')}>
-                                                Dịch vụ gồm có
-                                                <span>
-                                                    {Object.entries(infoBooked?.amenities || {})
-                                                        .filter(([key, value]) => value > 0)
-                                                        .map(([key, value], index, array) => (
-                                                            <span key={index}>
-                                                                {key.charAt(0).toUpperCase() + key.slice(1)}
-                                                                {index < array.length - 1 && ', '}
-                                                            </span>
-                                                        ))
-                                                    }
-                                                </span> 
-                                            </div>
-                                            <div className={cx('modal__info-item')}>
-                                                Chi tiết dịch vụ
-                                                <span>
-                                                    {Object.entries(infoBooked?.amenities || {})
-                                                        .filter(([key, value]) => value > 0)
-                                                        .map(([key, value], index, array) => (
-                                                            <span key={index}>
-                                                                {key.charAt(0).toUpperCase() + key.slice(1) } : {value.toLocaleString()} ₫
-                                                                {index < array.length - 1 && ', '}
-                                                            </span>
-                                                        ))
-                                                    }
-                                                </span> 
-                                            </div>
-                                            
-                                            <div className={cx('modal__info-item')}>
-                                                Tổng phí dịch vụ ( {infoBooked?.days} ngày )
-                                                <span>{infoBooked?.amenitiesCharge?.toLocaleString('vi-VN')} ₫</span> 
-                                            </div>
-                                            <div className={cx('modal__info-item')}>
-                                                Tổng chi phí 
-                                                <span>{infoBooked?.amountSpent?.toLocaleString('vi-VN')} ₫</span> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className={cx('modal__info')}>
-                                        <div className={cx('modal__info-list')}>
-                                            <p className={cx('modal__info-title')}>Thông tin phòng</p>
-
-                                            <div className={cx('modal__info-item')}>Tên phòng <span>{room?.name}</span> </div>
-                                            <div className={cx('modal__info-item')}>Mô tả phòng <span>{room?.desc}</span> </div>
-                                            <div className={cx('modal__info-item')}>Giá phòng <span>{room?.price}</span> </div>
-                                            <div className={cx('modal__info-item')}>Dịch vụ <span>{room?.overView}</span> </div>
-
-                                        </div>
-                                        <div className={cx('modal__info-list')}>
-                                            <p className={cx('modal__info-title')}>Thông tin đặt phòng</p>
-
-                                            <div className={cx('modal__info-item')}>
-                                                Ngày đặt phòng 
-                                                <span>{formattedDay(new Date(infoBooked?.bookingDate))} - {formattedTime(new Date(infoBooked?.bookingDate))}</span> 
-                                            </div>
-                                            <div className={cx('modal__info-item')}>
-                                                Ngày nhận phòng 
-                                                <span>{formattedDay(new Date(infoBooked?.checkInDate))} - {formattedTime(new Date(infoBooked?.checkInDate))}</span> 
-                                            </div>
-                                            <div className={cx('modal__info-item')}>
-                                                Ngày trả phòng 
-                                                <span>{formattedDay(new Date(infoBooked?.checkOutDate))} - {formattedTime(new Date(infoBooked?.checkOutDate))}</span> 
-                                            </div>
-                                            <div className={cx('modal__info-item')}>
-                                                Số ngày ở 
-                                                <span>{infoBooked?.days} ngày</span> 
-                                            </div>
-                                            
-                                            
-                                        </div>
-                                    </div>
-                                </div>                  
-                            </div>
-                        </div>
+                        
                     </tbody>
                 </table>
+                <div  className={cx('modal', {showModal}) }  onClick={handleModal}>
+                    <div className={cx('modal__container')} >
+                        <div className={cx('modal__content')} onClick={(e) => handleModalContent(e)}>
+                            <div className={cx('wrap__expense')}>
+                                <img src={`http://localhost:5000/images/roomImg/${room?.image}`} alt=''/>
+                                <div className={cx('expense')}>
+                                    <p className={cx('modal__info-title')}>Chi tiết phí phòng và dịch vụ</p>
+
+                                    <div className={cx('modal__info-item')}>
+                                        Phí phòng ( 1 ngày )
+                                        <span>{infoBooked?.roomPrice?.toLocaleString('vi-VN')} ₫</span> 
+                                    </div>
+                                    <div className={cx('modal__info-item')}>
+                                        Tổng phí phòng ( {infoBooked?.days} ngày )
+                                        <span>{infoBooked?.roomCharge?.toLocaleString('vi-VN')} ₫</span> 
+                                    </div>
+                                    <div className={cx('modal__info-item')}>
+                                        Phí dịch vụ ( 1 ngày )
+                                        <span>{infoBooked?.amenitiesPrice?.toLocaleString('vi-VN')} ₫</span> 
+                                    </div>
+                                    <div className={cx('modal__info-item')}>
+                                        Dịch vụ gồm có
+                                        <span>
+                                            {Object.entries(infoBooked?.amenities || {})
+                                                .filter(([key, value]) => value > 0)
+                                                .map(([key, value], index, array) => (
+                                                    <span key={index}>
+                                                        {key.charAt(0).toUpperCase() + key.slice(1)}
+                                                        {index < array.length - 1 && ', '}
+                                                    </span>
+                                                ))
+                                            }
+                                        </span> 
+                                    </div>
+                                    <div className={cx('modal__info-item')}>
+                                        Chi tiết dịch vụ
+                                        <span>
+                                            {Object.entries(infoBooked?.amenities || {})
+                                                .filter(([key, value]) => value > 0)
+                                                .map(([key, value], index, array) => (
+                                                    <span key={index}>
+                                                        {key.charAt(0).toUpperCase() + key.slice(1) } : {value.toLocaleString()} ₫
+                                                        {index < array.length - 1 && ', '}
+                                                    </span>
+                                                ))
+                                            }
+                                        </span> 
+                                    </div>
+                                    
+                                    <div className={cx('modal__info-item')}>
+                                        Tổng phí dịch vụ ( {infoBooked?.days} ngày )
+                                        <span>{infoBooked?.amenitiesCharge?.toLocaleString('vi-VN')} ₫</span> 
+                                    </div>
+                                    <div className={cx('modal__info-item')}>
+                                        Tổng chi phí 
+                                        <span>{infoBooked?.amountSpent?.toLocaleString('vi-VN')} ₫</span> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={cx('modal__info')}>
+                                <div className={cx('modal__info-list')}>
+                                    <p className={cx('modal__info-title')}>Thông tin phòng</p>
+
+                                    <div className={cx('modal__info-item')}>Tên phòng <span>{room?.name}</span> </div>
+                                    <div className={cx('modal__info-item')}>Mô tả phòng <span>{room?.desc}</span> </div>
+                                    <div className={cx('modal__info-item')}>Giá phòng <span>{room?.price}</span> </div>
+                                    <div className={cx('modal__info-item')}>Dịch vụ <span>{room?.overView}</span> </div>
+
+                                </div>
+                                <div className={cx('modal__info-list')}>
+                                    <p className={cx('modal__info-title')}>Thông tin đặt phòng</p>
+
+                                    <div className={cx('modal__info-item')}>
+                                        Ngày đặt phòng 
+                                        <span>{formattedDay(new Date(infoBooked?.bookingDate))} - {formattedTime(new Date(infoBooked?.bookingDate))}</span> 
+                                    </div>
+                                    <div className={cx('modal__info-item')}>
+                                        Ngày nhận phòng 
+                                        <span>{formattedDay(new Date(infoBooked?.checkInDate))} - {formattedTime(new Date(infoBooked?.checkInDate))}</span> 
+                                    </div>
+                                    <div className={cx('modal__info-item')}>
+                                        Ngày trả phòng 
+                                        <span>{formattedDay(new Date(infoBooked?.checkOutDate))} - {formattedTime(new Date(infoBooked?.checkOutDate))}</span> 
+                                    </div>
+                                    <div className={cx('modal__info-item')}>
+                                        Số ngày ở 
+                                        <span>{infoBooked?.days} ngày</span> 
+                                    </div>
+                                </div>
+                                <img src={infoBooked.qrCode} alt='Qr Code'/>
+                            </div>
+                        </div>                  
+                    </div>
+                </div>
             </div>
         </div>
     );
