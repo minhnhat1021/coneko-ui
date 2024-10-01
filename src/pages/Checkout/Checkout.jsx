@@ -30,7 +30,6 @@ function Checkout() {
         fetchApi()
     }, [])
 
-    
 
     const location = useLocation()
     const { startDate, endDate, days, roomCharge, amenitiesPrice, amenities, totalPrice, user } = location.state
@@ -45,7 +44,6 @@ function Checkout() {
 
     const handleConekoPayment = (e) => {
         e.preventDefault()
-        
         const fetchApi = async () => {
             const result = await checkoutService.conekoCheckout({
                 startDate,
@@ -63,6 +61,7 @@ function Checkout() {
             navigate('/payment-successful', {
                 state: { startDate, endDate, days, totalPrice }
             })
+
         }
                 
         fetchApi()

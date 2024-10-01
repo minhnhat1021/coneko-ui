@@ -1,9 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useParams, useLocation } from 'react-router-dom'
-import { useSearchParams } from 'react-router-dom'
-
-import * as loadService from '~/apiServices/loadService'
-import * as  checkoutService from '~/apiServices/checkoutService'
+import { useLocation } from 'react-router-dom'
 
 import { PaymentCongrats } from '~/components/Icons'
 
@@ -16,35 +11,10 @@ const cx = classNames.bind(styles)
 function PaymentSuccessful() {
     const location = useLocation()
 
-    const [searchParams] = useSearchParams()
-
-    // PayPal Details
-    const paymentId = searchParams.get('paymentId')
-    const payerId = searchParams.get('PayerID')
-    const payPalConfirmed = JSON.parse(localStorage.getItem('payPalConfirmed'))
-
-    const [payPalDetails, setPayPalDetails] = useState({})
-    // VnPay Details
-    const vnPayCheckoutId = searchParams.get('vnPayCheckoutId')
-    const vnPayConfirmed = JSON.parse(localStorage.getItem('vnPayConfirmed'))
-
-    const [vnPayDetails, setVnPayDetails] = useState({})
-
-    // Zalo Pay check out
-    const apptransid = searchParams.get('apptransid') || undefined
-    const zaloPayConfirmed = JSON.parse(localStorage.getItem('zaloPayConfirmed'))
-
-    const [zaloPayDetails, setZaloPayDetails] = useState({})
+    console.log(location.state)
     
-    // Lấy thông tin cần thiết để hiển thị và call api nếu cần
-    const getNonEmptyObject = (...objects) => {
-        for (let obj of objects) {
-            if (obj && Object.keys(obj).length > 0) {
-                return obj
-            }
-        }
-        return {}
-    }
+
+    // Lấy dữ liệu từ location.state (từ trang payment verification)
     const { 
         days, 
         roomPrice, 
@@ -55,119 +25,26 @@ function PaymentSuccessful() {
         totalPrice,
         roomId, 
         userId  
-    } = getNonEmptyObject(location.state, payPalDetails, vnPayDetails, zaloPayDetails)
+    } = location.state
 
-    const getstartDate = (...paymentDetails) => {
-        for(const paymentDetail of paymentDetails) {
-            if(paymentDetail?.startDate) {
-                return new Date(paymentDetail.startDate)
-            }
+    const getstartDate = (paymentDetails) => {
+        if(paymentDetails?.startDate) {
+            return new Date(paymentDetails.startDate)
         }
     }
-    const getendDate = (...paymentDetails) => {
-        for(const paymentDetail of paymentDetails) {
-            if(paymentDetail?.endDate) {
-                return new Date(paymentDetail.endDate)
-            }
+    const getendDate = (paymentDetails) => {
+        if(paymentDetails?.endDate) {
+            return new Date(paymentDetails.endDate)
         }
     }
-    const startDate = getstartDate(location.state, payPalDetails, vnPayDetails, zaloPayDetails)
-    const endDate = getendDate(location.state, payPalDetails, vnPayDetails, zaloPayDetails)
-
     
-    // PayPal
-    useEffect(() => {
-        const confirmPayPalCheckout = async () => {
-            try {
-                const res = await checkoutService.confirmPayPalCheckout({
-                    paymentId, 
-                    payerId 
-                })
-                if(res.payment.state === 'approved'){
-                    const payPalDetailsEncode = searchParams.get('payPalDetails')
-                    const payPalDetailsDecode =JSON.parse(payPalDetailsEncode)
-
-                    const res = await checkoutService.savePayPalCheckout(payPalDetailsDecode)
-                    if(res.return_code === 1) {
-                        setPayPalDetails(payPalDetailsDecode)
-                        localStorage.setItem('payPalConfirmed', JSON.stringify(true))   
-                    }
-                }
-                
-            } catch (error) {
-                console.error('Xác nhận thanh toán Paypal lỗi', error)
-            }
-        }
-
-        if (paymentId && payerId && !payPalConfirmed) {
-            confirmPayPalCheckout()
-        }
-    }, [paymentId, payerId, payPalConfirmed])
-
-    // VnPay
-    useEffect(() => {
-        const queryParams = new URLSearchParams(location.search)
-        let vnp_Params = {}
-            
-        queryParams.forEach((value, key) => {
-            vnp_Params[key] = value
-        })
-
-        const confirmVnPayCheckout = async () => {
-
-            try {
-                const res = await checkoutService.confirmVnPayCheckout({
-                    vnp_Params
-                })
-                if(res?.code === '00'){
-                    const res = await checkoutService.saveVnPayCheckout({
-                        vnPayCheckoutId
-                    })
-                    setVnPayDetails(res.vnPayDetails)
-                    localStorage.setItem('vnPayConfirmed', JSON.stringify(true))
-                }
-            } catch (error) {
-                console.error('Xác nhận thanh toán vnPay lỗi', error)
-            }
-        }
-        if(vnPayCheckoutId && !vnPayConfirmed){
-            confirmVnPayCheckout()
-        } 
-
-    }, [vnPayCheckoutId, vnPayConfirmed])
-    
-    // ZaloPay
-    useEffect(() => {
-        const statusZaloPayCheckout = async () => {
-            try {
-                const res = await checkoutService.statusZaloPayCheckout({
-                    apptransid
-                })
-                if(res.return_code === 1) {
-                    const zaloPayDetailsEncode = searchParams.get('zalopayDetails') || undefined
-                    const zaloPayDetailsDecode = JSON.parse(zaloPayDetailsEncode)
-
-                    const res = await checkoutService.saveZaloPayCheckout(zaloPayDetailsDecode)
-                    if(res.return_code === 1) {
-                        setZaloPayDetails(zaloPayDetailsDecode)
-                        localStorage.setItem('zaloPayConfirmed', JSON.stringify(true))
-                    }
-                }
-            } catch (error) {
-                console.error('Xác nhận thanh toán vnPay lỗi', error)
-            }
-        }
-        if(apptransid && !zaloPayConfirmed) {
-            statusZaloPayCheckout()
-        }
- 
-    }, [apptransid, zaloPayConfirmed])
+    const startDate = getstartDate(location.state)
+    const endDate = getendDate(location.state)
 
     // format date
     const formattedDate = (date) => {
         return date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()
     }
-
     
     return ( 
         <div className={cx('wrapper')}>

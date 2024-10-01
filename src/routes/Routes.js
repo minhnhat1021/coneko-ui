@@ -4,6 +4,7 @@ import About from '~/pages/About'
 import HotelRooms from '~/pages/HotelRooms'
 import RoomBooking from '~/pages/RoomBooking'
 import PaymentSuccessful from '~/pages/PaymentSuccessful'
+import PaymentVerification from '~/pages/PaymentVerification'
 import HotelRules from '~/pages/HotelRules'
 import Contact from '~/pages/Contact/Contact'
 
@@ -30,6 +31,7 @@ const publicRoutes = [
     { path: config.routes.hotelRooms, component: HotelRooms},
     { path: config.routes.roomBooking, component: RoomBooking},
     { path: config.routes.paymentSuccessful, component: PaymentSuccessful},
+    { path: config.routes.paymentVerification, component: PaymentVerification},
 
     { path: config.routes.hotelRules, component: HotelRules},
     { path: config.routes.contact, component: Contact},

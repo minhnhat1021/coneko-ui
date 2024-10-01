@@ -4,6 +4,7 @@ const routes = {
     hotelRooms: '/hotel-rooms',
     roomBooking: ':name/room-booking',
     paymentSuccessful: '/payment-successful',
+    paymentVerification: 'payment-verification',
     hotelRules: '/hotel-rules',
     contact: '/contact',
 
