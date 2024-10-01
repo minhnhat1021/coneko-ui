@@ -55,18 +55,16 @@ const Menu_User = [
         title: 'Tài khoản',
     },
     {
-        icon: <i className={cx('fa-solid fa-clipboard-list')}></i>,
-        title: 'Danh sách giao dịch'
+        icon: <i className={cx('fa-solid fa-bookmark')}></i>,
+        title: 'Phòng của tôi'
     },
     {
-        
         icon: <i className={cx('fa-regular fa-rectangle-list')}></i>,
         title: 'Lịch sử đặt phòng'
     },
     {
-        
         icon: <i className={cx('fa-solid fa-bookmark')}></i>,
-        title: 'Danh sách phòng ưa thích'
+        title: 'Phòng ưa thích'
     },
     {
         icon: <i className={cx('fa-regular fa-credit-card')}></i>,
@@ -135,7 +133,6 @@ function Header() {
                 break
         }
     }
-    
 
     // HandleDataRegister 
 
@@ -161,21 +158,16 @@ function Header() {
         .catch((err) => console.error(err) )  
     }
 
-    // handele Account 
-    const handleAccount = () => {
-        window.location.href = '/user/account'
+    const handleNavigation = (route) => {
+        window.location.href = route
     }
-    const handleBookingHistory = () => {
-        window.location.href = '/user/booking-history' 
-    }    
-    const handleFavoriteRooms = () => {
-        window.location.href = '/user/favorite-rooms'
-    }
-    const handleTransactionList = () => {
-        window.location.href = '/user/purchase/list'
-    }
-    const handlePayCard = () => {
-        window.location.href = '/user/paycard'
+
+    const routes = {
+        account: config.routes.userAccount,
+        currentRooms: config.routes.userCurrentRooms,
+        bookingHistory: config.routes.userBookingHistory,
+        favoriteRooms: config.routes.userFavoriteRooms,
+        payCard: config.routes.userPayCard,
     }
     
     return ( 
@@ -202,11 +194,11 @@ function Header() {
                         <>
                             <User 
                                 user={user}
-                                account={handleAccount} 
-                                transactionList={handleTransactionList}
-                                bookingHistory={handleBookingHistory} 
-                                favoriteRooms={handleFavoriteRooms}
-                                payCard={handlePayCard}
+                                account={() => handleNavigation(routes.account)} 
+                                currentRooms={() => handleNavigation(routes.currentRooms)}
+                                bookingHistory={() => handleNavigation(routes.bookingHistory)} 
+                                favoriteRooms={() => handleNavigation(routes.favoriteRooms)}
+                                payCard={() => handleNavigation(routes.payCard)}
                                 logout={handleLogout} 
                                 Menu_User={Menu_User}
                             />

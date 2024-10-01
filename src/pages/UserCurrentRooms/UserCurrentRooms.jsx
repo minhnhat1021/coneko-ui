@@ -1,18 +1,16 @@
 
-import React, { useState } from 'react';
-import axios from 'axios';
-import * as loadService from '~/apiServices/loadService'
-import images from '~/assets/images'
+import React, { useState } from 'react'
+import axios from 'axios'
 
-import classNames from 'classnames/bind';
-import styles from './UserBookingHistory.module.scss';
+import classNames from 'classnames/bind'
+import styles from './UserCurrentRooms.module.scss'
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind(styles)
 
 function UserBookingHistory({ userData }) {
     const user = userData.data
-    const bookedRooms = user.bookedRooms
-
+    const currentRooms = user?.currentRooms
+    
     // Chuyển đổi định dạng ngày
     const formattedDay = (date) => {
         return  date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()  
@@ -29,14 +27,14 @@ function UserBookingHistory({ userData }) {
     const [showModal, setShowModal] = useState(false)
 
     const [room, setRoom] = useState({})
-    const [infoBooked, setInfoBooked] = useState({})
+    const [infoCurrent, setInfoCurrent] = useState({})
 
-    const handleShowModal = async (booked) => {
+    const handleShowModal = async (current) => {
         try {
-            const roomData = await axios.get(`http://localhost:5000/api/room/${booked.roomId}`)
+            const roomData = await axios.get(`http://localhost:5000/api/room/${current.roomId}`)
             
             setRoom(roomData.data)
-            setInfoBooked(booked)
+            setInfoCurrent(current)
             setShowModal(true)
         } catch (error) {
             console.error('Có lỗi xảy ra:', error);
@@ -64,24 +62,25 @@ function UserBookingHistory({ userData }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {bookedRooms.map((bookedRoom, index) => (
-                            <tr onClick = {() => handleShowModal(bookedRoom)} key={index}>
+                        {currentRooms?.map((currentRoom, index) => (
+                            <tr onClick = {() => handleShowModal(currentRoom)} key={index}>
                                 <td> 
-                                    <div>{bookedRooms ? formattedDay(new Date(bookedRoom.bookingDate)) : ''}</div> 
-                                    <div>{bookedRooms ? formattedTime(new Date(bookedRoom.bookingDate)) : ''}</div>
+                                    <div>{currentRooms ? formattedDay(new Date(currentRoom.bookingDate)) : ''}</div> 
+                                    <div>{currentRooms ? formattedTime(new Date(currentRoom.bookingDate)) : ''}</div>
                                 </td>
                                 <td>
-                                    <div>{bookedRooms ? formattedDay(new Date(bookedRoom.checkInDate)) : ''}</div>
-                                    <div>{bookedRooms ? formattedTime(new Date(bookedRoom.checkInDate)) : ''}</div>
+                                    <div>{currentRooms ? formattedDay(new Date(currentRoom.checkInDate)) : ''}</div>
+                                    <div>{currentRooms ? formattedTime(new Date(currentRoom.checkInDate)) : ''}</div>
                                 </td>
                                 <td>
-                                    <div>{bookedRooms ? formattedDay(new Date(bookedRoom.checkOutDate)) : ''}</div>
-                                    <div>{bookedRooms ? formattedTime(new Date(bookedRoom.checkOutDate)) : ''}</div>
+                                    <div>{currentRooms ? formattedDay(new Date(currentRoom.checkOutDate)) : ''}</div>
+                                    <div>{currentRooms ? formattedTime(new Date(currentRoom.checkOutDate)) : ''}</div>
                                 </td>
-                                <td>{bookedRoom.amountSpent}</td>
+                                <td>{currentRoom.amountSpent}</td>
                                 <td className={cx('status', 'thanhcong')}>Thành công</td>
                             </tr>
                         ))}
+                        
                     </tbody>
                 </table>
                 <div  className={cx('modal', {showModal}) }  onClick={handleModal}>
@@ -94,20 +93,20 @@ function UserBookingHistory({ userData }) {
 
                                     <div className={cx('modal__info-item')}>
                                         Phí phòng ( 1 ngày )
-                                        <span>{infoBooked?.roomPrice?.toLocaleString('vi-VN')} ₫</span> 
+                                        <span>{infoCurrent?.roomPrice?.toLocaleString('vi-VN')} ₫</span> 
                                     </div>
                                     <div className={cx('modal__info-item')}>
-                                        Tổng phí phòng ( {infoBooked?.days} ngày )
-                                        <span>{infoBooked?.roomCharge?.toLocaleString('vi-VN')} ₫</span> 
+                                        Tổng phí phòng ( {infoCurrent?.days} ngày )
+                                        <span>{infoCurrent?.roomCharge?.toLocaleString('vi-VN')} ₫</span> 
                                     </div>
                                     <div className={cx('modal__info-item')}>
                                         Phí dịch vụ ( 1 ngày )
-                                        <span>{infoBooked?.amenitiesPrice?.toLocaleString('vi-VN')} ₫</span> 
+                                        <span>{infoCurrent?.amenitiesPrice?.toLocaleString('vi-VN')} ₫</span> 
                                     </div>
                                     <div className={cx('modal__info-item')}>
                                         Dịch vụ gồm có
                                         <span>
-                                            {Object.entries(infoBooked?.amenities || {})
+                                            {Object.entries(infoCurrent?.amenities || {})
                                                 .filter(([key, value]) => value > 0)
                                                 .map(([key, value], index, array) => (
                                                     <span key={index}>
@@ -121,7 +120,7 @@ function UserBookingHistory({ userData }) {
                                     <div className={cx('modal__info-item')}>
                                         Chi tiết dịch vụ
                                         <span>
-                                            {Object.entries(infoBooked?.amenities || {})
+                                            {Object.entries(infoCurrent?.amenities || {})
                                                 .filter(([key, value]) => value > 0)
                                                 .map(([key, value], index, array) => (
                                                     <span key={index}>
@@ -134,12 +133,12 @@ function UserBookingHistory({ userData }) {
                                     </div>
                                     
                                     <div className={cx('modal__info-item')}>
-                                        Tổng phí dịch vụ ( {infoBooked?.days} ngày )
-                                        <span>{infoBooked?.amenitiesCharge?.toLocaleString('vi-VN')} ₫</span> 
+                                        Tổng phí dịch vụ ( {infoCurrent?.days} ngày )
+                                        <span>{infoCurrent?.amenitiesCharge?.toLocaleString('vi-VN')} ₫</span> 
                                     </div>
                                     <div className={cx('modal__info-item')}>
                                         Tổng chi phí 
-                                        <span>{infoBooked?.amountSpent?.toLocaleString('vi-VN')} ₫</span> 
+                                        <span>{infoCurrent?.amountSpent?.toLocaleString('vi-VN')} ₫</span> 
                                     </div>
                                 </div>
                             </div>
@@ -158,29 +157,29 @@ function UserBookingHistory({ userData }) {
 
                                     <div className={cx('modal__info-item')}>
                                         Ngày đặt phòng 
-                                        <span>{formattedDay(new Date(infoBooked?.bookingDate))} - {formattedTime(new Date(infoBooked?.bookingDate))}</span> 
+                                        <span>{formattedDay(new Date(infoCurrent?.bookingDate))} - {formattedTime(new Date(infoCurrent?.bookingDate))}</span> 
                                     </div>
                                     <div className={cx('modal__info-item')}>
                                         Ngày nhận phòng 
-                                        <span>{formattedDay(new Date(infoBooked?.checkInDate))} - {formattedTime(new Date(infoBooked?.checkInDate))}</span> 
+                                        <span>{formattedDay(new Date(infoCurrent?.checkInDate))} - {formattedTime(new Date(infoCurrent?.checkInDate))}</span> 
                                     </div>
                                     <div className={cx('modal__info-item')}>
                                         Ngày trả phòng 
-                                        <span>{formattedDay(new Date(infoBooked?.checkOutDate))} - {formattedTime(new Date(infoBooked?.checkOutDate))}</span> 
+                                        <span>{formattedDay(new Date(infoCurrent?.checkOutDate))} - {formattedTime(new Date(infoCurrent?.checkOutDate))}</span> 
                                     </div>
                                     <div className={cx('modal__info-item')}>
                                         Số ngày ở 
-                                        <span>{infoBooked?.days} ngày</span> 
+                                        <span>{infoCurrent?.days} ngày</span> 
                                     </div>
                                 </div>
-                                <img src={infoBooked?.qrCode} alt='Qr Code'/>
+                                <img src={infoCurrent?.qrCode} alt='Qr Code'/>
                             </div>
                         </div>                  
                     </div>
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default UserBookingHistory;
+export default UserBookingHistory

@@ -20,7 +20,7 @@ const Button = forwardRef(({to,
     onClick, 
     showModal,
     account,
-    transactionList,
+    currentRooms,
     bookingHistory,
     favoriteRooms,
     payCard,
@@ -37,8 +37,8 @@ const Button = forwardRef(({to,
             showModal(e)
         } else if (account) {
             account(e)
-        } else if (transactionList) {
-            transactionList(e)
+        } else if (currentRooms) {
+            currentRooms(e)
         } else if (bookingHistory) {
             bookingHistory(e)
         }else if (favoriteRooms) {

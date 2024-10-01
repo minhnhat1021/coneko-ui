@@ -9,10 +9,13 @@ const routes = {
     contact: '/contact',
 
     userAccount: '/user/account',
-    userPurchase: '/user/purchase/list',
+    userCurrentRooms: '/user/current-rooms',
     userBookingHistory: '/user/booking-history',
     userFavoriteRooms: '/user/favorite-rooms',
     userPayCard: '/user/paycard',
+
+    userPurchase: '/user/purchase/list',
+
 
     admin: '/admin',
     userList: '/admin/user-list',

@@ -12,6 +12,7 @@ import Contact from '~/pages/Contact/Contact'
 import UserAccount from '~/pages/UserAccount'
 import UserBookingHistory from '~/pages/UserBookingHistory'
 import UserFavoriteRooms from '~/pages/UserFavoriteRooms'
+import UserCurrentRooms from '~/pages/UserCurrentRooms'
 import UserPayCard from '~/pages/UserPayCard/UserPayCard'
 
 import { Admin, UserList, StatisticsRoom, RoomList, BannedUsers, AvailableRooms, BookedRooms, CancelledRooms, RoomTrash, CreateRoom, EditRoom } from '~/pages/Admin'
@@ -44,6 +45,7 @@ const privateRoutes = [
     { path: config.routes.userAccount, component: UserAccount, subLayout: UserLayout},
     { path: config.routes.userBookingHistory, component: UserBookingHistory, subLayout: UserLayout},
     { path: config.routes.userFavoriteRooms, component: UserFavoriteRooms, subLayout: UserLayout},
+    { path: config.routes.userCurrentRooms, component: UserCurrentRooms, subLayout: UserLayout},
     { path: config.routes.userPayCard, component: UserPayCard, subLayout: UserLayout},
 ]
 
