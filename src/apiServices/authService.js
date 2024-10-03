@@ -10,4 +10,13 @@ export const googleLogin = async ( credential ) => {
         console.log(error)
     }
 }
+export const facebookLogin = async ( accessToken ) => {
+    try {
+        const res = await request.post(`login/facebook`, { accessToken })
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 

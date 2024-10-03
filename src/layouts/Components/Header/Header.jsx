@@ -79,7 +79,7 @@ const Menu_User = [
 function Header() {
 
     // Lấy thông tin người dùng truyền về header
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState()
     const [token, setToken] = useState(localStorage.getItem('token'))
     
     useEffect(() => {
@@ -190,25 +190,25 @@ function Header() {
                 </nav>
                 <div className={cx('header__actions')}>
 
-                {   Object.keys(user).length !== 0 ? (
-                        <>
-                            <User 
-                                user={user}
-                                account={() => handleNavigation(routes.account)} 
-                                currentRooms={() => handleNavigation(routes.currentRooms)}
-                                bookingHistory={() => handleNavigation(routes.bookingHistory)} 
-                                favoriteRooms={() => handleNavigation(routes.favoriteRooms)}
-                                payCard={() => handleNavigation(routes.payCard)}
-                                logout={handleLogout} 
-                                Menu_User={Menu_User}
-                            />
+                {user ? (
+                    <>
+                        <User 
+                            user={user}
+                            account={() => handleNavigation(routes.account)} 
+                            currentRooms={() => handleNavigation(routes.currentRooms)}
+                            bookingHistory={() => handleNavigation(routes.bookingHistory)} 
+                            favoriteRooms={() => handleNavigation(routes.favoriteRooms)}
+                            payCard={() => handleNavigation(routes.payCard)}
+                            logout={handleLogout} 
+                            Menu_User={Menu_User}
+                        />
 
-                            <Menu Menu_item = {Menu_item} onChange={handleMenuChange}>
-                                <button className={cx('actions__menu-btn')}>
-                                    <i className={cx('fa-solid fa-bars')}></i>
-                                </button>
-                            </Menu>
-                        </>
+                        <Menu Menu_item = {Menu_item} onChange={handleMenuChange}>
+                            <button className={cx('actions__menu-btn')}>
+                                <i className={cx('fa-solid fa-bars')}></i>
+                            </button>
+                        </Menu>
+                    </>
                 ) : (
                     <>
                         <Button ref={registerBtnRef}  register showModal={(e) => handleModalToggle(e)}>

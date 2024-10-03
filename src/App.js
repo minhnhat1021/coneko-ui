@@ -1,7 +1,4 @@
-
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-
 import { Fragment} from "react"
 
 import { publicRoutes, privateRoutes, adminRoutes } from '~/routes'
@@ -14,7 +11,7 @@ import { UserProvider } from '~/contexts/UserContext'
 
 
 function App() {
-        
+
     return (
         
         <UserProvider>

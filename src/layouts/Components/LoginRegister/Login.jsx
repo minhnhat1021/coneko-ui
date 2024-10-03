@@ -1,9 +1,8 @@
 import { forwardRef, useEffect, useState } from 'react'
 import axios from 'axios'
-
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google'
 import * as authService from '~/apiServices/authService'
-
+import FacebookLogin from 'react-facebook-login'
 import { WarningIcon, ShowPassword, HidePassword, Loading } from '~/components/Icons'
 
 import classNames from 'classnames/bind'
@@ -43,10 +42,10 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
 
         .then((res) => {
             const resultLogin = document.getElementById('resultLogin')
-            resultLogin.innerText = res.data.msg ? res.data.msg : ''
-            if(res.data.token) {
-                localStorage.setItem('token', res.data.token)
-                localStorage.setItem('userId', res.data.userId)
+            resultLogin.innerText = res?.data?.msg ? res?.data?.msg : ''
+            if(res?.data?.token) {
+                localStorage.setItem('token', res?.data?.token)
+                localStorage.setItem('userId', res?.data?.userId)
                 onDataLogin(localStorage.getItem('token'))
             }
             setLoading(false)
@@ -61,10 +60,10 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
         const result = await authService.googleLogin(credential)
 
         const resultLogin = document.getElementById('resultLogin')
-        resultLogin.innerText = result.msg ? result.msg : ''
-        if(result.token) {
-            localStorage.setItem('token', result.token)
-            localStorage.setItem('userId', result.userId)
+        resultLogin.innerText = result?.msg ? result?.msg : ''
+        if(result?.token) {
+            localStorage.setItem('token', result?.token)
+            localStorage.setItem('userId', result?.userId)
             onDataLogin(localStorage.getItem('token'))
         }
 
@@ -75,10 +74,20 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
     const handleLoginFailure = (error) => {
         console.error('Đăng nhập bằng google thất bại:', error)
     }
-    // 
-    const login = useGoogleLogin({
-        onSuccess: tokenResponse => console.log(tokenResponse),
-    })
+    // fb
+    const handleFacebookLogin = async (data) => {
+        const accessToken = data.accessToken
+        const result = await authService.facebookLogin(accessToken)
+
+        const resultLogin = document.getElementById('resultLogin')
+        resultLogin.innerText = result?.msg ? result?.msg : ''
+        if(result?.token) {
+            localStorage.setItem('token', result?.token)
+            localStorage.setItem('userId', result?.userId)
+            onDataLogin(localStorage.getItem('token'))
+        }
+        console.log(result)
+    }
     return ( 
         <div ref={ref} id='login' className={cx('login__modal', {showModal}) } onClick={clickModal}>
             <div className={cx('login__modal-container')} onClick={clickContentModal}>
@@ -124,8 +133,13 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
                                     height='1000px'
                                 />
                             </div>
+                            <FacebookLogin
+                                appId={process.env.REACT_APP_FB_CLIENT_ID}
+                                autoLoad={true}
+                                fields='name,email,password'
+                                callback={handleFacebookLogin}
+                            />
 
-                            {/* <MyCustomButton onClick={() => login()}>Sign in with Google 🚀</MyCustomButton> */}
                         </form>
                     </main>
                     <footer className={cx('login__content-footer')}>
