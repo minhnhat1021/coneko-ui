@@ -3,12 +3,17 @@ import ReactDOM from 'react-dom/client'
 import App from '~/App'
 import reportWebVitals from '~/reportWebVitals'
 import GlobalStyles from '~/components/GlobalStyles'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
+
+const clientId = process.env.REACT_APP_GG_CLIENT_ID
 root.render(
 //   <React.StrictMode>
       <GlobalStyles>
-          <App />
+            <GoogleOAuthProvider clientId={clientId}>
+                <App />
+            </GoogleOAuthProvider>
       </GlobalStyles>
 //  </React.StrictMode>
 )

@@ -1,6 +1,9 @@
 import { forwardRef, useEffect, useState } from 'react'
 import axios from 'axios'
 
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google'
+import * as authService from '~/apiServices/authService'
+
 import { WarningIcon, ShowPassword, HidePassword, Loading } from '~/components/Icons'
 
 import classNames from 'classnames/bind'
@@ -52,7 +55,30 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
 
         .catch((err) => console.error(err) )  
     }
+    // Login Google
+    const handleLoginSuccess = async (res) => {
+        const credential = res.credential
+        const result = await authService.googleLogin(credential)
+
+        const resultLogin = document.getElementById('resultLogin')
+        resultLogin.innerText = result.msg ? result.msg : ''
+        if(result.token) {
+            localStorage.setItem('token', result.token)
+            localStorage.setItem('userId', result.userId)
+            onDataLogin(localStorage.getItem('token'))
+        }
+
+        console.log(result)
+        
+    }
     
+    const handleLoginFailure = (error) => {
+        console.error('Đăng nhập bằng google thất bại:', error)
+    }
+    // 
+    const login = useGoogleLogin({
+        onSuccess: tokenResponse => console.log(tokenResponse),
+    })
     return ( 
         <div ref={ref} id='login' className={cx('login__modal', {showModal}) } onClick={clickModal}>
             <div className={cx('login__modal-container')} onClick={clickContentModal}>
@@ -89,6 +115,17 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
                             <div className={cx('login__content-btn')}>
                                 <button type="submit">{loading ? <span ><Loading /></span> : 'Đăng nhập' }</button>
                             </div>
+
+                            <div className={cx('google__login-btn')}>
+                                <GoogleLogin
+                                    onSuccess={handleLoginSuccess}
+                                    onFailure={handleLoginFailure}
+                                    width='260px'
+                                    height='1000px'
+                                />
+                            </div>
+
+                            {/* <MyCustomButton onClick={() => login()}>Sign in with Google 🚀</MyCustomButton> */}
                         </form>
                     </main>
                     <footer className={cx('login__content-footer')}>
