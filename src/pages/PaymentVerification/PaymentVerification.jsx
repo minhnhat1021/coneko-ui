@@ -86,7 +86,7 @@ function PaymentSuccessful() {
                     const { startDate, endDate, days, totalPrice } = res.vnPayDetails
 
                     navigate('/payment-successful', {
-                        state: { startDate, endDate, days, totalPrice }
+                        state: { startDate, endDate, days, totalPrice, qrCode: res.qrCode }
                     })
 
                     localStorage.setItem('vnPayConfirmed', JSON.stringify(true))
@@ -114,11 +114,11 @@ function PaymentSuccessful() {
 
                     const res = await checkoutService.saveZaloPayCheckout(zaloPayDetailsDecode)
                     if(res.return_code === 1) {
-                        console.log(zaloPayDetailsDecode)
+
                         const { startDate, endDate, days, totalPrice } = zaloPayDetailsDecode
 
                         navigate('/payment-successful', {
-                            state: { startDate, endDate, days, totalPrice }
+                            state: { startDate, endDate, days, totalPrice, qrCode: res.qrCode }
                         })
 
                         localStorage.setItem('zaloPayConfirmed', JSON.stringify(true))

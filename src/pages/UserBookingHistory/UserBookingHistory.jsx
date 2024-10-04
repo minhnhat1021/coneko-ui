@@ -1,8 +1,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import * as loadService from '~/apiServices/loadService'
-import images from '~/assets/images'
+
 
 import classNames from 'classnames/bind';
 import styles from './UserBookingHistory.module.scss';
@@ -10,7 +9,7 @@ import styles from './UserBookingHistory.module.scss';
 const cx = classNames.bind(styles);
 
 function UserBookingHistory({ userData }) {
-    const user = userData.data
+    const user = userData?.data
     const bookedRooms = user.bookedRooms
 
     // Chuyển đổi định dạng ngày
@@ -30,6 +29,7 @@ function UserBookingHistory({ userData }) {
 
     const [room, setRoom] = useState({})
     const [infoBooked, setInfoBooked] = useState({})
+    console.log(infoBooked)
 
     const handleShowModal = async (booked) => {
         try {

@@ -19,3 +19,13 @@ export const userDetail = async (token) => {
         console.log(error)
     }
 }
+export const bookingManagement = async () => {
+    try {
+        const res = await request.get(`admin/booking-management`)
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
