@@ -27,7 +27,7 @@ function PaymentSuccessful() {
         userId,
         qrCode,
     } = location.state
-    console.log(qrCode)
+    
     const getstartDate = (paymentDetails) => {
         if(paymentDetails?.startDate) {
             return new Date(paymentDetails.startDate)

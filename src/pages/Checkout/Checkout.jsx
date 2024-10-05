@@ -59,7 +59,7 @@ function Checkout() {
                 userId: user._id
             })
             navigate('/payment-successful', {
-                state: { startDate, endDate, days, totalPrice }
+                state: { startDate, endDate, days, totalPrice, qrCode: result?.qrCode}
             })
 
         }
