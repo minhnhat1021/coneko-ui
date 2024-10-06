@@ -1,7 +1,8 @@
-import { forwardRef, useEffect, useState } from 'react'
+import { forwardRef, useState } from 'react'
 import axios from 'axios'
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google'
 import * as authService from '~/apiServices/authService'
+
+import { GoogleLogin } from '@react-oauth/google'
 import FacebookLogin from 'react-facebook-login'
 import { WarningIcon, ShowPassword, HidePassword, Loading } from '~/components/Icons'
 

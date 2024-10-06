@@ -93,7 +93,6 @@ function BookingDetails() {
                                 <div className={cx('modal__info-item')}>Mô tả phòng <span>{booking?.room?.desc}</span> </div>
                                 <div className={cx('modal__info-item')}>Giá phòng <span>{booking?.room?.price}</span> </div>
                                 <div className={cx('modal__info-item')}>Dịch vụ <span>{booking?.room?.overView}</span> </div>
-
                             </div>
                             <div className={cx('modal__info-list')}>
                                 <p className={cx('modal__info-title')}>Thông tin đặt phòng</p>
@@ -115,7 +114,17 @@ function BookingDetails() {
                                     <span>{booking?.days} ngày</span> 
                                 </div>
                             </div>
-                            <img src={booking?.qrCode} alt='Qr Code'/>
+                            <div className={cx('modal__info-list')}>
+                                <p className={cx('modal__info-title')}>Thông tin Khách hàng</p>
+
+                                <div className={cx('modal__info-item')}>Tên khách hàng <span>{booking?.user?.fullName}</span> </div>
+                                <div className={cx('modal__info-item')}>Email <span>{booking?.user?.email}</span> </div>
+                                <div className={cx('modal__info-item')}>Số điện thoại <span>{booking?.user?.phone}</span> </div>
+                                <div className={cx('modal__info-item')}>Cấp độ <span>{booking?.user?.level}</span> </div>
+                            </div>
+                            <div className={cx('qr__code')}>
+                                <img src={booking?.qrCode} alt='Qr Code'/>
+                            </div>
                         </div>
                     </div>                  
                 </div>

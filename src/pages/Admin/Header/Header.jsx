@@ -16,7 +16,6 @@ function Header() {
             </nav>
             <nav className={cx('nav__task')}>
                 <Link to='/admin/create-room'>Tạo phòng</Link>
-                <Link to='#'>Sửa thông tin phòng</Link>
             </nav>
         </header>
     )

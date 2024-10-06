@@ -1,5 +1,10 @@
 import { forwardRef, useState, useEffect } from 'react'
 import axios from 'axios'
+import * as authService from '~/apiServices/authService'
+
+import { GoogleLogin } from '@react-oauth/google'
+import FacebookLogin from 'react-facebook-login'
+
 import { WarningIcon, ShowPassword, HidePassword, Loading } from '~/components/Icons'
 
 import classNames from 'classnames/bind'
@@ -133,7 +138,39 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
         }
     }, [])
     
+    // Login Google
+    const handleLoginSuccess = async (res) => {
+        const credential = res.credential
+        const result = await authService.googleLogin(credential)
 
+        const resultRegister = document.getElementById('resultRegister')
+        resultRegister.innerText = result?.msg ? result?.msg : ''
+        if(result?.token) {
+            localStorage.setItem('token', result?.token)
+            localStorage.setItem('userId', result?.userId)
+            onDataLogin(localStorage.getItem('token'))
+        }
+
+        console.log(result)
+    }
+    
+    const handleLoginFailure = (error) => {
+        console.error('Đăng nhập bằng google thất bại:', error)
+    }
+    // fb
+    const handleFacebookLogin = async (data) => {
+        const accessToken = data.accessToken
+        const result = await authService.facebookLogin(accessToken)
+
+        const resultRegister = document.getElementById('resultRegister')
+        resultRegister.innerText = result?.msg ? result?.msg : ''
+        if(result?.token) {
+            localStorage.setItem('token', result?.token)
+            localStorage.setItem('userId', result?.userId)
+            onDataLogin(localStorage.getItem('token'))
+        }
+        console.log(result)
+    }
     return ( 
         <div ref={ref} id='register' className={cx('register__modal', {showModal}) } onClick={clickModal}>
             <div className={cx('login__modal-container')} onClick={clickContentModal}>
@@ -178,6 +215,21 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
                             <div className={cx('login__content-btn')}>
                                 <button type="submit">{loading ? <span ><Loading /></span> : 'Đăng ký' }</button>
                             </div>
+
+                            <div className={cx('google__login-btn')}>
+                                <GoogleLogin
+                                    onSuccess={handleLoginSuccess}
+                                    onFailure={handleLoginFailure}
+                                    width='260px'
+                                    height='1000px'
+                                />
+                            </div>
+                            <FacebookLogin
+                                appId={process.env.REACT_APP_FB_CLIENT_ID}
+                                autoLoad={true}
+                                fields='name,email,password'
+                                callback={handleFacebookLogin}
+                            />
                         </form>
                     </main>
                     <footer className={cx('login__content-footer')}>
