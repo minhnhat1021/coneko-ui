@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import * as roomService from '~/apiServices/roomService'
+import * as managementService from '~/apiServices/managementServive'
 
-import images from '~/assets/images'
 import Button from '~/components/Button'
 
 import classNames from 'classnames/bind'
@@ -12,22 +12,21 @@ const cx = classNames.bind(styles)
 
 function RoomList() {
     const [roomData, setRoomData] = useState([])
-    console.log(roomData)
+
     useEffect(() => {
-        axios.get('http://localhost:5000/api/admin/room-list') 
-            .then((res) => {
-                setRoomData(res.data)
-            })
-            .catch((err) => console.error(err) )  
+        const fetchApi = async () => {
+            const res = await roomService.roomList()
+            setRoomData(res.rooms)
+        }
+        fetchApi()
     }, [])
     
-    const handleDelete = (id) => {
-        axios.delete(`http://localhost:5000/api/admin/${id}/room-delete`, {
-            data: {id}
-        })
-           .then(() => window.location.href='http://localhost:3000/admin/room-list')
-           .catch(err => console.error(err))
-        
+    const handleDelete = async (id) => {
+        const res = await managementService.deleteRoomById(id)
+
+        if(res.msg){
+            window.location.href='http://localhost:3000/admin/room-list'
+        }
     }
     return ( 
         <div className={cx('wrapper')}>

@@ -1,10 +1,9 @@
 
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react'
 
-
-import classNames from 'classnames/bind';
-import styles from './UserBookingHistory.module.scss';
+import * as roomService from '~/apiServices/roomService'
+import classNames from 'classnames/bind'
+import styles from './UserBookingHistory.module.scss'
 
 const cx = classNames.bind(styles);
 
@@ -29,19 +28,15 @@ function UserBookingHistory({ userData }) {
 
     const [room, setRoom] = useState({})
     const [infoBooked, setInfoBooked] = useState({})
-    console.log(infoBooked)
 
     const handleShowModal = async (booked) => {
-        try {
-            const roomData = await axios.get(`http://localhost:5000/api/room/${booked.roomId}`)
-            
-            setRoom(roomData.data)
-            setInfoBooked(booked)
-            setShowModal(true)
-        } catch (error) {
-            console.error('Có lỗi xảy ra:', error);
-        }
+        const roomData = await roomService.roomDetailById(booked.roomId) 
+        
+        setRoom(roomData)
+        setInfoBooked(booked)
+        setShowModal(true)
     }
+
     const handleModal = (e) => {
         setShowModal(false)
     }

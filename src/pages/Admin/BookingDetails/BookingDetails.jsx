@@ -10,7 +10,6 @@ const cx = classNames.bind(styles)
 function BookingDetails() {
     const location = useLocation()
     const booking = location.state.booking
-    console.log(booking)
 
      // Chuyển đổi định dạng ngày
      const formattedDay = (date) => {

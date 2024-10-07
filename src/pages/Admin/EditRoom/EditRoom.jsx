@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import axios from 'axios'
-
+import * as managementService from '~/apiServices/managementServive'
 import classNames from 'classnames/bind'
 import styles from './EditRoom.module.scss'
 
@@ -24,28 +23,30 @@ function EditRoom() {
     const { roomId } = useParams()
     
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/admin/${roomId}/room-edit`)
-            .then(res => {
-                const room = res.data
-                setName(room.name)
-                setDesc(room.desc)
-                setOverView(room.overView)
-                setPrice(room.price)
-                setImage(room.image)
-                setBedType(room.bedType)
-                setBedCount(room.bedCount)
-                setFloor(room.floor)
-                setCapacity(room.capacity)
-                setRating(room.rating)
-                setAmenities(room.amenities)
-            })
+        const fetchApi = async() => {
+            const res = await managementService.roomEdit(roomId)
+
+            setName(res.name)
+            setDesc(res.desc)
+            setOverView(res.overView)
+            setPrice(res.price)
+            setImage(res.image)
+            setBedType(res.bedType)
+            setBedCount(res.bedCount)
+            setFloor(res.floor)
+            setCapacity(res.capacity)
+            setRating(res.rating)
+            setAmenities(res.amenities)
+        }
+
+        fetchApi()
     }, [])
 
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
-        axios.put(`http://localhost:5000/api/admin/${roomId}/room-update`, {
+        const res = await managementService.updateRoom(roomId,
             name,
             desc,
             overView,
@@ -57,9 +58,10 @@ function EditRoom() {
             capacity,
             rating,
             amenities
-        })
-           .then(() => window.location.href='http://localhost:3000/admin/room-list')
-           .catch(err => console.error(err))
+        )
+        if(res.msg) {
+            window.location.href='http://localhost:3000/admin/room-list'
+        }
     }
     return ( 
         <div className={cx('wrapper')}>

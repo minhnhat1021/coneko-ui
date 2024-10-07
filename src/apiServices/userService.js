@@ -24,3 +24,13 @@ export const removeFavoriteRooms = async ({ userId, roomId }) => {
         console.log(error)
     }
 }
+
+export const userList = async () => {
+    try {
+        const res = await request.get(`users`)
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}

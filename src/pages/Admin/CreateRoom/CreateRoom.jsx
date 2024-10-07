@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 
-import axios from 'axios'
-
+import * as managementService from '~/apiServices/managementServive'
 
 import classNames from 'classnames/bind'
 import styles from './CreateRoom.module.scss'
@@ -23,43 +22,43 @@ function CreateRoom() {
     
 
     // Handle khi chọn ảnh
-    const handleUpload = (e) => {
+    const handleUpload = async(e) => {
         const image = e.target.files[0]
-
         // Tạo 1 FormData để gửi 1 file đi với dữ liệu image
+        
         const formData = new FormData()
         formData.append('file', image)
+        
+        const res = await managementService.uploadRoom(formData)
+        setImage(res.filename)
 
-        // Gửi request đến server
-        axios.post('http://localhost:5000/api/admin/upload', formData)
-            .then(res => {
-                setImage(res.data.filename)
-            })
-            .catch(err => console.err('Error:', err))
     }
 
     // Handle submit form data
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault()
-        axios.post('http://localhost:5000/api/admin/create-room', {
-            name,
-            desc,
-            price,
-            image,
-            overView,
-            bedType,
-            bedCount,
-            floor,
-            capacity,
-            rating,
-            amenities
-            
-        }) 
-        .then((res) => {
-            console.log(res)
-            window.location.href = 'http://localhost:3000/admin/statistics-room'
-        })
-        .catch((err) => console.error(err) )  
+        
+        if (!image){
+            console.log('vui lòng đợi load ảnh')
+        }else if(image){
+            const res = await managementService.createRoom(
+                name,
+                desc,
+                price,
+                image,
+                overView,
+                bedType,
+                bedCount,
+                floor,
+                capacity,
+                rating,
+                amenities
+            )
+            if(res?.msg) {
+                window.location.href = 'http://localhost:3000/admin/room-list'
+            }
+        } 
+        
     }
     
     return ( 

@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import * as userService from '~/apiServices/userService'
+import * as managementService from '~/apiServices/managementServive'
 
-import images from '~/assets/images'
 import Button from '~/components/Button'
 
 import classNames from 'classnames/bind'
@@ -13,21 +12,20 @@ const cx = classNames.bind(styles)
 function UserList() {
 
     const [userData, setUserData] = useState([])
-    console.log(userData)
     useEffect(() => {
-        axios.get('http://localhost:5000/api/admin/user-list') 
-            .then((res) => {
-                setUserData(res.data)
-            })
-            .catch((err) => console.error(err) )  
+        const fetchApi = async() => {
+            const res = await userService.userList()
+            setUserData(res.users)
+        }
+        fetchApi()
     }, [])
     
-    const handleBan = (id) => {
-        axios.delete(`http://localhost:5000/api/admin/${id}/user-ban`, {
-            data: {id}
-        })
-           .then(() => window.location.href='http://localhost:3000/admin/user-list')
-           .catch(err => console.error(err))
+    const handleBan = async(id) => {
+        const res = await managementService.deleteUserById(id)
+
+        if(res.msg){
+            window.location.href='http://localhost:3000/admin/user-list'
+        }
         
     }
     return ( 

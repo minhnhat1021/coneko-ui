@@ -22,7 +22,6 @@ const Menu_Room = {
 
 
 function Sidebar({ userData }) {
-console.log(userData)
     return ( 
 
         <aside className={cx('wrapper')}>

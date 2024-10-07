@@ -46,6 +46,7 @@ function UserPayCard({ userData }) {
                 <img className={cx('footer__img')} src={images.payCard} alt='Pay Card' />
                 <p className={cx('footer__des')}>Bắt đầu thêm thẻ tín dụng của bạn và tận hưởng thanh toán đặt phòng chỉ bằng một cú chạm!</p>
             </footer>
+            
             <div className={cx('payCard__modal', {showModal} )} onClick={handleHideModal}>
                 <div className={cx('payCard__modal-container')} onClick={(e) => handleDebouncing(e)}>
                     <div className={cx('payCard__modal-content')}>

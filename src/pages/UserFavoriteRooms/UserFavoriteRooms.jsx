@@ -14,7 +14,6 @@ function UserFavoriteRooms({ userData }) {
     const user = userData.data
     const favoriteRooms = user.favoriteRooms
 
-
     // Phòng ưa thích
     const [favorite, setFavorite] = useState({})
 

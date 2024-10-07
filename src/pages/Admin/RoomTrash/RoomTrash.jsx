@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
-
-import images from '~/assets/images'
-
+import * as managementService from '~/apiServices/managementServive'
 import Button from '~/components/Button'
 
 import classNames from 'classnames/bind'
@@ -13,31 +10,29 @@ const cx = classNames.bind(styles)
 function RoomTrash() {
 
     const [roomData, setRoomData] = useState([])
+
     useEffect(() => {
-        // fetch data from API
-        axios.get('http://localhost:5000/api/admin/room-trash')
-            .then(response => {
-                setRoomData(response.data)
-            })
-            .catch(error => {
-                console.error(error)
-            })
+        const fetchApi = async() => {
+            const res = await managementService.trashRooms()
+            setRoomData(res)
+        }
+        fetchApi()
+
     }, [])
     
-    const handleRestore = (id) => {
-        axios.patch(`http://localhost:5000/api/admin/${id}/room-restore`)
-            .then(() => window.location.href='http://localhost:3000/admin/room-trash')
-            .catch(error => {
-                console.error(error)
-            })
+    const handleRestore = async (id) => {
+        const res = await managementService.restoreRoom(id)
+        if(res.msg) {
+             window.location.href='http://localhost:3000/admin/room-trash'
+        }
     }
-    const handleDelete = (id) => {
-        axios.delete(`http://localhost:5000/api/admin/${id}/room-force`)
-            .then(() => window.location.href='http://localhost:3000/admin/room-trash')
-            .catch(error => {
-                console.error(error)
-            })
+    const handleDelete = async (id) => {
+        const res = await managementService.forceDeleteRoomById(id)
+        if(res.msg) {
+             window.location.href='http://localhost:3000/admin/room-trash'
+        }
     }
+
     return ( 
         <div className={cx('wrapper')}>
             Phòng đã xóa

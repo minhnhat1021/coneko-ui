@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react'
-import axios from 'axios'
+import * as roomService from '~/apiServices/roomService'
 
 import classNames from 'classnames/bind'
 import styles from './UserCurrentRooms.module.scss'
@@ -30,15 +30,12 @@ function UserBookingHistory({ userData }) {
     const [infoCurrent, setInfoCurrent] = useState({})
 
     const handleShowModal = async (current) => {
-        try {
-            const roomData = await axios.get(`http://localhost:5000/api/room/${current.roomId}`)
-            
-            setRoom(roomData.data)
-            setInfoCurrent(current)
-            setShowModal(true)
-        } catch (error) {
-            console.error('Có lỗi xảy ra:', error);
-        }
+        
+        const roomData = await roomService.roomDetailById(current.roomId)
+        
+        setRoom(roomData)
+        setInfoCurrent(current)
+        setShowModal(true)
     }
     const handleModal = (e) => {
         setShowModal(false)

@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 
-import * as showService from '~/apiServices/showService'
-import images from '~/assets/images'
+import * as managementService from '~/apiServices/managementServive'
 
 import classNames from 'classnames/bind'
 import styles from './StatisticsRoom.module.scss'
@@ -16,7 +14,7 @@ function StatisticsRoom() {
 
     useEffect(() => {
         const fetchApi = async () => {
-            const result = await showService.statisticsRoom()
+            const result = await managementService.statisticsRoom()
             setStatistics(result)
         }
         fetchApi()

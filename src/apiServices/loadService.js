@@ -10,6 +10,17 @@ export const roomDetail = async (name) => {
         console.log(error)
     }
 }
+export const roomList = async () => {
+
+    try {
+        const res = await request.get(`rooms`)
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const userDetail = async (token) => {
     try {
         const res = await request.post(`user`, { token })

@@ -1,7 +1,7 @@
 import images from '~/assets/images'
 
 import { GoogleLogo, SpotifyLogo, SamsungLogo, NetflixLogo } from '~/components/Logos'
-import {  TrustIconProcess, TrustIconNet, TrustIconAmenities, TrustIconPrice, TrustIconLocation, TrustIconLike, SearchIconLocation } from '~/components/Icons'
+import {  TrustIconProcess, TrustIconNet, TrustIconAmenities, TrustIconPrice, TrustIconLocation, TrustIconLike } from '~/components/Icons'
 import Search from './Search'
 import classNames from 'classnames/bind'
 import styles from './Home.module.scss'
