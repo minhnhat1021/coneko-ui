@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import * as managementService from '~/apiServices/managementServive'
+
 import Sidebar from './UserSidebar'
 
 import classNames from 'classnames/bind'
@@ -10,11 +11,12 @@ const cx = classNames.bind(styles)
 function RoomManagementLayout({ children, RoomManagementData }) {
     const [userData, setUserData] = useState({})
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/admin/user`)
-            .then(res => setUserData(res.data.data))
-            .catch(error => {
-                console.error(error)
-            })
+
+        const fetchApi = async() => {
+            const res = await managementService.user()
+            setUserData(res)
+        }   
+        fetchApi()
     }, [])
     return ( 
         <div className={cx('wrapper')}>

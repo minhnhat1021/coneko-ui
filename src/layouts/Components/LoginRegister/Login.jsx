@@ -1,5 +1,4 @@
 import { forwardRef, useState } from 'react'
-import axios from 'axios'
 import * as authService from '~/apiServices/authService'
 
 import { GoogleLogin } from '@react-oauth/google'
@@ -33,27 +32,20 @@ const  Login = forwardRef(({ onClick, showModal, clickModal, clickContentModal ,
     // Xử lý post lên backend khi login
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault()
         setLoading(true)
-        axios.post('http://localhost:5000/api/login', {
-            userName,
-            password
-        })
+        const res = await authService.login(userName, password)
 
-        .then((res) => {
-            const resultLogin = document.getElementById('resultLogin')
-            resultLogin.innerText = res?.data?.msg ? res?.data?.msg : ''
-            if(res?.data?.token) {
-                localStorage.setItem('token', res?.data?.token)
-                localStorage.setItem('userId', res?.data?.userId)
-                onDataLogin(localStorage.getItem('token'))
-            }
-            setLoading(false)
+        const resultLogin = document.getElementById('resultLogin')
+        resultLogin.innerText = res?.msg ? res?.msg : ''
+        if(res?.token) {
+            localStorage.setItem('token', res?.token)
+            localStorage.setItem('userId', res?.userId)
+            onDataLogin(localStorage.getItem('token'))
+        }
+        setLoading(false)
 
-        })
-
-        .catch((err) => console.error(err) )  
     }
     // Login Google
     const handleLoginSuccess = async (res) => {

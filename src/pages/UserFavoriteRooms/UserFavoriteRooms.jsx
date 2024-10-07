@@ -11,7 +11,7 @@ import styles from './UserFavoriteRooms.module.scss'
 const cx = classNames.bind(styles)
 
 function UserFavoriteRooms({ userData }) {
-    const user = userData.data
+    const user = userData
     const favoriteRooms = user.favoriteRooms
 
     // Phòng ưa thích

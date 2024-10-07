@@ -1,4 +1,34 @@
-import * as request from '~/utils/request';
+import * as request from '~/utils/request'
+
+export const register = async ( fullName, email, password ) => {
+    try {
+        const res = await request.post(`register`, { fullName, email, password })
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const login = async ( userName, password ) => {
+    try {
+        const res = await request.post(`login`, { userName, password })
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const logout = async ( userId ) => {
+    try {
+        const res = await request.post(`login/out`, { userId })
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 export const googleLogin = async ( credential ) => {
@@ -20,3 +50,13 @@ export const facebookLogin = async ( accessToken ) => {
     }
 }
 
+
+export const globalCheck = async ( {path, token, userId}) => {
+    try {
+        const res = await request.post(`${path}`,{token, userId})
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}

@@ -8,7 +8,7 @@ import styles from './UserCurrentRooms.module.scss'
 const cx = classNames.bind(styles)
 
 function UserBookingHistory({ userData }) {
-    const user = userData.data
+    const user = userData
     const currentRooms = user?.currentRooms
     
     // Chuyển đổi định dạng ngày

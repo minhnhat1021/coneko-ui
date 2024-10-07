@@ -1,5 +1,4 @@
 import { forwardRef, useState, useEffect } from 'react'
-import axios from 'axios'
 import * as authService from '~/apiServices/authService'
 
 import { GoogleLogin } from '@react-oauth/google'
@@ -95,7 +94,7 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
         }
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault()
         // Validator
         var formSelector = document.querySelector('#register-form')
@@ -110,22 +109,16 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
         }
         if(isValid) {
             // Thực hiện đăng ký
-            axios.post('http://localhost:5000/api/register', {
-                fullName,
-                email,
-                password
-            })  
-                .then((res) => {
-                    const resultRegister = document.getElementById('resultRegister')
-                    resultRegister.innerText = res.data.msg ? res.data.msg : ''
-                    if(res.data.token) {
-                        localStorage.setItem('token', res.data.token)
-                        localStorage.setItem('userId', res.data.userId)
-                        onDataLogin(localStorage.getItem('token') )
-                    }
-                    setLoading(false)
-                })
-                .catch((err) => console.error(err) )
+            const res = await authService.register(fullName, email, password)
+
+            const resultRegister = document.getElementById('resultRegister')
+            resultRegister.innerText = res?.msg ? res?.msg : ''
+            if(res?.token) {
+                localStorage.setItem('token', res?.token)
+                localStorage.setItem('userId', res?.userId)
+                onDataLogin(localStorage.getItem('token') )
+            }
+            setLoading(false)
         }
     }
 

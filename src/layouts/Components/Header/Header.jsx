@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import * as loadService from '~/apiServices/loadService'
+import * as userService from '~/apiServices/userService'
+import * as authService from '~/apiServices/authService'
 
 import config from '~/config'
 
@@ -84,7 +84,7 @@ function Header() {
     
     useEffect(() => {
         const fetchApi = async () => {
-            const userData = await loadService.userDetail(token)
+            const userData = await userService.userDetail(token)
             setUser(userData)
         }
                 
@@ -144,18 +144,17 @@ function Header() {
         setToken(statusToken)
     }
     // Handle logout
-    const handleLogout = () => {
+    const handleLogout = async() => {
+        const id = localStorage.getItem('userId')
+        const res = await authService.logout(id)
+
         localStorage.removeItem('token')
-        axios.post('http://localhost:5000/api/login/out', {
-            id: localStorage.getItem('userId')
-        }) 
-        .then((res) => {
-            setToken(localStorage.getItem('token'))
-            setShowModal(false)
-            localStorage.removeItem('userId')
-            window.location.href = '/'
-        })
-        .catch((err) => console.error(err) )  
+
+        setToken(localStorage.getItem('token'))
+        setShowModal(false)
+        localStorage.removeItem('userId')
+        window.location.href = '/'
+ 
     }
 
     const handleNavigation = (route) => {

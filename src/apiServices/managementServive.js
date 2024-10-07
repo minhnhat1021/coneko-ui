@@ -1,6 +1,16 @@
 import * as request from '~/utils/request';
 
 // Room ----------------------------------------------------------------
+export const room = async () => {
+
+    try {
+        const res = await request.get('admin/room')
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const statisticsRoom = async () => {
 
     try {
@@ -124,6 +134,16 @@ export const uploadRoom = async (formData) => {
     }
 }
 // User ----------------------------------------------------------------
+export const user = async () => {
+
+    try {
+        const res = await request.get('admin/user')
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const deleteUserById = async ( userId ) => {
 
     try {
