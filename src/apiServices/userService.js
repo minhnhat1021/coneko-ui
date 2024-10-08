@@ -44,3 +44,38 @@ export const userDetail = async (token) => {
         console.log(error)
     }
 }
+
+export const filterUsersByOptions = async ( options ) => {
+
+    try {
+        const res = await request.post(`users/filter-options`, { options })
+
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const findUserById = async ( userId ) => {
+
+    try {
+        const res = await request.post(`user/find-user/id`, { userId })
+
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const findUserByUserName = async ( userName ) => {
+
+    try {
+        const res = await request.post(`user/find-user/username`, { userName })
+
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}

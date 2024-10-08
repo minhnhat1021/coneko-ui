@@ -88,13 +88,13 @@ function HotelRooms() {
         
     }, [])
 
+    // Chuyển đổi định dạng ngày
     const dataCheckIn = (data) => {
         setStartDate(data)
     }
     const dataCheckOut = (data) => {
         setEndDate(data)
     }
-    // Chuyển đổi định dạng ngày
     const formattedDate = (date) => {
         return date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()
     } 

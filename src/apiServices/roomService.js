@@ -33,4 +33,15 @@ export const roomDetailById = async ( roomId ) => {
     }
 }
 
+export const filterRoomsByOptions = async ( options ) => {
+
+    try {
+        const res = await request.post(`rooms/filter-options`, { options})
+
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 

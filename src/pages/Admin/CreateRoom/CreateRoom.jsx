@@ -11,7 +11,7 @@ function CreateRoom() {
     const [name, setName] = useState('')
     const [desc, setDesc] = useState('')
     const [overView, setOverView] = useState('')
-    const [price, setPrice] = useState('')
+    const [price, setPrice] = useState()
     const [image, setImage] = useState()
     const [bedType, setBedType] = useState('single')
     const [bedCount, setBedCount] = useState('2')
@@ -20,6 +20,7 @@ function CreateRoom() {
     const [rating, setRating] = useState('5')
     const [amenities, setAmenities] = useState('netflix')
     
+    console.log(bedCount)
 
     // Handle khi chọn ảnh
     const handleUpload = async(e) => {
@@ -80,7 +81,7 @@ function CreateRoom() {
                 </div>
                 <div className={cx('create__form-item')}>
                     <label for='price' > Giá phòng </label>
-                    <input type='text'  id='price' name='price' value={price} onChange={e => {setPrice(e.target.value)}}/>
+                    <input type='text'  id='price' name='price' value={price} onChange={e => {setPrice(parseFloat(e.target.value))}}/>
                 </div>
                 <div className={cx('create__form-item')}>
                     <label for='image' > Ảnh </label>
@@ -97,7 +98,7 @@ function CreateRoom() {
 
                     <div className={cx('create__form-select')}>
                         <label for='bedCount' > Số lượng giường </label>
-                        <select id="bedCount" name="bedCount" value={bedType} onChange={e => setBedCount(e.target.value)}>
+                        <select id="bedCount" name="bedCount" value={bedCount} onChange={e => setBedCount(e.target.value)}>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>

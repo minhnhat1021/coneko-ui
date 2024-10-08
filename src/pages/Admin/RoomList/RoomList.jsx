@@ -16,7 +16,7 @@ function RoomList() {
     useEffect(() => {
         const fetchApi = async () => {
             const res = await roomService.roomList()
-            setRoomData(res.rooms)
+            setRoomData(res?.rooms)
         }
         fetchApi()
     }, [])
@@ -28,117 +28,123 @@ function RoomList() {
             window.location.href='http://localhost:3000/admin/room-list'
         }
     }
+
+    // options 
+    const [options, setOptions] = useState({
+        standard: false,
+        elegance: false,
+        skyviewSuite: false,
+        singleBed: false,
+        doubleBed: false,
+        oneBed: false,
+        twoBed: false,
+        threeBed: false,
+        smoke: false,
+        noSmoking: false,
+    })
+
+    useEffect(() => {
+        var optionInputs = document.querySelectorAll('[name][options]')
+        for(var optionInput of optionInputs) {
+            optionInput.onchange = function () {
+                var name = this.getAttribute('name')
+                var isChecked = this.checked
+
+                setOptions(prev => ({
+                    ...prev,
+                    [name]: isChecked 
+                }))
+            }
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log(options)
+        const handleFilter = async() => {
+            const filters = Object.keys(options).filter(
+              (key) => options[key] === true
+            )
+    
+            const res = await roomService.filterRoomsByOptions(filters)
+            setRoomData(res?.rooms)
+    
+        }
+        handleFilter()
+    },[options])
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('options')}>
                 <div className={cx('option__item')}>
-                    <input
-                        type='checkbox'
-                        onChange={() => {}}
-                    />
-                    <label htmlFor='filter-available'>Phòng còn trống</label>
+                    <input id='available' name='available' options='' type="checkbox" className={cx('options__checkbox')}/>
+                    <label htmlFor='available' className={cx('options__label')}></label>
+                    <p>Phòng còn trống</p>
                 </div>
                 <div className={cx('option__item')}>
-                    <input
-                        type='checkbox'
-
-                        onChange={() => {}}
-                    />
-                    <label htmlFor='filter-price-low'>Phòng đã đặt</label>
+                    <input id='booked' name='booked' options='' type="checkbox" className={cx('options__checkbox')}/>
+                    <label htmlFor='booked' className={cx('options__label')}></label>
+                    <p>Phòng đã đặt</p>
                 </div>
                 <div className={cx('option__item')}>
-                    <input
-                        type='checkbox'
-                        onChange={() => {}}
-                    />
-                    <label htmlFor='filter-available'>Phòng đang sử dụng</label>
+                    <input id='current' name='current' options='' type="checkbox" className={cx('options__checkbox')}/>
+                    <label htmlFor='current' className={cx('options__label')}></label>
+                    <p>Phòng đang sử dụng</p>
+                </div>
+                
+                <div className={cx('option__item')}>
+                    <input id='singleBed' name='singleBed' options='' type="checkbox" className={cx('options__checkbox')}/>
+                    <label htmlFor='singleBed' className={cx('options__label')}></label>
+                    <p>Giường đơn</p>
                 </div>
                 <div className={cx('option__item')}>
-                    <input
-                        type='checkbox'
-
-                        onChange={() => {}}
-                    />
-                    <label htmlFor='filter-price-low'>Giường đơn</label>
+                    <input id='doubleBed' name='doubleBed' options='' type="checkbox" className={cx('options__checkbox')}/>
+                    <label htmlFor='doubleBed' className={cx('options__label')}></label>
+                    <p>Giường đôi</p>
                 </div>
                 <div className={cx('option__item')}>
-                    <input
-                        type='checkbox'
-                        onChange={() => {}}
-                    />
-                    <label htmlFor='filter-available'>Giường đôi</label>
+                    <input id='standard' name='standard' options='' type="checkbox" className={cx('options__checkbox')}/>
+                    <label htmlFor='standard' className={cx('options__label')}></label>
+                    <p>Standard</p>
                 </div>
                 <div className={cx('option__item')}>
-                    <input
-                        type='checkbox'
-
-                        onChange={() => {}}
-                    />
-                    <label htmlFor='filter-price-low'>1 giường</label>
+                    <input id='elegance' name='elegance' options='' type="checkbox" className={cx('options__checkbox')}/>
+                    <label htmlFor='elegance' className={cx('options__label')}></label>
+                    <p>Elegance</p>
                 </div>
                 <div className={cx('option__item')}>
-                    <input
-                        type='checkbox'
-                        onChange={() => {}}
-                    />
-                    <label htmlFor='filter-available'>2 giường</label>
+                    <input id='skyviewSuite' name='skyviewSuite' options='' type="checkbox" className={cx('options__checkbox')}/>
+                    <label htmlFor='skyviewSuite' className={cx('options__label')}></label>
+                    <p>Skyview Suite</p>
                 </div>
                 <div className={cx('option__item')}>
-                    <input
-                        type='checkbox'
-
-                        onChange={() => {}}
-                    />
-                    <label htmlFor='filter-price-low'>3 giường</label>
+                    <input id='oneBed' name='oneBed' options='' type="checkbox" className={cx('options__checkbox')}/>
+                    <label htmlFor='oneBed' className={cx('options__label')}></label>
+                    <p>1 giường</p>
                 </div>
                 <div className={cx('option__item')}>
-                    <input
-                        type='checkbox'
-
-                        onChange={() => {}}
-                    />
-                    <label htmlFor='filter-price-low'>1 người</label>
+                    <input id='twoBed' name='twoBed' options='' type="checkbox" className={cx('options__checkbox')}/>
+                    <label htmlFor='twoBed' className={cx('options__label')}></label>
+                    <p>2 giường</p>
                 </div>
                 <div className={cx('option__item')}>
-                    <input
-                        type='checkbox'
-                        onChange={() => {}}
-                    />
-                    <label htmlFor='filter-available'>2 người</label>
+                    <input id='threeBed' name='threeBed' options='' type="checkbox" className={cx('options__checkbox')}/>
+                    <label htmlFor='threeBed' className={cx('options__label')}></label>
+                    <p>3 giường</p>
+                </div>
+                
+                
+                <div className={cx('option__item')}>
+                    <input id='smoke' name='smoke' options='' type="checkbox" className={cx('options__checkbox')}/>
+                    <label htmlFor='smoke' className={cx('options__label')}></label>
+                    <p>Hút thuốc</p>
                 </div>
                 <div className={cx('option__item')}>
-                    <input
-                        type='checkbox'
-                        onChange={() => {}}
-                    />
-                    <label htmlFor='filter-available'>3 người</label>
+                    <input id='noSmoking' name='noSmoking' options='' type="checkbox" className={cx('options__checkbox')}/>
+                    <label htmlFor='noSmoking' className={cx('options__label')}></label>
+                    <p>Không hút thuốc</p>
                 </div>
-                <div className={cx('option__item')}>
-                    <input
-                        type='checkbox'
-                        onChange={() => {}}
-                    />
-                    <label htmlFor='filter-available'>4 sao</label>
-                </div>
-                <div className={cx('option__item')}>
-                    <input
-                        type='checkbox'
-                        onChange={() => {}}
-                    />
-                    <label htmlFor='filter-available'>5 sao</label>
-                </div>
-                <div className={cx('option__item')}>
-                    <input
-                        type='checkbox'
-
-                        onChange={() => {}}
-                    />
-                    <label htmlFor='filter-price-low'>hút thuốc</label>
-                </div>
-
             </div>
             <div className={cx('room__list')}>  
-                { roomData.length > 0 ?  
+                { roomData?.length > 0 ?  
                     (roomData.map((room, index) => 
                         <div key={index} className={cx('room__item')}>
                             <a href='/hotel-rooms/' className={cx('room__image')}>
@@ -169,7 +175,7 @@ function RoomList() {
                                         {room.rating} sao
                                     </p> 
                                     <p className={cx('room__capacity')}>
-                                        {room.capacity} người
+                                        để trống
                                     </p>
 
                                 </div>

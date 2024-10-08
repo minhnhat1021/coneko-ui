@@ -10,6 +10,8 @@
     padding: 2px 24px 22px 24px;
     background-color: var(--admin-bg-2);
     border-radius: 6px;
+    color: var(--primary-text-1);
+
 }
 .option__item{
     flex: 1 0 calc(20% - 20px);
@@ -17,15 +19,34 @@
     display: flex;
     align-items: center;
     margin: 20px 10px 0 10px;
+    color: var(--primary-text-1);
 
-    label{
-        margin-left: 10px;
-        color: var(--primary-text-1);
+    .options__checkbox {
+        display: none;
     }
-    input{
+      
+    .options__label::before {
+        content: '';
+        display: inline-block;
         width: 20px;
         height: 20px;
+        background-color: var(--primary-bg-4);
+        border: 2px solid #333;
+        border-radius: 4px;
+        margin-right: 10px;
+        vertical-align: middle;
+        cursor: pointer;
     }
+      
+    .options__checkbox:checked + .options__label::before {
+    background-color: var(--primary-bg-4);
+    content: '✔'; 
+    font-size: 16px;
+    color: #333; 
+    text-align: center;
+    line-height: 20px;
+    }
+
 }
 
 /* Room -------------------------------------------------------------------------*/
