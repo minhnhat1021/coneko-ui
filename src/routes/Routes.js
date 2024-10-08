@@ -15,7 +15,7 @@ import UserFavoriteRooms from '~/pages/UserFavoriteRooms'
 import UserCurrentRooms from '~/pages/UserCurrentRooms'
 import UserPayCard from '~/pages/UserPayCard/UserPayCard'
 
-import { Admin, UserList, StatisticsRoom, RoomList, BannedUsers, AvailableRooms, BookedRooms, CancelledRooms,BookingManagement, BookingDetails, RoomTrash, CreateRoom, EditRoom } from '~/pages/Admin'
+import { Admin, AdminLogin, UserList, StatisticsRoom, RoomList, BannedUsers, AvailableRooms, BookedRooms, CancelledRooms,BookingManagement, BookingDetails, RoomTrash, CreateRoom, EditRoom } from '~/pages/Admin'
 
 
 import Checkout from '~/pages/Checkout'
@@ -30,7 +30,7 @@ import config from '~/config'
 const publicRoutes = [
     { path: config.routes.home, component: Home},
     { path: config.routes.hotelRooms, component: HotelRooms},
-    { path: config.routes.roomBooking, component: RoomBooking},
+    // { path: config.routes.roomBooking, component: RoomBooking},
     { path: config.routes.paymentSuccessful, component: PaymentSuccessful},
     { path: config.routes.paymentVerification, component: PaymentVerification},
 
@@ -42,6 +42,9 @@ const publicRoutes = [
 ]
 const privateRoutes = [
     { path: config.routes.about, component: About},
+
+    { path: config.routes.roomBooking, component: RoomBooking},
+
     { path: config.routes.userAccount, component: UserAccount, subLayout: UserLayout},
     { path: config.routes.userBookingHistory, component: UserBookingHistory, subLayout: UserLayout},
     { path: config.routes.userFavoriteRooms, component: UserFavoriteRooms, subLayout: UserLayout},
@@ -51,6 +54,7 @@ const privateRoutes = [
 
 const adminRoutes = [
     { path: config.routes.admin, component: Admin},
+    { path: config.routes.adminLogin, component: AdminLogin},
 
     { path: config.routes.userList, component: UserList, subLayout: UserManagementLayout},
     { path: config.routes.bannedUsers, component: BannedUsers, subLayout: UserManagementLayout},

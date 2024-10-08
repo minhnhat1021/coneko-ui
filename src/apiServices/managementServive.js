@@ -185,3 +185,15 @@ export const forceDeleteUserById = async ( userId ) => {
         console.log(error)
     }
 }
+
+export const filterBookingByOptions = async ( options ) => {
+
+    try {
+        const res = await request.post(`admin/booking/filter-options`, { options })
+
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}

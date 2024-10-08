@@ -18,6 +18,7 @@ const routes = {
 
 
     admin: '/admin',
+    adminLogin: '/admin/login',
     userList: '/admin/user-list',
     bannedUsers: '/admin/banned-users',
     

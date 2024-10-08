@@ -19,7 +19,7 @@ const AuthenticatedRoute = ({ children, path }) => {
     if (token && loading) {
         return <div>Loading...</div> // Hiển thị loading trong khi chờ thông tin người dùng
     }
-    
+    console.log(token)
     if (!token) {
         return <Navigate to="/login" replace />
     }
