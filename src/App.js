@@ -7,13 +7,15 @@ import { MainLayout, AdminLayout } from '~/layouts'
 import React from 'react'
 
 import AuthenticatedRoute from './routes/AuthenticatedRoute'
+import AdminAuthenticatedRoute from './routes/AdminAuthenticatedRoute'
 import { UserProvider } from '~/contexts/UserContext'
+import { AdminProvider } from '~/contexts/AdminContext'
 
 
 function App() {
 
     return (
-        
+        <AdminProvider>
         <UserProvider>
             <Router>
                 <div className="App">
@@ -85,13 +87,19 @@ function App() {
                             return <Route 
                                 key={index} 
                                 path={route.path} 
-                                element={<Layout> <SubLayout> <Page /> </SubLayout></Layout> } 
+                                element={<AdminAuthenticatedRoute path={route.path}>
+                                            <Layout> 
+                                                <SubLayout> <Page /> </SubLayout>
+                                            </Layout>
+                                        </AdminAuthenticatedRoute> } 
                             />
                         })}
                     </Routes>  
                 </div>
             </Router>
         </UserProvider>
+        </AdminProvider>
+
     )
 }
 

@@ -2,20 +2,19 @@ const routes = {
     home: '/',
     about: '/about',
     hotelRooms: '/hotel-rooms',
-    roomBooking: ':name/room-booking',
-    paymentSuccessful: '/payment-successful',
-    paymentVerification: 'payment-verification',
     hotelRules: '/hotel-rules',
     contact: '/contact',
+
+    roomBooking: ':name/room-booking',
+    checkout: ':name/checkout',
+    paymentSuccessful: '/payment-successful',
+    paymentVerification: '/payment-verification',
 
     userAccount: '/user/account',
     userCurrentRooms: '/user/current-rooms',
     userBookingHistory: '/user/booking-history',
     userFavoriteRooms: '/user/favorite-rooms',
     userPayCard: '/user/paycard',
-
-    userPurchase: '/user/purchase/list',
-
 
     admin: '/admin',
     adminLogin: '/admin/login',
@@ -26,20 +25,13 @@ const routes = {
     
     statisticsRoom: '/admin/statistics-room',
     roomList: '/admin/room-list',
-    availableRooms: '/admin/available-rooms',
-    bookedRooms: '/admin/booked-rooms',
-    cancelledRooms: '/admin/cancelled-rooms',
+    createRoom: '/admin/create-room',
     roomTrash: '/admin/room-trash',
+    editRoom: '/admin/:roomId/room-edit',
+
     bookingManagement: '/admin/booking-management',
     bookingDetails: '/admin/booking-management/details/:id',
 
-    editRoom: '/admin/:roomId/room-edit',
-
-
-    createRoom: '/admin/create-room',
-
-
-    checkout: ':name/checkout',
 }
 
-export default routes;
+export default routes

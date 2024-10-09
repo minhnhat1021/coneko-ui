@@ -192,8 +192,8 @@ function HotelRooms() {
                     </div>
                     <div className={cx('user__info')}>
                         <p className={cx('user__info-title')}>Thông tin khách hàng</p>
-                        <p >Tên khách hàng: <span>{user.fullName}</span></p>
-                        <p >Email: <span>{user.email}</span></p>
+                        <p >Tên khách hàng: <span>{user?.fullName}</span></p>
+                        <p >Email: <span>{user?.email}</span></p>
                         <p >Số điện thoại: <span>[Số điện thoại khách hàng]</span></p>
                     </div>
                 </div>

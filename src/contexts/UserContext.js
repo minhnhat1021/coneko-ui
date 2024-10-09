@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react'
-import * as authService from '~/apiServices/authService'
+import * as userService from '~/apiServices/userService'
+
 export const UserContext = createContext()
 
 export const UserProvider = ({ children }) => {
@@ -7,12 +8,11 @@ export const UserProvider = ({ children }) => {
     const [loading, setLoading] = useState(true)
     const [userData, setUserData] = useState()
 
-    const fetchUserData = async(path) => {
+    const fetchUserData = async() => {
         const token = localStorage.getItem('token')
-        const userId = localStorage.getItem('userId')
-        
-        if (token && userId) {
-            const res = await authService.globalCheck({path, token, userId})
+
+        if (token ) {
+            const res = await userService.userDetail( token )
             setUserData(res)
             setLoading(false)
         }

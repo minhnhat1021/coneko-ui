@@ -36,8 +36,9 @@ export const userList = async () => {
 }
 
 export const userDetail = async (token) => {
+
     try {
-        const res = await request.post(`user`, { token })
+        const res = await request.post(`user/userDetails`, { token })
         return res.data
 
     } catch (error) {

@@ -56,7 +56,6 @@ function AdminLogin() {
 
         if(res?.token) {
             localStorage.setItem('tokenAdmin', res?.token)
-            localStorage.setItem('adminId', res?.adminId)
             setUserName('')
             setPassword('')
             setSecurityCode('')

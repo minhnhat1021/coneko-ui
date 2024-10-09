@@ -41,7 +41,6 @@ function AdminLogin() {
         resultLogin.innerText = res?.msg ? res?.msg : ''
         if(res?.token) {
             localStorage.setItem('tokenAdmin', res?.token)
-            localStorage.setItem('adminId', res?.adminId)
 
             window.location.href = '/admin'
         }

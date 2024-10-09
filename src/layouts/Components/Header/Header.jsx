@@ -83,8 +83,10 @@ function Header() {
     const [token, setToken] = useState(localStorage.getItem('token'))
     
     useEffect(() => {
+        const userId = localStorage.getItem('userId')
+
         const fetchApi = async () => {
-            const userData = await userService.userDetail(token)
+            const userData = await userService.userDetail(token, userId)
             setUser(userData)
         }
                 

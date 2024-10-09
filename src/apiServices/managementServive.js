@@ -197,3 +197,14 @@ export const filterBookingByOptions = async ( options ) => {
         console.log(error)
     }
 }
+
+export const adminDetail = async (adminToken) => {
+
+    try {
+        const res = await request.post(`admin/adminDetails`, { adminToken})
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}

@@ -115,7 +115,6 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
             resultRegister.innerText = res?.msg ? res?.msg : ''
             if(res?.token) {
                 localStorage.setItem('token', res?.token)
-                localStorage.setItem('userId', res?.userId)
                 onDataLogin(localStorage.getItem('token') )
             }
             setLoading(false)

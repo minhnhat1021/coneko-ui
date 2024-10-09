@@ -51,17 +51,6 @@ export const facebookLogin = async ( accessToken ) => {
 }
 
 
-export const globalCheck = async ( {path, token, userId}) => {
-    try {
-        const res = await request.post(`${path}`,{token, userId})
-        return res.data
-
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-
 export const adminLogin = async ( userName, password ) => {
     try {
         const res = await request.post(`admin/login`, { userName, password })
