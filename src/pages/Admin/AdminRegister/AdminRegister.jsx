@@ -4,13 +4,15 @@ import * as authService from '~/apiServices/authService'
 import { WarningIcon, ShowPassword, HidePassword, Loading } from '~/components/Icons'
 
 import classNames from 'classnames/bind'
-import styles from './AdminLogin.module.scss'
+import styles from './AdminRegister.module.scss'
 
 const cx = classNames.bind(styles)
 
 function AdminLogin() {
     const [loading, setLoading] = useState(false)
     const [isShowPass, setIsShowPass] = useState(true)
+    const [isSecurityCode, setIsSecurityCode] = useState(true)
+    
 
     const handleTogglePassword = (e) => {
         
@@ -18,34 +20,47 @@ function AdminLogin() {
         
         const id = toogleBtn.getAttribute('fc')
         const inputFocus = document.getElementById(id)
-        if(inputFocus.getAttribute('type') === 'password'){
-            inputFocus.setAttribute('type', 'text')
-            setIsShowPass(false)
-        } else if(inputFocus.getAttribute('type') === 'text') {
-            inputFocus.setAttribute('type', 'password')
-            setIsShowPass(true)
+
+        if(id === 'password') {
+                if(inputFocus.getAttribute('type') === 'password'){
+                inputFocus.setAttribute('type', 'text')
+                setIsShowPass(false)
+            } else if(inputFocus.getAttribute('type') === 'text') {
+                inputFocus.setAttribute('type', 'password')
+                setIsShowPass(true)
+            }
+        } else if(id === 'securityCode'){
+                if(inputFocus.getAttribute('type') === 'password'){
+                inputFocus.setAttribute('type', 'text')
+                setIsSecurityCode(false)
+            } else if(inputFocus.getAttribute('type') === 'text') {
+                inputFocus.setAttribute('type', 'password')
+                setIsSecurityCode(true)
+            }
         }
     }
 
-    // Xử lý login
+    // Xử lý register
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
-
+    const [securityCode, setSecurityCode] = useState('')
+    
     const handleSubmit = async(e) => {
         e.preventDefault()
         setLoading(true)
+        
+        const res = await authService.adminRegister(userName, password, securityCode)
 
-        const res = await authService.adminLogin(userName, password)
+        const resultRegister = document.getElementById('resultRegister')
+        resultRegister.innerText = res?.msg ? res?.msg : ''
 
-        const resultLogin = document.getElementById('resultLogin')
-        resultLogin.innerText = res?.msg ? res?.msg : ''
         if(res?.token) {
             localStorage.setItem('tokenAdmin', res?.token)
             localStorage.setItem('adminId', res?.adminId)
-
-            window.location.href = '/admin'
+            setUserName('')
+            setPassword('')
+            setSecurityCode('')
         }
-
         setLoading(false)
     }
     
@@ -53,7 +68,7 @@ function AdminLogin() {
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
                 <header className={cx('header')}>
-                    <h1 >Đăng nhập vào coneko</h1>
+                    <h1 >Đăng ký admin coneko</h1>
                     <p >Truy cập bằng tài khoản admin</p>
                 </header>
                 <main className={cx('body')}>
@@ -76,11 +91,20 @@ function AdminLogin() {
                                 </div>
                             </div>
                         </div>
+                        <div className={cx('body__item')}>
+                            <label htmlFor="password">Mã bảo mật</label>
+                            <div className={cx('login__wrap-input')}>
+                                <input type="password" id="securityCode" value={securityCode} onChange={(e) => setSecurityCode(e.target.value)} placeholder="Mã bảo mật" required />
+                                <div fc='securityCode' className={cx('login__right-icon')} onClick={(e) => handleTogglePassword(e)}>
+                                    {isSecurityCode ? <ShowPassword /> : <HidePassword/>}
+                                </div>
+                            </div>
+                        </div>
                         
-                        <span id="resultLogin" className={cx('result-login')}></span>
+                        <span id="resultRegister" className={cx('result-login')}></span>
 
                         <div className={cx('login__content-btn')}>
-                            <button type="submit">{loading ? <span ><Loading /></span> : 'Đăng nhập' }</button>
+                            <button type="submit">{loading ? <span ><Loading /></span> : 'Đăng ký' }</button>
                         </div>
 
                     </form>

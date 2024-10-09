@@ -34,8 +34,10 @@
     }
 }
 .nav__task{
+
     a{
         color: var(--primary-text-1);
+        margin-right: 10px;
         + a{
             margin-left: 20px;
         }

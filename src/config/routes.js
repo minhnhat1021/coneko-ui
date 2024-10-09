@@ -19,6 +19,8 @@ const routes = {
 
     admin: '/admin',
     adminLogin: '/admin/login',
+    adminRegister: '/admin/register',
+
     userList: '/admin/user-list',
     bannedUsers: '/admin/banned-users',
     

@@ -71,3 +71,22 @@ export const adminLogin = async ( userName, password ) => {
         console.log(error)
     }
 }
+export const adminRegister = async ( userName, password, securityCode ) => {
+    try {
+        const res = await request.post(`admin/register`, { userName, password, securityCode })
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const adminLogout = async ( adminId ) => {
+    try {
+        const res = await request.post(`admin/logout`, { adminId })
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
