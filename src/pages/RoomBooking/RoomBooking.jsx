@@ -158,11 +158,23 @@ function HotelRooms() {
                 <div className={cx('wrap__info')}>
                     
                     <div className={cx('room__detail')}>
-                        <img 
-                            className={cx('room__image')}
-                            src={`http://localhost:5000/images/roomImg/${room.image}`}
-                            alt='{{room.name}}'
-                        />
+                        <div className={cx('wrap__image')}>
+                            <img 
+                                className={cx('room__image')}
+                                src={room?.images?.length > 0 ? `http://localhost:5000/images/roomImg/${room?.images[0]}` : ''}
+                                alt='{{room.name}}'
+                            />
+                            <img 
+                                className={cx('room__image')}
+                                src={room?.images?.length > 0 ? `http://localhost:5000/images/roomImg/${room?.images[1]}` : ''}
+                                alt='{{room.name}}'
+                            />
+                            <img 
+                                className={cx('room__image')}
+                                src={room?.images?.length > 0 ? `http://localhost:5000/images/roomImg/${room?.images[2]}` : ''}
+                                alt='{{room.name}}'
+                            />
+                        </div>
                         <div className={cx('room__detail-info')}>
                             <p >Tên phòng:<span>{room.name}</span></p>  
                             <p >Mô tả: <span>{room.desc}</span></p>

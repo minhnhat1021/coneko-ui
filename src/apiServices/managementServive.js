@@ -99,14 +99,14 @@ export const forceDeleteRoomById = async ( roomId ) => {
     }
 }
 
-export const createRoom = async ( name, desc, price, image, overView, bedType, bedCount, floor, capacity, rating, amenities ) => {
+export const createRoom = async ( name, desc, price, images, overView, bedType, bedCount, floor, capacity, rating, amenities ) => {
 
     try {
         const res = await request.post(`/admin/create-room`, { 
             name,
             desc,
             price,
-            image,
+            images,
             overView,
             bedType,
             bedCount,

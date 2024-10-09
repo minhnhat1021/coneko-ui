@@ -12,7 +12,7 @@ function CreateRoom() {
     const [desc, setDesc] = useState('')
     const [overView, setOverView] = useState('')
     const [price, setPrice] = useState()
-    const [image, setImage] = useState()
+    const [images, setImages] = useState([])
     const [bedType, setBedType] = useState('single')
     const [bedCount, setBedCount] = useState('2')
     const [floor, setFloor] = useState('5')
@@ -20,18 +20,29 @@ function CreateRoom() {
     const [rating, setRating] = useState('5')
     const [amenities, setAmenities] = useState('netflix')
     
-    console.log(bedCount)
+    console.log(images)
 
     // Handle khi chọn ảnh
     const handleUpload = async(e) => {
-        const image = e.target.files[0]
-        // Tạo 1 FormData để gửi 1 file đi với dữ liệu image
-        
+        const images = Array.from(e.target.files)
+
         const formData = new FormData()
-        formData.append('file', image)
-        
-        const res = await managementService.uploadRoom(formData)
-        setImage(res.filename)
+
+        images.forEach((image, index) => {
+            formData.append(`file`, image)
+            formData.append(`fileOrder[]`, index)
+        })
+
+        try {
+            const res = await managementService.uploadRoom(formData)
+            
+            const nameImages = res.map(file => file.filename)
+            setImages(nameImages)
+
+            console.log('Tải ảnh thành công', nameImages)
+        } catch (error) {
+            console.error('Lỗi khi tải ảnh:', error)
+        }
 
     }
 
@@ -39,14 +50,14 @@ function CreateRoom() {
     const handleSubmit = async(e) => {
         e.preventDefault()
         
-        if (!image){
+        if (!images){
             console.log('vui lòng đợi load ảnh')
-        }else if(image){
+        }else if(images){
             const res = await managementService.createRoom(
                 name,
                 desc,
                 price,
-                image,
+                images,
                 overView,
                 bedType,
                 bedCount,
@@ -85,7 +96,7 @@ function CreateRoom() {
                 </div>
                 <div className={cx('create__form-item')}>
                     <label for='image' > Ảnh </label>
-                    <input type='file'  id='image' name='image' onChange={e => {handleUpload(e)}}/>
+                    <input type='file'  id='image' name='image' onChange={e => {handleUpload(e)}} multiple/>
                 </div>
                 <div className={cx('create__form-item')}>
                     <div className={cx('create__form-select')}>
