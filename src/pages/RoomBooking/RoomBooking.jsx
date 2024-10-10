@@ -151,6 +151,8 @@ function HotelRooms() {
         isUserAction = false
 
     }, [user, room])
+
+    console.log(room)
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -161,30 +163,30 @@ function HotelRooms() {
                         <div className={cx('wrap__image')}>
                             <img 
                                 className={cx('room__image')}
-                                src={room?.images?.length > 0 ? `http://localhost:5000/images/roomImg/${room?.images[0]}` : ''}
+                                src={room?.images ? `http://localhost:5000/images/roomImg/${room?.images?.image1}` : ''}
                                 alt='{{room.name}}'
                             />
                             <img 
                                 className={cx('room__image')}
-                                src={room?.images?.length > 0 ? `http://localhost:5000/images/roomImg/${room?.images[1]}` : ''}
+                                src={room?.images ? `http://localhost:5000/images/roomImg/${room?.images.image2}` : ''}
                                 alt='{{room.name}}'
                             />
                             <img 
                                 className={cx('room__image')}
-                                src={room?.images?.length > 0 ? `http://localhost:5000/images/roomImg/${room?.images[2]}` : ''}
+                                src={room?.images ? `http://localhost:5000/images/roomImg/${room?.images.image3}` : ''}
                                 alt='{{room.name}}'
                             />
                         </div>
                         <div className={cx('room__detail-info')}>
-                            <p >Tên phòng:<span>{room.name}</span></p>  
-                            <p >Mô tả: <span>{room.desc}</span></p>
-                            <p >Tổng quan: <span>{room.overView}</span></p>
+                            <p >Tên phòng:<span>{room?.name}</span></p>  
+                            <p >Mô tả: <span>{room?.desc}</span></p>
+                            <p >Tổng quan: <span>{room?.overView}</span></p>
                             <div className={cx('room__star-rating')}>
-                                {[...Array(Number(room.rating || 5))].map((_, index) => (
+                                {[...Array(Number(room?.rating || 5))].map((_, index) => (
                                     <i key={index} className={cx('fa-solid fa-star')}></i>
                                 ))}
                             </div>
-                            <p >Giá: <span>{`${Number(room.price).toLocaleString('vi-VN')} ₫/ đêm`}</span></p>
+                            <p >Giá: <span>{`${Number(room?.price).toLocaleString('vi-VN')} ₫/ đêm`}</span></p>
 
                             <div className={cx('favorite-rooms')}>
                                 <input id='favoriteRooms' type='checkbox' />

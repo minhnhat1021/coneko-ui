@@ -12,13 +12,19 @@ function EditRoom() {
     const [desc, setDesc] = useState('')
     const [overView, setOverView] = useState('')
     const [price, setPrice] = useState('')
-    const [image, setImage] = useState()
     const [bedType, setBedType] = useState('')
     const [bedCount, setBedCount] = useState('')
     const [floor, setFloor] = useState('')
     const [capacity, setCapacity] = useState('')
     const [rating, setRating] = useState('')
     const [amenities, setAmenities] = useState('')
+
+    const [images, setImages] = useState({
+        image1: null,
+        image2: null,
+        image3: null
+    })
+
 
     const { roomId } = useParams()
     
@@ -30,7 +36,7 @@ function EditRoom() {
             setDesc(res.desc)
             setOverView(res.overView)
             setPrice(res.price)
-            setImage(res.image)
+            setImages(res.images)
             setBedType(res.bedType)
             setBedCount(res.bedCount)
             setFloor(res.floor)
@@ -42,7 +48,32 @@ function EditRoom() {
         fetchApi()
     }, [])
 
-    
+    // UpLoad ảnh
+    const handleUpload = async(e) => {
+        const { name } = e.target
+        const image = e.target.files[0]
+
+        const formData = new FormData()
+
+        formData.append('file', image)
+
+        try {
+            const res = await managementService.uploadRoom(formData)
+
+            const nameImage = res.filename
+
+            setImages(prevState => ({
+            ...prevState,
+            [name]: nameImage 
+        }))
+
+            console.log('Tải ảnh thành công', nameImage)
+        } catch (error) {
+            console.error('Lỗi khi tải ảnh:', error)
+        }
+        
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -51,7 +82,7 @@ function EditRoom() {
             desc,
             overView,
             price,
-            image,
+            images,
             bedType,
             bedCount,
             floor,
@@ -85,8 +116,17 @@ function EditRoom() {
                     <input type='text'  id='price' name='price' value={price} onChange={e => {setPrice(e.target.value)}}/>
                 </div>
                 <div className={cx('create__form-item')}>
-                    <label for='image' > Ảnh </label>
-                    <input type='file'  id='image' name='image' placeholder='123'/>
+                    <label for='image' > Ảnh 1 {images.image1 && <p> {images.image1}</p>} </label>
+                    <input type='file'  id='image1' name='image1' onChange={e => {handleUpload(e)}} />
+                    
+                </div>
+                <div className={cx('create__form-item')}>
+                    <label for='image' > Ảnh 2 {images.image2 && <p> {images.image2}</p>}</label>
+                    <input type='file'  id='image2' name='image2' onChange={e => {handleUpload(e)}} />
+                </div>
+                <div className={cx('create__form-item')}>
+                    <label for='image' > Ảnh 3 {images.image3 && <p> {images.image3}</p>}</label>
+                    <input type='file'  id='image3' name='image3' onChange={e => {handleUpload(e)}} />
                 </div>
                 <div className={cx('create__form-item')}>
                     <div className={cx('create__form-select')}>

@@ -37,8 +37,7 @@ import {
 } from '~/pages/Admin'
 
 
-import { HeaderOnly, UserLayout, UserManagementLayout, RoomManagementLayout} from '~/layouts'
-
+import {MainLayout, AdminLayout, HeaderOnly, UserLayout, UserManagementLayout, RoomManagementLayout} from '~/layouts'
 import config from '~/config'
 
 
@@ -49,8 +48,8 @@ const publicRoutes = [
     { path: config.routes.hotelRules, component: HotelRules},
     { path: config.routes.contact, component: Contact},
 
-    { path: config.routes.adminLogin, component: AdminLogin},
-    { path: config.routes.adminRegister, component: AdminRegister},
+    { path: config.routes.adminLogin, component: AdminLogin, layout: AdminLayout },
+    { path: config.routes.adminRegister, component: AdminRegister, layout: AdminLayout},
 
 ]
 const privateRoutes = [

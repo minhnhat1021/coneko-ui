@@ -12,47 +12,55 @@ function CreateRoom() {
     const [desc, setDesc] = useState('')
     const [overView, setOverView] = useState('')
     const [price, setPrice] = useState()
-    const [images, setImages] = useState([])
     const [bedType, setBedType] = useState('single')
     const [bedCount, setBedCount] = useState('2')
     const [floor, setFloor] = useState('5')
     const [capacity, setCapacity] = useState('3')
     const [rating, setRating] = useState('5')
     const [amenities, setAmenities] = useState('netflix')
-    
-    console.log(images)
+
+    const [images, setImages] = useState({
+        image1: null,
+        image2: null,
+        image3: null
+    })
 
     // Handle khi chọn ảnh
     const handleUpload = async(e) => {
-        const images = Array.from(e.target.files)
+        const { name } = e.target
+        const image = e.target.files[0]
 
         const formData = new FormData()
 
-        images.forEach((image, index) => {
-            formData.append(`file`, image)
-            formData.append(`fileOrder[]`, index)
-        })
+        formData.append('file', image)
 
         try {
             const res = await managementService.uploadRoom(formData)
-            
-            const nameImages = res.map(file => file.filename)
-            setImages(nameImages)
 
-            console.log('Tải ảnh thành công', nameImages)
+            const nameImage = res.filename
+
+            setImages(prevState => ({
+            ...prevState,
+            [name]: nameImage 
+        }))
+
+            console.log('Tải ảnh thành công', nameImage)
         } catch (error) {
             console.error('Lỗi khi tải ảnh:', error)
         }
-
+        
     }
 
     // Handle submit form data
     const handleSubmit = async(e) => {
         e.preventDefault()
         
-        if (!images){
-            console.log('vui lòng đợi load ảnh')
-        }else if(images){
+        const { image1, image2, image3 } = images
+        const imageCount = [image1, image2, image3].filter(image => image !== null).length
+
+        if (imageCount < 3){
+            console.log('Vui lòng up đủ 3 ảnh')
+        }else {
             const res = await managementService.createRoom(
                 name,
                 desc,
@@ -70,7 +78,6 @@ function CreateRoom() {
                 window.location.href = 'http://localhost:3000/admin/room-list'
             }
         } 
-        
     }
     
     return ( 
@@ -95,8 +102,16 @@ function CreateRoom() {
                     <input type='text'  id='price' name='price' value={price} onChange={e => {setPrice(parseFloat(e.target.value))}}/>
                 </div>
                 <div className={cx('create__form-item')}>
-                    <label for='image' > Ảnh </label>
-                    <input type='file'  id='image' name='image' onChange={e => {handleUpload(e)}} multiple/>
+                    <label for='image' > Ảnh 1 </label>
+                    <input type='file'  id='image1' name='image1' onChange={e => {handleUpload(e)}} />
+                </div>
+                <div className={cx('create__form-item')}>
+                    <label for='image' > Ảnh 2 </label>
+                    <input type='file'  id='image2' name='image2' onChange={e => {handleUpload(e)}} />
+                </div>
+                <div className={cx('create__form-item')}>
+                    <label for='image' > Ảnh 3 </label>
+                    <input type='file'  id='image3' name='image3' onChange={e => {handleUpload(e)}} />
                 </div>
                 <div className={cx('create__form-item')}>
                     <div className={cx('create__form-select')}>

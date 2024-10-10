@@ -22,7 +22,12 @@
     flex-wrap: wrap;
     margin: 0 10px;
     label{
-
+        display: flex;
+        gap: 12px;
+        p{
+            font-weight: 600;
+            color: var(--color-success);
+        }
     }
     input{
         width: 100%;
@@ -36,6 +41,7 @@
             border-color: var(--color-success);
         }
     }
+
 }
 
 

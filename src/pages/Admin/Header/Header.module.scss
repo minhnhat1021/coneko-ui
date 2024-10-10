@@ -34,7 +34,8 @@
     }
 }
 .nav__task{
-
+    display: flex;
+    align-items: center;
     a{
         color: var(--primary-text-1);
         margin-right: 10px;

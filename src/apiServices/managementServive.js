@@ -44,7 +44,7 @@ export const roomEdit = async (id) => {
     }
 }
 
-export const updateRoom = async (roomId, name, desc, overView, price, image, bedType, bedCount, floor, capacity, rating, amenities ) => {
+export const updateRoom = async (roomId, name, desc, overView, price, images, bedType, bedCount, floor, capacity, rating, amenities ) => {
     try {
         const res = await request.put(`admin/room-update`, {
             roomId,
@@ -52,7 +52,7 @@ export const updateRoom = async (roomId, name, desc, overView, price, image, bed
             desc,
             overView,
             price,
-            image,
+            images,
             bedType,
             bedCount,
             floor,
@@ -100,7 +100,6 @@ export const forceDeleteRoomById = async ( roomId ) => {
 }
 
 export const createRoom = async ( name, desc, price, images, overView, bedType, bedCount, floor, capacity, rating, amenities ) => {
-
     try {
         const res = await request.post(`/admin/create-room`, { 
             name,
