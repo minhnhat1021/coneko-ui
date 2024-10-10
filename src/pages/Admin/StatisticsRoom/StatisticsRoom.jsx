@@ -16,7 +16,7 @@ function StatisticsRoom() {
         const fetchApi = async () => {
             const result = await managementService.statisticsRoom()
             setStatistics(result)
-        }
+        }   
         fetchApi()
     }, [])
 
@@ -87,8 +87,8 @@ function StatisticsRoom() {
                         <div className={cx('count')}>Số lượng: {statistics.doubleBed}</div>
                     </div>
                 </div>
-                <div className={cx('item', 'bed')}>
-                    <div className={cx('icon', 'bed')}>
+                <div className={cx('item', 'bed__count')}>
+                    <div className={cx('icon', 'bed__count')}>
                         <i className={cx('fa-solid fa-bed')}></i>
                     </div>
                     <div className={cx('info')}>
@@ -96,8 +96,8 @@ function StatisticsRoom() {
                         <div className={cx('count')}>Số lượng: {statistics.oneBed}</div>
                     </div>
                 </div>
-                <div className={cx('item', 'bed')}>
-                    <div className={cx('icon', 'bed')}>
+                <div className={cx('item', 'bed__count')}>
+                    <div className={cx('icon', 'bed__count')}>
                         <i className={cx('fa-solid fa-bed')}></i>
                     </div>
                     <div className={cx('info')}>
@@ -105,41 +105,13 @@ function StatisticsRoom() {
                         <div className={cx('count')}>Số lượng: {statistics.twoBeds}</div>
                     </div>
                 </div>
-                <div className={cx('item', 'bed')}>
-                    <div className={cx('icon', 'bed')}>
+                <div className={cx('item', 'bed__count')}>
+                    <div className={cx('icon', 'bed__count')}>
                         <i className={cx('fa-solid fa-bed')}></i>
                     </div>
                     <div className={cx('info')}>
                         <div className={cx('title')}>3 giường </div>
                         <div className={cx('count')}>Số lượng: {statistics.threeBeds}</div>
-                    </div>
-                </div>
-
-                <div className={cx('item', 'person')}>
-                    <div className={cx('icon', 'person')}>
-                        <i className={cx('fa-solid fa-person')}></i>
-                    </div>
-                    <div className={cx('info')}>
-                        <div className={cx('title')}>1 người </div>
-                        <div className={cx('count')}>Số lượng: {statistics.onePerson}</div>
-                    </div>
-                </div>
-                <div className={cx('item', 'person')}>
-                    <div className={cx('icon', 'person')}>
-                        <i className={cx('fa-solid fa-person')}></i>
-                    </div>
-                    <div className={cx('info')}>
-                        <div className={cx('title')}>2 người </div>
-                        <div className={cx('count')}>Số lượng: {statistics.twoPeople}</div>
-                    </div>
-                </div>
-                <div className={cx('item', 'person')}>
-                    <div className={cx('icon', 'person')}>
-                        <i className={cx('fa-solid fa-person')}></i>
-                    </div>
-                    <div className={cx('info')}>
-                        <div className={cx('title')}>3 người </div>
-                        <div className={cx('count')}>Số lượng: {statistics.threePeople}</div>
                     </div>
                 </div>
 

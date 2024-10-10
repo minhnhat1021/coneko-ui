@@ -37,7 +37,7 @@ import {
 } from '~/pages/Admin'
 
 
-import {MainLayout, AdminLayout, HeaderOnly, UserLayout, UserManagementLayout, RoomManagementLayout} from '~/layouts'
+import {MainLayout, FragmentLayout, AdminLayout, HeaderOnly, UserLayout, UserManagementLayout, RoomManagementLayout} from '~/layouts'
 import config from '~/config'
 
 
@@ -54,10 +54,10 @@ const publicRoutes = [
 ]
 const privateRoutes = [
 
-    { path: config.routes.roomBooking, component: RoomBooking},
-    { path: config.routes.checkout, component: Checkout},
-    { path: config.routes.paymentVerification, component: PaymentVerification},
-    { path: config.routes.paymentSuccessful, component: PaymentSuccessful},
+    { path: config.routes.roomBooking, component: RoomBooking, subLayout: FragmentLayout},
+    { path: config.routes.checkout, component: Checkout, subLayout: FragmentLayout},
+    { path: config.routes.paymentVerification, component: PaymentVerification, subLayout: FragmentLayout},
+    { path: config.routes.paymentSuccessful, component: PaymentSuccessful, subLayout: FragmentLayout},
 
     { path: config.routes.userAccount, component: UserAccount, subLayout: UserLayout},
     { path: config.routes.userCurrentRooms, component: UserCurrentRooms, subLayout: UserLayout},
@@ -80,7 +80,6 @@ const adminRoutes = [
 
     { path: config.routes.bookingManagement, component: BookingManagement},
     { path: config.routes.bookingDetails, component: BookingDetails},
-
 
 ]
 

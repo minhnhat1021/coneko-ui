@@ -20,6 +20,7 @@ function Checkout() {
     // Láy dữ liệu room detail
     const { name } = useParams()
     const [room, setRoom] = useState({})
+    const [balance, setBalance] = useState()
 
     useEffect(() => {
         const fetchApi = async () => {
@@ -32,7 +33,7 @@ function Checkout() {
 
 
     const location = useLocation()
-    const { startDate, endDate, days, roomCharge, amenitiesPrice, amenities, totalPrice, user } = location.state
+    const { startDate, endDate, days, roomCharge, amenitiesPrice, amenities, originalPrice, discountRate, discountAmount, totalPrice, user } = location.state
 
     // Chuyển đổi định dạng ngày
     const formattedDate = (date) => {
@@ -54,14 +55,20 @@ function Checkout() {
                 amenitiesPrice,
                 amenitiesCharge: amenitiesPrice * days,
                 amenities,
+                originalPrice, 
+                discountRate,
+                discountAmount,
                 totalPrice,
                 roomId: room._id,
                 userId: user._id
             })
-            navigate('/payment-successful', {
-                state: { startDate, endDate, days, totalPrice, qrCode: result?.qrCode}
-            })
-
+            if(result?.insufficientBalance){
+                setBalance('Số dư tài khoản không đủ')
+            } else {
+                navigate('/payment-successful', {
+                    state: { startDate, endDate, days, totalPrice, qrCode: result?.qrCode}
+                })
+            }
         }
                 
         fetchApi()
@@ -77,6 +84,9 @@ function Checkout() {
             amenitiesPrice,
             amenitiesCharge: amenitiesPrice * days,
             amenities,
+            originalPrice, 
+            discountRate,
+            discountAmount,
             totalPrice,
             roomId: room._id,
             userId: user._id
@@ -98,6 +108,9 @@ function Checkout() {
             amenitiesPrice,
             amenitiesCharge: amenitiesPrice * days,
             amenities,
+            originalPrice, 
+            discountRate,
+            discountAmount,
             totalPrice,
             roomId: room._id,
             userId: user._id
@@ -121,6 +134,9 @@ function Checkout() {
             amenitiesPrice,
             amenitiesCharge: amenitiesPrice * days,
             amenities,
+            originalPrice, 
+            discountRate,
+            discountAmount,
             totalPrice,
             roomId: room._id,
             userId: user._id
@@ -196,10 +212,11 @@ function Checkout() {
                         <label for="terms" className={cx('terms__label')}></label>
                         <p>Tôi đồng ý với các <Link to='#' className={cx('terms__link')}>điều khoản và điều kiện</Link></p>
                     </div>
-
+                        
+                    {balance && <span>{balance}</span>}
                     {paymentMethods.map(method => (
                         paymentMethod.name === method.name && 
-
+                        
                         <button onClick={paymentMethod.handler} className={cx('pay__btn', 'available')} >
                             {paymentMethod.title}
                         </button>
@@ -208,15 +225,15 @@ function Checkout() {
                 <div className={cx('booking')}>
                     <div className={cx('booking__info')}>
                         <img    
-                            src={`http://localhost:5000/images/roomImg/${room.image}`} 
+                            src={room?.images ? `http://localhost:5000/images/roomImg/${room?.images?.image1}` : ''} 
                             alt={room.name}
                             />
                         <div className={cx('booking__detail')}>
                             <div className={cx('booking__detail-title')}>
-                                Phòng 201
+                                {room?.name}
                             </div>
                             <div className={cx('booking__detail-overview')}>
-                                {room.overView}
+                                {room?.overView}
                             </div>
                             <div className={cx('booking__detail-menu')}>
                                 <div className={cx('booking__detail-item')}>
@@ -242,10 +259,13 @@ function Checkout() {
                                 Chi tiết giá cả
                             </div>
                             <div className={cx('booking__pricing-optional')}>
-                                <p>{Number(room.price).toLocaleString('vi-VN')} x {days} ngày <span>{roomCharge.toLocaleString('vi-VN')}</span></p>
+                                <p>{room?.price?.toLocaleString('vi-VN')} x {days} ngày <span>{roomCharge.toLocaleString('vi-VN')}</span></p>
                                 <p>Coffee x {days} ngày <span>{amenities.coffee * days}</span></p>
                                 <p>Bữa sáng x {days} ngày <span>{amenities.breakfast * days}</span></p>
                                 <p>Mini Bar x {days} ngày <span>{amenities.minibar * days}</span></p>
+                                <br></br>
+                                <p>Tổng chi gốc <span>{originalPrice}</span></p>
+                                <p>Chiết khấu {discountRate} % <span>{discountAmount}</span></p>
                             </div>
                         </div>
                         <div className={cx('booking__total')}>

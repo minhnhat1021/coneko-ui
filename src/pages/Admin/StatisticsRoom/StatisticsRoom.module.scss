@@ -4,7 +4,6 @@
 
 }
 .list{
-    // max-width: 80%;
     display: flex;
     flex-wrap: wrap;
 }
@@ -21,22 +20,6 @@
     border-radius: 4px;
     cursor: pointer;
 
-    // &.bed{
-    //     color: var(--primary-text-3);
-    //     // background-color: #F5F5DC;
-    // }
-    // &.person{
-    //     color: var(--primary-text-3);
-    //     // background-color: #D2B48C;
-    // }
-    // &.rating{
-    //     color: var(--primary-text-3);
-    //     // background-color: var(--primary-bg-4);
-    // }
-    // &.smoking{
-    //     color: var(--primary-text-1);
-    //     // background-color:  #800000;
-    // }
 }
 .icon{
     width: 70px;
@@ -56,7 +39,7 @@
         color: var(--primary-text-3);
         background-color: #F5F5DC;
     }
-    &.person{
+    &.bed__count{
         background-color: #D2B48C;
     }
     &.rating{

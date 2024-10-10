@@ -15,19 +15,17 @@ import styles from './RoomBooking.module.scss'
 const cx = classNames.bind(styles)
 
 
-function HotelRooms() {
+function RoomBooking({ userData }) {
+
+    const user = userData
     const { name } = useParams()
     // lấy ra thông tin phòng và khách đặt phòng
-    const [token, setToken] = useState(localStorage.getItem('token'))
-    const [user, setUser] = useState({})
 
     const [room, setRoom] = useState({})
     const [bookedDates, setBookedDates] = useState([])
 
     useEffect(() => {
         const fetchApi = async () => {
-            const userData = await loadService.userDetail(token)
-            setUser(userData)
 
             const roomData = await loadService.roomDetail(name)
             const currentUsers = roomData.currentUsers
@@ -100,6 +98,16 @@ function HotelRooms() {
     } 
     
     // Handle chuyển sang trang checkout
+
+    const discountRates = {
+        normal: 0,
+        silver: 5,
+        gold: 10,
+        platinum: 15,
+        diamond: 18,
+        vip: 20
+    }
+
     const navigate = useNavigate()
     const handleBooking = (e) => {
         e.preventDefault()   
@@ -107,9 +115,16 @@ function HotelRooms() {
         const amenitiesPrice = Object.values(amenities).reduce(function (a, b) {
             return a + b
         }, 0)
-        const totalPrice = roomCharge + amenitiesPrice * days
+
+        const discountRate = discountRates[user?.level]
+        const originalPrice = roomCharge + amenitiesPrice * days
+        const discountAmount = (originalPrice * discountRate) /100
+
+        const totalPrice = originalPrice - discountAmount
+
+
         navigate(`/${name}/checkout`, {
-            state: { startDate, endDate, days , roomCharge, amenitiesPrice, amenities, totalPrice, user }
+            state: { startDate, endDate, days , roomCharge, amenitiesPrice, amenities, originalPrice, discountRate, discountAmount, totalPrice, user }
         })
     }
 
@@ -152,7 +167,6 @@ function HotelRooms() {
 
     }, [user, room])
 
-    console.log(room)
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -209,6 +223,7 @@ function HotelRooms() {
                         <p >Tên khách hàng: <span>{user?.fullName}</span></p>
                         <p >Email: <span>{user?.email}</span></p>
                         <p >Số điện thoại: <span>[Số điện thoại khách hàng]</span></p>
+                        <p >Cấp bậc <span>{user?.level}</span></p>
                     </div>
                 </div>
                 
@@ -275,4 +290,4 @@ function HotelRooms() {
     )
 }
 
-export default HotelRooms
+export default RoomBooking

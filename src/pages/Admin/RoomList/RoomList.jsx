@@ -59,7 +59,6 @@ function RoomList() {
     }, [])
 
     useEffect(() => {
-        console.log(options)
         const handleFilter = async() => {
             const filters = Object.keys(options).filter(
               (key) => options[key] === true
@@ -149,7 +148,7 @@ function RoomList() {
                         <div key={index} className={cx('room__item')}>
                             <a href='/hotel-rooms/' className={cx('room__image')}>
                                 <img
-                                    src={`http://localhost:5000/images/roomImg/${room.image}`}
+                                    src={room?.images ? `http://localhost:5000/images/roomImg/${room?.images?.image1}` : ''} 
                                     alt='coneko'
                                 />
                             </a>

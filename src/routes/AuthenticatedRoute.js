@@ -21,7 +21,6 @@ const AuthenticatedRoute = ({ children, path }) => {
     if (!token) {
         return <Navigate to="/login" replace />
     }
-
     
     return children && React.cloneElement(children, { userData })
     
