@@ -3,7 +3,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import * as loadService from '~/apiServices/loadService'
+import * as roomService from '~/apiServices/roomService'
 
 import * as checkoutService from '~/apiServices/checkoutService'
 
@@ -24,7 +24,7 @@ function Checkout() {
 
     useEffect(() => {
         const fetchApi = async () => {
-            const roomData = await loadService.roomDetail(name)
+            const roomData = await roomService.roomDetail(name)
             
             setRoom(roomData)
         }

@@ -158,15 +158,26 @@
     }
 
     .user__name,
-    .user__overview{
-        color: #0bb4f7;
+    .user__email{
+        span{
+            color: #0bb4f7;
+        }
     }
 
-    .user__price{
-        color: #ffc107;
+    .user__total-spent,
+    .user__account-balance,
+    .user__level{
+        span{
+            color: #ffc107;
+        }
     }
-    .user__status{
-        color: #00bf66;
+    .user__created{
+        span{
+            color: #00bf66;
+        }
+    }
+    span{
+        margin-left: 3px;
     }
 }
 

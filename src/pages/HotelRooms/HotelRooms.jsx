@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import * as loadService from '~/apiServices/loadService'
+
 import * as roomService from '~/apiServices/roomService'
 
 
@@ -14,7 +14,7 @@ function HotelRooms() {
 
     useEffect(() => {
         const fetchApi = async () => {
-            const result = await loadService.roomList()
+            const result = await roomService.roomList()
             setRoomData(result.rooms)
         }
 

@@ -185,6 +185,16 @@ export const forceDeleteUserById = async ( userId ) => {
     }
 }
 
+// Booking
+export const bookingManagement = async () => {
+    try {
+        const res = await request.get(`admin/booking-management`)
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const filterBookingByOptions = async ( options ) => {
 
     try {
@@ -197,6 +207,7 @@ export const filterBookingByOptions = async ( options ) => {
     }
 }
 
+// Admin
 export const adminDetail = async (adminToken) => {
 
     try {

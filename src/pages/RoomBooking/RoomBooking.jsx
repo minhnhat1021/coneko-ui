@@ -4,8 +4,9 @@ import { useParams, useNavigate } from 'react-router-dom'
 import CheckInDate from './CustomDate/CheckInDate'
 import CheckOutDate from './CustomDate/CheckOutDate'
 
-import * as loadService from '~/apiServices/loadService'
 import * as userService from '~/apiServices/userService'
+import * as roomService from '~/apiServices/roomService'
+
 
 import { Tooltip } from 'react-tooltip'
 
@@ -27,7 +28,7 @@ function RoomBooking({ userData }) {
     useEffect(() => {
         const fetchApi = async () => {
 
-            const roomData = await loadService.roomDetail(name)
+            const roomData = await roomService.roomDetail(name)
             const currentUsers = roomData.currentUsers
             const dateData = currentUsers.map(user => ({
                 start: user.checkInDate,

@@ -3,6 +3,12 @@
     flex-direction: column;
     margin: 10px;
 }
+.title {
+    color: var(--primary-text-1);
+    font-size: 2.8rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
 /* Options -------------------------------------------------------------------------*/
 .options{
     display: flex;
@@ -62,6 +68,7 @@
     img{
         width: 120px;
         height: 70px;
+        border-radius: 6px;
     }
 }
 
@@ -141,6 +148,17 @@
     flex-direction: column;
     justify-content: center;
     margin-left: 10px;
+}
+.notification{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    padding: 12px 24px;
+    color: var(--primary-text-1);
+    font-size: 2rem;
+    font-weight: 600;
 }
 
 

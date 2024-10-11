@@ -23,6 +23,11 @@
     &:hover{
         background-color: #0c0b0b;
     }
+    img{
+        width: 120px;
+        height: 70px;
+        border-radius: 6px;
+    }
 }
 
 
@@ -34,11 +39,7 @@
     
 }
 
-img{
-    width: 120px;
-    height: 70px;
-    border-radius: 6px;
-}
+
 
 .room__body{
     flex: 1;

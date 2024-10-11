@@ -35,14 +35,18 @@ function RoomTrash() {
 
     return ( 
         <div className={cx('wrapper')}>
-            Phòng đã xóa
+            <div className={cx('title')}>
+                Danh sách phòng đã xóa
+            </div>
 
             <div className={cx('room__list')}>  
-                {roomData.map((room, index) => 
+
+            {roomData?.length > 0 ? 
+                (roomData.map((room, index) => 
                     <div key={index} className={cx('room__item')}>
                         <a href='/hotel-rooms/' className={cx('room__image')}>
                             <img
-                                src={`http://localhost:5000/images/roomImg/${room.image}`}
+                                src={room?.images ? `http://localhost:5000/images/roomImg/${room?.images?.image1}` : ''} 
                                 alt='coneko'
                             />
                         </a>
@@ -86,7 +90,10 @@ function RoomTrash() {
                             <Button adminDelete onClick={() => handleDelete(room._id)} >Xóa</Button>
                         </footer>
                     </div>
-                )}
+                )) : <div className={cx('notification')} >
+                        Chưa có phòng nào bị xóa
+                </div>
+            }
             </div>
         </div>
     )

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import * as loadService from '~/apiServices/loadService'
 import * as managementService from '~/apiServices/managementServive'
 import { Link, useNavigate } from 'react-router-dom'
 import classNames from 'classnames/bind'
@@ -7,13 +6,13 @@ import styles from './BookingManagement.module.scss'
 
 const cx = classNames.bind(styles)
 
-function BookingManagement({userData}) {
+function BookingManagement({ adminData }) {
     const [bookings, setBookings] = useState([])
 
     useEffect( () => {
         const fetchApi = async () => {
             try {
-                const res = await loadService.bookingManagement('http://localhost:5000/api/admin/booking-management')
+                const res = await managementService.bookingManagement('http://localhost:5000/api/admin/booking-management')
                 setBookings(res.bookings)
             } catch (error) {
                 console.error('gọi api lỗi', error)
