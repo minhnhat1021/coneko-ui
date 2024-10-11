@@ -5,6 +5,9 @@ import HotelRooms from '~/pages/HotelRooms'
 import HotelRules from '~/pages/HotelRules'
 import Contact from '~/pages/Contact/Contact'
 
+import Register from '~/pages/LoginRegister/Register'
+import Login from '~/pages/LoginRegister/Login'
+
 import RoomBooking from '~/pages/RoomBooking'
 import Checkout from '~/pages/Checkout'
 import PaymentSuccessful from '~/pages/PaymentSuccessful'
@@ -47,6 +50,8 @@ const publicRoutes = [
     { path: config.routes.hotelRooms, component: HotelRooms},
     { path: config.routes.hotelRules, component: HotelRules},
     { path: config.routes.contact, component: Contact},
+    { path: config.routes.register, component: Register},
+    { path: config.routes.login, component: Login},
 
     { path: config.routes.adminLogin, component: AdminLogin, layout: AdminLayout },
     { path: config.routes.adminRegister, component: AdminRegister, layout: AdminLayout},

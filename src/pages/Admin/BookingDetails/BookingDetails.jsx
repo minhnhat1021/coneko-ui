@@ -29,7 +29,20 @@ function BookingDetails() {
                 <div className={cx('modal__container')} >
                     <div className={cx('modal__content')} >
                         <div className={cx('wrap__expense')}>
-                            <img src={`http://localhost:5000/images/roomImg/${booking?.room?.image}`} alt=''/>
+                            <div className={cx('wrap__image')}>
+                                <img 
+                                    src= {booking?.room?.images ? `http://localhost:5000/images/roomImg/${booking?.room?.images?.image1}` : ''}
+                                    alt=''
+                                />
+                                <img 
+                                    src= {booking?.room?.images ? `http://localhost:5000/images/roomImg/${booking?.room?.images?.image2}` : ''}
+                                    alt=''
+                                />
+                                <img 
+                                    src= {booking?.room?.images ? `http://localhost:5000/images/roomImg/${booking?.room?.images?.image3}` : ''}
+                                    alt=''
+                                />
+                            </div>
                             <div className={cx('expense')}>
                                 <p className={cx('modal__info-title')}>Chi tiết phí phòng và dịch vụ</p>
 

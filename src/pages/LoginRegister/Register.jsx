@@ -1,4 +1,5 @@
-import { forwardRef, useState, useEffect } from 'react'
+import {  useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import * as authService from '~/apiServices/authService'
 
 import { GoogleLogin } from '@react-oauth/google'
@@ -11,7 +12,7 @@ import styles from './LoginRegister.module.scss'
 
 const cx = classNames.bind(styles)
 
-const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal, onDataLogin }, ref) => {
+function Register () {
 
     const [loading, setLoading] = useState(false)
     const [isShowPass, setIsShowPass] = useState(true)
@@ -108,14 +109,16 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
             }       
         }
         if(isValid) {
+            setLoading(true)
             // Thực hiện đăng ký
             const res = await authService.register(fullName, email, password)
 
             const resultRegister = document.getElementById('resultRegister')
             resultRegister.innerText = res?.msg ? res?.msg : ''
+
             if(res?.token) {
                 localStorage.setItem('token', res?.token)
-                onDataLogin(localStorage.getItem('token') )
+                window.location.href = '/'
             }
             setLoading(false)
         }
@@ -128,6 +131,7 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
             input.onblur = handleValidator
             input.onfocus = handleClear
         }
+
     }, [])
     
     // Login Google
@@ -137,10 +141,12 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
 
         const resultRegister = document.getElementById('resultRegister')
         resultRegister.innerText = result?.msg ? result?.msg : ''
+
         if(result?.token) {
             localStorage.setItem('token', result?.token)
-            localStorage.setItem('userId', result?.userId)
-            onDataLogin(localStorage.getItem('token'))
+
+            window.location.href = '/'
+
         }
 
         console.log(result)
@@ -156,24 +162,24 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
 
         const resultRegister = document.getElementById('resultRegister')
         resultRegister.innerText = result?.msg ? result?.msg : ''
+
         if(result?.token) {
             localStorage.setItem('token', result?.token)
-            localStorage.setItem('userId', result?.userId)
-            onDataLogin(localStorage.getItem('token'))
+
+            window.location.href = '/'
+
         }
-        console.log(result)
     }
     return ( 
-        <div ref={ref} id='register' className={cx('register__modal', {showModal}) } onClick={clickModal}>
-            {/* <div className={cx('login__modal-container')} onClick={clickContentModal}>
-                <div className={cx('login__modal-content', 'register')}>
-                    <header className={cx('login__content-header')}>
-                        <h1 className={cx('login__content-title')}>Đăng ký tài khoản conkeko</h1>
-                        <p className={cx('login__content-sugges')}>Đăng nhập để trải nhiệm những dịch vụ và tiện ích mà mà chúng tôi đem lại cho bạn</p>
+        <div className={cx('wrapper') }>
+            <div className={cx('container')}>
+                    <header className={cx('header')}>
+                        <h1 >Đăng ký tài khoản conkeko</h1>
+                        <p >Đăng nhập để trải nhiệm những dịch vụ và tiện ích mà mà chúng tôi đem lại cho bạn</p>
                     </header>
-                    <main className={cx('login__content-body')}>
-                        <form id='register-form' name='register-form' onSubmit={handleSubmit} className={cx('login__content-list')} >
-                            <div className={cx('login__content-item')}>
+                    <main className={cx('body')}>
+                        <form id='register-form' name='register-form' onSubmit={handleSubmit} className={cx('body__content')} >
+                            <div className={cx('body__item')}>
                                 <label htmlFor="fullname">Tên của bạn</label>
                                 <div className={cx('login__wrap-input', { invalid: inputStates.fullName })}>
                                     <input type="text" name='fullName' rules='' value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Họ và tên của bạn"  />
@@ -183,7 +189,7 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
                                 </div>
                                 <span className={cx('error__message', { invalid: inputStates.fullName })}></span>
                             </div>
-                            <div className={cx('login__content-item')}>
+                            <div className={cx('body__item')}>
                                 <label htmlFor="email">Email của bạn</label>
                                 <div className={cx('login__wrap-input', { invalid: inputStates.email })}>
                                     <input type="text" name='email' rules='' value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Địa chỉ email"  />
@@ -193,7 +199,8 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
                                 </div>
                                 <span className={cx('error__message', { invalid: inputStates.email })}></span>
                             </div>
-                            <div className={cx('login__content-item')}>
+                            
+                            <div className={cx('body__item')}>
                                 <label htmlFor="password">Mật Khẩu</label>
                                 <div className={cx('login__wrap-input', { invalid: inputStates.password })}>
                                     <input type="password" name='password' rules='' id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mật Khẩu"  />
@@ -203,7 +210,9 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
                                 </div>
                                 <span className={cx('error__message', { invalid: inputStates.password })}></span>
                             </div>  
+
                             <span id="resultRegister" className={cx('result-register')}></span>
+                            
                             <div className={cx('login__content-btn')}>
                                 <button type="submit">{loading ? <span ><Loading /></span> : 'Đăng ký' }</button>
                             </div>
@@ -224,22 +233,21 @@ const Register = forwardRef(({ onClick, showModal, clickModal, clickContentModal
                             />
                         </form>
                     </main>
-                    <footer className={cx('login__content-footer')}>
-                        <p className={cx('login__content__sugges-regis')}>
+                    <footer className={cx('footer')}>
+                        <p className={cx('footer__register')}>
                             Bạn đã có tài khoản?
-                            <a href="#" onClick={onClick}>Đăng nhập</a>
+                            <Link to="/login" >Đăng nhập</Link>
                         </p>
                         <a href='/'>Quên mật khẩu?</a>
-                        <p className={cx('login__content__sugges-about')}>
+                        <p className={cx('footer__about')}>
                             Việc bạn tiếp tục sử dụng trang web này đồng nghĩa bạn đồng ý với
                             <a href="/"> điều khoản sử dụng </a>
                             của chúng tôi.
                         </p>
                     </footer>
-                </div>                  
-            </div> */}
+            </div>
         </div>
     )
-})
+}
 
 export default Register

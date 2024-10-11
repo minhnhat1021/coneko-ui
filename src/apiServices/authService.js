@@ -1,6 +1,7 @@
 import * as request from '~/utils/request'
 
 export const register = async ( fullName, email, password ) => {
+    console.log(fullName, email ,password)
     try {
         const res = await request.post(`register`, { fullName, email, password })
         return res.data
@@ -20,9 +21,9 @@ export const login = async ( userName, password ) => {
     }
 }
 
-export const logout = async ( userId ) => {
+export const logout = async ( token ) => {
     try {
-        const res = await request.post(`login/out`, { userId })
+        const res = await request.post(`login/out`, { token })
         return res.data
 
     } catch (error) {
@@ -70,9 +71,9 @@ export const adminRegister = async ( userName, password, securityCode ) => {
     }
 }
 
-export const adminLogout = async ( adminId ) => {
+export const adminLogout = async ( adminToken ) => {
     try {
-        const res = await request.post(`admin/logout`, { adminId })
+        const res = await request.post(`admin/logout`, { adminToken })
         return res.data
 
     } catch (error) {

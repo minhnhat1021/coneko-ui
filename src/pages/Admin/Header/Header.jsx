@@ -9,18 +9,17 @@ import styles from './Header.module.scss'
 
 const cx = classNames.bind(styles)
 
-function Header() {
+function Header({adminData}) {
+    
     const [token, setToken] = useState(localStorage.getItem('tokenAdmin'))
 
     // Handle logout
     const handleLogout = async() => {
-        const id = localStorage.getItem('adminId')
-        const res = await authService.adminLogout(id)
+
+        const res = await authService.adminLogout(token)
 
         localStorage.removeItem('tokenAdmin')
-
-        setToken(localStorage.getItem('tokenAdmin'))
-        localStorage.removeItem('adminId')
+        
         window.location.href = '/admin'
  
     }
@@ -34,7 +33,7 @@ function Header() {
             </nav>
             <nav className={cx('nav__task')}>
                 <Link to='/admin/create-room' >Tạo phòng</Link>
-                {token && <Button login onClick={handleLogout}>Đăng xuất</Button> }
+                {adminData && <Button login onClick={handleLogout}>Đăng xuất</Button> }
             </nav>
 
         </header>

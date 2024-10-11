@@ -5,7 +5,6 @@ export const AdminContext = createContext()
 
 export const AdminProvider = ({ children }) => {
 
-    const [loading, setLoading] = useState(true)
     const [adminData, setAdminData] = useState()
 
     const fetchAdminData = async() => {
@@ -14,12 +13,10 @@ export const AdminProvider = ({ children }) => {
         if (adminToken) {
             const res = await managementService.adminDetail( adminToken )
             setAdminData(res)
-            setLoading(false)
         }
-       
     }
     return (
-        <AdminContext.Provider value={{loading, adminData , fetchAdminData }}>
+        <AdminContext.Provider value={{ adminData , fetchAdminData }}>
             {children}
         </AdminContext.Provider>
     )

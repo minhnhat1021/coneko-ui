@@ -1,27 +1,39 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect , useState } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { UserContext } from '~/contexts/UserContext'
 
-const AuthenticatedRoute = ({ children, path }) => {
+const AuthenticatedRoute = ({ children }) => {
     const token = localStorage.getItem('token')
-    const { loading, userData, fetchUserData } = useContext(UserContext)
+    const { userData, fetchUserData } = useContext(UserContext)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        if (token && path) {
-            if (!userData) {
-                fetchUserData()
-            } 
-        }
-    }, [token, path, fetchUserData, userData])
+        const fetchData = async () => {
+            if (token) {
+                if (!userData) {
+                    const res = await fetchUserData()
+                    setLoading(false)
 
-    if (token && loading) {
-        return <div>Loading...</div> 
+                } else {
+                    setLoading(false)
+                }
+            } else {
+                setLoading(false)
+            }
+        }
+    
+        fetchData()
+        
+    }, [token, fetchUserData, userData])
+
+    if (loading) {
+        return <div>Loading...</div>
     }
-    if (!token) {
+
+    if (!token || !userData) {
         return <Navigate to="/login" replace />
     }
-    
     return children && React.cloneElement(children, { userData })
     
 }

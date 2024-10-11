@@ -5,7 +5,6 @@ export const UserContext = createContext()
 
 export const UserProvider = ({ children }) => {
 
-    const [loading, setLoading] = useState(true)
     const [userData, setUserData] = useState()
 
     const fetchUserData = async() => {
@@ -14,12 +13,11 @@ export const UserProvider = ({ children }) => {
         if (token ) {
             const res = await userService.userDetail( token )
             setUserData(res)
-            setLoading(false)
         }
        
     }
     return (
-        <UserContext.Provider value={{loading, userData , fetchUserData }}>
+        <UserContext.Provider value={{ userData , fetchUserData }}>
             {children}
         </UserContext.Provider>
     )

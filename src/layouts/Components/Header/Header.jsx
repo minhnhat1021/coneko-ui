@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import * as userService from '~/apiServices/userService'
 import * as authService from '~/apiServices/authService'
@@ -7,10 +7,8 @@ import * as authService from '~/apiServices/authService'
 import config from '~/config'
 
 import Menu from '~/components/Popper/Menu'
-import Button from '~/components/Button'
-
 import User from '~/layouts/Components/UserMenu'
-import {Login, Register} from '~/layouts/Components/LoginRegister'
+import Button from '~/components/Button'
 
 import classNames from 'classnames/bind'
 import styles from './Header.module.scss'
@@ -86,43 +84,12 @@ function Header() {
         const userId = localStorage.getItem('userId')
 
         const fetchApi = async () => {
-            const userData = await userService.userDetail(token, userId)
+            const userData = await userService.userDetail(token)
             setUser(userData)
         }
                 
         fetchApi()
     }, [token])
-    
-    // logic hiện loginModal hay registerModal
-        
-    const [statusLogin, setStatusLogin] = useState(true)
-
-    const handleLoginRegister = () => {
-        setStatusLogin(!statusLogin)
-    }
-    
-    // khi ấn vào loginBtn và registerBtn, login ẩn hiện modal, ấn vào nút nào thì hiện modal của nút đấy
-    const loginBtnRef = useRef()
-    const registerBtnRef = useRef()
-    const loginModalRef = useRef()
-    const registerModalRef = useRef()
-
-    const [showModal, setShowModal] = useState(false)
-    
-    const handleModalToggle = (e) => {
-        setShowModal(!showModal)
-        if(e.currentTarget === registerBtnRef.current) {
-            setStatusLogin(false)
-        }
-        else if(e.currentTarget === loginBtnRef.current) {
-            setStatusLogin(true)
-        }
-    }
-
-    // Khi ấn vào modal, sẽ dóng modal lại
-    const handleClickModal = (e) => {
-        setShowModal(!showModal)
-    }
 
     // Khi thay đổi menuItem
     const handleMenuChange = (menuItem) => {
@@ -136,27 +103,14 @@ function Header() {
         }
     }
 
-    // HandleDataRegister 
-
-    const handleDataRegister = (statusToken) => {
-        setToken(statusToken)
-    }
-    // HandleDataLogin
-    const handleDataLogin = (statusToken) => {
-        setToken(statusToken)
-    }
+    
     // Handle logout
     const handleLogout = async() => {
-        const id = localStorage.getItem('userId')
-        const res = await authService.logout(id)
+        const res = await authService.logout(token)
 
         localStorage.removeItem('token')
 
-        setToken(localStorage.getItem('token'))
-        setShowModal(false)
-        localStorage.removeItem('userId')
         window.location.href = '/'
- 
     }
 
     const handleNavigation = (route) => {
@@ -212,17 +166,12 @@ function Header() {
                     </>
                 ) : (
                     <>
-                        <Button ref={registerBtnRef}  register showModal={(e) => handleModalToggle(e)}>
+                        <Button to='/register' register >
                             Đăng ký
                         </Button>
-                        <Button ref={loginBtnRef} login  showModal={(e) => handleModalToggle(e)} leftIcon={<i className={cx('fa-regular fa-user')}></i>}>
+                        <Button to='/login' login  leftIcon={<i className={cx('fa-regular fa-user')}></i>}>
                             Đăng nhập
                         </Button>
-
-                        {statusLogin 
-                            ? <Login onDataLogin={handleDataLogin} ref={loginModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)}  onClick={handleLoginRegister} /> 
-                            : <Register onDataLogin={handleDataRegister} ref={registerModalRef} showModal={showModal} clickContentModal={e => e.stopPropagation()} clickModal={(e) => handleClickModal(e)} onClick={handleLoginRegister} />
-                        }
 
                     </>
                 )}

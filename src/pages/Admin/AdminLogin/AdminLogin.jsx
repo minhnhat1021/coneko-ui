@@ -36,7 +36,6 @@ function AdminLogin() {
         setLoading(true)
 
         const res = await authService.adminLogin(userName, password)
-
         const resultLogin = document.getElementById('resultLogin')
         resultLogin.innerText = res?.msg ? res?.msg : ''
         if(res?.token) {

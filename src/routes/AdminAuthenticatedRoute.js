@@ -1,29 +1,40 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { AdminContext } from '~/contexts/AdminContext'
 
-const AdminAuthenticatedRoute = ({ children, path }) => {
+const AdminAuthenticatedRoute = ({ children }) => {
     const adminToken = localStorage.getItem('tokenAdmin')
-    const { loading, adminData, fetchAdminData } = useContext(AdminContext)
+    const { adminData, fetchAdminData } = useContext(AdminContext)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        if (adminToken && path) {
-            if (!adminData) {
-                fetchAdminData()
-            } 
-        }
-    }, [adminToken, path, fetchAdminData, adminData])
+        const fetchData = async () => {
+            if (adminToken) {
+                if (!adminData) {
+                    const res = await fetchAdminData()
+                    setLoading(false)
 
-    if (adminToken && loading) {
-        return <div>Loading...</div> 
+                } else {
+                    setLoading(false)
+                }
+            } else {
+                setLoading(false)
+            }
+        }
+    
+        fetchData()
+    }, [adminToken, fetchAdminData, adminData])
+
+    if (loading) {
+        return <div>Loading...</div>
     }
-    if (!adminToken) {
+
+    if (!adminToken || !adminData) {
         return <Navigate to="/admin/login" replace />
     }
 
     return children && React.cloneElement(children, { adminData })
-    
 }
 
-export default AdminAuthenticatedRoute 
+export default AdminAuthenticatedRoute

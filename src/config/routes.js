@@ -5,6 +5,9 @@ const routes = {
     hotelRules: '/hotel-rules',
     contact: '/contact',
 
+    register: '/register',
+    login: '/login',
+
     roomBooking: ':name/room-booking',
     checkout: ':name/checkout',
     paymentSuccessful: '/payment-successful',
