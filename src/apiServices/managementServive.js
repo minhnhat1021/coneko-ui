@@ -132,6 +132,18 @@ export const uploadRoom = async (formData) => {
         console.log(error)
     }
 }
+
+export const roomActions = async ( action, roomIds ) => {
+    
+    try {
+        const res = await request.post(`/admin/room-actions`, { action, roomIds })
+
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 // User ----------------------------------------------------------------
 export const user = async () => {
 
@@ -184,7 +196,17 @@ export const forceDeleteUserById = async ( userId ) => {
         console.log(error)
     }
 }
+export const userActions = async ( action, userIds ) => {
+    console.log(action, userIds)
+    try {
+        const res = await request.post(`/admin/user-actions`, { action, userIds })
 
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 // Booking
 export const bookingManagement = async () => {
     try {

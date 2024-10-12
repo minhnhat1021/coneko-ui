@@ -51,11 +51,13 @@
     top: 50%;
     right: 5%;
     transform: translateY(-50%);
+    min-width: 30px;
     margin-left: 10px;
     padding: 4px 8px;
     color: var(--primary-text-2);
     background-color: var(--admin-bg-3);
     border-radius: 21px;
     font-size: 2rem;
+    text-align: center;
 
 }

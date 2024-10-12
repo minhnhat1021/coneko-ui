@@ -26,7 +26,7 @@ const Menu_Room = {
 
 
 function Sidebar({ roomData }) {
-
+    console.log(roomData)
     return ( 
 
         <aside className={cx('wrapper')}>
@@ -40,7 +40,7 @@ function Sidebar({ roomData }) {
             </header>
             <Menu>
                 <MenuItem  title={Menu_Room.statisticsRoom.title} to={config.routes.statisticsRoom} icon={Menu_Room.statisticsRoom.icon} activeIcon={Menu_Room.statisticsRoom.icon}/>
-                <MenuItem  title={Menu_Room.allRoom.title} to={config.routes.roomList} icon={Menu_Room.allRoom.icon} activeIcon={Menu_Room.allRoom.icon}/>
+                <MenuItem roomData={roomData.roomList}  title={Menu_Room.allRoom.title} to={config.routes.roomList} icon={Menu_Room.allRoom.icon} activeIcon={Menu_Room.allRoom.icon}/>
                 <MenuItem roomData={roomData.roomTrash} title={Menu_Room.roomTrash.title} to={config.routes.roomTrash} icon={Menu_Room.roomTrash.icon} activeIcon={Menu_Room.roomTrash.icon}/>
             </Menu>
         </aside>

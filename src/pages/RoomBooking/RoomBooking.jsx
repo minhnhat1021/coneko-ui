@@ -73,7 +73,7 @@ function RoomBooking({ userData }) {
     }
     useEffect(() => {
         var amenityInputs = document.querySelectorAll('[name][amenities]')
-
+        console.log(amenityInputs)
         for(var amenityInput of amenityInputs) {
             amenityInput.onchange = function () {
                 var name = this.getAttribute('name')

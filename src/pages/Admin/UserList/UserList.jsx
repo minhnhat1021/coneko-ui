@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import * as userService from '~/apiServices/userService'
 import * as managementService from '~/apiServices/managementServive'
 
@@ -107,6 +108,63 @@ function UserList() {
         
         return `${hours}:${minutes}:${seconds}`
     }
+
+    // Checkbox-all actions
+    const [action, setAction] = useState()
+    const [statusAction, setStatusAction] = useState(false)
+    const [disabledActions, setDisabledActions] = useState(true)
+
+    useEffect(() => {
+        var checkboxAll = document.getElementById('checkbox__all')
+        var userCheckbox = document.querySelectorAll("input[name='userIds[]']")
+
+        checkboxAll.onchange = (e) => {
+            const isCheckAll = e.target.checked
+            
+            userCheckbox.forEach((checkbox) => {
+                
+                checkbox.checked = isCheckAll
+                const countCheckboxChecked = document.querySelectorAll("input[name='userIds[]']:checked").length
+
+                if(countCheckboxChecked > 0 ){
+                    setDisabledActions(false)
+                } else{
+                    setDisabledActions(true)
+                }
+            })
+            
+        }
+        
+        userCheckbox.forEach((checkbox) => {
+            checkbox.onchange = () => {
+                const countCheckboxChecked = document.querySelectorAll("input[name='userIds[]']:checked").length
+                const isCheckAll = userCheckbox.length === countCheckboxChecked
+                checkboxAll.checked = isCheckAll
+
+                if(countCheckboxChecked > 0 ){
+                    setDisabledActions(false)
+                } else{
+                    setDisabledActions(true)
+                }
+            }
+        }) 
+        
+    },[userData])
+
+    const handleActions = async() => {
+        var checkboxChecked = Array.from(document.querySelectorAll("input[name='userIds[]']:checked"))
+        const userIds = checkboxChecked.map(checkbox => checkbox.id)
+        if(!action) {
+            setStatusAction(true)
+        } else {
+            setStatusAction(false)
+            const res = await managementService.userActions(action, userIds)
+
+            if(res?.msg){
+                window.location.href='http://localhost:3000/admin/user-list'
+            }
+        }
+    }
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('action')}>
@@ -169,17 +227,34 @@ function UserList() {
                         <Button adminUpdate onClick={handleFindByUserName}>Tìm kiếm bằng user name</Button>
                     </div>
                 </div>
+
+                <div className={cx('actions')}>
+                    <div className={cx('checkbox')}>
+                        <input id='checkbox__all' name='available' options='' type="checkbox" className={cx('actions__checkbox')}/>
+                        <label htmlFor='checkbox__all' className={cx('actions__label')}> Chọn tất cả</label>
+                    </div>
+                    <select id="actions" name="roomType" value={action} onChange={(e) => setAction(e.target.value)} >
+                        <option value='' >-- Chọn hành động --</option>
+                        <option value="delete">Ban tài khoản</option>
+                    </select>
+                    <Button onClick={handleActions} login disabled={disabledActions}>Thực hiện</Button>
+                    {statusAction && <span className={cx('checkbox__msg')}>Vui lòng chọn hành động</span>}
+                </div>
             </div>
             <div className={cx('user__list')}>  
                 { userData?.length > 0 ?  
                     (userData.map((user, index) => 
                         <div key={index} className={cx('user__item')}>
-                            <a href='/hotel-rooms/' className={cx('user__image')}>
+                            <div className={cx('checkbox')}>
+                                <input id={user._id} vaule={user._id} name='userIds[]' type="checkbox" className={cx('actions__checkbox')}/>
+                                <label htmlFor={user._id} className={cx('actions__label')}> </label>
+                            </div>
+                            <Link to='' className={cx('user__image')}>
                                 <img
                                     src={`http://localhost:5000/images/roomImg/1722524231808.png`}
                                     alt='coneko'
                                 />
-                            </a>
+                            </Link>
                             <main className={cx('user__body')}>
                                 <div className={cx('user__body-child')}>
                                     <p className={cx('user__name')}>
