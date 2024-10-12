@@ -64,24 +64,6 @@ function HotelRooms() {
         handleFilter()
     },[options])
 
-    useEffect(() => {
-        const options = document.querySelector('#options')
-
-        const handleScroll = () => {
-            if (window.scrollY > 189) {
-                options.style.position = 'fixed'
-                options.style.top = '100px'
-            } else {
-                options.style.position = 'static'
-            }
-        };
-    
-        window.addEventListener('scroll', handleScroll)
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll)
-        }
-    }, [])
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>

@@ -165,6 +165,7 @@ function UserList() {
             }
         }
     }
+    
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('action')}>
@@ -227,21 +228,20 @@ function UserList() {
                         <Button adminUpdate onClick={handleFindByUserName}>Tìm kiếm bằng user name</Button>
                     </div>
                 </div>
-
-                <div className={cx('actions')}>
-                    <div className={cx('checkbox')}>
-                        <input id='checkbox__all' name='available' options='' type="checkbox" className={cx('actions__checkbox')}/>
-                        <label htmlFor='checkbox__all' className={cx('actions__label')}> Chọn tất cả</label>
-                    </div>
-                    <select id="actions" name="roomType" value={action} onChange={(e) => setAction(e.target.value)} >
-                        <option value='' >-- Chọn hành động --</option>
-                        <option value="delete">Ban tài khoản</option>
-                    </select>
-                    <Button onClick={handleActions} login disabled={disabledActions}>Thực hiện</Button>
-                    {statusAction && <span className={cx('checkbox__msg')}>Vui lòng chọn hành động</span>}
-                </div>
             </div>
-            <div className={cx('user__list')}>  
+            <div  className={cx('actions')}>
+                <div className={cx('checkbox')}>
+                    <input id='checkbox__all' name='available' options='' type="checkbox" className={cx('actions__checkbox')}/>
+                    <label htmlFor='checkbox__all' className={cx('actions__label')}> Chọn tất cả</label>
+                </div>
+                <select name="roomType" value={action} onChange={(e) => setAction(e.target.value)} >
+                    <option value='' >-- Chọn hành động --</option>
+                    <option value="delete">Ban tài khoản</option>
+                </select>
+                <Button onClick={handleActions} login disabled={disabledActions}>Thực hiện</Button>
+                {statusAction && <span className={cx('checkbox__msg')}>Vui lòng chọn hành động</span>}
+            </div>
+            <div id='userList' className={cx('user__list')}>  
                 { userData?.length > 0 ?  
                     (userData.map((user, index) => 
                         <div key={index} className={cx('user__item')}>

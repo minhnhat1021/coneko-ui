@@ -200,12 +200,12 @@ function RoomList() {
                     <p>Không hút thuốc</p>
                 </div>
             </div>
-            <div className={cx('actions')}>
+            <div id="actions" className={cx('actions')}>
                 <div className={cx('checkbox')}>
                     <input id='checkbox__all' name='available' options='' type="checkbox" className={cx('actions__checkbox')}/>
                     <label htmlFor='checkbox__all' className={cx('actions__label')}> Chọn tất cả</label>
                 </div>
-                <select id="actions" name="roomType" value={action} onChange={(e) => setAction(e.target.value)} >
+                <select  name="roomType" value={action} onChange={(e) => setAction(e.target.value)} >
                     <option value='' >-- Chọn hành động --</option>
                     <option value="delete">Xóa</option>
                 </select>

@@ -40,6 +40,8 @@
 }
 /* Actions-------------------------------------------------------------------------*/
 .actions{
+    position: sticky;
+    top: 100px;
     display: flex;
     align-items: center;
     margin: 10px 0;
@@ -120,6 +122,7 @@
     img{
         width: 120px;
         height: 70px;
+        border-radius: 6px;
     }
 }
 

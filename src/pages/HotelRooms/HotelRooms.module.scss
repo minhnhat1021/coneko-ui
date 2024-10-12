@@ -34,6 +34,8 @@
 
 /* Options -------------------------------------------------------------------------*/
 .options{
+    position: sticky;
+    top: 100px;
     grid-column: 1;
     grid-row: 2;
     height: fit-content;

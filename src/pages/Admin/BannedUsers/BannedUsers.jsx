@@ -31,13 +31,6 @@ function BannedUsers() {
         }
        
     }
-    const handleDelete = async(id) => {
-        const res = await managementService.forceDeleteUserById(id)
-        if(res.msg) {
-             window.location.href='http://localhost:3000/admin/banned-users'
-        }
-
-    }
 
     // Chuyển đổi định dạng ngày
     const formattedDay = (date) => {
@@ -123,17 +116,19 @@ function BannedUsers() {
             window.location.href='http://localhost:3000/admin/banned-users'
         }
     }
+
+    
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('title')}>
                 Danh sách khách hàng bị ban
             </div>
-            <div className={cx('actions')}>
+            <div id="actions" className={cx('actions')}>
                 <div className={cx('checkbox')}>
                     <input id='checkbox__all' name='available' options='' type="checkbox" className={cx('actions__checkbox')}/>
                     <label htmlFor='checkbox__all' className={cx('actions__label')}> Chọn tất cả</label>
                 </div>
-                <select id="actions" name="roomType" value={action} onChange={(e) => setAction(e.target.value)} >
+                <select  name="roomType" value={action} onChange={(e) => setAction(e.target.value)} >
                     <option value='' >-- Chọn hành động --</option>
                     <option value="restore">Khôi phục tài khoản</option>
                     <option value="forceDelete">Xóa vĩnh viễn tài khoản</option>
@@ -187,7 +182,6 @@ function BannedUsers() {
                             </main>
                                 <footer className={cx('room__footer')}>                         
                             <Button adminUpdate onClick={() => handleRestore(user._id)}>Khôi Phục</Button>
-                            <Button adminDelete onClick={() => handleDelete(user._id)} >Xóa</Button>
                         </footer> 
                         </div>
                     )) : <div className={cx('notification')} >

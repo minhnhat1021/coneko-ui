@@ -113,6 +113,7 @@ function PaymentSuccessful() {
                     const zaloPayDetailsDecode = JSON.parse(zaloPayDetailsEncode)
 
                     const res = await checkoutService.saveZaloPayCheckout(zaloPayDetailsDecode)
+                    console.log(res)
                     if(res.return_code === 1) {
 
                         const { startDate, endDate, days, totalPrice } = zaloPayDetailsDecode

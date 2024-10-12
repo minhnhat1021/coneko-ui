@@ -11,6 +11,8 @@
 }
 /* Actions-------------------------------------------------------------------------*/
 .actions{
+    position: sticky;
+    top: 100px;
     display: flex;
     align-items: center;
     margin: 10px 0;

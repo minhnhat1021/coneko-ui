@@ -46,7 +46,7 @@ function Checkout() {
     const handleConekoPayment = (e) => {
         e.preventDefault()
         const fetchApi = async () => {
-            const result = await checkoutService.conekoCheckout({
+            const res = await checkoutService.conekoCheckout({
                 startDate,
                 endDate,
                 days,
@@ -62,11 +62,11 @@ function Checkout() {
                 roomId: room._id,
                 userId: user._id
             })
-            if(result?.insufficientBalance){
+            if(res?.insufficientBalance){
                 setBalance('Số dư tài khoản không đủ')
             } else {
                 navigate('/payment-successful', {
-                    state: { startDate, endDate, days, totalPrice, qrCode: result?.qrCode}
+                    state: { startDate, endDate, days, totalPrice, qrCode: res?.qrCode}
                 })
             }
         }
