@@ -314,7 +314,10 @@
     }
 
 }
-
+.booking__charge {
+    color: var(--primary-text-2);
+    font-weight: 600;
+}
 .booking__total{
     display: flex;
     justify-content: space-between;

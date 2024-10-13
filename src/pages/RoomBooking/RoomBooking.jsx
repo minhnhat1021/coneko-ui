@@ -46,6 +46,8 @@ function RoomBooking({ userData }) {
     const [endDate, setEndDate] = useState(null)
     const [days, setDays] = useState(0)
     const [roomCharge, setRoomCharge] = useState(0)
+    const [amenitiesPrice, setAmenitiesPrice] = useState(0)
+    const [amenitiesCharge, setAmenitiesCharge] = useState(0)
 
     // Tính toán thời gian đặt phòng trong bao nhiêu ngày
     const calculateDaysBetween = (startDate, endDate) => {
@@ -66,26 +68,36 @@ function RoomBooking({ userData }) {
         breakfast: 0,
         minibar: 0
     })
-    const amenitiesPrice = {
+    const amenitiesPrices = {
         coffee: 100000,
         breakfast: 300000,
         minibar: 500000
     }
     useEffect(() => {
         var amenityInputs = document.querySelectorAll('[name][amenities]')
-        console.log(amenityInputs)
         for(var amenityInput of amenityInputs) {
             amenityInput.onchange = function () {
                 var name = this.getAttribute('name')
                 var isChecked = this.checked
                 setAmenities(prev => ({
                     ...prev,
-                    [name]: isChecked ? amenitiesPrice[name] : 0
+                    [name]: isChecked ? amenitiesPrices[name] : 0
                 }))
+
+                
             }
         }
-        
+       
     }, [])
+    useEffect(() => {
+        const amenitiesPrice = Object.values(amenities).reduce(function (a, b) {
+            return a + b
+        }, 0)
+        setAmenitiesPrice(amenitiesPrice)
+        setDays(calculateDaysBetween(startDate, endDate))
+        setAmenitiesCharge(amenitiesPrice * days)
+
+    }, [amenities, startDate, endDate, days])
 
     // Chuyển đổi định dạng ngày
     const dataCheckIn = (data) => {
@@ -113,19 +125,15 @@ function RoomBooking({ userData }) {
     const handleBooking = (e) => {
         e.preventDefault()   
 
-        const amenitiesPrice = Object.values(amenities).reduce(function (a, b) {
-            return a + b
-        }, 0)
-
         const discountRate = discountRates[user?.level]
-        const originalPrice = roomCharge + amenitiesPrice * days
+        const originalPrice = roomCharge + amenitiesCharge
         const discountAmount = (originalPrice * discountRate) /100
 
         const totalPrice = originalPrice - discountAmount
 
-
+        console.log(roomCharge, amenitiesCharge, amenitiesPrice)
         navigate(`/${name}/checkout`, {
-            state: { startDate, endDate, days , roomCharge, amenitiesPrice, amenities, originalPrice, discountRate, discountAmount, totalPrice, user }
+            state: { startDate, endDate, days , roomCharge, amenitiesPrice, amenitiesCharge, amenities, originalPrice, discountRate, discountAmount, totalPrice, user }
         })
     }
 
@@ -279,8 +287,17 @@ function RoomBooking({ userData }) {
                     <div className={cx('booking__price-list')}>
                         <p className={cx('booking__price-title')}>Chi tiết giá cả</p>
                         <p className={cx('booking__price')} > 
-                            <span>{Number(room.price).toLocaleString('vi-VN')} x {startDate && endDate ? days : '0'}</span>
-                            <span>{Number(startDate && endDate ? roomCharge : 0).toLocaleString('vi-VN')} ₫</span>
+                            <span>Phí phòng: {room?.price?.toLocaleString('vi-VN')} x {startDate && endDate ? days : '0'}</span>
+                            <span className={cx('booking__charge')}>{Number(startDate && endDate ? roomCharge : 0)?.toLocaleString('vi-VN')} ₫</span>
+                        </p>
+                        <p className={cx('booking__price')} > 
+                            <span>Phí phụ: {amenitiesPrice?.toLocaleString('vi-VN')} x {startDate && endDate ? days : '0'}</span>
+                            <span className={cx('booking__charge')}>{Number(startDate && endDate ? amenitiesCharge : 0)?.toLocaleString('vi-VN')} ₫</span>
+                        </p>
+                        <br></br>
+                        <p className={cx('booking__price')} > 
+                            <span>Tổng phí</span>
+                            <span className={cx('booking__charge')}>{Number(roomCharge || amenitiesCharge ? roomCharge + amenitiesCharge : 0)?.toLocaleString('vi-VN')} ₫</span>
                         </p>
                     </div>
 

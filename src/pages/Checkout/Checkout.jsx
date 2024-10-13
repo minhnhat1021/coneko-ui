@@ -33,7 +33,7 @@ function Checkout() {
 
 
     const location = useLocation()
-    const { startDate, endDate, days, roomCharge, amenitiesPrice, amenities, originalPrice, discountRate, discountAmount, totalPrice, user } = location.state
+    const { startDate, endDate, days, roomCharge, amenitiesPrice,amenitiesCharge, amenities, originalPrice, discountRate, discountAmount, totalPrice, user } = location.state
 
     // Chuyển đổi định dạng ngày
     const formattedDate = (date) => {
@@ -53,7 +53,7 @@ function Checkout() {
                 roomPrice: room.price,
                 roomCharge,
                 amenitiesPrice,
-                amenitiesCharge: amenitiesPrice * days,
+                amenitiesCharge,
                 amenities,
                 originalPrice, 
                 discountRate,
@@ -82,7 +82,7 @@ function Checkout() {
             roomPrice: room.price,
             roomCharge,
             amenitiesPrice,
-            amenitiesCharge: amenitiesPrice * days,
+            amenitiesCharge,
             amenities,
             originalPrice, 
             discountRate,
@@ -106,7 +106,7 @@ function Checkout() {
             roomPrice: room.price,
             roomCharge,
             amenitiesPrice,
-            amenitiesCharge: amenitiesPrice * days,
+            amenitiesCharge,
             amenities,
             originalPrice, 
             discountRate,
@@ -132,7 +132,7 @@ function Checkout() {
             roomPrice: room.price,
             roomCharge,
             amenitiesPrice,
-            amenitiesCharge: amenitiesPrice * days,
+            amenitiesCharge,
             amenities,
             originalPrice, 
             discountRate,
@@ -168,7 +168,13 @@ function Checkout() {
     useEffect(() => {
         setPaymentMethod({ name: 'coneko', title: 'Thanh toán', handler: handleConekoPayment })
     }, [room, user])
-    
+
+    // handleTerms
+    const [isCheckout, setIsCheckout] = useState(false)
+    const handleTerms = (e) => {
+        const isChecked = e.target.checked
+        setIsCheckout(isChecked)
+    }
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -208,7 +214,7 @@ function Checkout() {
                     </div>
 
                     <div className={cx('terms')}>
-                        <input id='terms' type="checkbox" className={cx('terms__checkbox')}/>
+                        <input id='terms' type="checkbox" className={cx('terms__checkbox')} onChange={(e) => handleTerms(e)}/>
                         <label for="terms" className={cx('terms__label')}></label>
                         <p>Tôi đồng ý với các <Link to='#' className={cx('terms__link')}>điều khoản và điều kiện</Link></p>
                     </div>
@@ -217,7 +223,7 @@ function Checkout() {
                     {paymentMethods.map(method => (
                         paymentMethod.name === method.name && 
                         
-                        <button onClick={paymentMethod.handler} className={cx('pay__btn', 'available')} >
+                        <button onClick={paymentMethod.handler} className={cx('pay__btn', {available: isCheckout}  )} >
                             {paymentMethod.title}
                         </button>
                     ))}
@@ -259,18 +265,18 @@ function Checkout() {
                                 Chi tiết giá cả
                             </div>
                             <div className={cx('booking__pricing-optional')}>
-                                <p>{room?.price?.toLocaleString('vi-VN')} x {days} ngày <span>{roomCharge.toLocaleString('vi-VN')}</span></p>
-                                <p>Coffee x {days} ngày <span>{amenities.coffee * days}</span></p>
-                                <p>Bữa sáng x {days} ngày <span>{amenities.breakfast * days}</span></p>
-                                <p>Mini Bar x {days} ngày <span>{amenities.minibar * days}</span></p>
+                                <p>{room?.price?.toLocaleString('vi-VN')} x {days} ngày <span>{roomCharge?.toLocaleString('vi-VN')}</span></p>
+                                <p>Coffee x {days} ngày <span>{(amenities.coffee * days)?.toLocaleString('vi-VN')}</span></p>
+                                <p>Bữa sáng x {days} ngày <span>{(amenities.breakfast * days)?.toLocaleString('vi-VN')}</span></p>
+                                <p>Mini Bar x {days} ngày <span>{(amenities.minibar * days)?.toLocaleString('vi-VN')}</span></p>
                                 <br></br>
-                                <p>Tổng chi gốc <span>{originalPrice}</span></p>
-                                <p>Chiết khấu {discountRate} % <span>{discountAmount}</span></p>
+                                <p>Tổng phí gốc <span>{originalPrice?.toLocaleString('vi-VN')}</span></p>
+                                <p>Chiết khấu {discountRate} % <span>{discountAmount?.toLocaleString('vi-VN')}</span></p>
                             </div>
                         </div>
                         <div className={cx('booking__total')}>
                             <p>Tổng cộng</p>
-                            <span>{totalPrice}</span>
+                            <span className={cx('booking__charge')}>{totalPrice?.toLocaleString('vi-VN')}</span>
                         </div>
                     </div>
                 </div>
