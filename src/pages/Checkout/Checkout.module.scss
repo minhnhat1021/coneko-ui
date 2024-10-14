@@ -122,9 +122,15 @@
         background-color: var(--primary-bg-1);
         border-radius: 4px;
     }
+    &.coneko{
+
+        .payment__wrap-img{
+            background-color: var(--primary-bg-2);
+        }
+    }
 
     img{
-        max-width: 70px;
+        max-width: 75px;
         max-height: 29.777px;
     }
     

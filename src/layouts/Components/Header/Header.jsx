@@ -5,7 +5,7 @@ import * as userService from '~/apiServices/userService'
 import * as authService from '~/apiServices/authService'
 
 import config from '~/config'
-
+import images from '~/assets/images'
 import Menu from '~/components/Popper/Menu'
 import User from '~/layouts/Components/UserMenu'
 import Button from '~/components/Button'
@@ -128,14 +128,9 @@ function Header() {
     return ( 
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <div className={cx('logo')}>
-                    {/* <a href="/">
-                        <img 
-                            src={images.logo} 
-                            alt="Coneko Hotel"
-                        />
-                    </a> */}
-                </div>
+                <Link to="/" className={cx('logo')}>
+                    <img src={images.coneko} alt="Coneko Hotel"/>
+                </Link>
                 <nav className={cx('header__nav')}>
                     <Link to={config.routes.home} className={cx('header__nav-item')} >Trang chủ</Link>
                     <Link to={config.routes.about} className={cx('header__nav-item')} >Giới thiệu</Link>

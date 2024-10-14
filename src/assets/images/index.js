@@ -9,7 +9,7 @@ const images = {
     luxuryBathtub: require('~/assets/images/luxury_bathtub.webp'),
     contact: require('~/assets/images/contact.png'),
 
-    coneko: require("~/assets/images/visa.png"),
+    coneko: require("~/assets/images/coneko.png"),
     masterCard: require("~/assets/images/masterCard.png"),
     payPal: require("~/assets/images/payPal.png"),
     vnPay: require("~/assets/images/vnPay.webp"),

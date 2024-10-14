@@ -197,7 +197,7 @@ function Checkout() {
                             {paymentMethods.map(method => (
                                 <div 
                                     key={method.name} 
-                                    className={cx('payment__card-img', { selected: paymentMethod.name === method.name } )} 
+                                    className={cx('payment__card-img', { selected: paymentMethod.name === method.name }, {coneko: method.name === 'coneko'} )} 
                                     onClick={() => handlePaymentMethodChange(method)}
                                 >
                                     <div className={cx('payment__wrap-img')}>
