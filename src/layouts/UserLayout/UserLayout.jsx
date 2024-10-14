@@ -12,7 +12,7 @@ function UserLayout({ children, userData }) {
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
-                <Sidebar />
+                <Sidebar userData={userData}/>
                 
                 <div className={cx('wrap__content')}>
                     <div className={cx('content')}>

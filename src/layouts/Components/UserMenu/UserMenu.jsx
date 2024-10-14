@@ -30,6 +30,16 @@ function User({ user, Menu_User, account, currentRooms, bookingHistory, favorite
             />
         })
     }
+
+    function formatCurrency(amount) {
+        if (amount >= 1000000) {
+            return (amount / 1000000) + ' M'
+        } else if (amount >= 1000) {
+            return (amount / 1000) + ' k'
+        } else {
+            return amount.toString()
+        }
+    }
     return ( 
         <HeadlessTippy 
             delay={[0, 500]}
@@ -60,7 +70,7 @@ function User({ user, Menu_User, account, currentRooms, bookingHistory, favorite
                 <div className={cx('header__user-info')}>
                     <h3 className={cx('user__info-name')}>{user?.displayName}</h3>
                     <i className={cx('fa-solid fa-coins', 'user__info__point-icon')}></i>
-                    <p className={cx('user__info-point')} >10000</p>
+                    <p className={cx('user__info-point')} >{formatCurrency(user?.accountBalance)}</p>
                 </div>
                 <i className={cx('fa-solid fa-caret-down', 'header__user__more-icon')}></i>
             </div>

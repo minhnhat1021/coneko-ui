@@ -32,12 +32,12 @@ const Menu_User = {
     },
 }
 
-function Sidebar() {
+function Sidebar({userData}) {
 
     return ( 
         <aside className={cx('wrapper')}>
             <header className={cx('user__menu-header')}>
-                <h2 className={cx('user__menu-name')}>Minh Nhật</h2>
+                <h2 className={cx('user__menu-name')}>{userData?.fullName}</h2>
                 <div className={cx('user__menu-about')}>
                     <span><i className={cx('fa-solid fa-people-group')} ></i></span>
                     <p >

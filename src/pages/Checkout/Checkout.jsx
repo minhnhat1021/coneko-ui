@@ -148,7 +148,7 @@ function Checkout() {
             window.location.href = res.zlpUrl
         }
     }
-    const handleMomoPayment = () => {
+    const handleVisaPayment = () => {
         
     }
     const [paymentMethod, setPaymentMethod] = useState({})
@@ -162,7 +162,7 @@ function Checkout() {
         { name: 'payPal', title: 'Thanh toán PayPal', handler: handlePayPalPayment },
         { name: 'vnPay', title: 'Thanh toán VNPay', handler: handleVnPayPayment },
         { name: 'zaloPay', title: 'Thanh toán ZaloPay', handler: handleZaloPayPayment },
-        { name: 'momo', title: 'Thanh toán Momo', handler: handleMomoPayment }
+        { name: 'visa', title: 'Thanh toán visa', handler: handleVisaPayment }
     ]
 
     useEffect(() => {
@@ -191,42 +191,58 @@ function Checkout() {
                     </div>
                     <div className={cx('payment__info')}>
                         <p className={cx('payment__info-title')}>
-                            Thông tin thanh toán
+                            Lựa chọn phương thức thanh toán
                         </p>
                         <div className={cx('payment__info-card')} >
                             {paymentMethods.map(method => (
                                 <div 
                                     key={method.name} 
-                                    className={cx('payment__card-img')} 
+                                    className={cx('payment__card-img', { selected: paymentMethod.name === method.name } )} 
                                     onClick={() => handlePaymentMethodChange(method)}
                                 >
-                                    <img src={images[method.name]} alt={method.name}/>
+                                    <div className={cx('payment__wrap-img')}>
+                                        <img src={images[method.name]} alt={method.name}/>
+                                    </div>
                                 </div>
                             ))}
-                            
                         </div>
-                        <div className={cx('payment__info-input')}>
-                            <input type="text" placeholder='Tên chủ thẻ'/>
-                            <input type="text" placeholder='Số thẻ'/>
-                            <input type="text" placeholder='Ngày hết hạn'/>
-                            <input type="text" placeholder='CVC'/>
+                        <div className={cx('payment__info-desc')}>
+                            <p>Thanh toán qua <span>{paymentMethod.name}</span></p>
+                            {paymentMethod.name ==='coneko' && 
+                                <div>
+                                    Thanh toán nhanh chóng và an toàn với <span>CONEKO</span>, giúp bạn đặt phòng dễ dàng và tận hưởng kỳ nghỉ thư giãn ngay lập tức!
+                                </div>
+                            }
                         </div>
+
+                        {paymentMethod.name === 'visa' && 
+                            <div className={cx('payment__info-input')}>
+                                <input type="text" placeholder='Tên chủ thẻ'/>
+                                <input type="text" placeholder='Số thẻ'/>
+                                <input type="text" placeholder='Ngày hết hạn'/>
+                                <input type="text" placeholder='CVC'/>
+                            </div>
+                        }
+                        
                     </div>
 
                     <div className={cx('terms')}>
                         <input id='terms' type="checkbox" className={cx('terms__checkbox')} onChange={(e) => handleTerms(e)}/>
                         <label for="terms" className={cx('terms__label')}></label>
-                        <p>Tôi đồng ý với các <Link to='#' className={cx('terms__link')}>điều khoản và điều kiện</Link></p>
+                        <p>Tôi đồng ý với các <Link to='/hotel-rules' className={cx('terms__link')}>điều khoản và điều kiện</Link></p>
                     </div>
-                        
+
                     {balance && <span>{balance}</span>}
-                    {paymentMethods.map(method => (
-                        paymentMethod.name === method.name && 
-                        
-                        <button onClick={paymentMethod.handler} className={cx('pay__btn', {available: isCheckout}  )} >
-                            {paymentMethod.title}
-                        </button>
-                    ))}
+
+                    <div className={cx('wrap__pay-btn')}>
+                        {paymentMethods.map(method => (
+                            paymentMethod.name === method.name && 
+                            
+                            <button onClick={paymentMethod.handler} className={cx('pay__btn', {available: isCheckout}  )} >
+                                {paymentMethod.title}
+                            </button>
+                        ))}
+                    </div>
                 </div> 
                 <div className={cx('booking')}>
                     <div className={cx('booking__info')}>

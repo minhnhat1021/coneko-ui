@@ -10,7 +10,6 @@ const cx = classNames.bind(styles)
 function Contact() {
     return ( 
         <div className={cx('wrapper')}>
-
             <div className={cx('container__img')}>
                 <div className={cx('container__form-wrap')}>
                     <h1>Liên hệ</h1>

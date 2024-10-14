@@ -23,7 +23,6 @@ const Menu_Room = {
 
 function Sidebar({ userData }) {
     return ( 
-
         <aside className={cx('wrapper')}>
             <header className={cx('user__menu-header')}>
                 <h2 className={cx('user__menu-name')}>Quản lý phòng</h2>
@@ -38,7 +37,6 @@ function Sidebar({ userData }) {
                 <MenuItem userData={userData.bannedUsers}  title={Menu_Room.bannedUsers.title} to={config.routes.bannedUsers} icon={Menu_Room.bannedUsers.icon} activeIcon={Menu_Room.bannedUsers.icon}/>
             </Menu>
         </aside>
-        
     )
 }
 

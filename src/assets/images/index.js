@@ -12,6 +12,10 @@ const images = {
     coneko: require("~/assets/images/visa.png"),
     masterCard: require("~/assets/images/masterCard.png"),
     payPal: require("~/assets/images/payPal.png"),
+    vnPay: require("~/assets/images/vnPay.webp"),
+    zaloPay: require("~/assets/images/zaloPay.png"),
+    visa: require("~/assets/images/visa.png"),
+
 }
 
 export default images
