@@ -131,7 +131,7 @@ function HotelRooms() {
                         <Link to={`/${room.name}/room-booking`} key={index} className={cx('room__item')}>
                             
                             <img
-                                src={room?.images ? `http://localhost:5000/images/roomImg/${room?.images?.image1}` : ''}
+                                src={room?.images ? `${process.env.REACT_APP_IMAGES_URL}${room?.images?.image1}` : ''}
                                 alt='{{this.name}}'
                             />
                             <main className={cx('room__body')}>

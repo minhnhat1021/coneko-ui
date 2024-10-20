@@ -83,7 +83,7 @@ function UserBookingHistory({ userData }) {
                     <div className={cx('modal__container')} >
                         <div className={cx('modal__content')} onClick={(e) => handleModalContent(e)}>
                             <div className={cx('wrap__expense')}>
-                                <img src={room?.images ? `http://localhost:5000/images/roomImg/${room?.images?.image1}` : ''} alt=''/>
+                                <img src={room?.images ? `${process.env.REACT_APP_IMAGES_URL}${room?.images?.image1}` : ''} alt=''/>
                                 <div className={cx('expense')}>
                                     <p className={cx('modal__info-title')}>Chi tiết phí phòng và dịch vụ</p>
 

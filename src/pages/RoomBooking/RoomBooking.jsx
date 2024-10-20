@@ -186,17 +186,17 @@ function RoomBooking({ userData }) {
                         <div className={cx('wrap__image')}>
                             <img 
                                 className={cx('room__image')}
-                                src={room?.images ? `http://localhost:5000/images/roomImg/${room?.images?.image1}` : ''}
+                                src={room?.images ? `${process.env.REACT_APP_IMAGES_URL}${room?.images?.image1}` : ''}
                                 alt='{{room.name}}'
                             />
                             <img 
                                 className={cx('room__image')}
-                                src={room?.images ? `http://localhost:5000/images/roomImg/${room?.images.image2}` : ''}
+                                src={room?.images ? `${process.env.REACT_APP_IMAGES_URL}${room?.images.image2}` : ''}
                                 alt='{{room.name}}'
                             />
                             <img 
                                 className={cx('room__image')}
-                                src={room?.images ? `http://localhost:5000/images/roomImg/${room?.images.image3}` : ''}
+                                src={room?.images ? `${process.env.REACT_APP_IMAGES_URL}${room?.images.image3}` : ''}
                                 alt='{{room.name}}'
                             />
                         </div>

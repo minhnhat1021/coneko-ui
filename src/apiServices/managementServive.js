@@ -122,7 +122,6 @@ export const createRoom = async ( name, desc, price, images, overView, bedType, 
     }
 }
 export const uploadRoom = async (formData) => {
-
     try {
         const res = await request.post(`/admin/upload`, formData )
 
@@ -240,3 +239,4 @@ export const adminDetail = async (adminToken) => {
         console.log(error)
     }
 }
+

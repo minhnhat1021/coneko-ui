@@ -55,7 +55,7 @@ function UserFavoriteRooms({ userData }) {
                             <div key={index} className={cx('room__item')}>
                                 <Link to={`/${room.name}/room-booking`} className={cx('wrap__info')}>
                                     <img
-                                        src={room?.images ? `http://localhost:5000/images/roomImg/${room?.images?.image1}` : ''}
+                                        src={room?.images ? `${process.env.REACT_APP_IMAGES_URL}${room?.images?.image1}` : ''}
                                         alt='coneko'
                                     />
                                     <main className={cx('room__body')}>

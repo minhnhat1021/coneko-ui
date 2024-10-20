@@ -30,15 +30,15 @@ function BookingDetails() {
                         <div className={cx('wrap__expense')}>
                             <div className={cx('wrap__image')}>
                                 <img 
-                                    src= {booking?.room?.images ? `http://localhost:5000/images/roomImg/${booking?.room?.images?.image1}` : ''}
+                                    src= {booking?.room?.images ? `${process.env.REACT_APP_IMAGES_URL}${booking?.room?.images?.image1}` : ''}
                                     alt=''
                                 />
                                 <img 
-                                    src= {booking?.room?.images ? `http://localhost:5000/images/roomImg/${booking?.room?.images?.image2}` : ''}
+                                    src= {booking?.room?.images ? `${process.env.REACT_APP_IMAGES_URL}${booking?.room?.images?.image2}` : ''}
                                     alt=''
                                 />
                                 <img 
-                                    src= {booking?.room?.images ? `http://localhost:5000/images/roomImg/${booking?.room?.images?.image3}` : ''}
+                                    src= {booking?.room?.images ? `${process.env.REACT_APP_IMAGES_URL}${booking?.room?.images?.image3}` : ''}
                                     alt=''
                                 />
                             </div>

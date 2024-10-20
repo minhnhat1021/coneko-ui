@@ -24,12 +24,13 @@ function CreateRoom() {
         image2: null,
         image3: null
     })
-
+    console.log(images)
     // Handle khi chọn ảnh
     const handleUpload = async(e) => {
         const { name } = e.target
         const image = e.target.files[0]
 
+        console.log(image)
         const formData = new FormData()
 
         formData.append('file', image)
@@ -75,7 +76,7 @@ function CreateRoom() {
                 amenities
             )
             if(res?.msg) {
-                window.location.href = 'http://localhost:3000/admin/room-list'
+                window.location.href = '/admin/room-list'
             }
         } 
     }

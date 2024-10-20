@@ -6,15 +6,17 @@ import Search from './Search'
 import classNames from 'classnames/bind'
 import styles from './Home.module.scss'
 
+import * as managementService from '~/apiServices/managementServive'
 const cx = classNames.bind(styles)
 
 function Home() {
+
     return ( 
         <div className={cx('wrapper')}>
             
             <div className={cx('slider')}>
                 <div className={cx('slider__content')}>
-                    <h2>Đặt Phòng Phù Hợp Với Nhu Cầu Của Bạn</h2>
+                    <h2 >Đặt Phòng Phù Hợp Với Nhu Cầu Của Bạn</h2>
                     <Search />
                 </div>
             </div>

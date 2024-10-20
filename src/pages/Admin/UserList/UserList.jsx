@@ -26,7 +26,7 @@ function UserList() {
         const res = await managementService.deleteUserById(id)
 
         if(res.msg){
-            window.location.href='http://localhost:3000/admin/user-list'
+            window.location.href='/admin/user-list'
         }
         
     }
@@ -161,7 +161,7 @@ function UserList() {
             const res = await managementService.userActions(action, userIds)
 
             if(res?.msg){
-                window.location.href='http://localhost:3000/admin/user-list'
+                window.location.href='/admin/user-list'
             }
         }
     }

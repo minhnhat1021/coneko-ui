@@ -25,7 +25,7 @@ function RoomList() {
         const res = await managementService.deleteRoomById(id)
 
         if(res.msg){
-            window.location.href='http://localhost:3000/admin/room-list'
+            window.location.href='/admin/room-list'
         }
     }
 
@@ -123,7 +123,7 @@ function RoomList() {
             const res = await managementService.roomActions(action, roomIds)
 
             if(res?.msg){
-                window.location.href='http://localhost:3000/admin/room-list'
+                window.location.href='/admin/room-list'
             }
         }
     }
@@ -224,7 +224,7 @@ function RoomList() {
                             
                             <Link to='/hotel-rooms/' className={cx('room__image')}>
                                 <img
-                                    src={room?.images ? `http://localhost:5000/images/roomImg/${room?.images?.image1}` : ''} 
+                                    src={room?.images ? `${process.env.REACT_APP_IMAGES_URL}${room?.images?.image1}` : ''} 
                                     alt='coneko'
                                 />
                             </Link>

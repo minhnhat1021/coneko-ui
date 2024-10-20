@@ -91,7 +91,7 @@ function EditRoom() {
             amenities
         )
         if(res.msg) {
-            window.location.href='http://localhost:3000/admin/room-list'
+            window.location.href='/admin/room-list'
         }
     }
     return ( 

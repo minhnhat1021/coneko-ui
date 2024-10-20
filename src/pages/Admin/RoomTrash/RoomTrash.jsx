@@ -27,13 +27,13 @@ function RoomTrash() {
     const handleRestore = async (id) => {
         const res = await managementService.restoreRoom(id)
         if(res.msg) {
-             window.location.href='http://localhost:3000/admin/room-trash'
+             window.location.href='/admin/room-trash'
         }
     }
     const handleDelete = async (id) => {
         const res = await managementService.forceDeleteRoomById(id)
         if(res.msg) {
-             window.location.href='http://localhost:3000/admin/room-trash'
+             window.location.href='/admin/room-trash'
         }
     }
 
@@ -93,7 +93,7 @@ function RoomTrash() {
                 const res = await managementService.roomActions(action, roomIds)
 
                 if(res?.msg){
-                    window.location.href='http://localhost:3000/admin/room-trash'
+                    window.location.href='/admin/room-trash'
                 }
             }
             
@@ -107,7 +107,7 @@ function RoomTrash() {
         const res = await managementService.roomActions(action, roomIds)
 
         if(res?.msg){
-            window.location.href='http://localhost:3000/admin/room-trash'
+            window.location.href='/admin/room-trash'
         }
     }
 
@@ -141,7 +141,7 @@ function RoomTrash() {
                             </div>
                             <Link to='/hotel-rooms/' className={cx('room__image')}>
                                 <img
-                                    src={room?.images ? `http://localhost:5000/images/roomImg/${room?.images?.image1}` : ''} 
+                                    src={room?.images ? `${process.env.REACT_APP_IMAGES_URL}${room?.images?.image1}` : ''} 
                                     alt='coneko'
                                 />
                             </Link>

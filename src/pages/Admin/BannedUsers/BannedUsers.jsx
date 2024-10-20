@@ -27,7 +27,7 @@ function BannedUsers() {
     const handleRestore = async(id) => {
         const res = await managementService.restoreUser(id)
         if(res.msg) {
-             window.location.href='http://localhost:3000/admin/banned-users'
+             window.location.href='/admin/banned-users'
         }
        
     }
@@ -100,7 +100,7 @@ function BannedUsers() {
                 const res = await managementService.userActions(action, userIds)
 
                 if(res?.msg){
-                    window.location.href='http://localhost:3000/admin/banned-users'
+                    window.location.href='/admin/banned-users'
                 }
             }
         }
@@ -113,7 +113,7 @@ function BannedUsers() {
         const res = await managementService.userActions(action, userIds)
 
         if(res?.msg){
-            window.location.href='http://localhost:3000/admin/banned-users'
+            window.location.href='/admin/banned-users'
         }
     }
 
