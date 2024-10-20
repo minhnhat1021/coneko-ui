@@ -6,7 +6,6 @@ import Search from './Search'
 import classNames from 'classnames/bind'
 import styles from './Home.module.scss'
 
-import * as managementService from '~/apiServices/managementServive'
 const cx = classNames.bind(styles)
 
 function Home() {
