@@ -16,6 +16,11 @@ const images = {
     zaloPay: require("~/assets/images/zaloPay.png"),
     visa: require("~/assets/images/visa.png"),
 
+    avatar1: require('~/assets/images/avatar1.jpg'),
+    avatar2: require('~/assets/images/avatar2.jpg'),
+
+    paymentSuccessful: require('~/assets/images/PaymentSuccessful.webp')
+
 }
 
 export default images

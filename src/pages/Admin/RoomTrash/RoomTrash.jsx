@@ -150,9 +150,9 @@ function RoomTrash() {
                                     <p className={cx('room__name')}>
                                         {room.name}
                                     </p>
-                                    <p className={cx('room__floor')}>
-                                        Tầng {room.floor}
-                                    </p>
+                                    <p className={cx('room__price')}>
+                                        {room?.price?.toLocaleString('vi-VN')}
+                                    </p> 
                                 </div>
                                 <div className={cx('room__body-child')}>
                                     <p className={cx('room__bed-type')}>
@@ -162,15 +162,7 @@ function RoomTrash() {
                                         {room.bedCount} giường
                                     </p>
                                 </div>
-                                <div className={cx('room__body-child')}>
-                                    <p className={cx('room__star-rating')}>
-                                        {room.rating} sao
-                                    </p> 
-                                    <p className={cx('room__price')}>
-                                        {room.price}
-                                    </p> 
-
-                                </div>
+                                
                                
                             </main>
                             <footer className={cx('room__footer')}>                         

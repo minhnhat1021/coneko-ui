@@ -106,13 +106,23 @@
         border-radius: 20px;
     }
 }
+.modal__info{
+    .qr__code{
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
 
-.modal__info-list{
-    padding: 0 0 24px;
-    &:last-child{
-        padding: 18px 0 24px;
-        border-top: 1px solid var(--primary-text-1);
+        img{
+            width: 100px;
+            height: 100px;
+            margin-top: 20px;
+            border-radius: 2px;
+        }
     }
+}
+.modal__info-list{
+    padding: 20px 0 24px;
+    border-bottom: 1px solid #575757;
 }
 .modal__info-title{
     color: var(--primary-text-1);

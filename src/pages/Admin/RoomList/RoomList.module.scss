@@ -162,6 +162,12 @@
     justify-content: center;
     align-items: start;
 
+    &:first-child{
+        flex: 1.1!important;
+    }
+    &:last-child{
+        flex: 1.2!important;
+    }
     p{
         max-width: 200px;
         white-space: nowrap;

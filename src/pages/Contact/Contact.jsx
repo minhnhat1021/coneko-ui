@@ -52,7 +52,7 @@ function Contact() {
 
                             <h2>Gọi cho chúng tôi</h2>
                             <p>Từ Thứ Hai đến Thứ Sáu, từ 8 giờ sáng đến 5 giờ chiều.</p>
-                            <h3>0987-123-4567</h3>
+                            <h3>0393-189-262</h3>
                         </div>
 
                     </div>

@@ -11,7 +11,7 @@ function EditRoom() {
     const [name, setName] = useState('')
     const [desc, setDesc] = useState('')
     const [overView, setOverView] = useState('')
-    const [price, setPrice] = useState('')
+    const [price, setPrice] = useState(0)
     const [bedType, setBedType] = useState('')
     const [bedCount, setBedCount] = useState('')
     const [floor, setFloor] = useState('')
@@ -113,7 +113,7 @@ function EditRoom() {
                 </div>
                 <div className={cx('create__form-item')}>
                     <label for='price' > Giá phòng </label>
-                    <input type='text'  id='price' name='price' value={price} onChange={e => {setPrice(e.target.value)}}/>
+                    <input type='text'  id='price' name='price' value={price} onChange={e => {setPrice(e.target.value === '' ? 0 : parseFloat(e.target.value))}}/>
                 </div>
                 <div className={cx('create__form-item')}>
                     <label for='image' > Ảnh 1 {images.image1 && <p> {images.image1}</p>} </label>

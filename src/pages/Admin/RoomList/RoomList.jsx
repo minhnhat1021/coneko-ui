@@ -245,21 +245,15 @@ function RoomList() {
                                         {room.bedCount} giường
                                     </p>
                                 </div>
-                                <div className={cx('room__body-child')}>
+                                <div className={cx('room__body-child')} >
                                     <p className={cx('room__star-rating')}>
                                         {room.rating} sao
                                     </p> 
                                     <p className={cx('room__capacity')}>
-                                    {room.price}
+                                    {room?.price?.toLocaleString('vi-VN')}
                                     </p>
 
                                 </div>
-                                {/* <div className={cx('room__body-child')}>
-                                    <p className={cx('room__status')}>
-                                        <input type='checkbox'/>
-                                    </p> 
-                                    
-                                </div> */}
                                 
                             </main>
                             <footer className={cx('room__footer')}>                         

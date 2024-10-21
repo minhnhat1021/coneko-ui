@@ -73,7 +73,7 @@ function UserBookingHistory({ userData }) {
                                     <div>{currentRooms ? formattedDay(new Date(currentRoom.checkOutDate)) : ''}</div>
                                     <div>{currentRooms ? formattedTime(new Date(currentRoom.checkOutDate)) : ''}</div>
                                 </td>
-                                <td>{currentRoom.amountSpent}</td>
+                                <td>{currentRoom?.amountSpent?.toLocaleString('vi-VN')}</td>
                                 <td className={cx('status', 'thanhcong')}>Thành công</td>
                             </tr>
                         ))}
@@ -169,7 +169,9 @@ function UserBookingHistory({ userData }) {
                                         <span>{infoCurrent?.days} ngày</span> 
                                     </div>
                                 </div>
-                                <img src={infoCurrent?.qrCode} alt='Qr Code'/>
+                                <div className={cx('qr__code')}>
+                                    <img src={infoCurrent?.qrCode} alt='Qr Code'/>
+                                </div>
                             </div>
                         </div>                  
                     </div>

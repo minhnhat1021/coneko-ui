@@ -137,7 +137,7 @@ function BookingManagement({ adminData }) {
                                         <div>{bookings ? formattedDay(new Date(booking.checkOutDate)) : ''}</div>
                                         <div>{bookings ? formattedTime(new Date(booking.checkOutDate)) : ''}</div>
                                     </td>
-                                    <td>{booking.amountSpent}</td>
+                                    <td>{booking?.amountSpent?.toLocaleString('vi-VN')}</td>
                                     <td className={cx('status', 'thanhcong')}>Thành công</td>
                                 </tr>
                             ))}

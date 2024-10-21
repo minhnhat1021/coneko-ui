@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom'
 
 import { PaymentCongrats } from '~/components/Icons'
+import images from '~/assets/images'
 
 import classNames from 'classnames/bind'
 import styles from './PaymentSuccessful.module.scss'
@@ -58,17 +59,17 @@ function PaymentSuccessful() {
                 <main className={cx('body')}>
                     <div className={cx('body__header')}>
                         <p className={cx('hotel__name')}>Coneko</p>
-                        <p>Địa chỉ <span>8383 Wilshire Boulevard Beverly Hills, CA</span></p>
-                        <p>Số điện thoại <span>+389023958577</span></p>
+                        <p>Địa chỉ <span>Đại học Thăng Long</span></p>
+                        <p>Số điện thoại <span>+84 393-189-262</span></p>
                     </div>
                     <div className={cx('body__main')}>
                         <img
-                            src={`http://localhost:5000/images/roomImg/1722524231808.png`}
-                            alt='{{room.name}}'
+                            src={images.paymentSuccessful}
+                            alt='coneko'
                         />
                         <img
                             src={`${qrCode}`}
-                            alt='{{room.name}}'
+                            alt='coneko'
                         />
                     </div>
                     <div className={cx('body__footer')}>
@@ -85,7 +86,7 @@ function PaymentSuccessful() {
                             <span>12:00 PM - 10:00 AM </span>
                         </div>
                         <div className={cx('body__footer-item')}>
-                            <p>Tổng giá</p>
+                            <p>Tổng chi phí</p>
                             <span>{totalPrice ? Number(totalPrice).toLocaleString('vi-VN') : 0}</span>
                         </div>
                         <div className={cx('body__footer-item')}>

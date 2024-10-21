@@ -11,7 +11,7 @@ function CreateRoom() {
     const [name, setName] = useState('')
     const [desc, setDesc] = useState('')
     const [overView, setOverView] = useState('')
-    const [price, setPrice] = useState()
+    const [price, setPrice] = useState(0)
     const [bedType, setBedType] = useState('single')
     const [bedCount, setBedCount] = useState('2')
     const [floor, setFloor] = useState('5')
@@ -100,7 +100,7 @@ function CreateRoom() {
                 </div>
                 <div className={cx('create__form-item')}>
                     <label for='price' > Giá phòng </label>
-                    <input type='text'  id='price' name='price' value={price} onChange={e => {setPrice(parseFloat(e.target.value))}}/>
+                    <input type='text'  id='price' name='price' value={price} onChange={e => {setPrice(e.target.value === '' ? 0 : parseFloat(e.target.value))}}/>
                 </div>
                 <div className={cx('create__form-item')}>
                     <label for='image' > Ảnh 1 </label>

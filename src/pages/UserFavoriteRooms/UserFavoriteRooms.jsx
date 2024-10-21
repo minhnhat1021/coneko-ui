@@ -89,7 +89,7 @@ function UserFavoriteRooms({ userData }) {
                                                 {room.status}
                                             </p> 
                                             <p className={cx('room__price')}>
-                                                {room.price}
+                                                {room?.price?.toLocaleString('vi-VN')}
                                             </p> 
                                         </div>
                                     </main>

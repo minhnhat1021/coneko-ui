@@ -24,7 +24,7 @@ const Menu_User = {
     },
     favoriteRooms: {  
         icon: <i className={cx('fa-solid fa-bookmark')}></i>,
-        title: 'phòng ưa thích'
+        title: 'Phòng ưa thích'
     },
     pay: {
         icon: <i className={cx('fa-regular fa-credit-card')}></i>,

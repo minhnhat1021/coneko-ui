@@ -135,25 +135,29 @@ function HotelRooms() {
                                 alt='{{this.name}}'
                             />
                             <main className={cx('room__body')}>
-                                <h5 className={cx('room__title')}>{room.name}</h5>
+                                {/* <h5 className={cx('room__title')}>{room.name}</h5> */}
+                                  
+                                <p className={cx('room__des')}>
+                                    {room.desc}
+                                </p>
+                                <div className={cx('room__overview')}>
+                                    {room.overView}
+                                </div>
+                                
+                            </main>
+                            <footer className={cx('room__footer')}>
+                                
                                 <div className={cx('room__star-rating')}>
                                     {[...Array(Number(room.rating))].map((a, index) => (
                                         <i key={index} className={cx('fa-solid fa-star')}></i>
                                     ))}
                                     
-                                </div>  
-                                <p className={cx('room__des')}>
-                                    {room.desc}
-                                </p>
-                            </main>
-                            <footer className={cx('room__footer')}>
-                                <div className={cx('room__overview')}>
-                                    {room.overView}
                                 </div>
                                 <div className={cx('room__price')}>
                                     {Number(room.price).toLocaleString('vi-VN')}
                                 </div>
                             </footer>
+                            {/*  */}
                         </Link>
                     )}
                     

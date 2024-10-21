@@ -18,40 +18,40 @@ function About({ userData = {data: {message: ''}}}) {
                 <main className={cx('body')}>
                     <div className={cx('member__list')}>
                         <div className={cx('member__item')}>
-                            <img src={images.avatar} alt='coneko'/>
+                            <img src={images.avatar1} alt='coneko'/>
                             <h1>Nhật Minh</h1>
                             <h3>Founder and CEO</h3>
-                            <p>Với hơn 15 năm kinh nghiệm trong ngành khách sạn và dịch vụ lưu trú, niềm đam mê của John đã thúc đẩy sự thành công của công ty.</p>
+                            <p>Với hơn 15 năm kinh nghiệm trong ngành khách sạn và dịch vụ lưu trú, niềm đam mê của Nhật Minh đã thúc đẩy sự thành công của công ty.</p>
                         </div>
                         <div className={cx('member__item')}>
-                            <img src={images.avatar} alt='coneko'/>
+                            <img src={images.avatar2} alt='coneko'/>
                             <h1>Nhật Minh</h1>
                             <h3>Founder and CEO</h3>
-                            <p>Với hơn 15 năm kinh nghiệm trong ngành khách sạn và dịch vụ lưu trú, niềm đam mê của John đã thúc đẩy sự thành công của công ty.</p>
+                            <p>Với hơn 15 năm kinh nghiệm trong ngành khách sạn và dịch vụ lưu trú, niềm đam mê của Nhật Minh đã thúc đẩy sự thành công của công ty.</p>
                         </div>
                         <div className={cx('member__item')}>
-                            <img src={images.avatar} alt='coneko'/>
+                            <img src={images.avatar1} alt='coneko'/>
                             <h1>Nhật Minh</h1>
                             <h3>Founder and CEO</h3>
-                            <p>Với hơn 15 năm kinh nghiệm trong ngành khách sạn và dịch vụ lưu trú, niềm đam mê của John đã thúc đẩy sự thành công của công ty.</p>
+                            <p>Với hơn 15 năm kinh nghiệm trong ngành khách sạn và dịch vụ lưu trú, niềm đam mê của Nhật Minh đã thúc đẩy sự thành công của công ty.</p>
                         </div>
                         <div className={cx('member__item')}>
-                            <img src={images.avatar} alt='coneko'/>
+                            <img src={images.avatar1} alt='coneko'/>
                             <h1>Nhật Minh</h1>
                             <h3>Founder and CEO</h3>
-                            <p>Với hơn 15 năm kinh nghiệm trong ngành khách sạn và dịch vụ lưu trú, niềm đam mê của John đã thúc đẩy sự thành công của công ty.</p>
+                            <p>Với hơn 15 năm kinh nghiệm trong ngành khách sạn và dịch vụ lưu trú, niềm đam mê của Nhật Minh đã thúc đẩy sự thành công của công ty.</p>
                         </div>
                         <div className={cx('member__item')}>
-                            <img src={images.avatar} alt='coneko'/>
+                            <img src={images.avatar1} alt='coneko'/>
                             <h1>Nhật Minh</h1>
                             <h3>Founder and CEO</h3>
-                            <p>Với hơn 15 năm kinh nghiệm trong ngành khách sạn và dịch vụ lưu trú, niềm đam mê của John đã thúc đẩy sự thành công của công ty.</p>
+                            <p>Với hơn 15 năm kinh nghiệm trong ngành khách sạn và dịch vụ lưu trú, niềm đam mê của Nhật Minh đã thúc đẩy sự thành công của công ty.</p>
                         </div>
                         <div className={cx('member__item')}>
-                            <img src={images.avatar} alt='coneko'/>
+                            <img src={images.avatar1} alt='coneko'/>
                             <h1>Nhật Minh</h1>
                             <h3>Founder and CEO</h3>
-                            <p>Với hơn 15 năm kinh nghiệm trong ngành khách sạn và dịch vụ lưu trú, niềm đam mê của John đã thúc đẩy sự thành công của công ty.</p>
+                            <p>Với hơn 15 năm kinh nghiệm trong ngành khách sạn và dịch vụ lưu trú, niềm đam mê của Nhật Minh đã thúc đẩy sự thành công của công ty.</p>
                         </div>
                     </div>
                 </main>
@@ -64,15 +64,15 @@ function About({ userData = {data: {message: ''}}}) {
                         </div>
                         <div className={cx('question__content')}>
                             <header className={cx('question__content-header')}>
-                                <h1>What is a Meeting Space?</h1>
-                                <p>A virtual office space gives your company the use of an address in a professional building in the exact area that will represent your company best.</p>
+                                <h1>Đặt phòng khách sạn là gì?</h1>
+                                <p>Đặt phòng khách sạn là quy trình bạn chọn và xác nhận chỗ ở tại một khách sạn để thư giãn và nghỉ ngơi, giúp bạn có những trải nghiệm thoải mái và dễ chịu trong suốt kỳ nghỉ hoặc chuyến công tác.</p>
                             </header>
                             <main className={cx('question__content-body')}>
-                                <h1>How does a Meeting Space work? </h1>
-                                <h1>What is included in the my Meeting Space? </h1>
-                                <h1>What are term of usage for Meeting Spaces? </h1>
-                                <h1>What is the minimum time for Meeting Space renting? </h1>
-                                <h1>What is the maximum time for Meeting Space renting? </h1>
+                                <h1>Cách đặt phòng khách sạn hoạt động như thế nào? </h1>
+                                <h1>Những gì bao gồm trong phòng khách sạn của tôi? </h1>
+                                <h1>Điều khoản sử dụng phòng khách sạn là gì? </h1>
+                                <h1>Thời gian tối thiểu để đặt phòng khách sạn là bao lâu? </h1>
+                                <h1>Thời gian tối đa để đặt phòng khách sạn là bao lâu? </h1>
                             </main>
                         </div>
                     </div>

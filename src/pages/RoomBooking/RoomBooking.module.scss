@@ -12,16 +12,18 @@
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: calc(60% - 15px) calc(40% - 15px);
-    gap: 10px;
     column-gap: 30px;
-    border-radius: 12px;
     overflow: hidden;
+    border-radius: 12px;
+
 }
 
 
 /* Wrap__info ------------------------------------------------------------------------------------*/
 .wrap__info {
     color: var(--primary-text-1);
+    
+
 }
 
 
@@ -29,12 +31,6 @@
     padding-bottom: 10px;
     border-bottom: 1px solid #ddd;
 
-    // .room__image {
-    //     width: 100%;
-    //     height: auto;
-    //     border-radius: 8px;
-    //     margin-bottom: 10px;
-    // }
     p{
         padding: 4px 0;
         font-size: 1.4rem;
@@ -58,6 +54,8 @@
     grid-template-rows: auto auto;
     gap: 10px;
     margin-bottom: 20px;
+    border-radius: 12px;
+    overflow: hidden;
     img{
         width: 100%;
         min-height: 145px;
