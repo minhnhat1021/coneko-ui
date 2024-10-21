@@ -102,7 +102,7 @@ function BookingDetails() {
 
                                 <div className={cx('modal__info-item')}>Tên phòng <span>{booking?.room?.name}</span> </div>
                                 <div className={cx('modal__info-item')}>Mô tả phòng <span>{booking?.room?.desc}</span> </div>
-                                <div className={cx('modal__info-item')}>Giá phòng <span>{booking?.room?.price}</span> </div>
+                                <div className={cx('modal__info-item')}>Giá phòng <span>{booking?.room?.price?.toLocaleString('vi-VN')}</span> </div>
                                 <div className={cx('modal__info-item')}>Dịch vụ <span>{booking?.room?.overView}</span> </div>
                             </div>
                             <div className={cx('modal__info-list')}>

@@ -247,7 +247,7 @@ function Checkout() {
                 <div className={cx('booking')}>
                     <div className={cx('booking__info')}>
                         <img    
-                            src={room?.images ? `/images/roomImg/${room?.images?.image1}` : ''} 
+                            src={room?.images ? `${process.env.REACT_APP_IMAGES_URL}${room?.images?.image1}` : ''} 
                             alt={room.name}
                             />
                         <div className={cx('booking__detail')}>
