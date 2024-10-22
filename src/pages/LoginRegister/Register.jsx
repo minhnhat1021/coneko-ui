@@ -136,6 +136,7 @@ function Register () {
     
     // Login Google
     const handleLoginSuccess = async (res) => {
+        console.log(res)
         const credential = res.credential
         const result = await authService.googleLogin(credential)
 
@@ -217,20 +218,24 @@ function Register () {
                                 <button type="submit">{loading ? <span ><Loading /></span> : 'Đăng ký' }</button>
                             </div>
 
-                            <div className={cx('google__login-btn')}>
-                                <GoogleLogin
-                                    onSuccess={handleLoginSuccess}
-                                    onFailure={handleLoginFailure}
-                                    width='260px'
-                                    height='1000px'
+                            <div className={cx('wrap__google-btn')}>
+                                <div className={cx('google__login-btn')}>
+                                    <GoogleLogin
+                                        onSuccess={handleLoginSuccess}
+                                        onFailure={handleLoginFailure}
+                                        width='260px'
+                                        height='1000px'
+                                    />
+                                </div>
+                            </div>
+                            <div className={cx('facebook__login-btn')}>
+                                <FacebookLogin
+                                    appId={process.env.REACT_APP_FB_CLIENT_ID}
+                                    autoLoad={true}
+                                    fields='name,email,password'
+                                    callback={handleFacebookLogin}
                                 />
                             </div>
-                            <FacebookLogin
-                                appId={process.env.REACT_APP_FB_CLIENT_ID}
-                                autoLoad={true}
-                                fields='name,email,password'
-                                callback={handleFacebookLogin}
-                            />
                         </form>
                     </main>
                     <footer className={cx('footer')}>

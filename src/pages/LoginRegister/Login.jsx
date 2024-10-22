@@ -59,6 +59,8 @@ function  Login  () {
         const resultLogin = document.getElementById('resultLogin')
         resultLogin.innerText = result?.msg ? result?.msg : ''
 
+        console.log(res)
+
         if(result?.token) {
             localStorage.setItem('token', result?.token)
 
@@ -121,20 +123,24 @@ function  Login  () {
                                 <button type="submit">{loading ? <span ><Loading /></span> : 'Đăng nhập' }</button>
                             </div>
 
-                            <div className={cx('google__login-btn')}>
-                                <GoogleLogin
-                                    onSuccess={handleLoginSuccess}
-                                    onFailure={handleLoginFailure}
-                                    width='260px'
-                                    height='1000px'
+                            <div className={cx('wrap__google-btn')}>
+                                <div className={cx('google__login-btn')}>
+                                    <GoogleLogin
+                                        onSuccess={handleLoginSuccess}
+                                        onFailure={handleLoginFailure}
+                                        width='260px'
+                                        height='1000px'
+                                    />
+                                </div>
+                            </div>
+                            <div className={cx('facebook__login-btn')}>
+                                <FacebookLogin
+                                    appId={process.env.REACT_APP_FB_CLIENT_ID}
+                                    autoLoad={true}
+                                    fields='name,email,password'
+                                    callback={handleFacebookLogin}
                                 />
                             </div>
-                            <FacebookLogin
-                                appId={process.env.REACT_APP_FB_CLIENT_ID}
-                                autoLoad={true}
-                                fields='name,email,password'
-                                callback={handleFacebookLogin}
-                            />
 
                         </form>
                     </main>

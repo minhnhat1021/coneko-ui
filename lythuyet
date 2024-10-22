@@ -31,3 +31,8 @@ IIV. cài thư viện tippy/react (quản lý khung lịch sử tìm kiếm)
 
 IV. Cài thư viện axios
     1. npm install axios
+
+V. Google login
+    - Vào Google Developer Console
+VI. Facebook login
+    - Vào
