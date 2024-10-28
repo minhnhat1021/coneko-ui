@@ -13,7 +13,11 @@ function Home() {
     return ( 
         <div className={cx('wrapper')}>
             
-            <div className={cx('slider')}>
+            <div className={cx('slideshow')}>
+                <img src={images.primary} alt="coneko" className={cx('slide', 'fade')} />
+                <img src={images.primary2} alt="coneko" className={cx('slide', 'fade')} />
+                <img src={images.contact} alt="coneko" className={cx('slide', 'fade')} />
+
                 <div className={cx('slider__content')}>
                     <h2 >Đặt Phòng Phù Hợp Với Nhu Cầu Của Bạn</h2>
                     <Search />

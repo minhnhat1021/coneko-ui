@@ -63,7 +63,68 @@
     }
 
 }
+/* Actions-------------------------------------------------------------------------*/
+.actions{
+    position: sticky;
+    top: 100px;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 20px 12px;
+    color: var(--primary-text-1);
+    background-color: var(--primary-bg-2);
+    border-radius: 6px;
 
+    .checkbox{
+        
+        label{
+            cursor: pointer;
+        }
+    }
+    select{
+        min-width: 150px;
+        min-height: 40px;
+        margin: 0 10px 0 30px;
+        cursor: pointer;
+    }
+    .checkbox__msg{
+        margin-left: 20px;
+    }
+}   
+.table_tr{
+    position: relative;
+}
+.checkbox{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-50%, -50%);
+    padding: 0 10px 0 8px;
+    .actions__checkbox {
+        display: none;
+    }
+    .actions__label::before {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background-color: var(--primary-bg-4);
+        border: 1px solid #333;
+        border-radius: 4px;
+        margin-right: 10px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+      
+    .actions__checkbox:checked + .actions__label::before {
+    background-color: var(--primary-bg-4);
+    content: '✔'; 
+    font-size: 16px;
+    color: #333; 
+    text-align: center;
+    line-height: 20px;
+    }
+}
 /* Booking list ---------------------------------------------------*/
 .wrap__table{
     border-top: 1px solid #575757;

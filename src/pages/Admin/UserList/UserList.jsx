@@ -69,34 +69,37 @@ function UserList() {
     },[options])
 
     // search --------------------------------
-    const [userId, setUserId] = useState()
     const [userName, setUserName] = useState()
 
-    const idInputRef = useRef()
     const userNameInputRef = useRef()
-
-    const handleFindById = async() => {
-        const res = await userService.findUserById(userId)
+    const handleFindByUserName = async(a) => {
+        const query = a === '' ? null : userName
+        console.log('query:', query)
+        const res = await userService.findUserByUserName(query)
         if(res?.user){
             setUserData(res?.user)
         } else {
             setUserData([])
         }
     }
-    const handleFindByUserName = async() => {
-        const res = await userService.findUserByUserName(userName)
-        if(res?.user){
-            setUserData(res?.user)
-        } else {
-            setUserData([])
+    const handleInputChange = async (e) => {
+        const newValue = e.target.value
+        setUserName(newValue)
+    
+        if (newValue === '') {
+            await handleFindByUserName('')
         }
     }
-
-    const handleClearUserName = () => {
+    const handleClearUserName = async() => {
         setUserName('')
+        const res = await handleFindByUserName('')
         userNameInputRef.current.focus()
     }
-
+    const handleKeyDown = async (e) => {
+        if (e.key === 'Enter') {
+            await handleFindByUserName(userName)
+        }
+    }
     // Chuyển đổi định dạng ngày
     const formattedDay = (date) => {
         return  date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()  
@@ -200,33 +203,20 @@ function UserList() {
                 </div>
                 
                 <div className={cx('search')}>
-                    <div className={cx('search__item')}>
-                        <input 
-                            ref={idInputRef}
-                            value={userId} 
-                            onChange={(e) => setUserId(e.target.value)} 
-                            className={cx('search__input')} 
-                            type="text" 
-                            placeholder="Tìm kiếm"  
-                        />
-                        
-                        <Button adminUpdate onClick={handleFindById}>Tìm kiếm bằng user id</Button>
-                    </div>
-                    <div className={cx('search__item')}>
-                        <input 
-                            ref={userNameInputRef}
-                            value={userName} 
-                            onChange={(e) => setUserName(e.target.value)} 
-                            className={cx('search__input')} 
-                            type="text" 
-                            placeholder="Tìm kiếm"  
-                        />
-                        <i 
-                            className={cx('fa-solid fa-circle-xmark', 'Clear')}
-                            onClick={handleClearUserName}
-                        ></i>
-                        <Button adminUpdate onClick={handleFindByUserName}>Tìm kiếm bằng user name</Button>
-                    </div>
+                    <input 
+                        ref={userNameInputRef}
+                        value={userName} 
+                        onChange={handleInputChange} 
+                        onKeyDown={handleKeyDown}
+                        className={cx('search__input')} 
+                        type="text" 
+                        placeholder="user name / email"  
+                    />
+                    <i 
+                        className={cx('fa-solid fa-circle-xmark', 'Clear')}
+                        onClick={handleClearUserName}
+                    ></i>
+                    <Button adminUpdate onClick={handleFindByUserName}>Tìm kiếm </Button>
                 </div>
             </div>
             <div  className={cx('actions')}>

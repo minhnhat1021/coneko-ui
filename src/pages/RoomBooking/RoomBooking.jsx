@@ -297,7 +297,7 @@ function RoomBooking({ userData }) {
                         <br></br>
                         <p className={cx('booking__price')} > 
                             <span>Tổng phí</span>
-                            <span className={cx('booking__charge')}>{Number(roomCharge || amenitiesCharge ? roomCharge + amenitiesCharge : 0)?.toLocaleString('vi-VN')} ₫</span>
+                            <span className={cx('booking__charge')}>{Number(startDate && endDate ? roomCharge + amenitiesCharge : 0)?.toLocaleString('vi-VN')} ₫</span>
                         </p>
                     </div>
 

@@ -3,7 +3,7 @@ import * as request from '~/utils/request';
 export const roomDetail = async (name) => {
 
     try {
-        const res = await request.get(`room/${name}/room-detail`)
+        const res = await request.get(`room/${name}`)
         return res.data
 
     } catch (error) {

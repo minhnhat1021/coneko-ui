@@ -24,13 +24,13 @@ function Footer() {
                 </div>
                 <div className={cx('item')}>
                     <h2>Dịch vụ</h2>
-                    <p>Netflix</p>
-                    <p>Bồn tắm chill</p>
-                    <p>Gương áp trần </p>
+                    <p>Coffee</p>
+                    <p>Bữa sáng</p>
+                    <p>Mini bar</p>
                 </div>
                 <div className={cx('item')}>
                     <h2>Đăng ký nhận bản tin của chúng tôi!</h2>
-                    <Link className={cx('hotel__email-address')} to='/'>minhnhat.dev.21@gmail.com</Link>
+                    <p className={cx('hotel__email-address')} to='/'>minhnhat.dev.21@gmail.com</p>
                     <p className={cx('hotel__social')}>Theo dõi chúng tôi</p>
                     <div className={cx('social__list')}>
                         <a href='https://www.facebook.com/profile.php?id=61564059657236'><FbSocial/></a>

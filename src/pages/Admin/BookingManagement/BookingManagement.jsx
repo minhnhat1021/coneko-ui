@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import * as managementService from '~/apiServices/managementServive'
+
 import { Link, useNavigate } from 'react-router-dom'
+
+import * as managementService from '~/apiServices/managementServive'
+import Button from '~/components/Button'
+
 import classNames from 'classnames/bind'
 import styles from './BookingManagement.module.scss'
 
@@ -78,6 +82,65 @@ function BookingManagement({ adminData }) {
         }
         handleFilter()
     },[options])
+
+
+    // Checkbox-all actions
+    const [action, setAction] = useState()
+    const [statusAction, setStatusAction] = useState(false)
+    const [disabledActions, setDisabledActions] = useState(true)
+
+    useEffect(() => {
+        var checkboxAll = document.getElementById('checkbox__all')
+        var bookingCheckbox = document.querySelectorAll("input[name='bookingIds[]']")
+
+        checkboxAll.onchange = (e) => {
+            const isCheckAll = e.target.checked
+            
+            bookingCheckbox.forEach((checkbox) => {
+                
+                checkbox.checked = isCheckAll
+                const countCheckboxChecked = document.querySelectorAll("input[name='bookingIds[]']:checked").length
+
+                if(countCheckboxChecked > 0 ){
+                    setDisabledActions(false)
+                } else{
+                    setDisabledActions(true)
+                }
+            })
+            
+        }
+        
+        bookingCheckbox.forEach((checkbox) => {
+            checkbox.onchange = () => {
+                const countCheckboxChecked = document.querySelectorAll("input[name='bookingIds[]']:checked").length
+                const isCheckAll = bookingCheckbox.length === countCheckboxChecked
+                checkboxAll.checked = isCheckAll
+
+                if(countCheckboxChecked > 0 ){
+                    setDisabledActions(false)
+                } else{
+                    setDisabledActions(true)
+                }
+            }
+        }) 
+        
+    },[bookings])
+
+    const handleActions = async() => {
+        var checkboxChecked = Array.from(document.querySelectorAll("input[name='bookingIds[]']:checked"))
+        const bookingIds = checkboxChecked.map(checkbox => checkbox.id)
+
+        if(!action) {
+            setStatusAction(true)
+        } else {
+            setStatusAction(false)
+            const res = await managementService.bookingActions(action, bookingIds)
+
+            if(res?.msg){
+                window.location.href='/admin/booking-management'
+            }
+        }
+    }
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -111,6 +174,18 @@ function BookingManagement({ adminData }) {
                     </div>
                     
                 </div>
+                <div id="actions" className={cx('actions')}>
+                    <div className={cx('checkbox')}>
+                        <input id='checkbox__all' name='available' options='' type="checkbox" className={cx('actions__checkbox')}/>
+                        <label htmlFor='checkbox__all' className={cx('actions__label')}> Chọn tất cả</label>
+                    </div>
+                    <select  name="roomType" value={action} onChange={(e) => setAction(e.target.value)} >
+                        <option value='' >-- Chọn hành động --</option>
+                        <option value="delete">Xóa</option>
+                    </select>
+                    <Button onClick={handleActions} login disabled={disabledActions}>Thực hiện</Button>
+                    {statusAction && <span className={cx('checkbox__msg')}>Vui lòng chọn hành động</span>}
+                </div>
                 <div className={cx('wrap__table')}>
                     <table className={cx('table')}>
                         <thead>
@@ -124,7 +199,7 @@ function BookingManagement({ adminData }) {
                         </thead>
                         <tbody>
                             {bookings?.map((booking, index) => (
-                                <tr key={index} onClick={() => handleBookingsDetails(booking, booking._id)}>
+                                <tr className={cx('table_tr')} key={index} onClick={() => handleBookingsDetails(booking, booking._id)}>
                                     <td> 
                                         <div>{bookings ? formattedDay(new Date(booking.bookingDate)) : ''}</div> 
                                         <div>{bookings ? formattedTime(new Date(booking.bookingDate)) : ''}</div>
@@ -139,6 +214,11 @@ function BookingManagement({ adminData }) {
                                     </td>
                                     <td>{booking?.amountSpent?.toLocaleString('vi-VN')}</td>
                                     <td className={cx('status', 'thanhcong')}>Thành công</td>
+
+                                    <div className={cx('checkbox')}>
+                                        <input id={booking._id} vaule={booking._id} name='bookingIds[]' type="checkbox" className={cx('actions__checkbox')}/>
+                                        <label htmlFor={booking._id} className={cx('actions__label')}> </label>
+                                    </div>
                                 </tr>
                             ))}
                         </tbody>

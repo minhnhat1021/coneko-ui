@@ -57,17 +57,6 @@ export const filterUsersByOptions = async ( options ) => {
         console.log(error)
     }
 }
-export const findUserById = async ( userId ) => {
-
-    try {
-        const res = await request.post(`user/find-user/id`, { userId })
-
-        return res.data
-
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 export const findUserByUserName = async ( userName ) => {
 

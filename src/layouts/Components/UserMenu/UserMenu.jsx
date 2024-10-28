@@ -58,7 +58,6 @@ function User({ user, Menu_User, account, currentRooms, bookingHistory, favorite
                             </div>
                         </header>
                         {renderUser()}
-
                     </div>
             )}
             
