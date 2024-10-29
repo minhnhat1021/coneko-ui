@@ -216,6 +216,15 @@ export const bookingManagement = async () => {
         console.log(error)
     }
 }
+export const bookingTrash = async () => {
+    try {
+        const res = await request.get(`admin/booking-trash`)
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const filterBookingByOptions = async ( options ) => {
 
     try {

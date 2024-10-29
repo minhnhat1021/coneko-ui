@@ -6,7 +6,7 @@ import * as managementService from '~/apiServices/managementServive'
 import Button from '~/components/Button'
 
 import classNames from 'classnames/bind'
-import styles from './BookingManagement.module.scss'
+import styles from './BookingTrash.module.scss'
 
 const cx = classNames.bind(styles)
 
@@ -16,7 +16,7 @@ function BookingManagement({ adminData }) {
     useEffect( () => {
         const fetchApi = async () => {
             try {
-                const res = await managementService.bookingManagement()
+                const res = await managementService.bookingTrash()
                 setBookings(res.bookings)
             } catch (error) {
                 console.error('gọi api lỗi', error)
@@ -44,44 +44,6 @@ function BookingManagement({ adminData }) {
             state: { booking }
         })
     }
-
-    // options -------------------------------------------
-    const [options, setOptions] = useState({
-        silver: false,
-        gold: false,
-        platinum: false,
-        diamond: false,
-        vip: false,
-    })
-
-    useEffect(() => {
-        var optionInputs = document.querySelectorAll('[name][options]')
-        for(var optionInput of optionInputs) {
-            optionInput.onchange = function () {
-                var name = this.getAttribute('name')
-                var isChecked = this.checked
-
-                setOptions(prev => ({
-                    ...prev,
-                    [name]: isChecked 
-                }))
-            }
-        }
-    }, [])
-
-    useEffect(() => {
-        const handleFilter = async() => {
-            const filters = Object.keys(options).filter(
-              (key) => options[key] === true
-            )
-    
-            const res = await managementService.filterBookingByOptions(filters)
-            setBookings(res?.bookings)
-    
-        }
-        handleFilter()
-    },[options])
-
 
     // Checkbox-all actions
     const [action, setAction] = useState()
@@ -144,38 +106,10 @@ function BookingManagement({ adminData }) {
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className={cx('header')}>
-                    <h2 className={cx('title')}>Lịch sử giao dịch của khách hàng</h2>
-                    <Link to='/admin/booking-trash'>Thùng rác</Link>
+                    <h2 className={cx('title')}>Giao dịch đã bị xóa</h2>
+                    <Link to='/admin/booking-management'>Danh sách giao dịch</Link>
                 </div>
-                <div className={cx('options')}>
-                    <div className={cx('option__item')}>
-                        <input id='silver' name='silver' options='' type="checkbox" className={cx('options__checkbox')}/>
-                        <label htmlFor='silver' className={cx('options__label')}></label>
-                        <p>Dưới 20tr</p>
-                    </div>
-                    <div className={cx('option__item')}>
-                        <input id='gold' name='gold' options='' type="checkbox" className={cx('options__checkbox')}/>
-                        <label htmlFor='gold' className={cx('options__label')}></label>
-                        <p>20tr - 50tr</p>
-                    </div>
-                    <div className={cx('option__item')}>
-                        <input id='platinum' name='platinum' options='' type="checkbox" className={cx('options__checkbox')}/>
-                        <label htmlFor='platinum' className={cx('options__label')}></label>
-                        <p>50tr - 70tr</p>
-                    </div>
-                    
-                    <div className={cx('option__item')}>
-                        <input id='diamond' name='diamond' options='' type="checkbox" className={cx('options__checkbox')}/>
-                        <label htmlFor='diamond' className={cx('options__label')}></label>
-                        <p>70tr - 100 tr</p>
-                    </div>
-                    <div className={cx('option__item')}>
-                        <input id='vip' name='vip' options='' type="checkbox" className={cx('options__checkbox')}/>
-                        <label htmlFor='vip' className={cx('options__label')}></label>
-                        <p>Trên 100tr</p>
-                    </div>
-                    
-                </div>
+
                 <div id="actions" className={cx('actions')}>
                     <div className={cx('checkbox')}>
                         <input id='checkbox__all' name='available' options='' type="checkbox" className={cx('actions__checkbox')}/>
@@ -183,7 +117,8 @@ function BookingManagement({ adminData }) {
                     </div>
                     <select  name="roomType" value={action} onChange={(e) => setAction(e.target.value)} >
                         <option value='' >-- Chọn hành động --</option>
-                        <option value="delete">Xóa</option>
+                        <option value="restore">Khôi phục</option>
+                        <option value="forceDelete">Xóa vĩnh viễn</option>
                     </select>
                     <Button onClick={handleActions} login disabled={disabledActions}>Thực hiện</Button>
                     {statusAction && <span className={cx('checkbox__msg')}>Vui lòng chọn hành động</span>}

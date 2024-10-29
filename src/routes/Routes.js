@@ -37,6 +37,7 @@ import {
     EditRoom,
 
     BookingManagement, 
+    BookingTrash, 
 } from '~/pages/Admin'
 
 
@@ -84,6 +85,7 @@ const adminRoutes = [
     { path: config.routes.editRoom, component: EditRoom},
 
     { path: config.routes.bookingManagement, component: BookingManagement},
+    { path: config.routes.bookingTrash, component: BookingTrash},
     { path: config.routes.bookingDetails, component: BookingDetails},
 
 ]

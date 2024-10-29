@@ -33,6 +33,7 @@ const routes = {
     editRoom: '/admin/:roomId/room-edit',
 
     bookingManagement: '/admin/booking-management',
+    bookingTrash: '/admin/booking-trash',
     bookingDetails: '/admin/booking-management/details/:id',
 
 }

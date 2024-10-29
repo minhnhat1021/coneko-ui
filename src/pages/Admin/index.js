@@ -12,6 +12,7 @@ export { default as CreateRoom } from './CreateRoom'
 export { default as EditRoom } from './EditRoom'
 
 export { default as BookingManagement } from './BookingManagement'
+export { default as BookingTrash } from './BookingTrash'
 export { default as BookingDetails } from './BookingDetails'
 
 
