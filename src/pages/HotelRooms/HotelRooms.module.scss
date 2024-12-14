@@ -1,6 +1,7 @@
 .wrapper{
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: var(--header-height);
@@ -15,10 +16,11 @@
     grid-template-rows: auto auto;
     gap: 20px;
 
-    .page-title{
+    .find__room{
+        // top: var(--header-height);
         margin-top: 20px;
         grid-column: 1 / -1;
-        text-align: justify
+        box-shadow: 0 2px 7px 0 rgba(255, 255, 255, 0.6);
         h1{
             font-size: 3rem;
             font-weight: 600;
@@ -30,8 +32,70 @@
             line-height: 26px;
         }
     }
+
 }
 
+
+// Tìm kiếm phòng
+.find__room{
+    z-index: 2;
+    // position: sticky;
+    top: 10px;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 15px 0 15px 0;
+    background-color: var(--primary-bg-3);
+    border-radius: 8px;
+
+    // button{
+    //     margin-left: 20px;
+    // }
+}
+.find__room-date{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    .find__room-date-title{
+        margin: 0!important;
+        font-size: 1.6rem!important;
+    }
+}
+.find__room-people{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    label{
+        font-size: 1.6rem;
+    }
+    input{
+        padding: 10px 20px;
+    }
+}
+.find__wrap-day-people {
+    display: flex;
+    gap: 10px;
+    padding: 8px 20px;
+    color: var(--primary-text-1);
+    border: 1px solid #fff;
+    border-radius: 15px;
+}
+.find__room-day{
+    display: flex;
+    gap: 5px;
+    .find__room-day-title{
+        margin: 0!important;
+    }
+    .find__room-day-count{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0!important;
+        
+    }
+    
+}
 /* Options -------------------------------------------------------------------------*/
 .options{
     position: sticky;
@@ -111,6 +175,32 @@
         width: 100%;
         height: 180px;
         border-radius: 8px;
+        object-fit: cover;
+    }
+    .options__checkbox {
+        display: none;
+    }
+      
+    .options__label::before {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background-color: var(--primary-bg-4);
+        border: 2px solid #333;
+        border-radius: 4px;
+        margin-right: 10px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+      
+    .options__checkbox:checked + .options__label::before {
+    background-color: var(--primary-bg-4);
+    content: '✔'; 
+    font-size: 16px;
+    color: #333; 
+    text-align: center;
+    line-height: 20px;
     }
 }
 
@@ -183,3 +273,5 @@
     cursor: pointer;
     user-select: none;
 }
+
+// test phòng

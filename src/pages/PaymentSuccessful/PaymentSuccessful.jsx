@@ -12,18 +12,12 @@ const cx = classNames.bind(styles)
 function PaymentSuccessful() {
     const location = useLocation()
 
-    console.log(location.state)
-    
-
     // Lấy dữ liệu từ location.state (từ trang payment verification)
     const { 
         days, 
-        roomPrice, 
         roomCharge, 
-        amenitiesPrice, 
-        amenitiesCharge, 
-        amenities, 
-        totalPrice,
+        deposit,
+        outstandingBalance,
         roomId, 
         userId,
         qrCode,
@@ -86,8 +80,12 @@ function PaymentSuccessful() {
                             <span>12:00 PM - 10:00 AM </span>
                         </div>
                         <div className={cx('body__footer-item')}>
-                            <p>Tổng chi phí</p>
-                            <span>{totalPrice ? Number(totalPrice).toLocaleString('vi-VN') : 0}</span>
+                            <p>Đã đặt cọc</p>
+                            <span>{deposit ? Number(deposit).toLocaleString('vi-VN') : 0}</span>
+                        </div>
+                        <div className={cx('body__footer-item')}>
+                            <p>Số tiền còn lại cần thanh toán</p>
+                            <span>{outstandingBalance ? Number(outstandingBalance).toLocaleString('vi-VN') : 0}</span>
                         </div>
                         <div className={cx('body__footer-item')}>
                             <p>Phí hủy phòng</p>

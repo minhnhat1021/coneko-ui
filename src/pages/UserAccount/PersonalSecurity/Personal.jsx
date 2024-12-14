@@ -34,7 +34,7 @@ function Personal({ userData }) {
                         </div>
                         <div className={cx('nav__item')}>
                             <h4 className={cx('nav__item-title')}>Số điện thoại</h4>
-                            <p className={cx('nav__item-info')}>123xxx0321</p>
+                            <p className={cx('nav__item-info')}>{user?.phone || 'Thêm số điện thoại'}</p>
                         </div>
                     </nav>
                 </div>
@@ -48,19 +48,11 @@ function Personal({ userData }) {
                     <nav className={cx('nav')}>
                         <div className={cx('nav__item')}>
                             <h4 className={cx('nav__item-title')}>Facebook</h4>
-                            <p className={cx('nav__item-info')}>Nguyễn Minh</p>
+                            <p className={cx('nav__item-info')}>{user?.facebook || 'Bạn chưa liên kết facebook'}</p>
                         </div>
                         <div className={cx('nav__item')}>
                             <h4 className={cx('nav__item-title')}>Google</h4>
-                            <p className={cx('nav__item-info')}>abcxyz</p>
-                        </div>
-                        <div className={cx('nav__item')}>
-                            <h4 className={cx('nav__item-title')}>Spotify</h4>
-                            <p className={cx('nav__item-info')}>abcxyz</p>
-                        </div>
-                        <div className={cx('nav__item')}>
-                            <h4 className={cx('nav__item-title')}>Tiktok</h4>
-                            <p className={cx('nav__item-info')}>radiant</p>
+                            <p className={cx('nav__item-info')}>{user?.google || 'Bạn chưa liên kết google'}</p>
                         </div>
                     </nav>
                 </div>

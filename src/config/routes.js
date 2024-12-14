@@ -9,7 +9,7 @@ const routes = {
     login: '/login',
 
     roomBooking: ':name/room-booking',
-    checkout: ':name/checkout',
+    checkout: '/checkout',
     paymentSuccessful: '/payment-successful',
     paymentVerification: '/payment-verification',
 
@@ -32,7 +32,9 @@ const routes = {
     roomTrash: '/admin/room-trash',
     editRoom: '/admin/:roomId/room-edit',
 
-    bookingManagement: '/admin/booking-management',
+    bookedDeposit: '/admin/booked-deposit',
+    bookedFulPayment: '/admin/booked-ful-payment',
+    bookingList: '/admin/booking-list',
     bookingTrash: '/admin/booking-trash',
     bookingDetails: '/admin/booking-management/details/:id',
 

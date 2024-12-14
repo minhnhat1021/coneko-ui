@@ -12,6 +12,8 @@ export { default as CreateRoom } from './CreateRoom'
 export { default as EditRoom } from './EditRoom'
 
 export { default as BookingManagement } from './BookingManagement'
+export { default as BookedDeposit } from './BookedDeposit'
+export { default as BookedFulPayment } from './BookedFulPayment'
 export { default as BookingTrash } from './BookingTrash'
 export { default as BookingDetails } from './BookingDetails'
 

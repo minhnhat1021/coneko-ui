@@ -1,3 +1,4 @@
+import Modal from 'react-modal'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import * as roomService from '~/apiServices/roomService'
@@ -10,6 +11,7 @@ import styles from './RoomList.module.scss'
 
 const cx = classNames.bind(styles)
 
+Modal.setAppElement('#root')
 function RoomList() {
     const [roomData, setRoomData] = useState([])
 
@@ -127,7 +129,27 @@ function RoomList() {
             }
         }
     }
-    
+    // Handle modal
+    const [isOpen, setIsOpen] = useState(false)
+    const [modalContent, setModalContent] = useState({})
+
+    const closeModal = () => {
+        setIsOpen(false)
+    }
+    const handleModal = (room) => {
+        setIsOpen(true)
+        setModalContent(room)
+    }
+    const formattedDay = (date) => {
+        return  date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()  
+    }
+    const formattedTime = (date) => {
+        const hours = date.getHours().toString().padStart(2, '0')
+        const minutes = date.getMinutes().toString().padStart(2, '0')
+        const seconds = date.getSeconds().toString().padStart(2, '0')
+        
+        return `${hours}:${minutes}:${seconds}`
+    }
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('options')}>
@@ -228,13 +250,13 @@ function RoomList() {
                                     alt='coneko'
                                 />
                             </Link>
-                            <main className={cx('room__body')}>
+                            <main className={cx('room__body')} onClick={() => handleModal(room)}>
                                 <div className={cx('room__body-child')}>
                                     <p className={cx('room__name')}>
                                         {room.name}
                                     </p>
-                                    <p className={cx('room__floor')}>
-                                        Tầng {room.floor}
+                                    <p className={cx('room__capacity')}>
+                                    {room?.price?.toLocaleString('vi-VN')}
                                     </p>
                                 </div>
                                 <div className={cx('room__body-child')}>
@@ -245,15 +267,7 @@ function RoomList() {
                                         {room.bedCount} giường
                                     </p>
                                 </div>
-                                <div className={cx('room__body-child')} >
-                                    <p className={cx('room__star-rating')}>
-                                        {room.rating} sao
-                                    </p> 
-                                    <p className={cx('room__capacity')}>
-                                    {room?.price?.toLocaleString('vi-VN')}
-                                    </p>
 
-                                </div>
                                 
                             </main>
                             <footer className={cx('room__footer')}>                         
@@ -277,6 +291,49 @@ function RoomList() {
                     </div>
                 </div>
             </div>
+            <Modal
+                    isOpen={isOpen}
+                    onRequestClose={closeModal}
+                    className={cx('custom-modal')}
+                    overlayClassName={cx('custom-overlay')}
+                >
+                    <div className={cx('modal__info')}>
+                        <div className={cx('modal__info-list')}>
+                            <p className={cx('modal__info-title')}>Thông tin phòng</p>
+
+                            <div className={cx('modal__info-item')}>Tên phòng <span>{modalContent?.name}</span> </div>
+                            <div className={cx('modal__info-item')}>Mô tả phòng <span>{modalContent?.desc}</span> 
+                            </div><div className={cx('modal__info-item')}>Sức chứa <span>{modalContent?.capacity}</span> </div>
+                            <div className={cx('modal__info-item')}>Diện tích<span>{modalContent?.size} m&sup2;</span> </div>
+                            
+                            
+                        </div>
+                        <div className={cx('modal__info-list')}>
+                            <div className={cx('modal__info-item')}>Loại giường <span>{modalContent?.bedType}</span> </div>
+                            <div className={cx('modal__info-item')}>Số lượng giường <span>{modalContent?.bedCount}</span> </div>
+                            <div className={cx('modal__info-item')}>Số tầng<span>{modalContent?.floor}</span> </div>
+                            <div className={cx('modal__info-item')}>Dịch vụ
+                                <span>
+                                    {modalContent?.amenities?.map((amenities, index) => 
+                                        index === modalContent?.amenities?.length - 1 ? amenities : amenities + ', '
+                                    )}
+                                </span> 
+                            </div>
+                            <div className={cx('modal__info-item')}>Hút thuốc/ không hút thuốc <span>{modalContent?.smoking ? 'Hút thuốc' : ' Không hút thuốc'}</span> </div>
+                        </div>
+                        <div className={cx('modal__info-list')}>
+                             <div className={cx('modal__info-item')}>
+                                Ngày tạo phòng 
+                                <span>{formattedDay(new Date(modalContent?.createdAt))} - {formattedTime(new Date(modalContent?.createdAt))}</span> 
+                            </div>
+                            <div className={cx('modal__info-item')}>Giá phòng <span>{modalContent?.price?.toLocaleString('vi-VN')}</span> </div>
+                            
+                        </div>
+                    </div>
+                    <div className={cx('wrap__close-button')}>
+                        <button className={cx('close-button')} onClick={closeModal}>Đóng</button>
+                    </div>
+                </Modal>
         </div>
     )
 }

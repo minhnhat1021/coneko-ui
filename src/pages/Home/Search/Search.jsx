@@ -72,7 +72,7 @@ function Search() {
                         {searchResult?.map((result) => (
                             <Link to={`/hotel-rooms/${result.name}`} key={result._id} className={cx('result__item')}>
                                 <div className={cx('room__name', 'result__info')}>{result.name}</div>
-                                <div className={cx('room__overView', 'result__info')}>{result.overView}</div>
+                                <div className={cx('room__overView', 'result__info')}>{result.desc}</div>
                                 <div className={cx('room__bedType', 'result__info')}>Giường {result.bedType}</div>
                                 <div className={cx('room__capacity', 'result__info')}>Sức chứa {result.capacity} người</div>
                                 <div className={cx('room__bedCount', 'result__info')}>{result.bedCount} Giường</div>

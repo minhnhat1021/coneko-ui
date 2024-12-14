@@ -203,7 +203,6 @@ function RoomBooking({ userData }) {
                         <div className={cx('room__detail-info')}>
                             <p >Tên phòng:<span>{room?.name}</span></p>  
                             <p >Mô tả: <span>{room?.desc}</span></p>
-                            <p >Tổng quan: <span>{room?.overView}</span></p>
                             <div className={cx('room__star-rating')}>
                                 {[...Array(Number(room?.rating || 5))].map((_, index) => (
                                     <i key={index} className={cx('fa-solid fa-star')}></i>
@@ -231,7 +230,7 @@ function RoomBooking({ userData }) {
                         <p className={cx('user__info-title')}>Thông tin khách hàng</p>
                         <p >Tên khách hàng: <span>{user?.fullName}</span></p>
                         <p >Email: <span>{user?.email}</span></p>
-                        <p >Số điện thoại: <span>[Số điện thoại khách hàng]</span></p>
+                        <p >Số điện thoại: <span>{user?.phone || 'Chưa thêm số điện thoại'}</span></p>
                         <p >Cấp bậc <span>{user?.level}</span></p>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import * as userService from '~/apiServices/userService'
 import * as authService from '~/apiServices/authService'
 
@@ -132,11 +132,11 @@ function Header() {
                     <img src={images.coneko} alt="Coneko Hotel"/>
                 </Link>
                 <nav className={cx('header__nav')}>
-                    <Link to={config.routes.home} className={cx('header__nav-item')} >Trang chủ</Link>
-                    <Link to={config.routes.about} className={cx('header__nav-item')} >Giới thiệu</Link>
-                    <a href={config.routes.hotelRooms} className={cx('header__nav-item')} >Xem phòng</a>
-                    <Link to={config.routes.hotelRules} className={cx('header__nav-item')} >Quy định</Link>
-                    <Link to={config.routes.contact} className={cx('header__nav-item')} >Liên lạc</Link>
+                    <NavLink to={config.routes.home} className={(nav) => cx('header__nav-item' , {active: nav.isActive})} >Trang chủ</NavLink>
+                    <NavLink to={config.routes.about} className={(nav) => cx('header__nav-item' , {active: nav.isActive})} >Giới thiệu</NavLink>
+                    <NavLink to={config.routes.hotelRooms} className={(nav) => cx('header__nav-item' , {active: nav.isActive})} >Xem phòng</NavLink>
+                    <NavLink to={config.routes.hotelRules} className={(nav) => cx('header__nav-item' , {active: nav.isActive})} >Quy định</NavLink>
+                    <NavLink to={config.routes.contact} className={(nav) => cx('header__nav-item' , {active: nav.isActive})} >Liên lạc</NavLink>
                 </nav>
                 <div className={cx('header__actions')}>
 

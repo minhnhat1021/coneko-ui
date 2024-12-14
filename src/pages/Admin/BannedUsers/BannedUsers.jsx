@@ -131,7 +131,6 @@ function BannedUsers() {
                 <select  name="roomType" value={action} onChange={(e) => setAction(e.target.value)} >
                     <option value='' >-- Chọn hành động --</option>
                     <option value="restore">Khôi phục tài khoản</option>
-                    <option value="forceDelete">Xóa vĩnh viễn tài khoản</option>
                 </select>
                 <Button onClick={handleActions} login disabled={disabledActions}>Thực hiện</Button>
                 {statusAction && <span className={cx('checkbox__msg')}>Vui lòng chọn hành động</span>}
@@ -144,12 +143,6 @@ function BannedUsers() {
                                 <input id={user._id} vaule={user._id} name='userIds[]' type="checkbox" className={cx('actions__checkbox')}/>
                                 <label htmlFor={user._id} className={cx('actions__label')}> </label>
                             </div>
-                            <Link to='' className={cx('user__image')}>
-                                <img
-                                    src={`http://localhost:5000/images/roomImg/1722524231808.png`}
-                                    alt='coneko'
-                                />
-                            </Link>
                             <main className={cx('user__body')}>
                                 <div className={cx('user__body-child')}>
                                     <p className={cx('user__name')}>

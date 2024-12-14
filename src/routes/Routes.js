@@ -37,12 +37,14 @@ import {
     EditRoom,
 
     BookingManagement, 
+    BookedFulPayment,
+    BookedDeposit,
     BookingTrash, 
 } from '~/pages/Admin'
 
-
-import {MainLayout, FragmentLayout, AdminLayout, HeaderOnly, UserLayout, UserManagementLayout, RoomManagementLayout} from '~/layouts'
+import {MainLayout, FragmentLayout, AdminLayout, HeaderOnly, UserLayout, UserManagementLayout, RoomManagementLayout, BookingManagementLayout} from '~/layouts'
 import config from '~/config'
+
 
 
 const publicRoutes = [
@@ -84,7 +86,10 @@ const adminRoutes = [
     { path: config.routes.createRoom, component: CreateRoom},
     { path: config.routes.editRoom, component: EditRoom},
 
-    { path: config.routes.bookingManagement, component: BookingManagement},
+    { path: config.routes.bookedDeposit, component: BookedDeposit, subLayout: BookingManagementLayout},
+    { path: config.routes.bookedFulPayment, component: BookedFulPayment, subLayout: BookingManagementLayout},
+    { path: config.routes.bookingList, component: BookingManagement, subLayout: BookingManagementLayout},
+
     { path: config.routes.bookingTrash, component: BookingTrash},
     { path: config.routes.bookingDetails, component: BookingDetails},
 

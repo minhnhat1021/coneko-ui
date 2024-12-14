@@ -1,0 +1,6 @@
+.custom-row:hover {
+    cursor: pointer;            
+}
+.custom-row{
+    height: 85px;
+}

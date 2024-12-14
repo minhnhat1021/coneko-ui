@@ -1,0 +1,109 @@
+.ant-picker-input input::placeholder {
+    color: red; /* Đổi màu placeholder sang màu đen */
+    opacity: 1;  /* Đảm bảo placeholder không bị mờ */
+}
+.hotelRooms-roomItem {
+    transition: all 0.3s ease-in-out; 
+    border: 1px solid #3B3B3B; 
+    overflow: hidden;
+    background: none;
+
+}
+  
+.hotelRooms-roomItem:hover {
+    border: 1px solid #1890ff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    cursor: pointer;
+}
+
+
+/* antd */
+.ant-card-head {
+    color: #fff!important;
+    background-color: #3B3B3B!important
+}
+.ant-card-head .ant-card-extra p{
+    color: #e9e8e8!important;
+}
+.ant-card-body{
+    color: #fff!important;
+    background-color: #3B3B3B!important
+}
+.ant-card-body tr td{
+    border-color: rgb(116, 116, 116)!important;
+    background-color: #3B3B3B!important
+}
+.ant-divider-inner-text{
+    color: #fff!important;
+
+}
+.ant-table-cell::before{
+    background-color: rgb(116, 116, 116)!important;
+}
+:where(.css-dev-only-do-not-override-1wwf28x).ant-table-wrapper .ant-table-cell-scrollbar:not([rowspan]) {
+    box-shadow: 0 1px 0 1px rgb(116, 116, 116);
+}
+.ant-col {
+    border-color: rgb(116, 116, 116)!important;
+}
+.ant-table-thead .ant-table-cell{
+    color: #fff!important;
+    background-color: #212121!important
+}
+.ant-table-tbody .ant-table-cell{
+    color: #fff!important;
+    background-color: #3B3B3B!important
+}
+.ant-table-thead tr th{
+    border-color: rgb(116, 116, 116)!important;
+}
+.ant-table{
+    color: #fff!important;
+    background-color: #3B3B3B!important;
+
+}
+.ant-table-wrapper .ant-table{
+    color: #fff!important;
+    background-color: #3B3B3B!important;
+    scrollbar-color: #fff!important;
+
+}
+.ant-table-cell-row-hover{
+    background-color: #5d5d5d!important;
+}
+.ant-pagination-item-link{
+    color: #fff!important;
+}
+.ant-pagination-item:not(.ant-pagination-item-active):hover{
+    background-color: rgba(232, 232, 232, 0.9)!important;
+}
+
+.ant-empty-description{
+    color: #fff!important;
+}
+
+.ant-drawer-content{
+    background: #3B3B3B!important;
+}
+.ant-drawer .ant-drawer-close{
+    color: #fff!important;
+}
+.ant-drawer .ant-drawer-close:hover {
+    background-color: rgba(163, 163, 163, 0.7);
+}
+.ant-drawer-title{
+    color: #fff!important;
+}
+.ant-typography.dangerColor{
+    color: red!important;
+}
+.ant-typography.successColor{
+    color: green!important;
+}
+.ant-typography{
+    color: #fff!important;
+}
+
+.ant-radio-group .ant-radio-wrapper span{
+    color: #fefefe!important;
+}

@@ -10,7 +10,7 @@ const cx = classNames.bind(styles)
 function UserBookingHistory({ userData }) {
     const user = userData
     const currentRooms = user?.currentRooms
-    
+    console.log(currentRooms)
     // Chuyển đổi định dạng ngày
     const formattedDay = (date) => {
         return  date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()  
@@ -44,6 +44,9 @@ function UserBookingHistory({ userData }) {
         e.stopPropagation()
     }
 
+    const handleCancelBooking = (currentRoom) => {
+        console.log(currentRoom)
+    }
     return (
         <div className={cx('wrapper')}>
             <h2 className={cx('title')}>Lịch sử giao dịch của khách hàng</h2>
@@ -60,22 +63,25 @@ function UserBookingHistory({ userData }) {
                     </thead>
                     <tbody>
                         {currentRooms?.map((currentRoom, index) => (
-                            <tr onClick = {() => handleShowModal(currentRoom)} key={index}>
-                                <td> 
+                            <tr >
+                                <td onClick = {() => handleShowModal(currentRoom)} key={index}> 
                                     <div>{currentRooms ? formattedDay(new Date(currentRoom.bookingDate)) : ''}</div> 
                                     <div>{currentRooms ? formattedTime(new Date(currentRoom.bookingDate)) : ''}</div>
                                 </td>
-                                <td>
+                                <td onClick = {() => handleShowModal(currentRoom)} key={index}>
                                     <div>{currentRooms ? formattedDay(new Date(currentRoom.checkInDate)) : ''}</div>
                                     <div>{currentRooms ? formattedTime(new Date(currentRoom.checkInDate)) : ''}</div>
                                 </td>
-                                <td>
+                                <td onClick = {() => handleShowModal(currentRoom)} key={index}>
                                     <div>{currentRooms ? formattedDay(new Date(currentRoom.checkOutDate)) : ''}</div>
                                     <div>{currentRooms ? formattedTime(new Date(currentRoom.checkOutDate)) : ''}</div>
                                 </td>
-                                <td>{currentRoom?.amountSpent?.toLocaleString('vi-VN')}</td>
-                                <td className={cx('status', 'thanhcong')}>Thành công</td>
+                                <td onClick = {() => handleShowModal(currentRoom)} key={index}>
+                                    {currentRoom?.amountSpent?.toLocaleString('vi-VN')}
+                                </td>
+                                <td className={cx('status', 'btn')}><button onClick={() => handleCancelBooking(currentRoom)}>Hủy đặt phòng</button></td>
                             </tr>
+                            
                         ))}
                         
                     </tbody>
@@ -146,7 +152,6 @@ function UserBookingHistory({ userData }) {
                                     <div className={cx('modal__info-item')}>Tên phòng <span>{room?.name}</span> </div>
                                     <div className={cx('modal__info-item')}>Mô tả phòng <span>{room?.desc}</span> </div>
                                     <div className={cx('modal__info-item')}>Giá phòng <span>{room?.price?.toLocaleString('vi-VN')}</span> </div>
-                                    <div className={cx('modal__info-item')}>Dịch vụ <span>{room?.overView}</span> </div>
 
                                 </div>
                                 <div className={cx('modal__info-list')}>

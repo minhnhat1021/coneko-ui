@@ -16,7 +16,8 @@ function UserFavoriteRooms({ userData }) {
 
     // Phòng ưa thích
     const [favorite, setFavorite] = useState({})
-
+    console.log(favorite)
+    
     useEffect(() => {
         const initialFavorites = {}
         favoriteRooms.forEach(room => {

@@ -47,6 +47,10 @@
     font-weight: 500;
     letter-spacing: 0.1rem;
     transition: all .5s ease;
+
+    &.active{
+        color: var(--primary-text-2);
+    }
 }
 .header__nav-item:hover{
     color: var(--primary-text-2);

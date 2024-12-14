@@ -46,11 +46,10 @@ function PaymentSuccessful() {
 
                     const res = await checkoutService.savePayPalCheckout(payPalDetailsDecode)
                     if(res.return_code === 1) {
-                        const { startDate, endDate, days, totalPrice } = payPalDetailsDecode
+                        const { startDate, endDate, days, deposit, outstandingBalance } = payPalDetailsDecode
 
-                        console.log(res.qrCode)
                         navigate('/payment-successful', {
-                            state: { startDate, endDate, days, totalPrice, qrCode: res.qrCode}
+                            state: { startDate, endDate, days, deposit, outstandingBalance, qrCode: res.qrCode}
                         })
                         localStorage.setItem('payPalConfirmed', JSON.stringify(true))   
                     }
@@ -82,11 +81,10 @@ function PaymentSuccessful() {
                 })
                 if(res?.code === '00'){
                     const res = await checkoutService.saveVnPayCheckout({ vnPayCheckoutId })
- 
-                    const { startDate, endDate, days, totalPrice } = res.vnPayDetails
+                    const { startDate, endDate, days, deposit, outstandingBalance } = res.vnPayDetails
 
                     navigate('/payment-successful', {
-                        state: { startDate, endDate, days, totalPrice, qrCode: res.qrCode }
+                        state: { startDate, endDate, days, deposit, outstandingBalance, qrCode: res.qrCode }
                     })
 
                     localStorage.setItem('vnPayConfirmed', JSON.stringify(true))
@@ -113,13 +111,12 @@ function PaymentSuccessful() {
                     const zaloPayDetailsDecode = JSON.parse(zaloPayDetailsEncode)
 
                     const res = await checkoutService.saveZaloPayCheckout(zaloPayDetailsDecode)
-                    console.log(res)
                     if(res.return_code === 1) {
 
-                        const { startDate, endDate, days, totalPrice } = zaloPayDetailsDecode
+                        const { startDate, endDate, days, deposit, outstandingBalance } = zaloPayDetailsDecode
 
                         navigate('/payment-successful', {
-                            state: { startDate, endDate, days, totalPrice, qrCode: res.qrCode }
+                            state: { startDate, endDate, days, deposit, outstandingBalance, qrCode: res.qrCode }
                         })
 
                         localStorage.setItem('zaloPayConfirmed', JSON.stringify(true))

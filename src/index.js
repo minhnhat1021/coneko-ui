@@ -5,6 +5,8 @@ import reportWebVitals from '~/reportWebVitals'
 import GlobalStyles from '~/components/GlobalStyles'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 const clientId = process.env.REACT_APP_GG_CLIENT_ID

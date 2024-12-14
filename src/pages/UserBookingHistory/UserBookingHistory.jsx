@@ -145,8 +145,6 @@ function UserBookingHistory({ userData }) {
                                     <div className={cx('modal__info-item')}>Tên phòng <span>{room?.name}</span> </div>
                                     <div className={cx('modal__info-item')}>Mô tả phòng <span>{room?.desc}</span> </div>
                                     <div className={cx('modal__info-item')}>Giá phòng <span>{room?.price?.toLocaleString('vi-VN')}</span> </div>
-                                    <div className={cx('modal__info-item')}>Dịch vụ <span>{room?.overView}</span> </div>
-
                                 </div>
                                 <div className={cx('modal__info-list')}>
                                     <p className={cx('modal__info-title')}>Thông tin đặt phòng</p>

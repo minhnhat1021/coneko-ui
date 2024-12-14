@@ -1,0 +1,28 @@
+.react-datepicker-wrapper {
+    width: 100%;
+  }
+.react-datepicker {
+    margin-top: 5px; /* Khoảng cách giữa phần tử kích hoạt và calendar */
+    font-size: 16px; /* Tăng kích thước chữ */
+}
+  
+.react-datepicker__day,
+.react-datepicker__day-name,
+.react-datepicker__time-name {
+    line-height: 40px; 
+    width: 40px; /* Tăng chiều rộng ô ngày */
+    height: 40px; /* Tăng chiều cao ô ngày */
+}
+.react-datepicker__current-month {
+    font-size: 24px; /* Tăng kích thước chữ tháng hiện tại */
+}
+.react-datepicker__header {
+    
+    font-size: 18px; /* Tăng kích thước chữ tiêu đề tháng */
+}
+
+
+.react-datepicker__navigation-icon {
+    width: 24px; /* Tăng kích thước mũi tên chuyển tháng */
+    height: 24px;
+}

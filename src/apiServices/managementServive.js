@@ -11,6 +11,16 @@ export const room = async () => {
         console.log(error)
     }
 }
+export const findRoomById = async (roomId) => {
+
+    try {
+        const res = await request.get(`admin/room/find-by-id/${roomId}`)
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const statisticsRoom = async () => {
 
     try {
@@ -44,21 +54,21 @@ export const roomEdit = async (id) => {
     }
 }
 
-export const updateRoom = async (roomId, name, desc, overView, price, images, bedType, bedCount, floor, capacity, rating, amenities ) => {
+export const updateRoom = async (roomId, name, desc,price, originPrice, discountPercentage, size, capacity, images, bedType, bedCount, rating ) => {
     try {
         const res = await request.put(`admin/room-update`, {
             roomId,
             name,
             desc,
-            overView,
             price,
+            originPrice,
+            discountPercentage,
+            size,
+            capacity,
             images,
             bedType,
             bedCount,
-            floor,
-            capacity,
             rating,
-            amenities
         })
         return res.data
 
@@ -99,20 +109,20 @@ export const forceDeleteRoomById = async ( roomId ) => {
     }
 }
 
-export const createRoom = async ( name, desc, price, images, overView, bedType, bedCount, floor, capacity, rating, amenities ) => {
+export const createRoom = async ( name, desc, price,originPrice, discountPercentage, size, capacity, images, bedType, bedCount, rating, ) => {
     try {
         const res = await request.post(`/admin/create-room`, { 
             name,
             desc,
             price,
+            originPrice, 
+            discountPercentage,
+            size,
+            capacity,
             images,
-            overView,
             bedType,
             bedCount,
-            floor,
-            capacity,
             rating,
-            amenities 
         })
 
         return res.data
@@ -148,6 +158,16 @@ export const user = async () => {
 
     try {
         const res = await request.get('admin/user')
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const findUserById = async (userId) => {
+
+    try {
+        const res = await request.get(`admin/user/find-by-id/${userId}`)
         return res.data
 
     } catch (error) {
@@ -209,7 +229,16 @@ export const userActions = async ( action, userIds ) => {
 // Booking
 export const bookingManagement = async () => {
     try {
-        const res = await request.get(`admin/booking-management`)
+        const res = await request.get(`admin/booking-list`)
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const bookedList = async (status) => {
+    try {
+        const res = await request.post(`admin/booked-list`, {status})
         return res.data
 
     } catch (error) {
@@ -240,6 +269,18 @@ export const bookingActions = async ( action, bookingIds ) => {
     
     try {
         const res = await request.post(`/admin/booking-actions`, { action, bookingIds })
+
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const paymentBooking = async ( bookingId, paymentMethod) => {
+    
+    try {
+        const res = await request.post(`/admin/booking/payment`, { bookingId, paymentMethod })
 
         return res.data
 

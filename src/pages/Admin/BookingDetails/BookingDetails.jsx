@@ -11,7 +11,7 @@ function BookingDetails() {
     const booking = location.state.booking
 
      // Chuyển đổi định dạng ngày
-     const formattedDay = (date) => {
+    const formattedDay = (date) => {
         return  date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()  
     }
     const formattedTime = (date) => {
@@ -103,7 +103,6 @@ function BookingDetails() {
                                 <div className={cx('modal__info-item')}>Tên phòng <span>{booking?.room?.name}</span> </div>
                                 <div className={cx('modal__info-item')}>Mô tả phòng <span>{booking?.room?.desc}</span> </div>
                                 <div className={cx('modal__info-item')}>Giá phòng <span>{booking?.room?.price?.toLocaleString('vi-VN')}</span> </div>
-                                <div className={cx('modal__info-item')}>Dịch vụ <span>{booking?.room?.overView}</span> </div>
                             </div>
                             <div className={cx('modal__info-list')}>
                                 <p className={cx('modal__info-title')}>Thông tin đặt phòng</p>

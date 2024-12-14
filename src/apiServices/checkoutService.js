@@ -2,13 +2,11 @@ import * as request from '~/utils/request';
 
 
 export const conekoCheckout = async ({
-        startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, amenitiesCharge, amenities, 
-        originalPrice, discountRate, discountAmount, totalPrice, roomId, userId
+        startDate, endDate, days, roomCharge , discountRate, discountAmount, totalPrice,deposit, outstandingBalance, roomId, userId
     }) => {
         try {
             const res = await request.post(`room/checkout/coneko`, 
-                { startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, amenitiesCharge, amenities, 
-                originalPrice, discountRate, discountAmount, totalPrice, roomId, userId })
+                { startDate, endDate, days, roomCharge, discountRate, discountAmount, totalPrice,deposit, outstandingBalance, roomId, userId })
 
             return res.data
 
@@ -19,13 +17,11 @@ export const conekoCheckout = async ({
 
 // Paypal checkout -------------------------------------------------------------
 export const payPalCheckout = async ({
-        startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, amenitiesCharge, amenities, 
-        originalPrice, discountRate, discountAmount, totalPrice, roomId, userId
+        startDate, endDate, days, roomCharge, discountRate, discountAmount, totalPrice,deposit, outstandingBalance, roomId, userId
     }) => {
     try {
         const res = await request.post(`room/checkout/paypal`, 
-            { startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, amenitiesCharge, amenities, 
-            originalPrice, discountRate, discountAmount, totalPrice, roomId, userId })
+            { startDate, endDate, days, roomCharge, discountRate, discountAmount, totalPrice,deposit, outstandingBalance, roomId, userId })
         
         return res.data
     } catch (error) {
@@ -55,13 +51,11 @@ export const savePayPalCheckout = async ( payPalDetails ) => {
 
 // vnPay checkout -------------------------------------------------------------
 export const vnPayCheckout = async ({
-        startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, amenitiesCharge, amenities, 
-        originalPrice, discountRate, discountAmount, totalPrice, roomId, userId
+        startDate, endDate, days, roomCharge, discountRate, discountAmount, totalPrice,deposit,outstandingBalance, roomId, userId
     }) => {
     try {
         const res = await request.post(`room/checkout/vnpay`, 
-            { startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, amenitiesCharge, amenities, 
-            originalPrice, discountRate, discountAmount, totalPrice, roomId, userId })
+            { startDate, endDate, days, roomCharge, discountRate, discountAmount, totalPrice,deposit,outstandingBalance, roomId, userId })
         
         return res.data
     } catch (error) {
@@ -89,13 +83,11 @@ export const saveVnPayCheckout = async ({ vnPayCheckoutId }) => {
 
 // zaloPay checkout -------------------------------------------------------------
 export const zaloPayCheckout = async ({
-        startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, amenitiesCharge, amenities, 
-        originalPrice, discountRate, discountAmount, totalPrice, roomId, userId
+        startDate, endDate, days, roomCharge, discountRate, discountAmount, totalPrice, deposit, outstandingBalance, roomId, userId
 }) => {
 try {
     const res = await request.post(`room/checkout/zalopay`, 
-        { startDate, endDate, days, roomPrice, roomCharge, amenitiesPrice, amenitiesCharge, amenities, 
-        originalPrice, discountRate, discountAmount, totalPrice, roomId, userId })
+        { startDate, endDate, days, roomCharge, discountRate, discountAmount, totalPrice,deposit, outstandingBalance, roomId, userId })
     
     return res.data
 } catch (error) {

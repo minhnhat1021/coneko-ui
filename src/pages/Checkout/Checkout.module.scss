@@ -225,6 +225,11 @@
         }
     }
 }
+.account-balance{
+    display: block;
+    margin-top: 10px;
+    color: var(--color-danger);
+}
 // pay  ---------------------------------------------------------------------------------------
 .wrap__pay-btn{
     display: flex;
@@ -275,33 +280,55 @@
 // booking info ---------------------------------------------------------------------------------------
 
 .booking__info{
+    width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
-    gap: 30px;
+    gap: 20px;
 
-    img{
-        width: calc(50% - 10px);
-        height: 160px;
+    
+}
+.booking__rooms{
+    width: 100%;
+    max-height: 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+
+    .booking__room{
+        display: flex;
+        gap: 20px;
+        padding: 5px;
+        border: 1px solid rgba(179, 179, 179, 0.2);
         border-radius: 8px;
+
+        img{
+            width: 30%;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
     }
 }
 .booking__detail{
-    .booking__detail-title{
-        font-size: 2rem;
-        font-weight: 700;
-        line-height: 28px; 
-        letter-spacing: 0.4px;
-    }
-
-    .booking__detail-overview{
-        margin-top: 8px;
+    width: 270px;
+    display: flex;
+    justify-content: space-between;
+    .booking__detail-text-1,
+    .booking__detail-text-2{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         font-size: 1.6rem;
         font-weight: 400;
-        line-height: 26px; 
+        line-height: 20px; 
+        letter-spacing: 0.4px;
     }
+    
 }
 .booking__detail-menu{
-    margin-top: 20px;
+    width: 100%;
 }
 .booking__detail-item{
     margin-top: 12px;

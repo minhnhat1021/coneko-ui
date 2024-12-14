@@ -10,19 +10,20 @@ const cx = classNames.bind(styles)
 function EditRoom() {
     const [name, setName] = useState('')
     const [desc, setDesc] = useState('')
-    const [overView, setOverView] = useState('')
     const [price, setPrice] = useState(0)
+    const [size, setSize] = useState('')
+    const [capacity, setCapacity] = useState('')
     const [bedType, setBedType] = useState('')
     const [bedCount, setBedCount] = useState('')
-    const [floor, setFloor] = useState('')
-    const [capacity, setCapacity] = useState('')
+    const [discountPercentage, setDiscountPercentage] = useState('')
     const [rating, setRating] = useState('')
-    const [amenities, setAmenities] = useState('')
 
     const [images, setImages] = useState({
         image1: null,
         image2: null,
-        image3: null
+        image3: null,
+        image4: null,
+        image5: null,
     })
 
 
@@ -34,15 +35,14 @@ function EditRoom() {
 
             setName(res.name)
             setDesc(res.desc)
-            setOverView(res.overView)
             setPrice(res.price)
+            setDiscountPercentage(res.discountPercentage)
+            setSize(res.size)
+            setCapacity(res.capacity)
             setImages(res.images)
             setBedType(res.bedType)
             setBedCount(res.bedCount)
-            setFloor(res.floor)
-            setCapacity(res.capacity)
             setRating(res.rating)
-            setAmenities(res.amenities)
         }
 
         fetchApi()
@@ -77,18 +77,19 @@ function EditRoom() {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
+        const originPrice = price / (1 - (discountPercentage / 100))
         const res = await managementService.updateRoom(roomId,
             name,
             desc,
-            overView,
             price,
+            originPrice,
+            discountPercentage,
+            size,
+            capacity,
             images,
             bedType,
             bedCount,
-            floor,
-            capacity,
             rating,
-            amenities
         )
         if(res.msg) {
             window.location.href='/admin/room-list'
@@ -108,12 +109,20 @@ function EditRoom() {
                     <input type='text'  id='desc' name='desc' value={desc} onChange={e => {setDesc(e.target.value)}}/>
                 </div>
                 <div className={cx('create__form-item')}>
-                    <label for='overview' > Tổng quan tiện ích </label>
-                    <input type='text'  id='overview' name='overview' value={overView} onChange={e => {setOverView(e.target.value)}}/>
+                    <label for='size' > Kích thước phòng </label>
+                    <input type='text'  id='size' name='size' value={size} onChange={e => {setSize(e.target.value)}}/>
                 </div>
                 <div className={cx('create__form-item')}>
                     <label for='price' > Giá phòng </label>
                     <input type='text'  id='price' name='price' value={price} onChange={e => {setPrice(e.target.value === '' ? 0 : parseFloat(e.target.value))}}/>
+                </div>
+                <div className={cx('create__form-item')}>
+                    <label for='discountPercentage' > Phần trăm giảm giá </label>
+                    <input type='text'  id='discountPercentage' name='discountPercentage' value={discountPercentage} onChange={e => {setDiscountPercentage(e.target.value === '' ? 0 : parseFloat(e.target.value))}}/>
+                </div>
+                <div className={cx('create__form-item')}>
+                    <label for='capacity' > Sức chứa </label>
+                    <input type='text'  id='capacity' name='capacity' value={capacity} onChange={e => {setCapacity(e.target.value)}}/>
                 </div>
                 <div className={cx('create__form-item')}>
                     <label for='image' > Ảnh 1 {images.image1 && <p> {images.image1}</p>} </label>
@@ -129,47 +138,29 @@ function EditRoom() {
                     <input type='file'  id='image3' name='image3' onChange={e => {handleUpload(e)}} />
                 </div>
                 <div className={cx('create__form-item')}>
-                    <div className={cx('create__form-select')}>
-                        <label for='bedType' > Loại giường </label>
-                        <select id="bedType" name="bedType" value={bedType} onChange={e => setBedType(e.target.value)}>
-                            <option value="single">Giường đơn</option>
-                            <option value="double">Giường đôi</option>
-                        </select>
-                    </div>
-
-                    <div className={cx('create__form-select')}>
-                        <label for='bedCount' > Số lượng giường </label>
-                        <select id="bedCount" name="bedCount" value={bedCount} onChange={e => setBedCount(e.target.value)}>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
+                    <label for='image' > Ảnh 4 {images.image4 && <p> {images.image4}</p>}</label>
+                    <input type='file'  id='image4' name='image4' onChange={e => {handleUpload(e)}} />
                 </div>
                 <div className={cx('create__form-item')}>
-                    <div className={cx('create__form-select')}>
-                        <label for='floor' > Số tầng </label>
-                        <select id="floor" name="floor" value={floor} onChange={e => setFloor(e.target.value)}>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                        </select>
-                    </div>
-
-                    <div className={cx('create__form-select')} >
-                        <label for='capacity' > Sức chứa </label>
-                        <select id="capacity" name="capacity" value={capacity} onChange={e => setCapacity(e.target.value)}>
-                            <option value="1">1 người</option>
-                            <option value="2">2 người</option>
-                            <option value="3">3 người</option>
-                        </select>
-                    </div>
+                    <label for='image' > Ảnh 5 {images.image5 && <p> {images.image5}</p>}</label>
+                    <input type='file'  id='image5' name='image5' onChange={e => {handleUpload(e)}} />
                 </div>
                 <div className={cx('create__form-item')}>
-                    <div className={cx('create__form-select')}>
+                    <label for='bedType' > Loại giường </label>
+                    <select id="bedType" name="bedType" value={bedType} onChange={e => setBedType(e.target.value)}>
+                        <option value="Giường đơn">Giường đơn</option>
+                        <option value="Giường đôi">Giường đôi</option>
+                    </select>
+                    
+                </div>
+                <div className={cx('create__form-item')}>
+                    <label for='bedCount' > Số lượng giường </label>
+                    <select id="bedCount" name="bedCount" value={bedCount} onChange={e => setBedCount(e.target.value)}>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+                <div className={cx('create__form-item' )}>
                         <label for='rating' > Số sao </label>
                         <select id="rating" name="rating" value={rating} onChange={e => setRating(e.target.value)}>
                             <option value="1">1</option>
@@ -178,16 +169,6 @@ function EditRoom() {
                             <option value="4">4</option>
                             <option value="5">5</option>
                         </select>
-                    </div>
-
-                    <div className={cx('create__form-select')}>
-                        <label for='amenities' > Tiện ích </label>
-                        <select id="amenities" name="amenities" value={amenities} onChange={e => setAmenities(e.target.value)}>
-                            <option value="netflix">netflix</option>
-                            <option value="bep">bếp</option>
-    
-                        </select>
-                    </div>
                 </div>
 
                 <button type='submit' className={cx('create__form-btn')}>Cập nhật thông tin phòng</button>
