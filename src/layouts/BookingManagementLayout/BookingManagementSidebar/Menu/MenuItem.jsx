@@ -17,7 +17,7 @@ function MenuItem({title, to , icon, activeIcon, userData}) {
             <span className={cx('active-icon')}>{activeIcon}</span>
             <span className={cx('title')}>{title}</span> 
             
-            {(userData || userData === 0) && <span className={cx('count')}>{userData}</span> }
+            
         </NavLink>
     )
 }

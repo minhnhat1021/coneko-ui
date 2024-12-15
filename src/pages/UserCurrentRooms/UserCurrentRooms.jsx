@@ -1,16 +1,24 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as roomService from '~/apiServices/roomService'
+import moment from 'moment'
+import * as managementService from '~/apiServices/managementServive'
 
 import classNames from 'classnames/bind'
 import styles from './UserCurrentRooms.module.scss'
+import {Button} from 'antd'
 
 const cx = classNames.bind(styles)
 
 function UserBookingHistory({ userData }) {
     const user = userData
-    const currentRooms = user?.currentRooms
-    console.log(currentRooms)
+    const [currentRooms, setCurrentRooms] = useState([])
+    useEffect(() => {
+        const dateNow = moment()?._d
+        const currentRooms = userData?.bookedRooms?.filter(booked => moment(booked?.checkOutDate)?._d > dateNow)
+        setCurrentRooms(currentRooms)
+    }, [userData])
+    
     // Chuyển đổi định dạng ngày
     const formattedDay = (date) => {
         return  date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()  
@@ -44,7 +52,8 @@ function UserBookingHistory({ userData }) {
         e.stopPropagation()
     }
 
-    const handleCancelBooking = (currentRoom) => {
+    const handleCancelBooking = async(currentRoom) => {
+        const res = await managementService.cancelBooked(currentRoom?.bookingId)
         console.log(currentRoom)
     }
     return (
@@ -58,7 +67,7 @@ function UserBookingHistory({ userData }) {
                             <th>Ngày nhận phòng</th>
                             <th>Ngày trả phòng</th>
                             <th>Số tiền</th>
-                            <th>Trạng thái</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,9 +86,13 @@ function UserBookingHistory({ userData }) {
                                     <div>{currentRooms ? formattedTime(new Date(currentRoom.checkOutDate)) : ''}</div>
                                 </td>
                                 <td onClick = {() => handleShowModal(currentRoom)} key={index}>
-                                    {currentRoom?.amountSpent?.toLocaleString('vi-VN')}
+                                    {currentRoom?.totalPrice?.toLocaleString('vi-VN')}
                                 </td>
-                                <td className={cx('status', 'btn')}><button onClick={() => handleCancelBooking(currentRoom)}>Hủy đặt phòng</button></td>
+                                <td className={cx('status', 'btn')}>
+                                    {moment().isBefore(moment(currentRoom?.checkInDate).subtract(1, 'days')) &&
+                                        <Button onClick={() => handleCancelBooking(currentRoom)}>Hủy đặt phòng</Button>
+                                    }
+                                </td>
                             </tr>
                             
                         ))}
