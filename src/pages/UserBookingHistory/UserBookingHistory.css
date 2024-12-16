@@ -1,0 +1,85 @@
+/* Container Styles */
+.revenue-dashboard {
+    padding: 20px;
+    background-color: #f9f9f9; /* Màu nền nhạt */
+  }
+  
+  /* Title */
+  .revenue-dashboard .ant-typography {
+    text-align: center;
+    color: #333;
+  }
+  
+  /* RangePicker */
+  .revenue-dashboard .ant-picker {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 20px;
+  }
+  
+  /* Statistics */
+  .revenue-dashboard .ant-statistic {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .revenue-dashboard .ant-table {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .revenue-dashboard .ant-table-thead > tr > th {
+    background-color: #d89b1c; 
+    color: white;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .revenue-dashboard .ant-table-tbody > tr > td {
+    text-align: center;
+  }
+  
+  /* Drawer Styles */
+  .revenue-dashboard .ant-drawer {
+    background-color: #f9f9f9; /* Màu nền nhạt */
+  }
+  
+  .revenue-dashboard .ant-drawer-header {
+    background-color: #d89b1c;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+  }
+  
+  .revenue-dashboard .ant-drawer-body {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+  }
+  
+  /* Tag Customization */
+  .revenue-dashboard .ant-tag {
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 12px;
+  }
+  
+  .revenue-dashboard .ant-tag-green {
+    background-color: #52c41a;
+    color: white;
+  }
+  
+  .revenue-dashboard .ant-tag-volcano {
+    background-color: #fa541c;
+    color: white;
+  }
+  
+  .revenue-dashboard .ant-tag-red {
+    background-color: #ff4d4f;
+    color: white;
+  }
+  

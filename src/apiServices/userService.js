@@ -45,6 +45,16 @@ export const userDetail = async (token) => {
         console.log(error)
     }
 }
+export const guestInquiry = async (payload) => {
+
+    try {
+        const res = await request.post(`user/guest-inquiry`, { payload })
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export const filterUsersByOptions = async ( options ) => {
 

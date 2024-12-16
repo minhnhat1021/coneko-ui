@@ -1,202 +1,249 @@
 
-import React, { useEffect, useState } from 'react'
-import * as roomService from '~/apiServices/roomService'
-import moment from 'moment'
+
+import React, { useState, useEffect } from "react";
+import { Drawer, Button, Row, Col, Typography, Space, Tag, DatePicker, Table, Statistic, Select, Empty, Card } from "antd";
+import { CheckOutlined } from "@ant-design/icons";
+import moment from "moment";
+
 import * as managementService from '~/apiServices/managementServive'
+import './UserCurrentRooms.css'
+import { Option } from "antd/es/mentions";
+const { Title, Text } = Typography;
 
-import classNames from 'classnames/bind'
-import styles from './UserCurrentRooms.module.scss'
-import {Button} from 'antd'
-
-const cx = classNames.bind(styles)
-
-function UserBookingHistory({ userData }) {
-    const user = userData
-    const [currentRooms, setCurrentRooms] = useState([])
-    useEffect(() => {
-        const dateNow = moment()?._d
-        const currentRooms = userData?.bookedRooms?.filter(booked => moment(booked?.checkOutDate)?._d > dateNow)
-        setCurrentRooms(currentRooms)
-    }, [userData])
+const UserBookingHistory = ({userData}) => {
+    const [open, setOpen] = useState(false)
+    const [bookingData, setBookingData] = useState([])
+    const [filteredData, setFilteredData] = useState([])
+    const [selectedBooking, setSelectedBooking] = useState(null)
+    const [status, setStatus] = useState("Tất cả")
     
-    // Chuyển đổi định dạng ngày
-    const formattedDay = (date) => {
-        return  date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear()  
-    }
-    const formattedTime = (date) => {
-        const hours = date.getHours().toString().padStart(2, '0')
-        const minutes = date.getMinutes().toString().padStart(2, '0')
-        const seconds = date.getSeconds().toString().padStart(2, '0')
+    useEffect(() => {
+        const filtered = bookingData.filter((booking) =>
+            (status ==='Tất cả' || booking.status === status )
+        )
+        setFilteredData(filtered)
         
-        return `${hours}:${minutes}:${seconds}`
+    }, [status, bookingData])
+    useEffect(() => {
+        const fetchApi = async() => {
+            const res = await managementService.bookedList()
+            const userBooked = res?.bookings?.filter(booking => booking.userId === userData?._id && booking?.status !== 'Hủy đặt')
+            setFilteredData(userBooked)
+            setBookingData(userBooked)
+        }
+        fetchApi()
+    }, [userData])
+
+    const handleStatusChange = (value) => {
+        setStatus(value)
     }
 
-    // Xử lý khi modal được gọi lên
-    const [showModal, setShowModal] = useState(false)
-
-    const [room, setRoom] = useState({})
-    const [infoCurrent, setInfoCurrent] = useState({})
-
-    const handleShowModal = async (current) => {
+    const handleBookingClick = (booking) => {
+        setSelectedBooking(booking)
+        setOpen(true)
+    }
+    const handleCancelBooking = async(booked) => {
+        const res = await managementService.cancelBooked(booked?.bookingId)
+        if(res?.status === 200) {
+            window.location.reload()
+        }
+    }
+    
+    const columns = [
+        {
+        title: "Tên khách hàng",
+        dataIndex: ["user", "userName"],
+        key: "userName",
+        },
+        {
+        title: "Phòng",
+        dataIndex: "rooms",
+        key: "rooms",
+        render: (rooms) => rooms.map((room) => room.name).join(", "),
+        },
+        {
+        title: "Ngày nhận phòng",
+        dataIndex: "checkInDate",
+        key: "checkInDate",
+        render: (date) => moment(date).format("DD/MM/YYYY"),
+        },
+        {
+        title: "Ngày trả phòng",
+        dataIndex: "checkOutDate",
+        key: "checkOutDate",
+        render: (date) => moment(date).format("DD/MM/YYYY"),
+        },
+        {
+        title: "Tổng giá trị",
+        dataIndex: "totalPrice",
+        key: "totalPrice",
+        render: (price) => `${price.toLocaleString()} ₫`,
+        },
+        {
+        title: "Trạng thái",
+        dataIndex: "status",
+        key: "status",
+        render: (status) => (
+            <Tag color={status === "Đã thanh toán" ? "green" : status === "Đã đặt cọc" ? "volcano" : "red"}>
+                {status}
+            </Tag>
+        ),
+        },
         
-        const roomData = await roomService.roomDetailById(current.roomId)
+        {
+            title: "Chi tiết đơn đặt",
+            key: "action",
+            render: (_, record) => (
+                <Button type="link" onClick={() => handleBookingClick(record)}>
+                Xem chi tiết
+                </Button>
+            ),
+        },
+        {
+            title: "Hành động",
+            key: "action",
+            render: (_, record) => (
+                moment().isBefore(moment(record?.checkInDate).subtract(1, 'days')) &&
+                    <Button onClick={() => handleCancelBooking(record)} type='primary'>Hủy đặt phòng</Button>
+            )
         
-        setRoom(roomData)
-        setInfoCurrent(current)
-        setShowModal(true)
-    }
-    const handleModal = (e) => {
-        setShowModal(false)
-    }
-    const handleModalContent = (e) => {
-        e.stopPropagation()
-    }
+        },
+    ]
 
-    const handleCancelBooking = async(currentRoom) => {
-        const res = await managementService.cancelBooked(currentRoom?.bookingId)
-        console.log(currentRoom)
-    }
     return (
-        <div className={cx('wrapper')}>
-            <h2 className={cx('title')}>Lịch sử giao dịch của khách hàng</h2>
-            <div className={cx('wrap__table')}>
-                <table className={cx('table')}>
-                    <thead>
-                        <tr>
-                            <th>Thời gian thanh toán</th>
-                            <th>Ngày nhận phòng</th>
-                            <th>Ngày trả phòng</th>
-                            <th>Số tiền</th>
-                            <th>Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {currentRooms?.map((currentRoom, index) => (
-                            <tr >
-                                <td onClick = {() => handleShowModal(currentRoom)} key={index}> 
-                                    <div>{currentRooms ? formattedDay(new Date(currentRoom.bookingDate)) : ''}</div> 
-                                    <div>{currentRooms ? formattedTime(new Date(currentRoom.bookingDate)) : ''}</div>
-                                </td>
-                                <td onClick = {() => handleShowModal(currentRoom)} key={index}>
-                                    <div>{currentRooms ? formattedDay(new Date(currentRoom.checkInDate)) : ''}</div>
-                                    <div>{currentRooms ? formattedTime(new Date(currentRoom.checkInDate)) : ''}</div>
-                                </td>
-                                <td onClick = {() => handleShowModal(currentRoom)} key={index}>
-                                    <div>{currentRooms ? formattedDay(new Date(currentRoom.checkOutDate)) : ''}</div>
-                                    <div>{currentRooms ? formattedTime(new Date(currentRoom.checkOutDate)) : ''}</div>
-                                </td>
-                                <td onClick = {() => handleShowModal(currentRoom)} key={index}>
-                                    {currentRoom?.totalPrice?.toLocaleString('vi-VN')}
-                                </td>
-                                <td className={cx('status', 'btn')}>
-                                    {moment().isBefore(moment(currentRoom?.checkInDate).subtract(1, 'days')) &&
-                                        <Button onClick={() => handleCancelBooking(currentRoom)}>Hủy đặt phòng</Button>
-                                    }
-                                </td>
-                            </tr>
-                            
-                        ))}
-                        
-                    </tbody>
-                </table>
-                <div  className={cx('modal', {showModal}) }  onClick={handleModal}>
-                    <div className={cx('modal__container')} >
-                        <div className={cx('modal__content')} onClick={(e) => handleModalContent(e)}>
-                            <div className={cx('wrap__expense')}>
-                                <img src={room?.images ? `${process.env.REACT_APP_IMAGES_URL}${room?.images?.image1}` : ''} alt=''/>
-                                <div className={cx('expense')}>
-                                    <p className={cx('modal__info-title')}>Chi tiết phí phòng và dịch vụ</p>
+        <div  className="revenue-dashboard" style={{backgroundColor: '#484848', borderRadius: '10px'}}>
+            <Title level={3}>Đơn đặt phòng của bạn</Title>
 
-                                    <div className={cx('modal__info-item')}>
-                                        Phí phòng ( 1 ngày )
-                                        <span>{infoCurrent?.roomPrice?.toLocaleString('vi-VN')} ₫</span> 
-                                    </div>
-                                    <div className={cx('modal__info-item')}>
-                                        Tổng phí phòng ( {infoCurrent?.days} ngày )
-                                        <span>{infoCurrent?.roomCharge?.toLocaleString('vi-VN')} ₫</span> 
-                                    </div>
-                                    <div className={cx('modal__info-item')}>
-                                        Phí dịch vụ ( 1 ngày )
-                                        <span>{infoCurrent?.amenitiesPrice?.toLocaleString('vi-VN')} ₫</span> 
-                                    </div>
-                                    <div className={cx('modal__info-item')}>
-                                        Dịch vụ gồm có
-                                        <span>
-                                            {Object.entries(infoCurrent?.amenities || {})
-                                                .filter(([key, value]) => value > 0)
-                                                .map(([key, value], index, array) => (
-                                                    <span key={index}>
-                                                        {key.charAt(0).toUpperCase() + key.slice(1)}
-                                                        {index < array.length - 1 && ', '}
-                                                    </span>
-                                                ))
-                                            }
-                                        </span> 
-                                    </div>
-                                    <div className={cx('modal__info-item')}>
-                                        Chi tiết dịch vụ
-                                        <span>
-                                            {Object.entries(infoCurrent?.amenities || {})
-                                                .filter(([key, value]) => value > 0)
-                                                .map(([key, value], index, array) => (
-                                                    <span key={index}>
-                                                        {key.charAt(0).toUpperCase() + key.slice(1) } : {value.toLocaleString()} ₫
-                                                        {index < array.length - 1 && ', '}
-                                                    </span>
-                                                ))
-                                            }
-                                        </span> 
-                                    </div>
-                                    
-                                    <div className={cx('modal__info-item')}>
-                                        Tổng phí dịch vụ ( {infoCurrent?.days} ngày )
-                                        <span>{infoCurrent?.amenitiesCharge?.toLocaleString('vi-VN')} ₫</span> 
-                                    </div>
-                                    <div className={cx('modal__info-item')}>
-                                        Tổng chi phí 
-                                        <span>{infoCurrent?.amountSpent?.toLocaleString('vi-VN')} ₫</span> 
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={cx('modal__info')}>
-                                <div className={cx('modal__info-list')}>
-                                    <p className={cx('modal__info-title')}>Thông tin phòng</p>
+            <Row style={{display: 'flex', justifyContent: 'space-between', marginBottom: '20px'}}>
+                <Space style={{ padding: "0 20px" }}>
+                    <label htmlFor="booking-status" style={{ marginRight: 10, color: '#fff' }}>Chọn trạng thái booking:</label>
+                    <Select 
+                        id="booking-status" 
+                        value={status} 
+                        onChange={handleStatusChange} 
+                        style={{ width: 200, color: '#fff' }}
+                        placeholder="Chọn trạng thái"
+                    >
+                        <Option value="Tất cả">Tất cả</Option>
+                        <Option value="Đã đặt cọc">Đã đặt cọc</Option>
+                        <Option value="Đã thanh toán">Đã thanh toán</Option>
+                    </Select>
+                </Space>
+            </Row>
 
-                                    <div className={cx('modal__info-item')}>Tên phòng <span>{room?.name}</span> </div>
-                                    <div className={cx('modal__info-item')}>Mô tả phòng <span>{room?.desc}</span> </div>
-                                    <div className={cx('modal__info-item')}>Giá phòng <span>{room?.price?.toLocaleString('vi-VN')}</span> </div>
+            <Table
+                className="booking-table"
+                dataSource={filteredData}
+                columns={columns}
+                rowKey="id"
+                pagination={{ pageSize: 5 }}
+                locale={{ emptyText: <Empty  description="Không có đơn đặt phòng nào" /> }}
+            />
 
-                                </div>
-                                <div className={cx('modal__info-list')}>
-                                    <p className={cx('modal__info-title')}>Thông tin đặt phòng</p>
-
-                                    <div className={cx('modal__info-item')}>
-                                        Ngày đặt phòng 
-                                        <span>{formattedDay(new Date(infoCurrent?.bookingDate))} - {formattedTime(new Date(infoCurrent?.bookingDate))}</span> 
-                                    </div>
-                                    <div className={cx('modal__info-item')}>
-                                        Ngày nhận phòng 
-                                        <span>{formattedDay(new Date(infoCurrent?.checkInDate))} - {formattedTime(new Date(infoCurrent?.checkInDate))}</span> 
-                                    </div>
-                                    <div className={cx('modal__info-item')}>
-                                        Ngày trả phòng 
-                                        <span>{formattedDay(new Date(infoCurrent?.checkOutDate))} - {formattedTime(new Date(infoCurrent?.checkOutDate))}</span> 
-                                    </div>
-                                    <div className={cx('modal__info-item')}>
-                                        Số ngày ở 
-                                        <span>{infoCurrent?.days} ngày</span> 
-                                    </div>
-                                </div>
-                                <div className={cx('qr__code')}>
-                                    <img src={infoCurrent?.qrCode} alt='Qr Code'/>
-                                </div>
-                            </div>
-                        </div>                  
-                    </div>
-                </div>
+            <Drawer
+                className="booking-drawer"
+                title={`Chi tiết đặt phòng của ${selectedBooking?.user?.userName}`}
+                onClose={() => setOpen(false)}
+                open={open}
+                width={1400}
+            >
+            {selectedBooking && (
+            <div style={{ padding: "20px" }}>
+                <Row gutter={[20, 20]}>
+                    <Col span={12}>
+                        <Title level={5}>Phòng</Title>
+                        <Text>
+                        {selectedBooking?.rooms?.map((room, index) =>
+                            index < selectedBooking.rooms.length - 1 ? `${room.name}, ` : room.name
+                        )}
+                        </Text>
+                    </Col>
+                    <Col
+                        span={24}
+                        style={{ marginTop: "20px", padding: "20px", border: "1px solid #e7e7e7", borderRadius: "8px" }}
+                    >
+                    <Row>
+                        <Col span={6}>
+                            <Title level={5}>Ngày nhận phòng</Title>
+                            <Text>{moment(selectedBooking.checkInDate).format("DD/MM/YYYY")}</Text>
+                        </Col>
+                        <Col span={6}>
+                            <Title level={5}>Ngày trả phòng</Title>
+                            <Text>{moment(selectedBooking.checkOutDate).format("DD/MM/YYYY")}</Text>
+                        </Col>
+                        <Col span={6}>
+                            <Title level={5}>Số ngày ở</Title>
+                            <Text>{selectedBooking.days}</Text>
+                        </Col>
+                        <Col span={6}>
+                            <Title level={5}>Ngày đặt</Title>
+                            <Text>{moment(selectedBooking.bookingDate).format("DD/MM/YYYY")}</Text>
+                        </Col>
+                    </Row>
+                </Col>
+                    <Col
+                        span={24}
+                        style={{ marginTop: "20px", padding: "20px", border: "1px solid #e7e7e7", borderRadius: "8px" }}
+                    >
+                        <Row>
+                            <Col span={6}>
+                                <Title level={5}>Giá gốc</Title>
+                                <Text>{`${selectedBooking.roomCharge.toLocaleString()} ₫`}</Text>
+                            </Col>
+                            <Col span={6}>
+                                <Title level={5}>Giảm giá</Title>
+                                <Text>{`${selectedBooking.discountRate}%`}</Text>
+                            </Col>
+                            <Col span={6}>
+                                <Title level={5}>Giá sau giảm</Title>
+                                <Text>{`${selectedBooking.totalPrice.toLocaleString()} ₫`}</Text>
+                            </Col>
+                            <Col span={6}>
+                                <Title level={5}>Tiền đặt cọc</Title>
+                                <Text>{`${selectedBooking.amountSpent.toLocaleString()} ₫`}</Text>
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col
+                        span={24}
+                        style={{ marginTop: "20px", padding: "20px", border: "1px solid #e7e7e7", borderRadius: "8px" }}
+                    >
+                        <Row style={{ display: "flex", justifyContent: "flex-end" }}>
+                            <Col span={6}>
+                                <Title level={5}>Trạng thái</Title>
+                                <Tag
+                                color={
+                                    selectedBooking.status === "Đã thanh toán"
+                                    ? "green"
+                                    : selectedBooking.status === "Đã đặt cọc"
+                                    ? "volcano"
+                                    : "red"
+                                }
+                                >
+                                {selectedBooking.status}
+                                </Tag>
+                            </Col>
+                            <Col span={6}>
+                                <Title level={5} style={{ color: "red" }}>Tiền chưa thanh toán</Title>
+                                <Text style={{ color: "red" }}>{`${selectedBooking.outstandingBalance.toLocaleString()} ₫`}</Text>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
             </div>
+            )}
+        </Drawer>
         </div>
-    )
-}
+    );
+};
 
-export default UserBookingHistory
+export default UserBookingHistory;
+
+
+
+
+
+
+
+    
+    

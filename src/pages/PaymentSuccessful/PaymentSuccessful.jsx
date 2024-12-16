@@ -89,7 +89,7 @@ function PaymentSuccessful() {
                         </div>
                         <div className={cx('body__footer-item')}>
                             <p>Phí hủy phòng</p>
-                            <span>Đặt phòng không được hoàn lại</span>
+                            <span>Miễn phí hủy phòng trước ngày nhận phòng 1 ngày</span>
                         </div>
                     </div>
                 </main>

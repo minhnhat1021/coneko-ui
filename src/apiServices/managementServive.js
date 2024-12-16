@@ -245,7 +245,7 @@ export const bookedList = async (status) => {
         console.log(error)
     }
 }
-export const cancelBooked = async (id-) => {
+export const cancelBooked = async (id) => {
     try {
         const res = await request.post(`admin/booked-cancel`, {id})
         return res.data

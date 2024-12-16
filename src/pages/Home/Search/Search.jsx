@@ -70,7 +70,7 @@ function Search() {
                     <div className={cx('search__result')} tabIndex='-1' {...attrs}>
                         <h3 className={cx('result__title')}>kết quả tìm kiếm</h3>
                         {searchResult?.map((result) => (
-                            <Link to={`/hotel-rooms/${result.name}`} key={result._id} className={cx('result__item')}>
+                            <Link to={`/hotel-rooms`} key={result._id} className={cx('result__item')}>
                                 <div className={cx('room__name', 'result__info')}>{result.name}</div>
                                 <div className={cx('room__overView', 'result__info')}>{result.desc}</div>
                                 <div className={cx('room__bedType', 'result__info')}>Giường {result.bedType}</div>

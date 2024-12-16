@@ -4,13 +4,37 @@ import images from '~/assets/images'
 import { GoogleLogo, SpotifyLogo, SamsungLogo, NetflixLogo } from '~/components/Logos'
 import {  TrustIconProcess, TrustIconNet, TrustIconAmenities, TrustIconPrice, TrustIconLocation, TrustIconLike } from '~/components/Icons'
 import Search from './Search'
+import * as userService from '~/apiServices/userService'
+import { message } from 'antd';
 import classNames from 'classnames/bind'
 import styles from './Home.module.scss'
+import { useState } from 'react'
 
 const cx = classNames.bind(styles)
 
 function Home() {
-
+    const [fullName, setFullName] = useState('')
+    const [phone, setPhone] = useState('')
+    const [email, setEmail] = useState('')
+    const [address, setAddress] = useState('')
+    const [numberOfPeople, setNumberOfPeople] = useState('')
+    const [preferences, setPreferences] = useState('')
+    const guestInquiry = async() => {
+        if (!fullName || !phone || !email || !address || !numberOfPeople || !preferences) {
+            message.error('Vui lòng điền đầy đủ thông tin')
+            return
+        }
+        const res = await userService.guestInquiry({fullName, phone, email,address, numberOfPeople, preferences})
+        if(res?.status === 200) {
+            message.success(res?.msg)
+            setFullName('')
+            setPhone('')
+            setEmail('')
+            setAddress('')
+            setNumberOfPeople('')
+            setPreferences('')
+        }
+    }
     return ( 
         <div className={cx('wrapper')}>
             
@@ -341,14 +365,14 @@ function Home() {
                         </p>
                     </header>
                     <main className={cx('support__body')}>
-                        <input type='text' placeholder='Họ tên'/>
-                        <input type='text' placeholder='Số điện thoại'/>
-                        <input type='text' placeholder='Email'/>
-                        <input type='text' placeholder='Địa chỉ'/>
-                        <input type='text' placeholder='Số lượng người'/>
-                        <input type='text' placeholder='Sở thích'/>
+                        <input type='text' placeholder='Họ tên' value={fullName} onChange={(e) => setFullName(e.target.value)} required/>
+                        <input type='text' placeholder='Số điện thoại' value={phone} onChange={(e) => setPhone(e.target.value)}/>
+                        <input type='text' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        <input type='text' placeholder='Địa chỉ' value={address} onChange={(e) => setAddress(e.target.value)}/>
+                        <input type='text' placeholder='Số lượng người' value={numberOfPeople} onChange={(e) => setNumberOfPeople(e.target.value)}/>
+                        <input type='text' placeholder='Sở thích' value={preferences} onChange={(e) => setPreferences(e.target.value)}/>
                     </main>
-                    <button className={cx('support__btn')}>Gửi đi</button>
+                    <button className={cx('support__btn')} onClick={() => guestInquiry()}>Gửi đi</button>
                 </div>
             </div>
             

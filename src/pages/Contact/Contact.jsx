@@ -1,5 +1,8 @@
 
 import images from '~/assets/images'
+import * as userService from '~/apiServices/userService'
+import { message } from 'antd'
+import { useState } from 'react'
 
 import { FeedbackIconMsg, FeedbackIconLocation, FeedbackIconPhone } from '~/components/Icons'
 import classNames from 'classnames/bind'
@@ -8,6 +11,31 @@ import styles from './Contact.module.scss'
 const cx = classNames.bind(styles)
 
 function Contact() {
+
+    const [fullName, setFullName] = useState('')
+    const [phone, setPhone] = useState('')
+    const [email, setEmail] = useState('')
+    const [address, setAddress] = useState('')
+    const [numberOfPeople, setNumberOfPeople] = useState('')
+    const [preferences, setPreferences] = useState('')
+
+    const guestInquiry = async(e) => {
+        e.preventDefault()
+        if (!fullName || !phone || !email || !address || !preferences) {
+            message.error('Vui lòng điền đầy đủ thông tin')
+            return
+        }
+        const res = await userService.guestInquiry({fullName, phone, email,address, numberOfPeople, preferences})
+        if(res?.status === 200) {
+            message.success(res?.msg)
+            setFullName('')
+            setPhone('')
+            setEmail('')
+            setAddress('')
+            setNumberOfPeople('')
+            setPreferences('')
+        }
+    }
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('container__img')}>
@@ -15,15 +43,15 @@ function Contact() {
                     <h1>Liên hệ</h1>
                     <form className={cx('container__form')}>
                         <div className={cx('form__input')}>
-                            <input type="text" name="name" placeholder="Họ tên của bạn" required />
-                            <input type="email" name="email" placeholder="Email" required />
-                            <input type="text" name="phone" placeholder="Số điện thoại" required />
-                            <input type="text" name="old" placeholder="Tuổi" required />
+                            <input type='text' placeholder='Họ tên' value={fullName} onChange={(e) => setFullName(e.target.value)} />
+                            <input type='text' placeholder='Số điện thoại' value={phone} onChange={(e) => setPhone(e.target.value)} />
+                            <input type='text' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <input type='text' placeholder='Địa chỉ' value={address} onChange={(e) => setAddress(e.target.value)} />
                         </div>
                         <div className={cx('form__msg')}>
-                            <textarea name="message" placeholder="Lời nhắn" required></textarea>
+                            <textarea type='text' placeholder='Sở thích' value={preferences} onChange={(e) => setPreferences(e.target.value)} />
                         </div>
-                        <button className={cx('form__btn')}>Gửi đi</button>
+                        <button className={cx('form__btn')} onClick={(e) => guestInquiry(e)}>Gửi đi</button>
                     </form>
                 </div>
             </div>  

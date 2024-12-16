@@ -16,7 +16,7 @@ const Menu_User = {
     },
     currentRooms: {
         icon: <i className={cx('fa-solid fa-clipboard-list')}></i>,
-        title: 'Phòng của tôi'
+        title: 'Đặt phòng của tôi'
     },
     bookingHistory: {  
         icon: <i className={cx('fa-regular fa-rectangle-list')}></i>,
