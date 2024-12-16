@@ -1,4 +1,6 @@
-
+import React, { useState, useEffect } from 'react';
+import { Modal, Input, Form, Button } from 'antd';
+import * as userService from '~/apiServices/userService'
 import classNames from 'classnames/bind'
 import styles from './PersonalSecurity.module.scss'
 
@@ -6,6 +8,30 @@ const cx = classNames.bind(styles)
 
 function Personal({ userData }) {
     const user = userData
+    const [form] = Form.useForm()
+    const [open, setOpen] = useState(false)
+
+    useEffect(() => {
+        form.setFieldsValue({
+          fullName: userData.fullName,
+          userName: userData.userName,
+          email: userData.email,
+          phone: userData.phone,
+        })
+      }, [open, form, userData])
+
+    const handleModal = () => {
+        setOpen(true)
+    }
+    const handleSave = async() => {
+        const values = form.getFieldsValue()
+        const res = await userService.userUpdateInfo(userData?._id, values)
+        if(res?.status === 200) {
+            window.location.reload()
+            setOpen(false)
+        }
+    }
+
     return ( 
         <div className={cx('wrapper')}>
             <header className={cx('header')}>
@@ -19,7 +45,7 @@ function Personal({ userData }) {
                     <p className={cx('container__header-desc')}>Quản lý tên hiển thị, tên người dùng, bio và avatar của bạn.</p>
                 </div>
                 <div className={cx('content')}>
-                    <nav className={cx('nav')}>
+                    <nav className={cx('nav')} onClick={handleModal}>
                         <div className={cx('nav__item')}>
                             <h4 className={cx('nav__item-title')}>Họ và tên</h4>
                             <p className={cx('nav__item-info')}>{user?.fullName}</p>
@@ -39,7 +65,46 @@ function Personal({ userData }) {
                     </nav>
                 </div>
             </section>
-            <section className={cx('container')}>
+
+            <Modal
+                title="Chỉnh sửa thông tin"
+                open={open}
+                onCancel={() => setOpen(false)}
+                onOk={handleSave}
+            >
+                <Form form={form} layout="vertical">
+                    <Form.Item
+                        label="Họ tên"
+                        name="fullName"
+                        rules={[{ required: true, message: 'Vui lòng nhập họ tên!' }]}
+                        style={{color: 'white'}}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        label="Tên người dùng"
+                        name="userName"
+                        rules={[{ required: true, message: 'Vui lòng nhập tên người dùng!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        label="Email"
+                        name="email"
+                        rules={[{ required: true, message: 'Vui lòng nhập email!' }, { type: 'email', message: 'Email không hợp lệ!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        label="Số điện thoại"
+                        name="phone"
+                        rules={[{ required: true, message: 'Vui lòng nhập số điện thoại!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
+                </Form>
+                </Modal>
+            {/* <section className={cx('container')}>
                 <div className={cx('container__header')}>
                     <h2 className={cx('container__header-title')}>Tài khoản đã Liên kết</h2>
                     <p className={cx('container__header-desc')}>Quản lý liên kết tới các trang mạng xã hội của bạn.</p>
@@ -56,7 +121,7 @@ function Personal({ userData }) {
                         </div>
                     </nav>
                 </div>
-            </section>
+            </section> */}
         </div>
     )
 }

@@ -49,7 +49,7 @@ function User({ user, Menu_User, account, currentRooms, bookingHistory, favorite
             render={attrs => (
                     <div className={cx('user__menu')} tabIndex='-1' {...attrs}>
                         <header className={cx('user__menu-header')}>
-                            <h2 className={cx('user__menu-name')}>{user.displayName}</h2>
+                            <h2 className={cx('user__menu-name')}>{user.fullName}</h2>
                             <div className={cx('user__menu-about')}>
                                 <span><i className={cx('fa-solid fa-people-group')} ></i></span>
                                 <p >
@@ -67,7 +67,7 @@ function User({ user, Menu_User, account, currentRooms, bookingHistory, favorite
                     <i className={cx('fa-solid fa-user')}></i>
                 </div>
                 <div className={cx('header__user-info')}>
-                    <h3 className={cx('user__info-name')}>{user?.displayName}</h3>
+                    <h3 className={cx('user__info-name')}>{user?.fullName}</h3>
                     <i className={cx('fa-solid fa-coins', 'user__info__point-icon')}></i>
                     <p className={cx('user__info-point')} >{formatCurrency(user?.accountBalance)}</p>
                 </div>

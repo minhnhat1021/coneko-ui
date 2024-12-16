@@ -55,6 +55,26 @@ export const guestInquiry = async (payload) => {
         console.log(error)
     }
 }
+export const userUpdateInfo = async (id, payload) => {
+
+    try {
+        const res = await request.patch(`user/update-info`,  {id, payload} )
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+export const userUpdatePassword = async (id, payload) => {
+
+    try {
+        const res = await request.patch(`user/update-password`,  {id, payload} )
+        return res.data
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export const filterUsersByOptions = async ( options ) => {
 
