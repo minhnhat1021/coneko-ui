@@ -30,7 +30,15 @@ export const logout = async ( token ) => {
         console.log(error)
     }
 }
+export const resetPassword = async ( payload ) => {
+    try {
+        const res = await request.post(`login/reset-password`, { payload })
+        return res.data
 
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export const googleLogin = async ( credential ) => {
     try {

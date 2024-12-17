@@ -243,10 +243,9 @@ function Register () {
                             Bạn đã có tài khoản?
                             <Link to="/login" >Đăng nhập</Link>
                         </p>
-                        <a href='/'>Quên mật khẩu?</a>
                         <p className={cx('footer__about')}>
                             Việc bạn tiếp tục sử dụng trang web này đồng nghĩa bạn đồng ý với
-                            <a href="/"> điều khoản sử dụng </a>
+                            <a href="/hotel-rules"> điều khoản sử dụng </a>
                             của chúng tôi.
                         </p>
                     </footer>

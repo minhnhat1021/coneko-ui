@@ -129,3 +129,6 @@ button{
 :where(.css-dev-only-do-not-override-1wwf28x).ant-form-item .ant-form-item-label >label{
     color: #fff;
 }
+input{
+    line-height: 0;
+}
